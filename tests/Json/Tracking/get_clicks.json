@@ -1,0 +1,25 @@
+{
+    "meta": {
+        "pagination": {
+            "next": "/v2/campaigns/1100394165290/tracking/clicks?limit=2&next=1354817221599"
+        }
+    },
+    "results": [
+        {
+            "activity_type": "EMAIL_CLICK",
+            "campaign_id": 1100394165290,
+            "contact_id": "69",
+            "email_address": "wizpie00375ca0a11346a89aea4b8f5991d0d91354817217769892000@snoopy.roving.com",
+            "link_id": 0,
+            "click_date": "2012-12-06T13:07:01.701Z"
+        },
+        {
+            "activity_type": "EMAIL_CLICK",
+            "campaign_id": 1100394165290,
+            "contact_id": "68",
+            "email_address": "wizpiebfb0852b90d44412892276b68b949b7a1354817217770057000@snoopy.roving.com",
+            "link_id": 0,
+            "click_date": "2012-12-06T13:07:01.599Z"
+        }
+    ]
+}

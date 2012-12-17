@@ -1,0 +1,16 @@
+[
+    {
+        "id": 1,
+        "name": "General Interest",
+        "status": "ACTIVE",
+        "contact_count": 17,
+        "opt_in_default": false
+    },
+    {
+        "id": 3,
+        "name": "mod_Test List 1",
+        "status": "HIDDEN",
+        "contact_count": 18,
+        "opt_in_default": false
+    }
+]

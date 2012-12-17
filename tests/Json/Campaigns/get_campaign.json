@@ -1,0 +1,70 @@
+{
+    "id": "11109369315398",
+    "name": "Innovation Day Email",
+    "subject": "CTCT Alumni Newsletter",
+    "status": "DRAFT",
+    "from_name": "CTCT",
+    "from_email": "test@roving.com",
+    "reply_to_email": "test@roving.com",
+    "campaign_type": "STOCK",
+    "created_date": "2012-09-07T10:01:51.847Z",
+    "last_edit_date": "2012-09-07T10:01:51.847Z",
+    "share_page_url": "http://myemail.constantcontact.com/.html?soid=1109020606536&aid=cvMftVppYKI",
+    "is_permission_reminder_enabled": true,
+    "permission_reminder_text": "",
+    "is_view_as_webpage_enabled": true,
+    "view_as_web_page_text": "Having trouble viewing this email?",
+    "view_as_web_page_link_text": "Click here",
+    "greeting_salutations": "",
+    "greeting_name": "NONE",
+    "greeting_string": "",
+    "message_footer": {
+        "city": "Waltham",
+        "state": "MA",
+        "country": "us",
+        "organization_name": "CTCT",
+        "address_line_1": "1601 Trapelo Rd",
+        "address_line_2": "addr2",
+        "address_line_3": "addr3",
+        "international_state": "MX",
+        "postal_code": "02451",
+        "include_forward_email": true,
+        "forward_email_link_text": "Forward this email",
+        "include_subscribe_link": true,
+        "subscribe_link_text": "Subscribe Me!"
+    },
+    "tracking_summary": {
+        "sends": 10,
+        "opens": 5,
+        "clicks": 2,
+        "forwards": 1,
+        "unsubscribes": 0,
+        "bounces": 1,
+        "campaign_id": 11109369315398
+    },
+    "archive_status": "PENDING",
+    "archive_url": "http://archive.constantcontact.com/fs039/1234/archive/456.html",
+    "is_visible_in_ui": false,
+    "sent_to_contact_lists": [
+        {
+            "id": 2
+        }
+     ],
+     "click_through_details": [
+        {
+            "url": "http://www.google.com",
+            "url_uid": "1100371042104",
+            "click_count": 4
+        },
+        {
+            "url": "http://www.microsoft.com",
+            "url_uid": "1100341242106",
+            "click_count": 2
+        },
+        {
+            "url": "http://www.yahoo.com",
+            "url_uid": "1100371242405",
+            "click_count": 2
+        }
+    ]
+}

@@ -1,0 +1,247 @@
+<?php
+namespace Ctct\Components\Contacts;
+ 
+use Ctct\Components\Component;
+
+/**
+ * Represents a single Contact in Constant Contact
+ *
+ * @package 	Components
+ * @subpackage 	Contacts
+ * @author 		Constant Contact
+ */
+class Contact extends Component{
+
+    /**
+     * Unique identifier for the contact
+     * @var string
+     */
+	public $id;
+
+    /**
+     * Status of the contact, must be one of "ACTIVE", "UNCONFIRMED", "OPTOUT", "REMOVED", "NON_SUBSCRIBER", "VISITOR"
+     * @var string
+     */
+	public $status;
+
+    /**
+     * First name of the contact
+     * @var string
+     */
+	public $first_name;
+
+    /**
+     * Middle name of the contact
+     * @var string
+     */
+	public $middle_name;
+
+    /**
+     * Last name of the contact
+     * @var string
+     */
+	public $last_name;
+
+    /**
+     * Whether or not the contact is confirmed
+     * @var boolean
+     */
+	public $confirmed;
+
+    /**
+     * Contact source information
+     * @var string
+     */
+	public $source;
+
+    /**
+     * Array of email addresses associated with this contact
+     * @var array
+     */
+    public $email_addresses = array();
+
+    /**
+     * The prefix name of the contact
+     * @var string
+     */
+    public $prefix_name;
+
+    /**
+     * The job title of the contact
+     * @var string
+     */
+	public $job_title;
+
+    /**
+     * The department name of the contact's work place
+     * @var string
+     */
+	public $department_name;
+
+    /**
+     * Array of addresses associated with this contact
+     * @var array
+     */
+    public $addresses = array();
+
+    /**
+     * Array of notes associated with this contact
+     * @var array
+     */
+    public $notes = array();
+
+    /**
+     * Company name this contact works for
+     * @var string
+     */
+    public $company_name;
+
+    /**
+     * Contact's home phone number
+     * @var string
+     */
+    public $home_phone;
+
+    /**
+     * Contact's work phone number
+     * @var string
+     */
+	public $work_phone;
+
+    /**
+     * Contact's cell phone number
+     * @var string
+     */
+	public $cell_phone;
+
+    /**
+     * Contact's fax number
+     * @var string
+     */
+	public $fax;
+
+    /**
+     * Array of custom fields associated with this contact
+     * @var array
+     */
+	public $custom_fields = array();
+
+    /**
+     * Last update for this contact in ISO 8601 format
+     * @var string
+     */
+	public $last_update_time;
+
+    /**
+     * Array of contact lists this contact belongs to
+     * @var array
+     */
+    public $lists = array();
+
+    /**
+     * Contact source details
+     * @var string
+     */
+    public $source_details;
+
+    /**
+     * Is contact source a URL
+     * @var boolean
+     */
+    public $source_is_url;
+
+    /**
+     * Determines who the originator of the action was, must be one of "ACTION_BY_VISITOR", "ACTION_BY_OWNER"
+     * @var string
+     */
+    public $action_by;
+
+    /**
+     * Web url for this contact
+     * @var string
+     */
+    public $web_url;
+
+
+    /**
+     * Factory method to create a Contact object from an array
+     * @param array $props - Associative array of initial properties to set
+     * @return Contact
+     */
+    public static function create(array $props)
+	{
+		$contact = new Contact();
+		$contact->id = parent::getValue($props, "id");
+		$contact->status = parent::getValue($props, "status");
+		$contact->first_name = parent::getValue($props, "first_name");
+		$contact->middle_name = parent::getValue($props, "middle_name");
+		$contact->last_name = parent::getValue($props, "last_name");
+		$contact->confirmed = parent::getValue($props, "confirmed");
+		$contact->source = parent::getValue($props, "source");
+		
+		foreach($props['email_addresses'] as $email_address)
+		{
+			$contact->email_addresses[] = EmailAddress::create($email_address);
+		}
+		
+		$contact->prefix_name = parent::getValue($props, "prefix_name");
+		$contact->job_title = parent::getValue($props, "job_title");
+		$contact->department_name = parent::getValue($props, "department_name");
+		
+		foreach($props['addresses'] as $address)
+		{
+			$contact->addresses[] = Address::create($address);
+		}
+		
+		foreach($props['notes'] as $note)
+		{
+			$contact->notes[] = Note::create($note);
+		}
+		
+		$contact->company_name = parent::getValue($props, "company_name");
+		$contact->home_phone = parent::getValue($props, "home_phone");
+		$contact->work_phone = parent::getValue($props, "work_phone");
+		$contact->cell_phone = parent::getValue($props, "cell_phone");
+		$contact->fax = parent::getValue($props, "fax");
+		
+		foreach($props['custom_fields'] as $custom_field)
+		{
+			$contact->custom_fields[] = CustomField::create($custom_field);
+		}
+		
+		$contact->last_update_time = parent::getValue($props, "last_update_time");
+		
+		foreach($props['lists'] as $contact_list)
+		{
+			$contact->lists[] = ContactList::create($contact_list);
+		}
+		
+		$contact->source_details = parent::getValue($props, "source_details");
+		$contact->source_is_url = parent::getValue($props, "source_is_url");
+		$contact->action_by = parent::getValue($props, "action_by");
+		$contact->web_url = parent::getValue($props, "web_url");
+
+		return $contact;
+	}
+
+	public function add_list(ContactList $contact_list)
+	{
+		$this->lists[] = $contact_list;
+	}
+	
+	public function add_email(EmailAddress $email_address)
+	{
+		$this->email_addresses[] = $email_address;
+	}
+	
+	public function add_address(Address $address)
+	{
+		$this->addresses[] = $address;
+	}
+	
+	public function to_json()
+	{
+		return json_encode($this);
+	}
+
+}

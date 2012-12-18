@@ -545,31 +545,130 @@
 </span><span id="449" class="l"><a class="l" href="#449">449: </a>        <span class="php-var">$campaign_id</span> = self::getArgumentId(<span class="php-var">$campaign</span>, <span class="php-quote">'Campaign'</span>);
 </span><span id="450" class="l"><a class="l" href="#450">450: </a>        <span class="php-keyword1">return</span> CampaignTrackingService::getSummary(<span class="php-var">$access_token</span>, <span class="php-var">$campaign_id</span>);
 </span><span id="451" class="l"><a class="l" href="#451">451: </a>    }
-</span><span id="452" class="l"><a class="l" href="#452">452: </a>    
+</span><span id="452" class="l"><a class="l" href="#452">452: </a>
 </span><span id="453" class="l"><a class="l" href="#453">453: </a>    <span class="php-comment">/**
-</span></span><span id="454" class="l"><a class="l" href="#454">454: </a><span class="php-comment">     * Get the id of object, or attempt to convert the argument to an int
-</span></span><span id="455" class="l"><a class="l" href="#455">455: </a><span class="php-comment">     * @param mixed $item - object or a numeric value
-</span></span><span id="456" class="l"><a class="l" href="#456">456: </a><span class="php-comment">     * @param string $class_name - class name to test the given object against
-</span></span><span id="457" class="l"><a class="l" href="#457">457: </a><span class="php-comment">     * @throws IllegalArgumentException - if the item is not an instance of the class name given, or cannot be converted to a numeric value
-</span></span><span id="458" class="l"><a class="l" href="#458">458: </a><span class="php-comment">     * @return int
-</span></span><span id="459" class="l"><a class="l" href="#459">459: </a><span class="php-comment">     */</span>
-</span><span id="460" class="l"><a class="l" href="#460">460: </a>    <span class="php-keyword1">private</span> <span class="php-keyword1">static</span> <span class="php-keyword1">function</span> <a id="_getArgumentId" href="#_getArgumentId">getArgumentId</a>(<span class="php-var">$item</span>, <span class="php-var">$class_name</span>)
-</span><span id="461" class="l"><a class="l" href="#461">461: </a>    {
-</span><span id="462" class="l"><a class="l" href="#462">462: </a>        <span class="php-var">$id</span> = <span class="php-keyword1">null</span>;
-</span><span id="463" class="l"><a class="l" href="#463">463: </a>
-</span><span id="464" class="l"><a class="l" href="#464">464: </a>        <span class="php-keyword1">if</span> (<span class="php-keyword2">is_numeric</span>(<span class="php-var">$item</span>)) {
-</span><span id="465" class="l"><a class="l" href="#465">465: </a>            <span class="php-var">$id</span> = <span class="php-var">$item</span>;
-</span><span id="466" class="l"><a class="l" href="#466">466: </a>        } <span class="php-keyword1">elseif</span> (<span class="php-keyword2">join</span>(<span class="php-quote">''</span>, <span class="php-keyword2">array_slice</span>(<span class="php-keyword2">explode</span>(<span class="php-quote">'\\'</span>, <span class="php-keyword2">get_class</span>(<span class="php-var">$item</span>)), -<span class="php-num">1</span>)) == <span class="php-var">$class_name</span>) {
-</span><span id="467" class="l"><a class="l" href="#467">467: </a>            <span class="php-var">$id</span> = <span class="php-var">$item</span>-&gt;id;
-</span><span id="468" class="l"><a class="l" href="#468">468: </a>        } <span class="php-keyword1">else</span> {
-</span><span id="469" class="l"><a class="l" href="#469">469: </a>            <span class="php-keyword1">throw</span> <span class="php-keyword1">new</span> IllegalArgumentException(<span class="php-keyword2">sprintf</span>(Config::get(<span class="php-quote">'errors.id_or_object'</span>), <span class="php-var">$class_name</span>));
-</span><span id="470" class="l"><a class="l" href="#470">470: </a>        }
-</span><span id="471" class="l"><a class="l" href="#471">471: </a>
-</span><span id="472" class="l"><a class="l" href="#472">472: </a>        <span class="php-keyword1">return</span> <span class="php-var">$id</span>;
-</span><span id="473" class="l"><a class="l" href="#473">473: </a>    }
-</span><span id="474" class="l"><a class="l" href="#474">474: </a>    
-</span><span id="475" class="l"><a class="l" href="#475">475: </a>}
-</span><span id="476" class="l"><a class="l" href="#476">476: </a></span></code></pre>
+</span></span><span id="454" class="l"><a class="l" href="#454">454: </a><span class="php-comment">     * Get sends for a Contact
+</span></span><span id="455" class="l"><a class="l" href="#455">455: </a><span class="php-comment">     * @param string $access_token - Constant Contact OAuth2 access token
+</span></span><span id="456" class="l"><a class="l" href="#456">456: </a><span class="php-comment">     * @param mixed $contact  - Contact id or Contact object itself
+</span></span><span id="457" class="l"><a class="l" href="#457">457: </a><span class="php-comment">     * @param string $next - next value returned from a previous request (used in pagination)
+</span></span><span id="458" class="l"><a class="l" href="#458">458: </a><span class="php-comment">     * @param int $limit - number of results to return per page
+</span></span><span id="459" class="l"><a class="l" href="#459">459: </a><span class="php-comment">     * @return TrackingActivity - Containing a results array of {@link Ctct\Components\Tracking\SendActivity}
+</span></span><span id="460" class="l"><a class="l" href="#460">460: </a><span class="php-comment">     */</span>
+</span><span id="461" class="l"><a class="l" href="#461">461: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> <a id="_getContactSends" href="#_getContactSends">getContactSends</a>(<span class="php-var">$access_token</span>, <span class="php-var">$contact</span>, <span class="php-var">$next</span> = <span class="php-keyword1">null</span>, <span class="php-var">$limit</span> = <span class="php-keyword1">null</span>)
+</span><span id="462" class="l"><a class="l" href="#462">462: </a>    {
+</span><span id="463" class="l"><a class="l" href="#463">463: </a>        <span class="php-var">$contact_id</span> = self::getArgumentId(<span class="php-var">$contact</span>, <span class="php-quote">'Contact'</span>);
+</span><span id="464" class="l"><a class="l" href="#464">464: </a>        <span class="php-keyword1">return</span> ContactTrackingService::getSends(<span class="php-var">$access_token</span>, <span class="php-var">$contact_id</span>, <span class="php-var">$next</span>, <span class="php-var">$limit</span>);
+</span><span id="465" class="l"><a class="l" href="#465">465: </a>    }
+</span><span id="466" class="l"><a class="l" href="#466">466: </a>
+</span><span id="467" class="l"><a class="l" href="#467">467: </a>    <span class="php-comment">/**
+</span></span><span id="468" class="l"><a class="l" href="#468">468: </a><span class="php-comment">     * Get bounces for a Contact
+</span></span><span id="469" class="l"><a class="l" href="#469">469: </a><span class="php-comment">     * @param string $access_token - Constant Contact OAuth2 access token
+</span></span><span id="470" class="l"><a class="l" href="#470">470: </a><span class="php-comment">     * @param mixed $contact  - Contact id or Contact object itself
+</span></span><span id="471" class="l"><a class="l" href="#471">471: </a><span class="php-comment">     * @param string $next - next value returned from a previous request (used in pagination)
+</span></span><span id="472" class="l"><a class="l" href="#472">472: </a><span class="php-comment">     * @param int $limit - number of results to return per page
+</span></span><span id="473" class="l"><a class="l" href="#473">473: </a><span class="php-comment">     * @return TrackingActivity - Containing a results array of {@link Ctct\Components\Tracking\BounceActivity}
+</span></span><span id="474" class="l"><a class="l" href="#474">474: </a><span class="php-comment">     */</span>
+</span><span id="475" class="l"><a class="l" href="#475">475: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> <a id="_getContactBounces" href="#_getContactBounces">getContactBounces</a>(<span class="php-var">$access_token</span>, <span class="php-var">$contact</span>, <span class="php-var">$next</span> = <span class="php-keyword1">null</span>, <span class="php-var">$limit</span> = <span class="php-keyword1">null</span>)
+</span><span id="476" class="l"><a class="l" href="#476">476: </a>    {
+</span><span id="477" class="l"><a class="l" href="#477">477: </a>        <span class="php-var">$contact_id</span> = self::getArgumentId(<span class="php-var">$contact</span>, <span class="php-quote">'Contact'</span>);
+</span><span id="478" class="l"><a class="l" href="#478">478: </a>        <span class="php-keyword1">return</span> ContactTrackingService::getBounces(<span class="php-var">$access_token</span>, <span class="php-var">$contact_id</span>, <span class="php-var">$next</span>, <span class="php-var">$limit</span>);
+</span><span id="479" class="l"><a class="l" href="#479">479: </a>    }
+</span><span id="480" class="l"><a class="l" href="#480">480: </a>
+</span><span id="481" class="l"><a class="l" href="#481">481: </a>    <span class="php-comment">/**
+</span></span><span id="482" class="l"><a class="l" href="#482">482: </a><span class="php-comment">     * Get clicks for a Contact
+</span></span><span id="483" class="l"><a class="l" href="#483">483: </a><span class="php-comment">     * @param string $access_token - Constant Contact OAuth2 access token
+</span></span><span id="484" class="l"><a class="l" href="#484">484: </a><span class="php-comment">     * @param mixed $contact  - Contact id or Contact object itself
+</span></span><span id="485" class="l"><a class="l" href="#485">485: </a><span class="php-comment">     * @param string $next - next value returned from a previous request (used in pagination)
+</span></span><span id="486" class="l"><a class="l" href="#486">486: </a><span class="php-comment">     * @param int $limit - number of results to return per page
+</span></span><span id="487" class="l"><a class="l" href="#487">487: </a><span class="php-comment">     * @return TrackingActivity - Containing a results array of {@link Ctct\Components\Tracking\ClickActivity}
+</span></span><span id="488" class="l"><a class="l" href="#488">488: </a><span class="php-comment">     */</span>
+</span><span id="489" class="l"><a class="l" href="#489">489: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> <a id="_getContactClicks" href="#_getContactClicks">getContactClicks</a>(<span class="php-var">$access_token</span>, <span class="php-var">$contact</span>, <span class="php-var">$next</span> = <span class="php-keyword1">null</span>, <span class="php-var">$limit</span> = <span class="php-keyword1">null</span>)
+</span><span id="490" class="l"><a class="l" href="#490">490: </a>    {
+</span><span id="491" class="l"><a class="l" href="#491">491: </a>        <span class="php-var">$contact_id</span> = self::getArgumentId(<span class="php-var">$contact</span>, <span class="php-quote">'Contact'</span>);
+</span><span id="492" class="l"><a class="l" href="#492">492: </a>        <span class="php-keyword1">return</span> ContactTrackingService::getClicks(<span class="php-var">$access_token</span>, <span class="php-var">$contact_id</span>, <span class="php-var">$next</span>, <span class="php-var">$limit</span>);
+</span><span id="493" class="l"><a class="l" href="#493">493: </a>    }
+</span><span id="494" class="l"><a class="l" href="#494">494: </a>
+</span><span id="495" class="l"><a class="l" href="#495">495: </a>    <span class="php-comment">/**
+</span></span><span id="496" class="l"><a class="l" href="#496">496: </a><span class="php-comment">     * Get opens for a Contact
+</span></span><span id="497" class="l"><a class="l" href="#497">497: </a><span class="php-comment">     * @param string $access_token - Constant Contact OAuth2 access token
+</span></span><span id="498" class="l"><a class="l" href="#498">498: </a><span class="php-comment">     * @param mixed $contact  - Contact id or Contact object itself
+</span></span><span id="499" class="l"><a class="l" href="#499">499: </a><span class="php-comment">     * @param string $next - next value returned from a previous request (used in pagination)
+</span></span><span id="500" class="l"><a class="l" href="#500">500: </a><span class="php-comment">     * @param int $limit - number of results to return per page
+</span></span><span id="501" class="l"><a class="l" href="#501">501: </a><span class="php-comment">     * @return TrackingActivity - Containing a results array of {@link Ctct\Components\Tracking\OpenActivity}
+</span></span><span id="502" class="l"><a class="l" href="#502">502: </a><span class="php-comment">     */</span>
+</span><span id="503" class="l"><a class="l" href="#503">503: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> <a id="_getContactOpens" href="#_getContactOpens">getContactOpens</a>(<span class="php-var">$access_token</span>, <span class="php-var">$contact</span>, <span class="php-var">$next</span> = <span class="php-keyword1">null</span>, <span class="php-var">$limit</span> = <span class="php-keyword1">null</span>)
+</span><span id="504" class="l"><a class="l" href="#504">504: </a>    {
+</span><span id="505" class="l"><a class="l" href="#505">505: </a>        <span class="php-var">$contact_id</span> = self::getArgumentId(<span class="php-var">$contact</span>, <span class="php-quote">'Contact'</span>);
+</span><span id="506" class="l"><a class="l" href="#506">506: </a>        <span class="php-keyword1">return</span> ContactTrackingService::getOpens(<span class="php-var">$access_token</span>, <span class="php-var">$contact_id</span>, <span class="php-var">$next</span>, <span class="php-var">$limit</span>);
+</span><span id="507" class="l"><a class="l" href="#507">507: </a>    }
+</span><span id="508" class="l"><a class="l" href="#508">508: </a>
+</span><span id="509" class="l"><a class="l" href="#509">509: </a>    <span class="php-comment">/**
+</span></span><span id="510" class="l"><a class="l" href="#510">510: </a><span class="php-comment">     * Get forwards for a Contact
+</span></span><span id="511" class="l"><a class="l" href="#511">511: </a><span class="php-comment">     * @param string $access_token - Constant Contact OAuth2 access token
+</span></span><span id="512" class="l"><a class="l" href="#512">512: </a><span class="php-comment">     * @param mixed $contact  - Contact id or Contact object itself
+</span></span><span id="513" class="l"><a class="l" href="#513">513: </a><span class="php-comment">     * @param string $next - next value returned from a previous request (used in pagination)
+</span></span><span id="514" class="l"><a class="l" href="#514">514: </a><span class="php-comment">     * @param int $limit - number of results to return per page
+</span></span><span id="515" class="l"><a class="l" href="#515">515: </a><span class="php-comment">     * @return TrackingActivity - Containing a results array of {@link Ctct\Components\Tracking\ForwardActivity}
+</span></span><span id="516" class="l"><a class="l" href="#516">516: </a><span class="php-comment">     */</span>
+</span><span id="517" class="l"><a class="l" href="#517">517: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> <a id="_getContactForwards" href="#_getContactForwards">getContactForwards</a>(<span class="php-var">$access_token</span>, <span class="php-var">$contact</span>, <span class="php-var">$next</span> = <span class="php-keyword1">null</span>, <span class="php-var">$limit</span> = <span class="php-keyword1">null</span>)
+</span><span id="518" class="l"><a class="l" href="#518">518: </a>    {
+</span><span id="519" class="l"><a class="l" href="#519">519: </a>        <span class="php-var">$contact_id</span> = self::getArgumentId(<span class="php-var">$contact</span>, <span class="php-quote">'Contact'</span>);
+</span><span id="520" class="l"><a class="l" href="#520">520: </a>        <span class="php-keyword1">return</span> ContactTrackingService::getForwards(<span class="php-var">$access_token</span>, <span class="php-var">$contact_id</span>, <span class="php-var">$next</span>, <span class="php-var">$limit</span>);
+</span><span id="521" class="l"><a class="l" href="#521">521: </a>    }
+</span><span id="522" class="l"><a class="l" href="#522">522: </a>
+</span><span id="523" class="l"><a class="l" href="#523">523: </a>    <span class="php-comment">/**
+</span></span><span id="524" class="l"><a class="l" href="#524">524: </a><span class="php-comment">     * Get opt outs for a Contact
+</span></span><span id="525" class="l"><a class="l" href="#525">525: </a><span class="php-comment">     * @param string $access_token - Constant Contact OAuth2 access token
+</span></span><span id="526" class="l"><a class="l" href="#526">526: </a><span class="php-comment">     * @param mixed $contact  - Contact id or Contact object itself
+</span></span><span id="527" class="l"><a class="l" href="#527">527: </a><span class="php-comment">     * @param string $next - next value returned from a previous request (used in pagination)
+</span></span><span id="528" class="l"><a class="l" href="#528">528: </a><span class="php-comment">     * @param int $limit - number of results to return per page
+</span></span><span id="529" class="l"><a class="l" href="#529">529: </a><span class="php-comment">     * @return TrackingActivity - Containing a results array of {@link Ctct\Components\Tracking\OptOutActivity}
+</span></span><span id="530" class="l"><a class="l" href="#530">530: </a><span class="php-comment">     */</span>
+</span><span id="531" class="l"><a class="l" href="#531">531: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> <a id="_getContactOptOuts" href="#_getContactOptOuts">getContactOptOuts</a>(<span class="php-var">$access_token</span>, <span class="php-var">$contact</span>, <span class="php-var">$next</span> = <span class="php-keyword1">null</span>, <span class="php-var">$limit</span> = <span class="php-keyword1">null</span>)
+</span><span id="532" class="l"><a class="l" href="#532">532: </a>    {
+</span><span id="533" class="l"><a class="l" href="#533">533: </a>        <span class="php-var">$contact_id</span> = self::getArgumentId(<span class="php-var">$contact</span>, <span class="php-quote">'Contact'</span>);
+</span><span id="534" class="l"><a class="l" href="#534">534: </a>        <span class="php-keyword1">return</span> ContactTrackingService::getOptOuts(<span class="php-var">$access_token</span>, <span class="php-var">$contact_id</span>, <span class="php-var">$next</span>, <span class="php-var">$limit</span>);
+</span><span id="535" class="l"><a class="l" href="#535">535: </a>    }
+</span><span id="536" class="l"><a class="l" href="#536">536: </a>
+</span><span id="537" class="l"><a class="l" href="#537">537: </a>    <span class="php-comment">/**
+</span></span><span id="538" class="l"><a class="l" href="#538">538: </a><span class="php-comment">     * Get a reporting summary for a Contact
+</span></span><span id="539" class="l"><a class="l" href="#539">539: </a><span class="php-comment">     * @param string $access_token - Constant Contact OAuth2 access token
+</span></span><span id="540" class="l"><a class="l" href="#540">540: </a><span class="php-comment">     * @param mixed $contact  - Contact id or Contact object itself
+</span></span><span id="541" class="l"><a class="l" href="#541">541: </a><span class="php-comment">     * @param string $next - next value returned from a previous request (used in pagination)
+</span></span><span id="542" class="l"><a class="l" href="#542">542: </a><span class="php-comment">     * @param int $limit - number of results to return per page
+</span></span><span id="543" class="l"><a class="l" href="#543">543: </a><span class="php-comment">     * @return TrackingSummary
+</span></span><span id="544" class="l"><a class="l" href="#544">544: </a><span class="php-comment">     */</span>
+</span><span id="545" class="l"><a class="l" href="#545">545: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> <a id="_getContactSummaryReport" href="#_getContactSummaryReport">getContactSummaryReport</a>(<span class="php-var">$access_token</span>, <span class="php-var">$contact</span>)
+</span><span id="546" class="l"><a class="l" href="#546">546: </a>    {
+</span><span id="547" class="l"><a class="l" href="#547">547: </a>        <span class="php-var">$contact_id</span> = self::getArgumentId(<span class="php-var">$contact</span>, <span class="php-quote">'Contact'</span>);
+</span><span id="548" class="l"><a class="l" href="#548">548: </a>        <span class="php-keyword1">return</span> ContactTrackingService::getSummary(<span class="php-var">$access_token</span>, <span class="php-var">$contact_id</span>);
+</span><span id="549" class="l"><a class="l" href="#549">549: </a>    }
+</span><span id="550" class="l"><a class="l" href="#550">550: </a>    
+</span><span id="551" class="l"><a class="l" href="#551">551: </a>    <span class="php-comment">/**
+</span></span><span id="552" class="l"><a class="l" href="#552">552: </a><span class="php-comment">     * Get the id of object, or attempt to convert the argument to an int
+</span></span><span id="553" class="l"><a class="l" href="#553">553: </a><span class="php-comment">     * @param mixed $item - object or a numeric value
+</span></span><span id="554" class="l"><a class="l" href="#554">554: </a><span class="php-comment">     * @param string $class_name - class name to test the given object against
+</span></span><span id="555" class="l"><a class="l" href="#555">555: </a><span class="php-comment">     * @throws IllegalArgumentException - if the item is not an instance of the class name given, or cannot be
+</span></span><span id="556" class="l"><a class="l" href="#556">556: </a><span class="php-comment">     * converted to a numeric value
+</span></span><span id="557" class="l"><a class="l" href="#557">557: </a><span class="php-comment">     * @return int
+</span></span><span id="558" class="l"><a class="l" href="#558">558: </a><span class="php-comment">     */</span>
+</span><span id="559" class="l"><a class="l" href="#559">559: </a>    <span class="php-keyword1">private</span> <span class="php-keyword1">static</span> <span class="php-keyword1">function</span> <a id="_getArgumentId" href="#_getArgumentId">getArgumentId</a>(<span class="php-var">$item</span>, <span class="php-var">$class_name</span>)
+</span><span id="560" class="l"><a class="l" href="#560">560: </a>    {
+</span><span id="561" class="l"><a class="l" href="#561">561: </a>        <span class="php-var">$id</span> = <span class="php-keyword1">null</span>;
+</span><span id="562" class="l"><a class="l" href="#562">562: </a>
+</span><span id="563" class="l"><a class="l" href="#563">563: </a>        <span class="php-keyword1">if</span> (<span class="php-keyword2">is_numeric</span>(<span class="php-var">$item</span>)) {
+</span><span id="564" class="l"><a class="l" href="#564">564: </a>            <span class="php-var">$id</span> = <span class="php-var">$item</span>;
+</span><span id="565" class="l"><a class="l" href="#565">565: </a>        } <span class="php-keyword1">elseif</span> (<span class="php-keyword2">join</span>(<span class="php-quote">''</span>, <span class="php-keyword2">array_slice</span>(<span class="php-keyword2">explode</span>(<span class="php-quote">'\\'</span>, <span class="php-keyword2">get_class</span>(<span class="php-var">$item</span>)), -<span class="php-num">1</span>)) == <span class="php-var">$class_name</span>) {
+</span><span id="566" class="l"><a class="l" href="#566">566: </a>            <span class="php-var">$id</span> = <span class="php-var">$item</span>-&gt;id;
+</span><span id="567" class="l"><a class="l" href="#567">567: </a>        } <span class="php-keyword1">else</span> {
+</span><span id="568" class="l"><a class="l" href="#568">568: </a>            <span class="php-keyword1">throw</span> <span class="php-keyword1">new</span> IllegalArgumentException(<span class="php-keyword2">sprintf</span>(Config::get(<span class="php-quote">'errors.id_or_object'</span>), <span class="php-var">$class_name</span>));
+</span><span id="569" class="l"><a class="l" href="#569">569: </a>        }
+</span><span id="570" class="l"><a class="l" href="#570">570: </a>
+</span><span id="571" class="l"><a class="l" href="#571">571: </a>        <span class="php-keyword1">return</span> <span class="php-var">$id</span>;
+</span><span id="572" class="l"><a class="l" href="#572">572: </a>    }
+</span><span id="573" class="l"><a class="l" href="#573">573: </a>    
+</span><span id="574" class="l"><a class="l" href="#574">574: </a>}
+</span><span id="575" class="l"><a class="l" href="#575">575: </a></span></code></pre>
 
 	<div id="footer">
 		Appconnect PHP SDK API documentation generated by <a href="http://apigen.org">ApiGen 2.8.0</a>

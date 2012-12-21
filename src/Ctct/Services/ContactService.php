@@ -28,7 +28,7 @@ class ContactService extends BaseService{
         );
 
 		$response = parent::getRestClient()->get($url, parent::getHeaders($access_token));
-		
+
 		$contacts = array();
 		foreach (json_decode($response->body, true) as $contact) {
 			$contacts[] = Contact::create($contact);

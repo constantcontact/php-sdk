@@ -60,6 +60,7 @@ class CtctOAuth2{
 		
 		$rest_client = new RestClient();
 		$response = $rest_client->post($url);
+		print_r($response);
 		$response_body = json_decode($response->body, true);
 		
 		if(array_key_exists('error', $response_body))

@@ -1,11 +1,7 @@
 <?php
-
 // Load the Ctct namespace
-//$loader = new SplClassLoader('Ctct', substr(__DIR__, 0, -5));
 $loader = new SplClassLoader('Ctct', dirname(__DIR__));
 $loader->register();
-
-
 
 /**
  * SplClassLoader implementation that implements the technical interoperability

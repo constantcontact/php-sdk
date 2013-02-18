@@ -2,57 +2,59 @@
 namespace Ctct\Components\Contacts;
  
 use Ctct\Components\Component;
+use Ctct\Util\Config;
 
 /**
  * Represents a single Contact in Constant Contact
  *
- * @package 	Components
- * @subpackage 	Contacts
- * @author 		Constant Contact
+ * @package     Components
+ * @subpackage     Contacts
+ * @author         Constant Contact
  */
-class Contact extends Component{
+class Contact extends Component
+{
 
     /**
      * Unique identifier for the contact
      * @var string
      */
-	public $id;
+    public $id;
 
     /**
      * Status of the contact, must be one of "ACTIVE", "UNCONFIRMED", "OPTOUT", "REMOVED", "NON_SUBSCRIBER", "VISITOR"
      * @var string
      */
-	public $status;
+    public $status;
 
     /**
      * First name of the contact
      * @var string
      */
-	public $first_name;
+    public $first_name;
 
     /**
      * Middle name of the contact
      * @var string
      */
-	public $middle_name;
+    public $middle_name;
 
     /**
      * Last name of the contact
      * @var string
      */
-	public $last_name;
+    public $last_name;
 
     /**
      * Whether or not the contact is confirmed
      * @var boolean
      */
-	public $confirmed;
+    public $confirmed;
 
     /**
      * Contact source information
      * @var string
      */
-	public $source;
+    public $source;
 
     /**
      * Array of email addresses associated with this contact
@@ -70,13 +72,7 @@ class Contact extends Component{
      * The job title of the contact
      * @var string
      */
-	public $job_title;
-
-    /**
-     * The department name of the contact's work place
-     * @var string
-     */
-	public $department_name;
+    public $job_title;
 
     /**
      * Array of addresses associated with this contact
@@ -106,31 +102,31 @@ class Contact extends Component{
      * Contact's work phone number
      * @var string
      */
-	public $work_phone;
+    public $work_phone;
 
     /**
      * Contact's cell phone number
      * @var string
      */
-	public $cell_phone;
+    public $cell_phone;
 
     /**
      * Contact's fax number
      * @var string
      */
-	public $fax;
+    public $fax;
 
     /**
      * Array of custom fields associated with this contact
      * @var array
      */
-	public $custom_fields = array();
+    public $custom_fields = array();
 
     /**
      * Last update for this contact in ISO 8601 format
      * @var string
      */
-	public $last_update_time;
+    public $last_update_date;
 
     /**
      * Array of contact lists this contact belongs to
@@ -145,103 +141,104 @@ class Contact extends Component{
     public $source_details;
 
     /**
-     * Is contact source a URL
-     * @var boolean
-     */
-    public $source_is_url;
-
-    /**
-     * Determines who the originator of the action was, must be one of "ACTION_BY_VISITOR", "ACTION_BY_OWNER"
-     * @var string
-     */
-    public $action_by;
-
-    /**
-     * Web url for this contact
-     * @var string
-     */
-    public $web_url;
-
-
-    /**
      * Factory method to create a Contact object from an array
      * @param array $props - Associative array of initial properties to set
      * @return Contact
      */
     public static function create(array $props)
-	{
-		$contact = new Contact();
-		$contact->id = parent::getValue($props, "id");
-		$contact->status = parent::getValue($props, "status");
-		$contact->first_name = parent::getValue($props, "first_name");
-		$contact->middle_name = parent::getValue($props, "middle_name");
-		$contact->last_name = parent::getValue($props, "last_name");
-		$contact->confirmed = parent::getValue($props, "confirmed");
-		$contact->source = parent::getValue($props, "source");
-		
-		foreach($props['email_addresses'] as $email_address)
-		{
-			$contact->email_addresses[] = EmailAddress::create($email_address);
-		}
-		
-		$contact->prefix_name = parent::getValue($props, "prefix_name");
-		$contact->job_title = parent::getValue($props, "job_title");
-		$contact->department_name = parent::getValue($props, "department_name");
-		
-		foreach($props['addresses'] as $address)
-		{
-			$contact->addresses[] = Address::create($address);
-		}
-		
-		foreach($props['notes'] as $note)
-		{
-			$contact->notes[] = Note::create($note);
-		}
-		
-		$contact->company_name = parent::getValue($props, "company_name");
-		$contact->home_phone = parent::getValue($props, "home_phone");
-		$contact->work_phone = parent::getValue($props, "work_phone");
-		$contact->cell_phone = parent::getValue($props, "cell_phone");
-		$contact->fax = parent::getValue($props, "fax");
-		
-		foreach($props['custom_fields'] as $custom_field)
-		{
-			$contact->custom_fields[] = CustomField::create($custom_field);
-		}
-		
-		$contact->last_update_time = parent::getValue($props, "last_update_time");
-		
-		foreach($props['lists'] as $contact_list)
-		{
-			$contact->lists[] = ContactList::create($contact_list);
-		}
-		
-		$contact->source_details = parent::getValue($props, "source_details");
-		$contact->source_is_url = parent::getValue($props, "source_is_url");
-		$contact->action_by = parent::getValue($props, "action_by");
-		$contact->web_url = parent::getValue($props, "web_url");
+    {
+        $contact = new Contact();
+        $contact->id = parent::getValue($props, "id");
+        $contact->status = parent::getValue($props, "status");
+        $contact->first_name = parent::getValue($props, "first_name");
+        $contact->middle_name = parent::getValue($props, "middle_name");
+        $contact->last_name = parent::getValue($props, "last_name");
+        $contact->confirmed = parent::getValue($props, "confirmed");
+        $contact->source = parent::getValue($props, "source");
+        
+        foreach ($props['email_addresses'] as $email_address) {
+            $contact->email_addresses[] = EmailAddress::create($email_address);
+        }
+        
+        $contact->prefix_name = parent::getValue($props, "prefix_name");
+        $contact->job_title = parent::getValue($props, "job_title");
 
-		return $contact;
-	}
+        foreach ($props['addresses'] as $address) {
+            $contact->addresses[] = Address::create($address);
+        }
+        
+        foreach ($props['notes'] as $note) {
+            $contact->notes[] = Note::create($note);
+        }
+        
+        $contact->company_name = parent::getValue($props, "company_name");
+        $contact->home_phone = parent::getValue($props, "home_phone");
+        $contact->work_phone = parent::getValue($props, "work_phone");
+        $contact->cell_phone = parent::getValue($props, "cell_phone");
+        $contact->fax = parent::getValue($props, "fax");
+        
+        foreach ($props['custom_fields'] as $custom_field) {
+            $contact->custom_fields[] = CustomField::create($custom_field);
+        }
+        
+        $contact->last_update_date = parent::getValue($props, "last_update_date");
+        
+        foreach ($props['lists'] as $contact_list) {
+            $contact->lists[] = ContactList::create($contact_list);
+        }
+        
+        $contact->source_details = parent::getValue($props, "source_details");
+        $contact->action_by = parent::getValue($props, "action_by");
 
-	public function add_list(ContactList $contact_list)
-	{
-		$this->lists[] = $contact_list;
-	}
-	
-	public function add_email(EmailAddress $email_address)
-	{
-		$this->email_addresses[] = $email_address;
-	}
-	
-	public function add_address(Address $address)
-	{
-		$this->addresses[] = $address;
-	}
-	
-	public function to_json()
-	{
-		return json_encode($this);
-	}
+        return $contact;
+    }
 
+    /**
+     * Add a ContactList
+     * @param mixed $contactList - ContactList object or contact list id
+     */
+    public function addList($contactList)
+    {
+        if (!$contactList instanceof ContactList) {
+            $contactList = new ContactList($contactList);
+        }
+
+        $this->lists[] = $contactList;
+    }
+    
+    /**
+     * Add an EmailAddress
+     * @param mixed $emailAddress - EmailAddress object or email address
+     */
+    public function addEmail($emailAddress)
+    {
+        if (! $emailAddress instanceof EmailAddress) {
+            $emailAddress = new EmailAddress($emailAddress);
+        }
+        
+        $this->email_addresses[] = $emailAddress;
+    }
+
+    /**
+     * Add a custom field to the contact object
+     * @param CustomField $customField - custom field to add to the contact
+     */
+    public function addCustomField(CustomField $customField)
+    {
+        $this->custom_fields[] = $customField;
+    }
+    
+    /**
+     * Add an address
+     * @param Address $address - Address to add
+     */
+    public function addAddress(Address $address)
+    {
+        $this->addresses[] = $address;
+    }
+    
+    public function toJson()
+    {
+        return json_encode($this);
+    }
 }

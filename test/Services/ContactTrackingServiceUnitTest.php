@@ -12,7 +12,7 @@ class ContactTrackingServiceUnitTest extends PHPUnit_Framework_TestCase{
 
         $tracking_activity = $svc->getBounces('access_token', 71, 0, 2);
 
-        $this->assertEquals("4", $tracking_activity->next);
+        $this->assertEquals("?next=bGltaXQ9MyZuZXh0PTEzNTQ4MTcyMTA0MzA", $tracking_activity->next);
         $this->assertEquals("EMAIL_BOUNCE", $tracking_activity->results[0]->activity_type);
         $this->assertEquals(1100394165290, $tracking_activity->results[0]->campaign_id);
         $this->assertEquals("2", $tracking_activity->results[0]->contact_id);
@@ -32,7 +32,7 @@ class ContactTrackingServiceUnitTest extends PHPUnit_Framework_TestCase{
 
         $tracking_activity = $svc->getClicks('access_token', 71, 0, 2);
 
-        $this->assertEquals("1354817221599", $tracking_activity->next);
+        $this->assertEquals("?next=bGltaXQ9MyZuZXh0PTEzNTQ4MTcyMTA0MzA", $tracking_activity->next);
         $this->assertEquals("EMAIL_CLICK", $tracking_activity->results[0]->activity_type);
         $this->assertEquals(1100394165290, $tracking_activity->results[0]->campaign_id);
         $this->assertEquals("69", $tracking_activity->results[0]->contact_id);
@@ -50,7 +50,7 @@ class ContactTrackingServiceUnitTest extends PHPUnit_Framework_TestCase{
 
         $tracking_activity = $svc->getForwards('access_token', 71, 0, 2);
 
-        $this->assertEquals("1354817226701", $tracking_activity->next);
+        $this->assertEquals("?next=bGltaXQ9MyZuZXh0PTEzNTQ4MTcyMTA0MzA", $tracking_activity->next);
         $this->assertEquals("EMAIL_FORWARD", $tracking_activity->results[0]->activity_type);
         $this->assertEquals(1100394165290, $tracking_activity->results[0]->campaign_id);
         $this->assertEquals("74", $tracking_activity->results[0]->contact_id);
@@ -67,7 +67,7 @@ class ContactTrackingServiceUnitTest extends PHPUnit_Framework_TestCase{
 
         $tracking_activity = $svc->getOptOuts('access_token', 71, 0, 2);
 
-        $this->assertEquals("135", $tracking_activity->next);
+        $this->assertEquals("?next=bGltaXQ9MyZuZXh0PTEzNTQ4MTcyMTA0MzA", $tracking_activity->next);
         $this->assertEquals("EMAIL_UNSUBSCRIBE", $tracking_activity->results[0]->activity_type);
         $this->assertEquals(1100394165290, $tracking_activity->results[0]->campaign_id);
         $this->assertEquals("58", $tracking_activity->results[0]->contact_id);
@@ -84,16 +84,16 @@ class ContactTrackingServiceUnitTest extends PHPUnit_Framework_TestCase{
         $rest_client = new MockRestClient(200, JsonLoader::getSends());
         $svc = new ContactTrackingService($rest_client);
 
-        $tracking_activity = $svc->getSends('access_token', 71, 0, 2);
+        $tracking_activity = $svc->getSends('access_token', 71, 2);
 
-        $this->assertEquals("1354817210533", $tracking_activity->next);
+        $this->assertEquals("?next=bGltaXQ9MyZuZXh0PTEzNTQ4MTcyMTA0MzA", $tracking_activity->next);
         $this->assertEquals("EMAIL_SEND", $tracking_activity->results[0]->activity_type);
         $this->assertEquals(1100394165290, $tracking_activity->results[0]->campaign_id);
         $this->assertEquals("55", $tracking_activity->results[0]->contact_id);
         $this->assertEquals("wizpiea298d1c2500b4f2d8294300de4b29fe31354817207606824000@snoopy.roving.com",
             $tracking_activity->results[0]->email_address);
 
-        $this->assertEquals("2012-12-06T13:06:50.650Z", $tracking_activity->results[0]->send_date);
+        $this->assertEquals("2012-12-06T18:06:50.650Z", $tracking_activity->results[0]->send_date);
     }
 
     public function testGetOpens()
@@ -103,7 +103,7 @@ class ContactTrackingServiceUnitTest extends PHPUnit_Framework_TestCase{
 
         $tracking_activity = $svc->getOpens('access_token', 71, 0, 2);
 
-        $this->assertEquals("1354817231729", $tracking_activity->next);
+        $this->assertEquals("?next=bGltaXQ9MyZuZXh0PTEzNTQ4MTcyMTA0MzA", $tracking_activity->next);
         $this->assertEquals("EMAIL_OPEN", $tracking_activity->results[0]->activity_type);
         $this->assertEquals(1100394165290, $tracking_activity->results[0]->campaign_id);
         $this->assertEquals("86", $tracking_activity->results[0]->contact_id);
@@ -126,7 +126,6 @@ class ContactTrackingServiceUnitTest extends PHPUnit_Framework_TestCase{
         $this->assertEquals(3, $summary->forwards);
         $this->assertEquals(2, $summary->unsubscribes);
         $this->assertEquals(18, $summary->bounces);
-        $this->assertEquals(1100394165290, $summary->campaign_id);
     }
 
 }

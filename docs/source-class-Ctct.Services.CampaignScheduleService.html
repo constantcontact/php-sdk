@@ -8,7 +8,7 @@
 	<title>File Ctct/Services/CampaignScheduleService.php | Appconnect PHP SDK</title>
 
 	<script type="text/javascript" src="resources/combined.js?554516056"></script>
-	<script type="text/javascript" src="elementlist.js?3513118642"></script>
+	<script type="text/javascript" src="elementlist.js?4180708406"></script>
 	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?3505392360" />
 
 </head>
@@ -28,9 +28,11 @@
 						</li>
 				<li><a href="namespace-Ctct.Components.html">Components<span></span></a>
 						<ul>
-				<li><a href="namespace-Ctct.Components.Campaigns.html">Campaigns</a>
+				<li><a href="namespace-Ctct.Components.Activities.html">Activities</a>
 						</li>
 				<li><a href="namespace-Ctct.Components.Contacts.html">Contacts</a>
+						</li>
+				<li><a href="namespace-Ctct.Components.EmailCampaigns.html">EmailCampaigns</a>
 						</li>
 				<li><a href="namespace-Ctct.Components.Tracking.html">Tracking</a>
 						</li>
@@ -51,12 +53,13 @@
 		<div id="elements">
 			<h3>Classes</h3>
 			<ul>
+				<li><a href="class-Ctct.Services.ActivityService.html">ActivityService</a></li>
 				<li><a href="class-Ctct.Services.BaseService.html">BaseService</a></li>
 				<li class="active"><a href="class-Ctct.Services.CampaignScheduleService.html">CampaignScheduleService</a></li>
-				<li><a href="class-Ctct.Services.CampaignService.html">CampaignService</a></li>
 				<li><a href="class-Ctct.Services.CampaignTrackingService.html">CampaignTrackingService</a></li>
 				<li><a href="class-Ctct.Services.ContactService.html">ContactService</a></li>
 				<li><a href="class-Ctct.Services.ContactTrackingService.html">ContactTrackingService</a></li>
+				<li><a href="class-Ctct.Services.EmailCampaignService.html">EmailCampaignService</a></li>
 				<li><a href="class-Ctct.Services.ListService.html">ListService</a></li>
 			</ul>
 
@@ -105,8 +108,8 @@
 </span><span id="3" class="l"><a class="l" href="#3">  3: </a>
 </span><span id="4" class="l"><a class="l" href="#4">  4: </a><span class="php-keyword1">use</span> Ctct\Util\RestClient;
 </span><span id="5" class="l"><a class="l" href="#5">  5: </a><span class="php-keyword1">use</span> Ctct\Util\Config;
-</span><span id="6" class="l"><a class="l" href="#6">  6: </a><span class="php-keyword1">use</span> Ctct\Components\Campaigns\Schedule;
-</span><span id="7" class="l"><a class="l" href="#7">  7: </a><span class="php-keyword1">use</span> Ctct\Components\Campaigns\TestSend;
+</span><span id="6" class="l"><a class="l" href="#6">  6: </a><span class="php-keyword1">use</span> Ctct\Components\EmailCampaigns\Schedule;
+</span><span id="7" class="l"><a class="l" href="#7">  7: </a><span class="php-keyword1">use</span> Ctct\Components\EmailCampaigns\TestSend;
 </span><span id="8" class="l"><a class="l" href="#8">  8: </a>
 </span><span id="9" class="l"><a class="l" href="#9">  9: </a><span class="php-comment">/**
 </span></span><span id="10" class="l"><a class="l" href="#10"> 10: </a><span class="php-comment"> * Performs all actions pertaining to scheduling Constant Contact Campaigns
@@ -126,7 +129,7 @@
 </span><span id="24" class="l"><a class="l" href="#24"> 24: </a>     <span class="php-keyword1">public</span> <span class="php-keyword1">static</span> <span class="php-keyword1">function</span> <a id="_addSchedule" href="#_addSchedule">addSchedule</a>(<span class="php-var">$access_token</span>, <span class="php-var">$campaign_id</span>, Schedule <span class="php-var">$schedule</span>)
 </span><span id="25" class="l"><a class="l" href="#25"> 25: </a>     {
 </span><span id="26" class="l"><a class="l" href="#26"> 26: </a>        <span class="php-var">$url</span> = Config::get(<span class="php-quote">'endpoints.base_url'</span>) . <span class="php-keyword2">sprintf</span>(Config::get(<span class="php-quote">'endpoints.campaign_schedules'</span>), <span class="php-var">$campaign_id</span>);
-</span><span id="27" class="l"><a class="l" href="#27"> 27: </a>        <span class="php-var">$response</span> = parent::getRestClient()-&gt;post(<span class="php-var">$url</span>, parent::getHeaders(<span class="php-var">$access_token</span>), <span class="php-var">$schedule</span>-&gt;to_json());
+</span><span id="27" class="l"><a class="l" href="#27"> 27: </a>        <span class="php-var">$response</span> = parent::getRestClient()-&gt;post(<span class="php-var">$url</span>, parent::getHeaders(<span class="php-var">$access_token</span>), <span class="php-var">$schedule</span>-&gt;toJson());
 </span><span id="28" class="l"><a class="l" href="#28"> 28: </a>        <span class="php-keyword1">return</span> Schedule::create(<span class="php-keyword2">json_decode</span>(<span class="php-var">$response</span>-&gt;body, <span class="php-keyword1">true</span>));
 </span><span id="29" class="l"><a class="l" href="#29"> 29: </a>     }
 </span><span id="30" class="l"><a class="l" href="#30"> 30: </a>     
@@ -175,7 +178,7 @@
 </span><span id="73" class="l"><a class="l" href="#73"> 73: </a>     <span class="php-keyword1">public</span> <span class="php-keyword1">static</span> <span class="php-keyword1">function</span> <a id="_updateSchedule" href="#_updateSchedule">updateSchedule</a>(<span class="php-var">$access_token</span>, <span class="php-var">$campaign_id</span>, Schedule <span class="php-var">$schedule</span>)
 </span><span id="74" class="l"><a class="l" href="#74"> 74: </a>     {
 </span><span id="75" class="l"><a class="l" href="#75"> 75: </a>        <span class="php-var">$url</span> = Config::get(<span class="php-quote">'endpoints.base_url'</span>) . <span class="php-keyword2">sprintf</span>(Config::get(<span class="php-quote">'endpoints.campaign_schedule'</span>), <span class="php-var">$campaign_id</span>, <span class="php-var">$schedule</span>-&gt;schedule_id);
-</span><span id="76" class="l"><a class="l" href="#76"> 76: </a>        <span class="php-var">$response</span> = parent::getRestClient()-&gt;put(<span class="php-var">$url</span>, parent::getHeaders(<span class="php-var">$access_token</span>), <span class="php-var">$schedule</span>-&gt;to_json());
+</span><span id="76" class="l"><a class="l" href="#76"> 76: </a>        <span class="php-var">$response</span> = parent::getRestClient()-&gt;put(<span class="php-var">$url</span>, parent::getHeaders(<span class="php-var">$access_token</span>), <span class="php-var">$schedule</span>-&gt;toJson());
 </span><span id="77" class="l"><a class="l" href="#77"> 77: </a>        <span class="php-keyword1">return</span> Schedule::create(<span class="php-keyword2">json_decode</span>(<span class="php-var">$response</span>-&gt;body, <span class="php-keyword1">true</span>));
 </span><span id="78" class="l"><a class="l" href="#78"> 78: </a>     }
 </span><span id="79" class="l"><a class="l" href="#79"> 79: </a>     
@@ -203,7 +206,7 @@
 </span><span id="101" class="l"><a class="l" href="#101">101: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">static</span> <span class="php-keyword1">function</span> <a id="_sendTest" href="#_sendTest">sendTest</a>(<span class="php-var">$access_token</span>, <span class="php-var">$campaign_id</span>, TestSend <span class="php-var">$test_send</span>)
 </span><span id="102" class="l"><a class="l" href="#102">102: </a>    {
 </span><span id="103" class="l"><a class="l" href="#103">103: </a>        <span class="php-var">$url</span> = Config::get(<span class="php-quote">'endpoints.base_url'</span>) . <span class="php-keyword2">sprintf</span>(Config::get(<span class="php-quote">'endpoints.campaign_test_sends'</span>), <span class="php-var">$campaign_id</span>);
-</span><span id="104" class="l"><a class="l" href="#104">104: </a>        <span class="php-var">$response</span> = parent::getRestClient()-&gt;post(<span class="php-var">$url</span>, parent::getHeaders(<span class="php-var">$access_token</span>), <span class="php-var">$test_send</span>-&gt;to_json());
+</span><span id="104" class="l"><a class="l" href="#104">104: </a>        <span class="php-var">$response</span> = parent::getRestClient()-&gt;post(<span class="php-var">$url</span>, parent::getHeaders(<span class="php-var">$access_token</span>), <span class="php-var">$test_send</span>-&gt;toJson());
 </span><span id="105" class="l"><a class="l" href="#105">105: </a>        <span class="php-keyword1">return</span> TestSend::create(<span class="php-keyword2">json_decode</span>(<span class="php-var">$response</span>-&gt;body, <span class="php-keyword1">true</span>));
 </span><span id="106" class="l"><a class="l" href="#106">106: </a>    }
 </span><span id="107" class="l"><a class="l" href="#107">107: </a>}

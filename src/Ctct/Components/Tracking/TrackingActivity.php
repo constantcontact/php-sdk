@@ -5,9 +5,9 @@ namespace Ctct\Components\Tracking;
 /**
  * Class to wrap a result set of individual activities (ie: OpensActivity, SendActivity)
  *
- * @package 	Components
- * @subpackage 	CampaignTracking
- * @author 		Constant Contact
+ * @package     Components
+ * @subpackage     CampaignTracking
+ * @author         Constant Contact
  */
 class TrackingActivity
 {
@@ -23,9 +23,8 @@ class TrackingActivity
     {
         $this->results = $results;
 
-        if(array_key_exists('next', $pagination)){
+        if (array_key_exists('next', $pagination)) {
             $this->next = substr($pagination['next'], strrpos($pagination['next'], '&next=')+6);
         }
     }
-
 }

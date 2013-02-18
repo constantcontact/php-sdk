@@ -7,9 +7,9 @@ use Ctct\Components\Component;
 /**
  * Represents an Open Activity
  *
- * @package 	Components
- * @subpackage 	CampaignTracking
- * @author 		Constant Contact
+ * @package     Components
+ * @subpackage     CampaignTracking
+ * @author         Constant Contact
  */
 class OpenActivity extends Component
 {

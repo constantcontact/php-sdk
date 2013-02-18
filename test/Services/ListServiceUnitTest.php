@@ -17,13 +17,11 @@ class ListServiceUnitTest extends PHPUnit_Framework_TestCase{
 		$this->assertEquals("General Interest", $response[0]->name);
 		$this->assertEquals("ACTIVE", $response[0]->status);
 		$this->assertEquals(17, $response[0]->contact_count);
-		$this->assertEquals(false, $response[0]->opt_in_default);
 		
 		$this->assertEquals(3, $response[1]->id);
 		$this->assertEquals("mod_Test List 1", $response[1]->name);
 		$this->assertEquals("HIDDEN", $response[1]->status);
 		$this->assertEquals(18, $response[1]->contact_count);
-		$this->assertEquals(false, $response[1]->opt_in_default);
 	}
 	
 	public function testGetList()
@@ -37,7 +35,6 @@ class ListServiceUnitTest extends PHPUnit_Framework_TestCase{
 		$this->assertEquals("Test List 4", $list->name);
 		$this->assertEquals("HIDDEN", $list->status);
 		$this->assertEquals(19, $list->contact_count);
-		$this->assertEquals(false, $list->opt_in_default);
 	}
 
 	public function testAddList()
@@ -51,7 +48,6 @@ class ListServiceUnitTest extends PHPUnit_Framework_TestCase{
 		$this->assertEquals("Test List 4", $list->name);
 		$this->assertEquals("HIDDEN", $list->status);
 		$this->assertEquals(19, $list->contact_count);
-		$this->assertEquals(false, $list->opt_in_default);
 	}
 	
 	public function testUpdateList()
@@ -65,7 +61,6 @@ class ListServiceUnitTest extends PHPUnit_Framework_TestCase{
 		$this->assertEquals("Test List 4", $list->name);
 		$this->assertEquals("HIDDEN", $list->status);
 		$this->assertEquals(19, $list->contact_count);
-		$this->assertEquals(false, $list->opt_in_default);
 	}
 	
 	public function testGetContactsFromList()
@@ -73,8 +68,8 @@ class ListServiceUnitTest extends PHPUnit_Framework_TestCase{
         $rest_client = new MockRestClient(200, JsonLoader::getContactsJson());
 		
 		$list_service = new ListService($rest_client);
-		$contacts = $list_service->getContactsFromList('access_token', 1);
-		$contact = $contacts[1];
+		$response = $list_service->getContactsFromList('access_token', 1);
+		$contact = $response->results[1];
 		
 		$this->assertEquals(231, $contact->id);
 		$this->assertEquals("ACTIVE", $contact->status);
@@ -84,7 +79,6 @@ class ListServiceUnitTest extends PHPUnit_Framework_TestCase{
 		$this->assertEquals("", $contact->middle_name);
 		$this->assertEquals("Roving", $contact->last_name);
 		$this->assertEquals("Bear Tamer", $contact->job_title);
-		$this->assertEquals("Animals", $contact->department_name);
 		$this->assertEquals("Animal Trainer Pro", $contact->company_name);
 		$this->assertEquals("details", $contact->source_details);
 		$this->assertEquals("ACTION_BY_OWNER", $contact->action_by);

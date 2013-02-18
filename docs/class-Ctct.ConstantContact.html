@@ -7,7 +7,7 @@
 	<title>Class Ctct\ConstantContact | Appconnect PHP SDK</title>
 
 	<script type="text/javascript" src="resources/combined.js?554516056"></script>
-	<script type="text/javascript" src="elementlist.js?3513118642"></script>
+	<script type="text/javascript" src="elementlist.js?4180708406"></script>
 	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?3505392360" />
 
 </head>
@@ -27,9 +27,11 @@
 						</li>
 				<li><a href="namespace-Ctct.Components.html">Components<span></span></a>
 						<ul>
-				<li><a href="namespace-Ctct.Components.Campaigns.html">Campaigns</a>
+				<li><a href="namespace-Ctct.Components.Activities.html">Activities</a>
 						</li>
 				<li><a href="namespace-Ctct.Components.Contacts.html">Contacts</a>
+						</li>
+				<li><a href="namespace-Ctct.Components.EmailCampaigns.html">EmailCampaigns</a>
 						</li>
 				<li><a href="namespace-Ctct.Components.Tracking.html">Tracking</a>
 						</li>
@@ -118,7 +120,7 @@
 
 				<b>Author:</b>
 				Constant Contact<br />
-		<b>Located at</b> <a href="source-class-Ctct.ConstantContact.html#20-574" title="Go to source code">Ctct/ConstantContact.php</a><br />
+		<b>Located at</b> <a href="source-class-Ctct.ConstantContact.html#25-711" title="Go to source code">Ctct/ConstantContact.php</a><br />
 	</div>
 
 
@@ -136,7 +138,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#___construct">#</a>
-		<code><a href="source-class-Ctct.ConstantContact.html#35-42" title="Go to source code">__construct</a>( <span>string <var>$api_key</var></span> )</code>
+		<code><a href="source-class-Ctct.ConstantContact.html#81-95" title="Go to source code">__construct</a>( <span>string <var>$apiKey</var></span> )</code>
 
 		<div class="description short">
 			
@@ -152,8 +154,8 @@
 
 				<h4>Parameters</h4>
 				<div class="list"><dl>
-					<dt><var>$api_key</var></dt>
-					<dd><code>string</code><br>$api_key - Constant Contact API Key</dd>
+					<dt><var>$apiKey</var></dt>
+					<dd><code>string</code><br>$apiKey - Constant Contact API Key</dd>
 				</dl></div>
 
 
@@ -167,46 +169,41 @@
 
 		<td class="attributes"><code>
 			 public 
-			array
+			ResultSet
 			
 			</code>
 		</td>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getContacts">#</a>
-		<code><a href="source-class-Ctct.ConstantContact.html#44-55" title="Go to source code">getContacts</a>( <span>string <var>$access_token</var></span>, <span>integer <var>$offset</var> = <span class="php-keyword1">null</span></span>, <span>integer <var>$limit</var> = <span class="php-keyword1">null</span></span> )</code>
+		<code><a href="source-class-Ctct.ConstantContact.html#97-108" title="Go to source code">getContacts</a>( <span>string <var>$access_token</var></span>, <span>mixed <var>$param</var> = <span class="php-keyword1">null</span></span> )</code>
 
 		<div class="description short">
 			
-<p>Get a set of contacts</p>
+<p>Get a set of campaigns</p>
 
 		</div>
 
 		<div class="description detailed hidden">
 			
-<p>Get a set of contacts</p>
+<p>Get a set of campaigns</p>
 
 
 
 				<h4>Parameters</h4>
 				<div class="list"><dl>
 					<dt><var>$access_token</var></dt>
-					<dd><code>string</code><br>$access_token - Valid access token</dd>
-					<dt><var>$offset</var></dt>
-					<dd><code>integer</code><br>$offset - denotes the starting number for the result set</dd>
-					<dt><var>$limit</var></dt>
-					<dd><code>integer</code><br>$limit - denotes the number of results per set, limited to 50</dd>
+					<dd><code>string</code><br>$access_token - Constant Contact OAuth2 access token</dd>
+					<dt><var>$param</var></dt>
+					<dd><code>mixed</code><br>$param - denotes the number of results per set, limited to 50, or a next
+parameter provided from a previous getCampaigns call</dd>
 				</dl></div>
 
 				<h4>Returns</h4>
 				<div class="list">
-					<code>array</code><br />
+					<code>ResultSet</code><br />
 				</div>
 
-				<h4>Throws</h4>
-				<div class="list">
-					<code><code><a href="class-Ctct.Exceptions.CtctException.html">Ctct\Exceptions\CtctException</a></code></code><br>- if there is an error with the request<br />
-				</div>
 
 
 
@@ -224,7 +221,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getContact">#</a>
-		<code><a href="source-class-Ctct.ConstantContact.html#57-66" title="Go to source code">getContact</a>( <span>string <var>$access_token</var></span>, <span>integer <var>$contact_id</var></span> )</code>
+		<code><a href="source-class-Ctct.ConstantContact.html#110-119" title="Go to source code">getContact</a>( <span>string <var>$access_token</var></span>, <span>integer <var>$contact_id</var></span> )</code>
 
 		<div class="description short">
 			
@@ -268,7 +265,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getContactByEmail">#</a>
-		<code><a href="source-class-Ctct.ConstantContact.html#68-77" title="Go to source code">getContactByEmail</a>( <span>string <var>$access_token</var></span>, <span>string <var>$email</var></span> )</code>
+		<code><a href="source-class-Ctct.ConstantContact.html#121-130" title="Go to source code">getContactByEmail</a>( <span>string <var>$access_token</var></span>, <span>string <var>$email</var></span> )</code>
 
 		<div class="description short">
 			
@@ -312,7 +309,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_addContact">#</a>
-		<code><a href="source-class-Ctct.ConstantContact.html#79-88" title="Go to source code">addContact</a>( <span>string <var>$access_token</var></span>, <span><code><a href="class-Ctct.Components.Contacts.Contact.html">Ctct\Components\Contacts\Contact</a></code> <var>$contact</var></span> )</code>
+		<code><a href="source-class-Ctct.ConstantContact.html#132-141" title="Go to source code">addContact</a>( <span>string <var>$access_token</var></span>, <span><code><a href="class-Ctct.Components.Contacts.Contact.html">Ctct\Components\Contacts\Contact</a></code> <var>$contact</var></span> )</code>
 
 		<div class="description short">
 			
@@ -356,7 +353,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_deleteContact">#</a>
-		<code><a href="source-class-Ctct.ConstantContact.html#90-101" title="Go to source code">deleteContact</a>( <span>string <var>$access_token</var></span>, <span>mixed <var>$contact</var></span> )</code>
+		<code><a href="source-class-Ctct.ConstantContact.html#143-154" title="Go to source code">deleteContact</a>( <span>string <var>$access_token</var></span>, <span>mixed <var>$contact</var></span> )</code>
 
 		<div class="description short">
 			
@@ -404,7 +401,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_deleteContactFromLists">#</a>
-		<code><a href="source-class-Ctct.ConstantContact.html#103-114" title="Go to source code">deleteContactFromLists</a>( <span>string <var>$access_token</var></span>, <span>mixed <var>$contact</var></span> )</code>
+		<code><a href="source-class-Ctct.ConstantContact.html#156-167" title="Go to source code">deleteContactFromLists</a>( <span>string <var>$access_token</var></span>, <span>mixed <var>$contact</var></span> )</code>
 
 		<div class="description short">
 			
@@ -452,7 +449,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_deleteContactFromList">#</a>
-		<code><a href="source-class-Ctct.ConstantContact.html#116-130" title="Go to source code">deleteContactFromList</a>( <span>string <var>$access_token</var></span>, <span>mixed <var>$contact</var></span>, <span>mixed <var>$list</var></span> )</code>
+		<code><a href="source-class-Ctct.ConstantContact.html#169-183" title="Go to source code">deleteContactFromList</a>( <span>string <var>$access_token</var></span>, <span>mixed <var>$contact</var></span>, <span>mixed <var>$list</var></span> )</code>
 
 		<div class="description short">
 			
@@ -503,7 +500,7 @@ object<br />
 
 		<td class="name"><div>
 		<a class="anchor" href="#_updateContact">#</a>
-		<code><a href="source-class-Ctct.ConstantContact.html#132-141" title="Go to source code">updateContact</a>( <span>string <var>$access_token</var></span>, <span><code><a href="class-Ctct.Components.Contacts.Contact.html">Ctct\Components\Contacts\Contact</a></code> <var>$contact</var></span> )</code>
+		<code><a href="source-class-Ctct.ConstantContact.html#185-194" title="Go to source code">updateContact</a>( <span>string <var>$access_token</var></span>, <span><code><a href="class-Ctct.Components.Contacts.Contact.html">Ctct\Components\Contacts\Contact</a></code> <var>$contact</var></span> )</code>
 
 		<div class="description short">
 			
@@ -547,7 +544,7 @@ object<br />
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getLists">#</a>
-		<code><a href="source-class-Ctct.ConstantContact.html#143-151" title="Go to source code">getLists</a>( <span>string <var>$access_token</var></span> )</code>
+		<code><a href="source-class-Ctct.ConstantContact.html#196-204" title="Go to source code">getLists</a>( <span>string <var>$access_token</var></span> )</code>
 
 		<div class="description short">
 			
@@ -589,7 +586,7 @@ object<br />
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getList">#</a>
-		<code><a href="source-class-Ctct.ConstantContact.html#153-162" title="Go to source code">getList</a>( <span>string <var>$access_token</var></span>, <span>integer <var>$list_id</var></span> )</code>
+		<code><a href="source-class-Ctct.ConstantContact.html#206-215" title="Go to source code">getList</a>( <span>string <var>$access_token</var></span>, <span>integer <var>$list_id</var></span> )</code>
 
 		<div class="description short">
 			
@@ -633,7 +630,7 @@ object<br />
 
 		<td class="name"><div>
 		<a class="anchor" href="#_addList">#</a>
-		<code><a href="source-class-Ctct.ConstantContact.html#164-173" title="Go to source code">addList</a>( <span>string <var>$access_token</var></span>, <span><code><a href="class-Ctct.Components.Contacts.ContactList.html">Ctct\Components\Contacts\ContactList</a></code> <var>$list</var></span> )</code>
+		<code><a href="source-class-Ctct.ConstantContact.html#217-226" title="Go to source code">addList</a>( <span>string <var>$access_token</var></span>, <span><code><a href="class-Ctct.Components.Contacts.ContactList.html">Ctct\Components\Contacts\ContactList</a></code> <var>$list</var></span> )</code>
 
 		<div class="description short">
 			
@@ -677,7 +674,7 @@ object<br />
 
 		<td class="name"><div>
 		<a class="anchor" href="#_updateList">#</a>
-		<code><a href="source-class-Ctct.ConstantContact.html#175-184" title="Go to source code">updateList</a>( <span>string <var>$access_token</var></span>, <span><code><a href="class-Ctct.Components.Contacts.ContactList.html">Ctct\Components\Contacts\ContactList</a></code> <var>$list</var></span> )</code>
+		<code><a href="source-class-Ctct.ConstantContact.html#228-237" title="Go to source code">updateList</a>( <span>string <var>$access_token</var></span>, <span><code><a href="class-Ctct.Components.Contacts.ContactList.html">Ctct\Components\Contacts\ContactList</a></code> <var>$list</var></span> )</code>
 
 		<div class="description short">
 			
@@ -721,7 +718,7 @@ object<br />
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getContactsFromList">#</a>
-		<code><a href="source-class-Ctct.ConstantContact.html#186-197" title="Go to source code">getContactsFromList</a>( <span>string <var>$access_token</var></span>, <span>mixed <var>$list</var></span> )</code>
+		<code><a href="source-class-Ctct.ConstantContact.html#239-250" title="Go to source code">getContactsFromList</a>( <span>string <var>$access_token</var></span>, <span>mixed <var>$list</var></span> )</code>
 
 		<div class="description short">
 			
@@ -762,14 +759,14 @@ object<br />
 
 		<td class="attributes"><code>
 			 public 
-			<code><a href="class-Ctct.Components.Campaigns.Campaign.html">Ctct\Components\Campaigns\Campaign</a></code>
+			ResultSet
 			
 			</code>
 		</td>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getCampaigns">#</a>
-		<code><a href="source-class-Ctct.ConstantContact.html#199-207" title="Go to source code">getCampaigns</a>( <span>string <var>$access_token</var></span> )</code>
+		<code><a href="source-class-Ctct.ConstantContact.html#252-263" title="Go to source code">getCampaigns</a>( <span>string <var>$access_token</var></span>, <span>mixed <var>$param</var> = <span class="php-keyword1">null</span></span> )</code>
 
 		<div class="description short">
 			
@@ -787,11 +784,14 @@ object<br />
 				<div class="list"><dl>
 					<dt><var>$access_token</var></dt>
 					<dd><code>string</code><br>$access_token - Constant Contact OAuth2 access token</dd>
+					<dt><var>$param</var></dt>
+					<dd><code>mixed</code><br>$param - denotes the number of results per set, limited to 50, or a next
+parameter provided from a previous getCampaigns call</dd>
 				</dl></div>
 
 				<h4>Returns</h4>
 				<div class="list">
-					<code><code><a href="class-Ctct.Components.Campaigns.Campaign.html">Ctct\Components\Campaigns\Campaign</a></code></code><br />
+					<code>ResultSet</code><br />
 				</div>
 
 
@@ -811,7 +811,7 @@ object<br />
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getCampaign">#</a>
-		<code><a href="source-class-Ctct.ConstantContact.html#209-217" title="Go to source code">getCampaign</a>( <span>string <var>$access_token</var></span>, <span>integer <var>$campaign_id</var></span> )</code>
+		<code><a href="source-class-Ctct.ConstantContact.html#265-273" title="Go to source code">getCampaign</a>( <span>string <var>$access_token</var></span>, <span>integer <var>$campaign_id</var></span> )</code>
 
 		<div class="description short">
 			
@@ -851,7 +851,7 @@ object<br />
 
 		<td class="name"><div>
 		<a class="anchor" href="#_deleteCampaign">#</a>
-		<code><a href="source-class-Ctct.ConstantContact.html#219-230" title="Go to source code">deleteCampaign</a>( <span>string <var>$access_token</var></span>, <span>mixed <var>$campaign</var></span> )</code>
+		<code><a href="source-class-Ctct.ConstantContact.html#275-286" title="Go to source code">deleteCampaign</a>( <span>string <var>$access_token</var></span>, <span>mixed <var>$campaign</var></span> )</code>
 
 		<div class="description short">
 			
@@ -892,14 +892,14 @@ object<br />
 
 		<td class="attributes"><code>
 			 public 
-			<code><a href="class-Ctct.Components.Campaigns.Campaign.html">Ctct\Components\Campaigns\Campaign</a></code>
+			Campaign
 			
 			</code>
 		</td>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_addCampaign">#</a>
-		<code><a href="source-class-Ctct.ConstantContact.html#232-241" title="Go to source code">addCampaign</a>( <span>string <var>$access_token</var></span>, <span><code><a href="class-Ctct.Components.Campaigns.Campaign.html">Ctct\Components\Campaigns\Campaign</a></code> <var>$campaign</var></span> )</code>
+		<code><a href="source-class-Ctct.ConstantContact.html#288-297" title="Go to source code">addCampaign</a>( <span>string <var>$access_token</var></span>, <span>Ctct\Campaign <var>$campaign</var></span> )</code>
 
 		<div class="description short">
 			
@@ -918,12 +918,12 @@ object<br />
 					<dt><var>$access_token</var></dt>
 					<dd><code>string</code><br>$access_token - Constant Contact OAuth2 access token</dd>
 					<dt><var>$campaign</var></dt>
-					<dd><code><code><a href="class-Ctct.Components.Campaigns.Campaign.html">Ctct\Components\Campaigns\Campaign</a></code></code><br>$campaign - Campaign to be created</dd>
+					<dd><code>Campaign</code><br>$campaign - Campaign to be created</dd>
 				</dl></div>
 
 				<h4>Returns</h4>
 				<div class="list">
-					<code><code><a href="class-Ctct.Components.Campaigns.Campaign.html">Ctct\Components\Campaigns\Campaign</a></code></code><br>- created campaign<br />
+					<code>Campaign</code><br>- created campaign<br />
 				</div>
 
 
@@ -936,14 +936,14 @@ object<br />
 
 		<td class="attributes"><code>
 			 public 
-			<code><a href="class-Ctct.Components.Campaigns.Campaign.html">Ctct\Components\Campaigns\Campaign</a></code>
+			Campaign
 			
 			</code>
 		</td>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_updateCampaign">#</a>
-		<code><a href="source-class-Ctct.ConstantContact.html#243-252" title="Go to source code">updateCampaign</a>( <span>string <var>$access_token</var></span>, <span><code><a href="class-Ctct.Components.Campaigns.Campaign.html">Ctct\Components\Campaigns\Campaign</a></code> <var>$campaign</var></span> )</code>
+		<code><a href="source-class-Ctct.ConstantContact.html#299-308" title="Go to source code">updateCampaign</a>( <span>string <var>$access_token</var></span>, <span>Ctct\Campaign <var>$campaign</var></span> )</code>
 
 		<div class="description short">
 			
@@ -962,12 +962,12 @@ object<br />
 					<dt><var>$access_token</var></dt>
 					<dd><code>string</code><br>$access_token - Constant Contact OAuth2 access token</dd>
 					<dt><var>$campaign</var></dt>
-					<dd><code><code><a href="class-Ctct.Components.Campaigns.Campaign.html">Ctct\Components\Campaigns\Campaign</a></code></code><br>$campaign - Campaign to be updated</dd>
+					<dd><code>Campaign</code><br>$campaign - Campaign to be updated</dd>
 				</dl></div>
 
 				<h4>Returns</h4>
 				<div class="list">
-					<code><code><a href="class-Ctct.Components.Campaigns.Campaign.html">Ctct\Components\Campaigns\Campaign</a></code></code><br>- updated campaign<br />
+					<code>Campaign</code><br>- updated campaign<br />
 				</div>
 
 
@@ -980,14 +980,14 @@ object<br />
 
 		<td class="attributes"><code>
 			 public 
-			<code><a href="class-Ctct.Components.Campaigns.Campaign.html">Ctct\Components\Campaigns\Campaign</a></code>
+			Campaign
 			
 			</code>
 		</td>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_addCampaignSchedule">#</a>
-		<code><a href="source-class-Ctct.ConstantContact.html#254-265" title="Go to source code">addCampaignSchedule</a>( <span>string <var>$access_token</var></span>, <span>mixed <var>$campaign</var></span>, <span><code><a href="class-Ctct.Components.Campaigns.Schedule.html">Ctct\Components\Campaigns\Schedule</a></code> <var>$schedule</var></span> )</code>
+		<code><a href="source-class-Ctct.ConstantContact.html#310-321" title="Go to source code">addCampaignSchedule</a>( <span>string <var>$access_token</var></span>, <span>mixed <var>$campaign</var></span>, <span><code><a href="class-Ctct.Components.EmailCampaigns.Schedule.html">Ctct\Components\EmailCampaigns\Schedule</a></code> <var>$schedule</var></span> )</code>
 
 		<div class="description short">
 			
@@ -1008,12 +1008,12 @@ object<br />
 					<dt><var>$campaign</var></dt>
 					<dd><code>mixed</code><br>$campaign - Campaign to be updated</dd>
 					<dt><var>$schedule</var></dt>
-					<dd><code><code><a href="class-Ctct.Components.Campaigns.Schedule.html">Ctct\Components\Campaigns\Schedule</a></code></code><br>$schedule - Schedule to be associated with the provided campaign</dd>
+					<dd><code><code><a href="class-Ctct.Components.EmailCampaigns.Schedule.html">Ctct\Components\EmailCampaigns\Schedule</a></code></code><br>$schedule - Schedule to be associated with the provided campaign</dd>
 				</dl></div>
 
 				<h4>Returns</h4>
 				<div class="list">
-					<code><code><a href="class-Ctct.Components.Campaigns.Campaign.html">Ctct\Components\Campaigns\Campaign</a></code></code><br>- updated campaign<br />
+					<code>Campaign</code><br>- updated campaign<br />
 				</div>
 
 
@@ -1033,7 +1033,7 @@ object<br />
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getCampaignSchedules">#</a>
-		<code><a href="source-class-Ctct.ConstantContact.html#267-277" title="Go to source code">getCampaignSchedules</a>( <span>string <var>$access_token</var></span>, <span>mixed <var>$campaign</var></span> )</code>
+		<code><a href="source-class-Ctct.ConstantContact.html#323-333" title="Go to source code">getCampaignSchedules</a>( <span>string <var>$access_token</var></span>, <span>mixed <var>$campaign</var></span> )</code>
 
 		<div class="description short">
 			
@@ -1077,7 +1077,7 @@ object<br />
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getCampaignSchedule">#</a>
-		<code><a href="source-class-Ctct.ConstantContact.html#279-302" title="Go to source code">getCampaignSchedule</a>( <span>string <var>$access_token</var></span>, <span>mixed <var>$campaign</var></span>, <span>mixed <var>$schedule</var></span> )</code>
+		<code><a href="source-class-Ctct.ConstantContact.html#335-358" title="Go to source code">getCampaignSchedule</a>( <span>string <var>$access_token</var></span>, <span>mixed <var>$campaign</var></span>, <span>mixed <var>$schedule</var></span> )</code>
 
 		<div class="description short">
 			
@@ -1127,7 +1127,7 @@ object<br />
 
 		<td class="name"><div>
 		<a class="anchor" href="#_updateCampaignSchedule">#</a>
-		<code><a href="source-class-Ctct.ConstantContact.html#304-316" title="Go to source code">updateCampaignSchedule</a>( <span>string <var>$access_token</var></span>, <span>mixed <var>$campaign</var></span>, <span><code><a href="class-Ctct.Components.Campaigns.Schedule.html">Ctct\Components\Campaigns\Schedule</a></code> <var>$schedule</var></span> )</code>
+		<code><a href="source-class-Ctct.ConstantContact.html#360-372" title="Go to source code">updateCampaignSchedule</a>( <span>string <var>$access_token</var></span>, <span>mixed <var>$campaign</var></span>, <span><code><a href="class-Ctct.Components.EmailCampaigns.Schedule.html">Ctct\Components\EmailCampaigns\Schedule</a></code> <var>$schedule</var></span> )</code>
 
 		<div class="description short">
 			
@@ -1148,7 +1148,7 @@ object<br />
 					<dt><var>$campaign</var></dt>
 					<dd><code>mixed</code><br>$campaign - Campaign id or Campaign object itself</dd>
 					<dt><var>$schedule</var></dt>
-					<dd><code><code><a href="class-Ctct.Components.Campaigns.Schedule.html">Ctct\Components\Campaigns\Schedule</a></code></code><br>$schedule - Schedule to be updated</dd>
+					<dd><code><code><a href="class-Ctct.Components.EmailCampaigns.Schedule.html">Ctct\Components\EmailCampaigns\Schedule</a></code></code><br>$schedule - Schedule to be updated</dd>
 				</dl></div>
 
 				<h4>Returns</h4>
@@ -1173,7 +1173,7 @@ object<br />
 
 		<td class="name"><div>
 		<a class="anchor" href="#_deleteCampaignSchedule">#</a>
-		<code><a href="source-class-Ctct.ConstantContact.html#318-340" title="Go to source code">deleteCampaignSchedule</a>( <span>string <var>$access_token</var></span>, <span>mixed <var>$campaign</var></span>, <span>mixed <var>$schedule</var></span> )</code>
+		<code><a href="source-class-Ctct.ConstantContact.html#374-396" title="Go to source code">deleteCampaignSchedule</a>( <span>string <var>$access_token</var></span>, <span>mixed <var>$campaign</var></span>, <span>mixed <var>$schedule</var></span> )</code>
 
 		<div class="description short">
 			
@@ -1216,14 +1216,14 @@ object<br />
 
 		<td class="attributes"><code>
 			 public 
-			<code><a href="class-Ctct.Components.Campaigns.TestSend.html">Ctct\Components\Campaigns\TestSend</a></code>
+			<code><a href="class-Ctct.Components.EmailCampaigns.TestSend.html">Ctct\Components\EmailCampaigns\TestSend</a></code>
 			
 			</code>
 		</td>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_sendCampaignTest">#</a>
-		<code><a href="source-class-Ctct.ConstantContact.html#342-353" title="Go to source code">sendCampaignTest</a>( <span>string <var>$access_token</var></span>, <span>mixed <var>$campaign</var></span>, <span><code><a href="class-Ctct.Components.Campaigns.TestSend.html">Ctct\Components\Campaigns\TestSend</a></code> <var>$test_send</var></span> )</code>
+		<code><a href="source-class-Ctct.ConstantContact.html#398-409" title="Go to source code">sendCampaignTest</a>( <span>string <var>$access_token</var></span>, <span>mixed <var>$campaign</var></span>, <span><code><a href="class-Ctct.Components.EmailCampaigns.TestSend.html">Ctct\Components\EmailCampaigns\TestSend</a></code> <var>$test_send</var></span> )</code>
 
 		<div class="description short">
 			
@@ -1244,12 +1244,12 @@ object<br />
 					<dt><var>$campaign</var></dt>
 					<dd><code>mixed</code><br>$campaign - Campaign id or Campaign object itself</dd>
 					<dt><var>$test_send</var></dt>
-					<dd><code><code><a href="class-Ctct.Components.Campaigns.TestSend.html">Ctct\Components\Campaigns\TestSend</a></code></code><br>$test_send - test send details</dd>
+					<dd><code><code><a href="class-Ctct.Components.EmailCampaigns.TestSend.html">Ctct\Components\EmailCampaigns\TestSend</a></code></code><br>$test_send - test send details</dd>
 				</dl></div>
 
 				<h4>Returns</h4>
 				<div class="list">
-					<code><code><a href="class-Ctct.Components.Campaigns.TestSend.html">Ctct\Components\Campaigns\TestSend</a></code></code><br />
+					<code><code><a href="class-Ctct.Components.EmailCampaigns.TestSend.html">Ctct\Components\EmailCampaigns\TestSend</a></code></code><br />
 				</div>
 
 
@@ -1269,7 +1269,7 @@ object<br />
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getCampaignSends">#</a>
-		<code><a href="source-class-Ctct.ConstantContact.html#355-367" title="Go to source code">getCampaignSends</a>( <span>string <var>$access_token</var></span>, <span>mixed <var>$campaign</var></span>, <span>string <var>$next</var> = <span class="php-keyword1">null</span></span>, <span>integer <var>$limit</var> = <span class="php-keyword1">null</span></span> )</code>
+		<code><a href="source-class-Ctct.ConstantContact.html#411-423" title="Go to source code">getCampaignSends</a>( <span>string <var>$access_token</var></span>, <span>mixed <var>$campaign</var></span>, <span>string <var>$next</var> = <span class="php-keyword1">null</span></span>, <span>integer <var>$limit</var> = <span class="php-keyword1">null</span></span> )</code>
 
 		<div class="description short">
 			
@@ -1310,14 +1310,14 @@ object<br />
 
 		<td class="attributes"><code>
 			 public 
-			<code><a href="class-Ctct.Components.Tracking.TrackingActivity.html">Ctct\Components\Tracking\TrackingActivity</a></code>
+			ResultSet
 			
 			</code>
 		</td>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getCampaignBounces">#</a>
-		<code><a href="source-class-Ctct.ConstantContact.html#369-381" title="Go to source code">getCampaignBounces</a>( <span>string <var>$access_token</var></span>, <span>mixed <var>$campaign</var></span>, <span>string <var>$next</var> = <span class="php-keyword1">null</span></span>, <span>integer <var>$limit</var> = <span class="php-keyword1">null</span></span> )</code>
+		<code><a href="source-class-Ctct.ConstantContact.html#425-438" title="Go to source code">getCampaignBounces</a>( <span>string <var>$access_token</var></span>, <span>mixed <var>$campaign</var></span>, <span>mixed <var>$param</var> = <span class="php-keyword1">null</span></span> )</code>
 
 		<div class="description short">
 			
@@ -1337,15 +1337,14 @@ object<br />
 					<dd><code>string</code><br>$access_token - Constant Contact OAuth2 access token</dd>
 					<dt><var>$campaign</var></dt>
 					<dd><code>mixed</code><br>$campaign - Campaign id or Campaign object itself</dd>
-					<dt><var>$next</var></dt>
-					<dd><code>string</code><br>$next - next value returned from a previous request (used in pagination)</dd>
-					<dt><var>$limit</var></dt>
-					<dd><code>integer</code><br>$limit - number of results to return per page</dd>
+					<dt><var>$param</var></dt>
+					<dd><code>mixed</code><br>$param - either the next link from a previous request, or a limit or restrict
+the page size of an initial request</dd>
 				</dl></div>
 
 				<h4>Returns</h4>
 				<div class="list">
-					<code><code><a href="class-Ctct.Components.Tracking.TrackingActivity.html">Ctct\Components\Tracking\TrackingActivity</a></code></code><br>- Containing a results array of Ctct\Components\CampaignTracking\BounceActivity<br />
+					<code>ResultSet</code><br>- Containing a results array of Ctct\Components\CampaignTracking\BounceActivity<br />
 				</div>
 
 
@@ -1358,14 +1357,14 @@ object<br />
 
 		<td class="attributes"><code>
 			 public 
-			<code><a href="class-Ctct.Components.Tracking.TrackingActivity.html">Ctct\Components\Tracking\TrackingActivity</a></code>
+			ResultSet
 			
 			</code>
 		</td>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getCampaignClicks">#</a>
-		<code><a href="source-class-Ctct.ConstantContact.html#383-395" title="Go to source code">getCampaignClicks</a>( <span>string <var>$access_token</var></span>, <span>mixed <var>$campaign</var></span>, <span>string <var>$next</var> = <span class="php-keyword1">null</span></span>, <span>integer <var>$limit</var> = <span class="php-keyword1">null</span></span> )</code>
+		<code><a href="source-class-Ctct.ConstantContact.html#440-453" title="Go to source code">getCampaignClicks</a>( <span>string <var>$access_token</var></span>, <span>mixed <var>$campaign</var></span>, <span>mixed <var>$param</var> = <span class="php-keyword1">null</span></span> )</code>
 
 		<div class="description short">
 			
@@ -1385,15 +1384,14 @@ object<br />
 					<dd><code>string</code><br>$access_token - Constant Contact OAuth2 access token</dd>
 					<dt><var>$campaign</var></dt>
 					<dd><code>mixed</code><br>$campaign - Campaign id or Campaign object itself</dd>
-					<dt><var>$next</var></dt>
-					<dd><code>string</code><br>$next - next value returned from a previous request (used in pagination)</dd>
-					<dt><var>$limit</var></dt>
-					<dd><code>integer</code><br>$limit - number of results to return per page</dd>
+					<dt><var>$param</var></dt>
+					<dd><code>mixed</code><br>$param - either the next link from a previous request, or a limit or restrict
+the page size of an initial request</dd>
 				</dl></div>
 
 				<h4>Returns</h4>
 				<div class="list">
-					<code><code><a href="class-Ctct.Components.Tracking.TrackingActivity.html">Ctct\Components\Tracking\TrackingActivity</a></code></code><br>- Containing a results array of Ctct\Components\CampaignTracking\ClickActivity<br />
+					<code>ResultSet</code><br>- Containing a results array of Ctct\Components\CampaignTracking\ClickActivity<br />
 				</div>
 
 
@@ -1406,14 +1404,14 @@ object<br />
 
 		<td class="attributes"><code>
 			 public 
-			<code><a href="class-Ctct.Components.Tracking.TrackingActivity.html">Ctct\Components\Tracking\TrackingActivity</a></code>
+			ResultSet
 			
 			</code>
 		</td>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getCampaignOpens">#</a>
-		<code><a href="source-class-Ctct.ConstantContact.html#397-409" title="Go to source code">getCampaignOpens</a>( <span>string <var>$access_token</var></span>, <span>mixed <var>$campaign</var></span>, <span>string <var>$next</var> = <span class="php-keyword1">null</span></span>, <span>integer <var>$limit</var> = <span class="php-keyword1">null</span></span> )</code>
+		<code><a href="source-class-Ctct.ConstantContact.html#455-468" title="Go to source code">getCampaignOpens</a>( <span>string <var>$access_token</var></span>, <span>mixed <var>$campaign</var></span>, <span>mixed <var>$param</var> = <span class="php-keyword1">null</span></span> )</code>
 
 		<div class="description short">
 			
@@ -1433,15 +1431,14 @@ object<br />
 					<dd><code>string</code><br>$access_token - Constant Contact OAuth2 access token</dd>
 					<dt><var>$campaign</var></dt>
 					<dd><code>mixed</code><br>$campaign - Campaign id or Campaign object itself</dd>
-					<dt><var>$next</var></dt>
-					<dd><code>string</code><br>$next - next value returned from a previous request (used in pagination)</dd>
-					<dt><var>$limit</var></dt>
-					<dd><code>integer</code><br>$limit - number of results to return per page</dd>
+					<dt><var>$param</var></dt>
+					<dd><code>mixed</code><br>$param - either the next link from a previous request, or a limit or restrict
+the page size of an initial request</dd>
 				</dl></div>
 
 				<h4>Returns</h4>
 				<div class="list">
-					<code><code><a href="class-Ctct.Components.Tracking.TrackingActivity.html">Ctct\Components\Tracking\TrackingActivity</a></code></code><br>- Containing a results array of Ctct\Components\CampaignTracking\OpenActivity<br />
+					<code>ResultSet</code><br>- Containing a results array of Ctct\Components\CampaignTracking\OpenActivity<br />
 				</div>
 
 
@@ -1454,14 +1451,14 @@ object<br />
 
 		<td class="attributes"><code>
 			 public 
-			<code><a href="class-Ctct.Components.Tracking.TrackingActivity.html">Ctct\Components\Tracking\TrackingActivity</a></code>
+			ResultSet
 			
 			</code>
 		</td>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getCampaignForwards">#</a>
-		<code><a href="source-class-Ctct.ConstantContact.html#411-423" title="Go to source code">getCampaignForwards</a>( <span>string <var>$access_token</var></span>, <span>mixed <var>$campaign</var></span>, <span>string <var>$next</var> = <span class="php-keyword1">null</span></span>, <span>integer <var>$limit</var> = <span class="php-keyword1">null</span></span> )</code>
+		<code><a href="source-class-Ctct.ConstantContact.html#470-483" title="Go to source code">getCampaignForwards</a>( <span>string <var>$access_token</var></span>, <span>mixed <var>$campaign</var></span>, <span>mixed <var>$param</var> = <span class="php-keyword1">null</span></span> )</code>
 
 		<div class="description short">
 			
@@ -1481,15 +1478,14 @@ object<br />
 					<dd><code>string</code><br>$access_token - Constant Contact OAuth2 access token</dd>
 					<dt><var>$campaign</var></dt>
 					<dd><code>mixed</code><br>$campaign - Campaign id or Campaign object itself</dd>
-					<dt><var>$next</var></dt>
-					<dd><code>string</code><br>$next - next value returned from a previous request (used in pagination)</dd>
-					<dt><var>$limit</var></dt>
-					<dd><code>integer</code><br>$limit - number of results to return per page</dd>
+					<dt><var>$param</var></dt>
+					<dd><code>mixed</code><br>$param - either the next link from a previous request, or a limit or restrict
+the page size of an initial request</dd>
 				</dl></div>
 
 				<h4>Returns</h4>
 				<div class="list">
-					<code><code><a href="class-Ctct.Components.Tracking.TrackingActivity.html">Ctct\Components\Tracking\TrackingActivity</a></code></code><br>- Containing a results array of Ctct\Components\CampaignTracking\ForwardActivity<br />
+					<code>ResultSet</code><br>- Containing a results array of Ctct\Components\CampaignTracking\ForwardActivity<br />
 				</div>
 
 
@@ -1502,14 +1498,14 @@ object<br />
 
 		<td class="attributes"><code>
 			 public 
-			<code><a href="class-Ctct.Components.Tracking.TrackingActivity.html">Ctct\Components\Tracking\TrackingActivity</a></code>
+			ResultSet
 			
 			</code>
 		</td>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getCampaignOptOuts">#</a>
-		<code><a href="source-class-Ctct.ConstantContact.html#425-437" title="Go to source code">getCampaignOptOuts</a>( <span>string <var>$access_token</var></span>, <span>mixed <var>$campaign</var></span>, <span>string <var>$next</var> = <span class="php-keyword1">null</span></span>, <span>integer <var>$limit</var> = <span class="php-keyword1">null</span></span> )</code>
+		<code><a href="source-class-Ctct.ConstantContact.html#485-498" title="Go to source code">getCampaignOptOuts</a>( <span>string <var>$access_token</var></span>, <span>mixed <var>$campaign</var></span>, <span>mixed <var>$param</var> = <span class="php-keyword1">null</span></span> )</code>
 
 		<div class="description short">
 			
@@ -1529,15 +1525,14 @@ object<br />
 					<dd><code>string</code><br>$access_token - Constant Contact OAuth2 access token</dd>
 					<dt><var>$campaign</var></dt>
 					<dd><code>mixed</code><br>$campaign - Campaign id or Campaign object itself</dd>
-					<dt><var>$next</var></dt>
-					<dd><code>string</code><br>$next - next value returned from a previous request (used in pagination)</dd>
-					<dt><var>$limit</var></dt>
-					<dd><code>integer</code><br>$limit - number of results to return per page</dd>
+					<dt><var>$param</var></dt>
+					<dd><code>mixed</code><br>$param - either the next link from a previous request, or a limit or restrict
+the page size of an initial request</dd>
 				</dl></div>
 
 				<h4>Returns</h4>
 				<div class="list">
-					<code><code><a href="class-Ctct.Components.Tracking.TrackingActivity.html">Ctct\Components\Tracking\TrackingActivity</a></code></code><br>- Containing a results array of Ctct\Components\CampaignTracking\OptOutActivity<br />
+					<code>ResultSet</code><br>- Containing a results array of Ctct\Components\CampaignTracking\OptOutActivity<br />
 				</div>
 
 
@@ -1557,7 +1552,7 @@ object<br />
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getCampaignSummaryReport">#</a>
-		<code><a href="source-class-Ctct.ConstantContact.html#439-451" title="Go to source code">getCampaignSummaryReport</a>( <span>string <var>$access_token</var></span>, <span>mixed <var>$campaign</var></span> )</code>
+		<code><a href="source-class-Ctct.ConstantContact.html#500-512" title="Go to source code">getCampaignSummaryReport</a>( <span>string <var>$access_token</var></span>, <span>mixed <var>$campaign</var></span> )</code>
 
 		<div class="description short">
 			
@@ -1594,14 +1589,14 @@ object<br />
 
 		<td class="attributes"><code>
 			 public 
-			<code><a href="class-Ctct.Components.Tracking.TrackingActivity.html">Ctct\Components\Tracking\TrackingActivity</a></code>
+			ResultSet
 			
 			</code>
 		</td>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getContactSends">#</a>
-		<code><a href="source-class-Ctct.ConstantContact.html#453-465" title="Go to source code">getContactSends</a>( <span>string <var>$access_token</var></span>, <span>mixed <var>$contact</var></span>, <span>string <var>$next</var> = <span class="php-keyword1">null</span></span>, <span>integer <var>$limit</var> = <span class="php-keyword1">null</span></span> )</code>
+		<code><a href="source-class-Ctct.ConstantContact.html#514-526" title="Go to source code">getContactSends</a>( <span>string <var>$access_token</var></span>, <span>mixed <var>$contact</var></span>, <span>mixed <var>$param</var> = <span class="php-keyword1">null</span></span> )</code>
 
 		<div class="description short">
 			
@@ -1621,15 +1616,14 @@ object<br />
 					<dd><code>string</code><br>$access_token - Constant Contact OAuth2 access token</dd>
 					<dt><var>$contact</var></dt>
 					<dd><code>mixed</code><br>$contact - Contact id or Contact object itself</dd>
-					<dt><var>$next</var></dt>
-					<dd><code>string</code><br>$next - next value returned from a previous request (used in pagination)</dd>
-					<dt><var>$limit</var></dt>
-					<dd><code>integer</code><br>$limit - number of results to return per page</dd>
+					<dt><var>$param</var></dt>
+					<dd><code>mixed</code><br>$param - either the next link from a previous request, or a limit or restrict
+the page size of an initial request</dd>
 				</dl></div>
 
 				<h4>Returns</h4>
 				<div class="list">
-					<code><code><a href="class-Ctct.Components.Tracking.TrackingActivity.html">Ctct\Components\Tracking\TrackingActivity</a></code></code><br>- Containing a results array of <code><a href="class-Ctct.Components.Tracking.SendActivity.html">Ctct\Components\Tracking\SendActivity</a></code><br />
+					<code>ResultSet</code><br>- Containing a results array of <code><a href="class-Ctct.Components.Tracking.SendActivity.html">Ctct\Components\Tracking\SendActivity</a></code><br />
 				</div>
 
 
@@ -1642,14 +1636,14 @@ object<br />
 
 		<td class="attributes"><code>
 			 public 
-			<code><a href="class-Ctct.Components.Tracking.TrackingActivity.html">Ctct\Components\Tracking\TrackingActivity</a></code>
+			ResultSet
 			
 			</code>
 		</td>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getContactBounces">#</a>
-		<code><a href="source-class-Ctct.ConstantContact.html#467-479" title="Go to source code">getContactBounces</a>( <span>string <var>$access_token</var></span>, <span>mixed <var>$contact</var></span>, <span>string <var>$next</var> = <span class="php-keyword1">null</span></span>, <span>integer <var>$limit</var> = <span class="php-keyword1">null</span></span> )</code>
+		<code><a href="source-class-Ctct.ConstantContact.html#528-540" title="Go to source code">getContactBounces</a>( <span>string <var>$access_token</var></span>, <span>mixed <var>$contact</var></span>, <span>mixed <var>$param</var> = <span class="php-keyword1">null</span></span> )</code>
 
 		<div class="description short">
 			
@@ -1669,15 +1663,14 @@ object<br />
 					<dd><code>string</code><br>$access_token - Constant Contact OAuth2 access token</dd>
 					<dt><var>$contact</var></dt>
 					<dd><code>mixed</code><br>$contact - Contact id or Contact object itself</dd>
-					<dt><var>$next</var></dt>
-					<dd><code>string</code><br>$next - next value returned from a previous request (used in pagination)</dd>
-					<dt><var>$limit</var></dt>
-					<dd><code>integer</code><br>$limit - number of results to return per page</dd>
+					<dt><var>$param</var></dt>
+					<dd><code>mixed</code><br>$param - either the next link from a previous request, or a limit or restrict
+the page size of an initial request</dd>
 				</dl></div>
 
 				<h4>Returns</h4>
 				<div class="list">
-					<code><code><a href="class-Ctct.Components.Tracking.TrackingActivity.html">Ctct\Components\Tracking\TrackingActivity</a></code></code><br>- Containing a results array of <code><a href="class-Ctct.Components.Tracking.BounceActivity.html">Ctct\Components\Tracking\BounceActivity</a></code><br />
+					<code>ResultSet</code><br>- Containing a results array of <code><a href="class-Ctct.Components.Tracking.BounceActivity.html">Ctct\Components\Tracking\BounceActivity</a></code><br />
 				</div>
 
 
@@ -1690,14 +1683,14 @@ object<br />
 
 		<td class="attributes"><code>
 			 public 
-			<code><a href="class-Ctct.Components.Tracking.TrackingActivity.html">Ctct\Components\Tracking\TrackingActivity</a></code>
+			ResultSet
 			
 			</code>
 		</td>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getContactClicks">#</a>
-		<code><a href="source-class-Ctct.ConstantContact.html#481-493" title="Go to source code">getContactClicks</a>( <span>string <var>$access_token</var></span>, <span>mixed <var>$contact</var></span>, <span>string <var>$next</var> = <span class="php-keyword1">null</span></span>, <span>integer <var>$limit</var> = <span class="php-keyword1">null</span></span> )</code>
+		<code><a href="source-class-Ctct.ConstantContact.html#542-555" title="Go to source code">getContactClicks</a>( <span>string <var>$access_token</var></span>, <span>mixed <var>$contact</var></span>, <span>mixed <var>$param</var> = <span class="php-keyword1">null</span></span> )</code>
 
 		<div class="description short">
 			
@@ -1717,15 +1710,14 @@ object<br />
 					<dd><code>string</code><br>$access_token - Constant Contact OAuth2 access token</dd>
 					<dt><var>$contact</var></dt>
 					<dd><code>mixed</code><br>$contact - Contact id or Contact object itself</dd>
-					<dt><var>$next</var></dt>
-					<dd><code>string</code><br>$next - next value returned from a previous request (used in pagination)</dd>
-					<dt><var>$limit</var></dt>
-					<dd><code>integer</code><br>$limit - number of results to return per page</dd>
+					<dt><var>$param</var></dt>
+					<dd><code>mixed</code><br>$param - either the next link from a previous request, or a limit or restrict
+the page size of an initial request</dd>
 				</dl></div>
 
 				<h4>Returns</h4>
 				<div class="list">
-					<code><code><a href="class-Ctct.Components.Tracking.TrackingActivity.html">Ctct\Components\Tracking\TrackingActivity</a></code></code><br>- Containing a results array of <code><a href="class-Ctct.Components.Tracking.ClickActivity.html">Ctct\Components\Tracking\ClickActivity</a></code><br />
+					<code>ResultSet</code><br>- Containing a results array of <code><a href="class-Ctct.Components.Tracking.ClickActivity.html">Ctct\Components\Tracking\ClickActivity</a></code><br />
 				</div>
 
 
@@ -1738,14 +1730,14 @@ object<br />
 
 		<td class="attributes"><code>
 			 public 
-			<code><a href="class-Ctct.Components.Tracking.TrackingActivity.html">Ctct\Components\Tracking\TrackingActivity</a></code>
+			ResultSet
 			
 			</code>
 		</td>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getContactOpens">#</a>
-		<code><a href="source-class-Ctct.ConstantContact.html#495-507" title="Go to source code">getContactOpens</a>( <span>string <var>$access_token</var></span>, <span>mixed <var>$contact</var></span>, <span>string <var>$next</var> = <span class="php-keyword1">null</span></span>, <span>integer <var>$limit</var> = <span class="php-keyword1">null</span></span> )</code>
+		<code><a href="source-class-Ctct.ConstantContact.html#557-570" title="Go to source code">getContactOpens</a>( <span>string <var>$access_token</var></span>, <span>mixed <var>$contact</var></span>, <span>mixed <var>$param</var> = <span class="php-keyword1">null</span></span> )</code>
 
 		<div class="description short">
 			
@@ -1765,15 +1757,14 @@ object<br />
 					<dd><code>string</code><br>$access_token - Constant Contact OAuth2 access token</dd>
 					<dt><var>$contact</var></dt>
 					<dd><code>mixed</code><br>$contact - Contact id or Contact object itself</dd>
-					<dt><var>$next</var></dt>
-					<dd><code>string</code><br>$next - next value returned from a previous request (used in pagination)</dd>
-					<dt><var>$limit</var></dt>
-					<dd><code>integer</code><br>$limit - number of results to return per page</dd>
+					<dt><var>$param</var></dt>
+					<dd><code>mixed</code><br>$param - either the next link from a previous request, or a limit or restrict
+the page size of an initial request</dd>
 				</dl></div>
 
 				<h4>Returns</h4>
 				<div class="list">
-					<code><code><a href="class-Ctct.Components.Tracking.TrackingActivity.html">Ctct\Components\Tracking\TrackingActivity</a></code></code><br>- Containing a results array of <code><a href="class-Ctct.Components.Tracking.OpenActivity.html">Ctct\Components\Tracking\OpenActivity</a></code><br />
+					<code>ResultSet</code><br>- Containing a results array of <code><a href="class-Ctct.Components.Tracking.OpenActivity.html">Ctct\Components\Tracking\OpenActivity</a></code><br />
 				</div>
 
 
@@ -1786,14 +1777,14 @@ object<br />
 
 		<td class="attributes"><code>
 			 public 
-			<code><a href="class-Ctct.Components.Tracking.TrackingActivity.html">Ctct\Components\Tracking\TrackingActivity</a></code>
+			ResultSet
 			
 			</code>
 		</td>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getContactForwards">#</a>
-		<code><a href="source-class-Ctct.ConstantContact.html#509-521" title="Go to source code">getContactForwards</a>( <span>string <var>$access_token</var></span>, <span>mixed <var>$contact</var></span>, <span>string <var>$next</var> = <span class="php-keyword1">null</span></span>, <span>integer <var>$limit</var> = <span class="php-keyword1">null</span></span> )</code>
+		<code><a href="source-class-Ctct.ConstantContact.html#572-585" title="Go to source code">getContactForwards</a>( <span>string <var>$access_token</var></span>, <span>mixed <var>$contact</var></span>, <span>mixed <var>$param</var> = <span class="php-keyword1">null</span></span> )</code>
 
 		<div class="description short">
 			
@@ -1813,15 +1804,14 @@ object<br />
 					<dd><code>string</code><br>$access_token - Constant Contact OAuth2 access token</dd>
 					<dt><var>$contact</var></dt>
 					<dd><code>mixed</code><br>$contact - Contact id or Contact object itself</dd>
-					<dt><var>$next</var></dt>
-					<dd><code>string</code><br>$next - next value returned from a previous request (used in pagination)</dd>
-					<dt><var>$limit</var></dt>
-					<dd><code>integer</code><br>$limit - number of results to return per page</dd>
+					<dt><var>$param</var></dt>
+					<dd><code>mixed</code><br>$param - either the next link from a previous request, or a limit or restrict
+the page size of an initial request</dd>
 				</dl></div>
 
 				<h4>Returns</h4>
 				<div class="list">
-					<code><code><a href="class-Ctct.Components.Tracking.TrackingActivity.html">Ctct\Components\Tracking\TrackingActivity</a></code></code><br>- Containing a results array of <code><a href="class-Ctct.Components.Tracking.ForwardActivity.html">Ctct\Components\Tracking\ForwardActivity</a></code><br />
+					<code>ResultSet</code><br>- Containing a results array of <code><a href="class-Ctct.Components.Tracking.ForwardActivity.html">Ctct\Components\Tracking\ForwardActivity</a></code><br />
 				</div>
 
 
@@ -1841,7 +1831,7 @@ object<br />
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getContactOptOuts">#</a>
-		<code><a href="source-class-Ctct.ConstantContact.html#523-535" title="Go to source code">getContactOptOuts</a>( <span>string <var>$access_token</var></span>, <span>mixed <var>$contact</var></span>, <span>string <var>$next</var> = <span class="php-keyword1">null</span></span>, <span>integer <var>$limit</var> = <span class="php-keyword1">null</span></span> )</code>
+		<code><a href="source-class-Ctct.ConstantContact.html#587-600" title="Go to source code">getContactOptOuts</a>( <span>string <var>$access_token</var></span>, <span>mixed <var>$contact</var></span>, <span>mixed <var>$param</var> = <span class="php-keyword1">null</span></span> )</code>
 
 		<div class="description short">
 			
@@ -1861,10 +1851,9 @@ object<br />
 					<dd><code>string</code><br>$access_token - Constant Contact OAuth2 access token</dd>
 					<dt><var>$contact</var></dt>
 					<dd><code>mixed</code><br>$contact - Contact id or Contact object itself</dd>
-					<dt><var>$next</var></dt>
-					<dd><code>string</code><br>$next - next value returned from a previous request (used in pagination)</dd>
-					<dt><var>$limit</var></dt>
-					<dd><code>integer</code><br>$limit - number of results to return per page</dd>
+					<dt><var>$param</var></dt>
+					<dd><code>mixed</code><br>$param - either the next link from a previous request, or a limit or restrict
+the page size of an initial request</dd>
 				</dl></div>
 
 				<h4>Returns</h4>
@@ -1889,7 +1878,7 @@ object<br />
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getContactSummaryReport">#</a>
-		<code><a href="source-class-Ctct.ConstantContact.html#537-549" title="Go to source code">getContactSummaryReport</a>( <span>string <var>$access_token</var></span>, <span>mixed <var>$contact</var></span> )</code>
+		<code><a href="source-class-Ctct.ConstantContact.html#602-614" title="Go to source code">getContactSummaryReport</a>( <span>string <var>$access_token</var></span>, <span>mixed <var>$contact</var></span> )</code>
 
 		<div class="description short">
 			
@@ -1914,6 +1903,258 @@ object<br />
 				<h4>Returns</h4>
 				<div class="list">
 					<code><code><a href="class-Ctct.Components.Tracking.TrackingSummary.html">Ctct\Components\Tracking\TrackingSummary</a></code></code><br />
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getActivities" id="_getActivities">
+
+		<td class="attributes"><code>
+			 public 
+			array
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getActivities">#</a>
+		<code><a href="source-class-Ctct.ConstantContact.html#616-624" title="Go to source code">getActivities</a>( <span>string <var>$accessToken</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Get an array of activities</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Get an array of activities</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$accessToken</var></dt>
+					<dd><code>string</code><br>$accessToken - Constant Contact OAuth2 access token</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>array</code><br />
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getActivity" id="_getActivity">
+
+		<td class="attributes"><code>
+			 public 
+			array
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getActivity">#</a>
+		<code><a href="source-class-Ctct.ConstantContact.html#626-635" title="Go to source code">getActivity</a>( <span>string <var>$accessToken</var></span>, <span>string <var>$activityId</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Get a single activity by id</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Get a single activity by id</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$accessToken</var></dt>
+					<dd><code>string</code><br>$accessToken - Constant Contact OAuth2 access token</dd>
+					<dt><var>$activityId</var></dt>
+					<dd><code>string</code><br>$activityId - Activity id</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>array</code><br />
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="addAddContactsActivity" id="_addAddContactsActivity">
+
+		<td class="attributes"><code>
+			 public 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_addAddContactsActivity">#</a>
+		<code><a href="source-class-Ctct.ConstantContact.html#637-645" title="Go to source code">addAddContactsActivity</a>( <span>string <var>$accessToken</var></span>, <span><code><a href="class-Ctct.Components.Activities.AddContacts.html">Ctct\Components\Activities\AddContacts</a></code> <var>$addContactsActivity</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Add an AddContacts Activity to add contacts in bulk</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Add an AddContacts Activity to add contacts in bulk</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$accessToken</var></dt>
+					<dd><code>string</code><br>$accessToken - Constant Contact OAuth2 access token</dd>
+					<dt><var>$addContactsActivity</var></dt>
+					<dd><code><code><a href="class-Ctct.Components.Activities.AddContacts.html">Ctct\Components\Activities\AddContacts</a></code></code><br>- Add Contacts Activity</dd>
+				</dl></div>
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="addClearListsActivity" id="_addClearListsActivity">
+
+		<td class="attributes"><code>
+			 public 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_addClearListsActivity">#</a>
+		<code><a href="source-class-Ctct.ConstantContact.html#647-655" title="Go to source code">addClearListsActivity</a>( <span>string <var>$accessToken</var></span>, <span>array <var>$lists</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Add an ClearLists Activity to remove all contacts from the provided lists</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Add an ClearLists Activity to remove all contacts from the provided lists</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$accessToken</var></dt>
+					<dd><code>string</code><br>$accessToken - Constant Contact OAuth2 access token</dd>
+					<dt><var>$lists</var></dt>
+					<dd><code><code><a href="class-Ctct.Components.Activities.AddContacts.html">Ctct\Components\Activities\AddContacts</a></code></code><br>- Add Contacts Activity</dd>
+				</dl></div>
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="addRemoveContactsFromListsActivity" id="_addRemoveContactsFromListsActivity">
+
+		<td class="attributes"><code>
+			 public 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_addRemoveContactsFromListsActivity">#</a>
+		<code><a href="source-class-Ctct.ConstantContact.html#657-667" title="Go to source code">addRemoveContactsFromListsActivity</a>( <span>string <var>$accessToken</var></span>, <span>array <var>$emailAddresses</var></span>, <span>array <var>$lists</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Add a Remove Contacts From Lists Activity</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Add a Remove Contacts From Lists Activity</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$accessToken</var></dt>
+					<dd><code>string</code><br>$accessToken - Constant Contact OAuth2 access token</dd>
+					<dt><var>$emailAddresses</var></dt>
+					<dd><code>array</code><br>$emailAddresses - email addresses to be removed</dd>
+					<dt><var>$lists</var></dt>
+					<dd><code>array</code><br>$lists - lists to remove the provided email addresses from</dd>
+				</dl></div>
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="addExportContactsActivity" id="_addExportContactsActivity">
+
+		<td class="attributes"><code>
+			 public 
+			array
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_addExportContactsActivity">#</a>
+		<code><a href="source-class-Ctct.ConstantContact.html#669-678" title="Go to source code">addExportContactsActivity</a>( <span>string <var>$accessToken</var></span>, <span><code><a href="class-Ctct.Components.Activities.ExportContacts.html">Ctct\Components\Activities\ExportContacts</a></code> <var>$exportContacts</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Create an Export Contacts Activity</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Create an Export Contacts Activity</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$accessToken</var></dt>
+					<dd><code>string</code><br>$accessToken - Constant Contact OAuth2 access token</dd>
+					<dt><var>$exportContacts</var></dt>
+					<dd><code><code><a href="class-Ctct.Components.Activities.ExportContacts.html">Ctct\Components\Activities\ExportContacts</a></code></code><br>$exportContacts</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>array</code><br>- Array of all ActivitySummaryReports<br />
 				</div>
 
 

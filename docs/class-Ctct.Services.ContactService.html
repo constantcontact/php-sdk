@@ -7,7 +7,7 @@
 	<title>Class Ctct\Services\ContactService | Appconnect PHP SDK</title>
 
 	<script type="text/javascript" src="resources/combined.js?554516056"></script>
-	<script type="text/javascript" src="elementlist.js?3513118642"></script>
+	<script type="text/javascript" src="elementlist.js?4180708406"></script>
 	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?3505392360" />
 
 </head>
@@ -27,9 +27,11 @@
 						</li>
 				<li><a href="namespace-Ctct.Components.html">Components<span></span></a>
 						<ul>
-				<li><a href="namespace-Ctct.Components.Campaigns.html">Campaigns</a>
+				<li><a href="namespace-Ctct.Components.Activities.html">Activities</a>
 						</li>
 				<li><a href="namespace-Ctct.Components.Contacts.html">Contacts</a>
+						</li>
+				<li><a href="namespace-Ctct.Components.EmailCampaigns.html">EmailCampaigns</a>
 						</li>
 				<li><a href="namespace-Ctct.Components.Tracking.html">Tracking</a>
 						</li>
@@ -50,12 +52,13 @@
 		<div id="elements">
 			<h3>Classes</h3>
 			<ul>
+				<li><a href="class-Ctct.Services.ActivityService.html">ActivityService</a></li>
 				<li><a href="class-Ctct.Services.BaseService.html">BaseService</a></li>
 				<li><a href="class-Ctct.Services.CampaignScheduleService.html">CampaignScheduleService</a></li>
-				<li><a href="class-Ctct.Services.CampaignService.html">CampaignService</a></li>
 				<li><a href="class-Ctct.Services.CampaignTrackingService.html">CampaignTrackingService</a></li>
 				<li class="active"><a href="class-Ctct.Services.ContactService.html">ContactService</a></li>
 				<li><a href="class-Ctct.Services.ContactTrackingService.html">ContactTrackingService</a></li>
+				<li><a href="class-Ctct.Services.EmailCampaignService.html">EmailCampaignService</a></li>
 				<li><a href="class-Ctct.Services.ListService.html">ListService</a></li>
 			</ul>
 
@@ -138,7 +141,7 @@
 
 				<b>Author:</b>
 				Constant Contact<br />
-		<b>Located at</b> <a href="source-class-Ctct.Services.ContactService.html#8-136" title="Go to source code">Ctct/Services/ContactService.php</a><br />
+		<b>Located at</b> <a href="source-class-Ctct.Services.ContactService.html#9-118" title="Go to source code">Ctct/Services/ContactService.php</a><br />
 	</div>
 
 
@@ -148,25 +151,25 @@
 	<tr data-order="getContacts" id="_getContacts">
 
 		<td class="attributes"><code>
-			 public static
-			array
+			 public 
+			<code><a href="class-Ctct.Components.ResultSet.html">Ctct\Components\ResultSet</a></code>
 			
 			</code>
 		</td>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getContacts">#</a>
-		<code><a href="source-class-Ctct.Services.ContactService.html#17-37" title="Go to source code">getContacts</a>( <span>string <var>$access_token</var></span>, <span>integer <var>$offset</var> = <span class="php-keyword1">null</span></span>, <span>integer <var>$limit</var> = <span class="php-keyword1">null</span></span> )</code>
+		<code><a href="source-class-Ctct.Services.ContactService.html#18-38" title="Go to source code">getContacts</a>( <span>string <var>$access_token</var></span>, <span>integer <var>$param</var> = <span class="php-keyword1">null</span></span> )</code>
 
 		<div class="description short">
 			
-<p>Get an array of contacts</p>
+<p>Get a ResultSet of contacts</p>
 
 		</div>
 
 		<div class="description detailed hidden">
 			
-<p>Get an array of contacts</p>
+<p>Get a ResultSet of contacts</p>
 
 
 
@@ -174,15 +177,13 @@
 				<div class="list"><dl>
 					<dt><var>$access_token</var></dt>
 					<dd><code>string</code><br>$access_token - Constant Contact OAuth2 access token</dd>
-					<dt><var>$offset</var></dt>
-					<dd><code>integer</code><br>$offset - denotes the starting number for the result set</dd>
-					<dt><var>$limit</var></dt>
-					<dd><code>integer</code><br>$limit - denotes the number of results per set</dd>
+					<dt><var>$param</var></dt>
+					<dd><code>integer</code><br>$param - query param to be appended to the url (ie: limit, next, email)</dd>
 				</dl></div>
 
 				<h4>Returns</h4>
 				<div class="list">
-					<code>array</code><br />
+					<code><code><a href="class-Ctct.Components.ResultSet.html">Ctct\Components\ResultSet</a></code></code><br />
 				</div>
 
 
@@ -194,7 +195,7 @@
 	<tr data-order="getContact" id="_getContact">
 
 		<td class="attributes"><code>
-			 public static
+			 public 
 			<code><a href="class-Ctct.Components.Contacts.Contact.html">Ctct\Components\Contacts\Contact</a></code>
 			
 			</code>
@@ -202,7 +203,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getContact">#</a>
-		<code><a href="source-class-Ctct.Services.ContactService.html#39-50" title="Go to source code">getContact</a>( <span>string <var>$access_token</var></span>, <span>integer <var>$contact_id</var></span> )</code>
+		<code><a href="source-class-Ctct.Services.ContactService.html#40-51" title="Go to source code">getContact</a>( <span>string <var>$access_token</var></span>, <span>integer <var>$contact_id</var></span> )</code>
 
 		<div class="description short">
 			
@@ -235,54 +236,10 @@
 		</div>
 		</div></td>
 	</tr>
-	<tr data-order="getContactByEmail" id="_getContactByEmail">
-
-		<td class="attributes"><code>
-			 public static
-			array
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_getContactByEmail">#</a>
-		<code><a href="source-class-Ctct.Services.ContactService.html#52-69" title="Go to source code">getContactByEmail</a>( <span>string <var>$access_token</var></span>, <span>string <var>$email</var></span> )</code>
-
-		<div class="description short">
-			
-<p>Get contacts with a specified email eaddress</p>
-
-		</div>
-
-		<div class="description detailed hidden">
-			
-<p>Get contacts with a specified email eaddress</p>
-
-
-
-				<h4>Parameters</h4>
-				<div class="list"><dl>
-					<dt><var>$access_token</var></dt>
-					<dd><code>string</code><br>$access_token - Constant Contact OAuth2 access token</dd>
-					<dt><var>$email</var></dt>
-					<dd><code>string</code><br>$email - contact email address to search for</dd>
-				</dl></div>
-
-				<h4>Returns</h4>
-				<div class="list">
-					<code>array</code><br />
-				</div>
-
-
-
-
-		</div>
-		</div></td>
-	</tr>
 	<tr data-order="addContact" id="_addContact">
 
 		<td class="attributes"><code>
-			 public static
+			 public 
 			<code><a href="class-Ctct.Components.Contacts.Contact.html">Ctct\Components\Contacts\Contact</a></code>
 			
 			</code>
@@ -290,7 +247,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_addContact">#</a>
-		<code><a href="source-class-Ctct.Services.ContactService.html#71-82" title="Go to source code">addContact</a>( <span>string <var>$access_token</var></span>, <span><code><a href="class-Ctct.Components.Contacts.Contact.html">Ctct\Components\Contacts\Contact</a></code> <var>$contact</var></span> )</code>
+		<code><a href="source-class-Ctct.Services.ContactService.html#53-64" title="Go to source code">addContact</a>( <span>string <var>$access_token</var></span>, <span><code><a href="class-Ctct.Components.Contacts.Contact.html">Ctct\Components\Contacts\Contact</a></code> <var>$contact</var></span> )</code>
 
 		<div class="description short">
 			
@@ -326,7 +283,7 @@
 	<tr data-order="deleteContact" id="_deleteContact">
 
 		<td class="attributes"><code>
-			 public static
+			 public 
 			boolean
 			
 			</code>
@@ -334,7 +291,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_deleteContact">#</a>
-		<code><a href="source-class-Ctct.Services.ContactService.html#84-95" title="Go to source code">deleteContact</a>( <span>string <var>$access_token</var></span>, <span>integer <var>$contact_id</var></span> )</code>
+		<code><a href="source-class-Ctct.Services.ContactService.html#66-77" title="Go to source code">deleteContact</a>( <span>string <var>$access_token</var></span>, <span>integer <var>$contact_id</var></span> )</code>
 
 		<div class="description short">
 			
@@ -370,7 +327,7 @@
 	<tr data-order="deleteContactFromLists" id="_deleteContactFromLists">
 
 		<td class="attributes"><code>
-			 public static
+			 public 
 			boolean
 			
 			</code>
@@ -378,7 +335,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_deleteContactFromLists">#</a>
-		<code><a href="source-class-Ctct.Services.ContactService.html#97-108" title="Go to source code">deleteContactFromLists</a>( <span>string <var>$access_token</var></span>, <span>integer <var>$contact_id</var></span> )</code>
+		<code><a href="source-class-Ctct.Services.ContactService.html#79-90" title="Go to source code">deleteContactFromLists</a>( <span>string <var>$access_token</var></span>, <span>integer <var>$contact_id</var></span> )</code>
 
 		<div class="description short">
 			
@@ -414,7 +371,7 @@
 	<tr data-order="deleteContactFromList" id="_deleteContactFromList">
 
 		<td class="attributes"><code>
-			 public static
+			 public 
 			boolean
 			
 			</code>
@@ -422,7 +379,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_deleteContactFromList">#</a>
-		<code><a href="source-class-Ctct.Services.ContactService.html#110-122" title="Go to source code">deleteContactFromList</a>( <span>string <var>$access_token</var></span>, <span>integer <var>$contact_id</var></span>, <span>integer <var>$list_id</var></span> )</code>
+		<code><a href="source-class-Ctct.Services.ContactService.html#92-104" title="Go to source code">deleteContactFromList</a>( <span>string <var>$access_token</var></span>, <span>integer <var>$contact_id</var></span>, <span>integer <var>$list_id</var></span> )</code>
 
 		<div class="description short">
 			
@@ -460,7 +417,7 @@
 	<tr data-order="updateContact" id="_updateContact">
 
 		<td class="attributes"><code>
-			 public static
+			 public 
 			<code><a href="class-Ctct.Components.Contacts.Contact.html">Ctct\Components\Contacts\Contact</a></code>
 			
 			</code>
@@ -468,7 +425,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_updateContact">#</a>
-		<code><a href="source-class-Ctct.Services.ContactService.html#124-135" title="Go to source code">updateContact</a>( <span>string <var>$access_token</var></span>, <span><code><a href="class-Ctct.Components.Contacts.Contact.html">Ctct\Components\Contacts\Contact</a></code> <var>$contact</var></span> )</code>
+		<code><a href="source-class-Ctct.Services.ContactService.html#106-117" title="Go to source code">updateContact</a>( <span>string <var>$access_token</var></span>, <span><code><a href="class-Ctct.Components.Contacts.Contact.html">Ctct\Components\Contacts\Contact</a></code> <var>$contact</var></span> )</code>
 
 		<div class="description short">
 			

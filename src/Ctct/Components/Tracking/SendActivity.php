@@ -7,9 +7,9 @@ use Ctct\Components\Component;
 /**
  * Represents a Sent Activity
  *
- * @package 	Components
- * @subpackage 	CampaignTracking
- * @author 		Constant Contact
+ * @package     Components
+ * @subpackage     CampaignTracking
+ * @author         Constant Contact
  */
 class SendActivity extends Component
 {

@@ -1,0 +1,52 @@
+[
+    {
+        "id": "a07e1ikxwuphd4nwjxl",
+        "type": "EXPORT_CONTACTS",
+        "status": "COMPLETE",
+        "start_date": "2013-02-13T15:57:03.627Z",
+        "finish_date": "2013-02-13T15:57:03.649Z",
+        "created_date": "2013-02-13T15:56:14.697Z",
+        "error_count": 0,
+        "contact_count": 0
+    },
+    {
+        "id": "a07e1ikxwuohd4ni3no",
+        "type": "EXPORT_CONTACTS",
+        "status": "COMPLETE",
+        "start_date": "2013-02-13T15:45:02.959Z",
+        "finish_date": "2013-02-13T15:45:03.146Z",
+        "created_date": "2013-02-13T15:45:00.420Z",
+        "error_count": 0,
+        "contact_count": 0
+    },
+    {
+        "id": "a07e1ikxyomhd4la0o9",
+        "type": "REMOVE_CONTACTS_FROM_LISTS",
+        "status": "COMPLETE",
+        "start_date": "2013-02-13T14:43:01.635Z",
+        "finish_date": "2013-02-13T14:43:01.662Z",
+        "created_date": "2013-02-13T14:42:44.073Z",
+        "error_count": 2,
+        "contact_count": 2
+    },
+    {
+        "id": "a07e1ikxwujhd4j5dpm",
+        "type": "CLEAR_CONTACTS_FROM_LISTS",
+        "status": "COMPLETE",
+        "start_date": "2013-02-13T13:44:01.186Z",
+        "finish_date": "2013-02-13T13:44:03.330Z",
+        "created_date": "2013-02-13T13:43:08.458Z",
+        "error_count": 0,
+        "contact_count": 352
+    },
+    {
+        "id": "a07e1ikqlv6hcxbe11w",
+        "type": "REMOVE_CONTACTS_FROM_LISTS",
+        "status": "COMPLETE",
+        "start_date": "2013-02-08T12:31:56.472Z",
+        "finish_date": "2013-02-08T12:31:56.525Z",
+        "created_date": "2013-02-08T12:31:31.796Z",
+        "error_count": 2,
+        "contact_count": 2
+    }
+]

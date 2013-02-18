@@ -1,7 +1,7 @@
 {
     "meta": {
         "pagination": {
-            "next": "/v2/campaigns/1100394165290/tracking/unsubscribes?limit=2&next=135"
+            "next_link": "/v2/emailcampaigns/1100394165290/tracking/unsubscribes?next=bGltaXQ9MyZuZXh0PTEzNTQ4MTcyMTA0MzA"
         }
     },
     "results": [

@@ -7,9 +7,9 @@ use Ctct\Components\Component;
 /**
  * Represents a single Opt Out Activity
  *
- * @package 	Components
- * @subpackage 	CampaignTracking
- * @author 		Constant Contact
+ * @package     Components
+ * @subpackage     CampaignTracking
+ * @author         Constant Contact
  */
 class OptOutActivity extends Component
 {

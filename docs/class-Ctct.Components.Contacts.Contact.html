@@ -7,7 +7,7 @@
 	<title>Class Ctct\Components\Contacts\Contact | Appconnect PHP SDK</title>
 
 	<script type="text/javascript" src="resources/combined.js?554516056"></script>
-	<script type="text/javascript" src="elementlist.js?3513118642"></script>
+	<script type="text/javascript" src="elementlist.js?4180708406"></script>
 	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?3505392360" />
 
 </head>
@@ -27,9 +27,11 @@
 						</li>
 				<li class="active"><a href="namespace-Ctct.Components.html">Components<span></span></a>
 						<ul>
-				<li><a href="namespace-Ctct.Components.Campaigns.html">Campaigns</a>
+				<li><a href="namespace-Ctct.Components.Activities.html">Activities</a>
 						</li>
 				<li class="active"><a href="namespace-Ctct.Components.Contacts.html">Contacts</a>
+						</li>
+				<li><a href="namespace-Ctct.Components.EmailCampaigns.html">EmailCampaigns</a>
 						</li>
 				<li><a href="namespace-Ctct.Components.Tracking.html">Tracking</a>
 						</li>
@@ -137,7 +139,7 @@
 
 				<b>Author:</b>
 				Constant Contact<br />
-		<b>Located at</b> <a href="source-class-Ctct.Components.Contacts.Contact.html#6-247" title="Go to source code">Ctct/Components/Contacts/Contact.php</a><br />
+		<b>Located at</b> <a href="source-class-Ctct.Components.Contacts.Contact.html#7-244" title="Go to source code">Ctct/Components/Contacts/Contact.php</a><br />
 	</div>
 
 
@@ -155,7 +157,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_create">#</a>
-		<code><a href="source-class-Ctct.Components.Contacts.Contact.html#166-225" title="Go to source code">create</a>( <span>array <var>$props</var></span> )</code>
+		<code><a href="source-class-Ctct.Components.Contacts.Contact.html#143-194" title="Go to source code">create</a>( <span>array <var>$props</var></span> )</code>
 
 		<div class="description short">
 			
@@ -186,7 +188,7 @@
 		</div>
 		</div></td>
 	</tr>
-	<tr data-order="add_list" id="_add_list">
+	<tr data-order="addList" id="_addList">
 
 		<td class="attributes"><code>
 			 public 
@@ -196,17 +198,26 @@
 		</td>
 
 		<td class="name"><div>
-		<a class="anchor" href="#_add_list">#</a>
-		<code><a href="source-class-Ctct.Components.Contacts.Contact.html#227-230" title="Go to source code">add_list</a>( <span><code><a href="class-Ctct.Components.Contacts.ContactList.html">Ctct\Components\Contacts\ContactList</a></code> <var>$contact_list</var></span> )</code>
+		<a class="anchor" href="#_addList">#</a>
+		<code><a href="source-class-Ctct.Components.Contacts.Contact.html#196-207" title="Go to source code">addList</a>( <span>mixed <var>$contactList</var></span> )</code>
 
 		<div class="description short">
 			
+<p>Add a ContactList</p>
+
 		</div>
 
 		<div class="description detailed hidden">
 			
+<p>Add a ContactList</p>
 
 
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$contactList</var></dt>
+					<dd><code>mixed</code><br>$contactList - ContactList object or contact list id</dd>
+				</dl></div>
 
 
 
@@ -215,7 +226,7 @@
 		</div>
 		</div></td>
 	</tr>
-	<tr data-order="add_email" id="_add_email">
+	<tr data-order="addEmail" id="_addEmail">
 
 		<td class="attributes"><code>
 			 public 
@@ -225,17 +236,26 @@
 		</td>
 
 		<td class="name"><div>
-		<a class="anchor" href="#_add_email">#</a>
-		<code><a href="source-class-Ctct.Components.Contacts.Contact.html#232-235" title="Go to source code">add_email</a>( <span><code><a href="class-Ctct.Components.Contacts.EmailAddress.html">Ctct\Components\Contacts\EmailAddress</a></code> <var>$email_address</var></span> )</code>
+		<a class="anchor" href="#_addEmail">#</a>
+		<code><a href="source-class-Ctct.Components.Contacts.Contact.html#209-220" title="Go to source code">addEmail</a>( <span>mixed <var>$emailAddress</var></span> )</code>
 
 		<div class="description short">
 			
+<p>Add an EmailAddress</p>
+
 		</div>
 
 		<div class="description detailed hidden">
 			
+<p>Add an EmailAddress</p>
 
 
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$emailAddress</var></dt>
+					<dd><code>mixed</code><br>$emailAddress - EmailAddress object or email address</dd>
+				</dl></div>
 
 
 
@@ -244,7 +264,7 @@
 		</div>
 		</div></td>
 	</tr>
-	<tr data-order="add_address" id="_add_address">
+	<tr data-order="addCustomField" id="_addCustomField">
 
 		<td class="attributes"><code>
 			 public 
@@ -254,17 +274,26 @@
 		</td>
 
 		<td class="name"><div>
-		<a class="anchor" href="#_add_address">#</a>
-		<code><a href="source-class-Ctct.Components.Contacts.Contact.html#237-240" title="Go to source code">add_address</a>( <span><code><a href="class-Ctct.Components.Contacts.Address.html">Ctct\Components\Contacts\Address</a></code> <var>$address</var></span> )</code>
+		<a class="anchor" href="#_addCustomField">#</a>
+		<code><a href="source-class-Ctct.Components.Contacts.Contact.html#222-229" title="Go to source code">addCustomField</a>( <span><code><a href="class-Ctct.Components.Contacts.CustomField.html">Ctct\Components\Contacts\CustomField</a></code> <var>$customField</var></span> )</code>
 
 		<div class="description short">
 			
+<p>Add a custom field to the contact object</p>
+
 		</div>
 
 		<div class="description detailed hidden">
 			
+<p>Add a custom field to the contact object</p>
 
 
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$customField</var></dt>
+					<dd><code><code><a href="class-Ctct.Components.Contacts.CustomField.html">Ctct\Components\Contacts\CustomField</a></code></code><br>$customField - custom field to add to the contact</dd>
+				</dl></div>
 
 
 
@@ -273,7 +302,7 @@
 		</div>
 		</div></td>
 	</tr>
-	<tr data-order="to_json" id="_to_json">
+	<tr data-order="addAddress" id="_addAddress">
 
 		<td class="attributes"><code>
 			 public 
@@ -283,8 +312,46 @@
 		</td>
 
 		<td class="name"><div>
-		<a class="anchor" href="#_to_json">#</a>
-		<code><a href="source-class-Ctct.Components.Contacts.Contact.html#242-245" title="Go to source code">to_json</a>( )</code>
+		<a class="anchor" href="#_addAddress">#</a>
+		<code><a href="source-class-Ctct.Components.Contacts.Contact.html#231-238" title="Go to source code">addAddress</a>( <span><code><a href="class-Ctct.Components.Contacts.Address.html">Ctct\Components\Contacts\Address</a></code> <var>$address</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Add an address</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Add an address</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$address</var></dt>
+					<dd><code><code><a href="class-Ctct.Components.Contacts.Address.html">Ctct\Components\Contacts\Address</a></code></code><br>$address - Address to add</dd>
+				</dl></div>
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="toJson" id="_toJson">
+
+		<td class="attributes"><code>
+			 public 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_toJson">#</a>
+		<code><a href="source-class-Ctct.Components.Contacts.Contact.html#240-243" title="Go to source code">toJson</a>( )</code>
 
 		<div class="description short">
 			
@@ -332,7 +399,7 @@
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-Ctct.Components.Contacts.Contact.html#15-19" title="Go to source code"><var>$id</var></a>
+				<a href="source-class-Ctct.Components.Contacts.Contact.html#17-21" title="Go to source code"><var>$id</var></a>
 		</td>
 		<td class="value"><code></code></td>
 		<td class="description"><div>
@@ -359,7 +426,7 @@
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-Ctct.Components.Contacts.Contact.html#21-25" title="Go to source code"><var>$status</var></a>
+				<a href="source-class-Ctct.Components.Contacts.Contact.html#23-27" title="Go to source code"><var>$status</var></a>
 		</td>
 		<td class="value"><code></code></td>
 		<td class="description"><div>
@@ -388,7 +455,7 @@
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-Ctct.Components.Contacts.Contact.html#27-31" title="Go to source code"><var>$first_name</var></a>
+				<a href="source-class-Ctct.Components.Contacts.Contact.html#29-33" title="Go to source code"><var>$first_name</var></a>
 		</td>
 		<td class="value"><code></code></td>
 		<td class="description"><div>
@@ -415,7 +482,7 @@
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-Ctct.Components.Contacts.Contact.html#33-37" title="Go to source code"><var>$middle_name</var></a>
+				<a href="source-class-Ctct.Components.Contacts.Contact.html#35-39" title="Go to source code"><var>$middle_name</var></a>
 		</td>
 		<td class="value"><code></code></td>
 		<td class="description"><div>
@@ -442,7 +509,7 @@
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-Ctct.Components.Contacts.Contact.html#39-43" title="Go to source code"><var>$last_name</var></a>
+				<a href="source-class-Ctct.Components.Contacts.Contact.html#41-45" title="Go to source code"><var>$last_name</var></a>
 		</td>
 		<td class="value"><code></code></td>
 		<td class="description"><div>
@@ -469,7 +536,7 @@
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-Ctct.Components.Contacts.Contact.html#45-49" title="Go to source code"><var>$confirmed</var></a>
+				<a href="source-class-Ctct.Components.Contacts.Contact.html#47-51" title="Go to source code"><var>$confirmed</var></a>
 		</td>
 		<td class="value"><code></code></td>
 		<td class="description"><div>
@@ -496,7 +563,7 @@
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-Ctct.Components.Contacts.Contact.html#51-55" title="Go to source code"><var>$source</var></a>
+				<a href="source-class-Ctct.Components.Contacts.Contact.html#53-57" title="Go to source code"><var>$source</var></a>
 		</td>
 		<td class="value"><code></code></td>
 		<td class="description"><div>
@@ -523,7 +590,7 @@
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-Ctct.Components.Contacts.Contact.html#57-61" title="Go to source code"><var>$email_addresses</var></a>
+				<a href="source-class-Ctct.Components.Contacts.Contact.html#59-63" title="Go to source code"><var>$email_addresses</var></a>
 		</td>
 		<td class="value"><code><span class="php-keyword1">array</span>()</code></td>
 		<td class="description"><div>
@@ -550,7 +617,7 @@
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-Ctct.Components.Contacts.Contact.html#63-67" title="Go to source code"><var>$prefix_name</var></a>
+				<a href="source-class-Ctct.Components.Contacts.Contact.html#65-69" title="Go to source code"><var>$prefix_name</var></a>
 		</td>
 		<td class="value"><code></code></td>
 		<td class="description"><div>
@@ -577,7 +644,7 @@
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-Ctct.Components.Contacts.Contact.html#69-73" title="Go to source code"><var>$job_title</var></a>
+				<a href="source-class-Ctct.Components.Contacts.Contact.html#71-75" title="Go to source code"><var>$job_title</var></a>
 		</td>
 		<td class="value"><code></code></td>
 		<td class="description"><div>
@@ -597,33 +664,6 @@
 			</div>
 		</div></td>
 	</tr>
-	<tr data-order="department_name" id="$department_name">
-		<td class="attributes"><code>
-			public  
-			string
-		</code></td>
-
-		<td class="name">
-				<a href="source-class-Ctct.Components.Contacts.Contact.html#75-79" title="Go to source code"><var>$department_name</var></a>
-		</td>
-		<td class="value"><code></code></td>
-		<td class="description"><div>
-			<a href="#$department_name" class="anchor">#</a>
-
-			<div class="description short">
-				
-<p>The department name of the contact's work place</p>
-
-			</div>
-
-			<div class="description detailed hidden">
-				
-<p>The department name of the contact's work place</p>
-
-
-			</div>
-		</div></td>
-	</tr>
 	<tr data-order="addresses" id="$addresses">
 		<td class="attributes"><code>
 			public  
@@ -631,7 +671,7 @@
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-Ctct.Components.Contacts.Contact.html#81-85" title="Go to source code"><var>$addresses</var></a>
+				<a href="source-class-Ctct.Components.Contacts.Contact.html#77-81" title="Go to source code"><var>$addresses</var></a>
 		</td>
 		<td class="value"><code><span class="php-keyword1">array</span>()</code></td>
 		<td class="description"><div>
@@ -658,7 +698,7 @@
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-Ctct.Components.Contacts.Contact.html#87-91" title="Go to source code"><var>$notes</var></a>
+				<a href="source-class-Ctct.Components.Contacts.Contact.html#83-87" title="Go to source code"><var>$notes</var></a>
 		</td>
 		<td class="value"><code><span class="php-keyword1">array</span>()</code></td>
 		<td class="description"><div>
@@ -685,7 +725,7 @@
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-Ctct.Components.Contacts.Contact.html#93-97" title="Go to source code"><var>$company_name</var></a>
+				<a href="source-class-Ctct.Components.Contacts.Contact.html#89-93" title="Go to source code"><var>$company_name</var></a>
 		</td>
 		<td class="value"><code></code></td>
 		<td class="description"><div>
@@ -712,7 +752,7 @@
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-Ctct.Components.Contacts.Contact.html#99-103" title="Go to source code"><var>$home_phone</var></a>
+				<a href="source-class-Ctct.Components.Contacts.Contact.html#95-99" title="Go to source code"><var>$home_phone</var></a>
 		</td>
 		<td class="value"><code></code></td>
 		<td class="description"><div>
@@ -739,7 +779,7 @@
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-Ctct.Components.Contacts.Contact.html#105-109" title="Go to source code"><var>$work_phone</var></a>
+				<a href="source-class-Ctct.Components.Contacts.Contact.html#101-105" title="Go to source code"><var>$work_phone</var></a>
 		</td>
 		<td class="value"><code></code></td>
 		<td class="description"><div>
@@ -766,7 +806,7 @@
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-Ctct.Components.Contacts.Contact.html#111-115" title="Go to source code"><var>$cell_phone</var></a>
+				<a href="source-class-Ctct.Components.Contacts.Contact.html#107-111" title="Go to source code"><var>$cell_phone</var></a>
 		</td>
 		<td class="value"><code></code></td>
 		<td class="description"><div>
@@ -793,7 +833,7 @@
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-Ctct.Components.Contacts.Contact.html#117-121" title="Go to source code"><var>$fax</var></a>
+				<a href="source-class-Ctct.Components.Contacts.Contact.html#113-117" title="Go to source code"><var>$fax</var></a>
 		</td>
 		<td class="value"><code></code></td>
 		<td class="description"><div>
@@ -820,7 +860,7 @@
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-Ctct.Components.Contacts.Contact.html#123-127" title="Go to source code"><var>$custom_fields</var></a>
+				<a href="source-class-Ctct.Components.Contacts.Contact.html#119-123" title="Go to source code"><var>$custom_fields</var></a>
 		</td>
 		<td class="value"><code><span class="php-keyword1">array</span>()</code></td>
 		<td class="description"><div>
@@ -840,18 +880,18 @@
 			</div>
 		</div></td>
 	</tr>
-	<tr data-order="last_update_time" id="$last_update_time">
+	<tr data-order="last_update_date" id="$last_update_date">
 		<td class="attributes"><code>
 			public  
 			string
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-Ctct.Components.Contacts.Contact.html#129-133" title="Go to source code"><var>$last_update_time</var></a>
+				<a href="source-class-Ctct.Components.Contacts.Contact.html#125-129" title="Go to source code"><var>$last_update_date</var></a>
 		</td>
 		<td class="value"><code></code></td>
 		<td class="description"><div>
-			<a href="#$last_update_time" class="anchor">#</a>
+			<a href="#$last_update_date" class="anchor">#</a>
 
 			<div class="description short">
 				
@@ -874,7 +914,7 @@
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-Ctct.Components.Contacts.Contact.html#135-139" title="Go to source code"><var>$lists</var></a>
+				<a href="source-class-Ctct.Components.Contacts.Contact.html#131-135" title="Go to source code"><var>$lists</var></a>
 		</td>
 		<td class="value"><code><span class="php-keyword1">array</span>()</code></td>
 		<td class="description"><div>
@@ -901,7 +941,7 @@
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-Ctct.Components.Contacts.Contact.html#141-145" title="Go to source code"><var>$source_details</var></a>
+				<a href="source-class-Ctct.Components.Contacts.Contact.html#137-141" title="Go to source code"><var>$source_details</var></a>
 		</td>
 		<td class="value"><code></code></td>
 		<td class="description"><div>
@@ -916,89 +956,6 @@
 			<div class="description detailed hidden">
 				
 <p>Contact source details</p>
-
-
-			</div>
-		</div></td>
-	</tr>
-	<tr data-order="source_is_url" id="$source_is_url">
-		<td class="attributes"><code>
-			public  
-			boolean
-		</code></td>
-
-		<td class="name">
-				<a href="source-class-Ctct.Components.Contacts.Contact.html#147-151" title="Go to source code"><var>$source_is_url</var></a>
-		</td>
-		<td class="value"><code></code></td>
-		<td class="description"><div>
-			<a href="#$source_is_url" class="anchor">#</a>
-
-			<div class="description short">
-				
-<p>Is contact source a URL</p>
-
-			</div>
-
-			<div class="description detailed hidden">
-				
-<p>Is contact source a URL</p>
-
-
-			</div>
-		</div></td>
-	</tr>
-	<tr data-order="action_by" id="$action_by">
-		<td class="attributes"><code>
-			public  
-			string
-		</code></td>
-
-		<td class="name">
-				<a href="source-class-Ctct.Components.Contacts.Contact.html#153-157" title="Go to source code"><var>$action_by</var></a>
-		</td>
-		<td class="value"><code></code></td>
-		<td class="description"><div>
-			<a href="#$action_by" class="anchor">#</a>
-
-			<div class="description short">
-				
-<p>Determines who the originator of the action was, must be one of
-"ACTION_BY_VISITOR", "ACTION_BY_OWNER"</p>
-
-			</div>
-
-			<div class="description detailed hidden">
-				
-<p>Determines who the originator of the action was, must be one of
-"ACTION_BY_VISITOR", "ACTION_BY_OWNER"</p>
-
-
-			</div>
-		</div></td>
-	</tr>
-	<tr data-order="web_url" id="$web_url">
-		<td class="attributes"><code>
-			public  
-			string
-		</code></td>
-
-		<td class="name">
-				<a href="source-class-Ctct.Components.Contacts.Contact.html#159-163" title="Go to source code"><var>$web_url</var></a>
-		</td>
-		<td class="value"><code></code></td>
-		<td class="description"><div>
-			<a href="#$web_url" class="anchor">#</a>
-
-			<div class="description short">
-				
-<p>Web url for this contact</p>
-
-			</div>
-
-			<div class="description detailed hidden">
-				
-<p>Web url for this contact</p>
 
 
 			</div>

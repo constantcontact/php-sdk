@@ -7,7 +7,7 @@
 	<title>Class Ctct\Services\ListService | Appconnect PHP SDK</title>
 
 	<script type="text/javascript" src="resources/combined.js?554516056"></script>
-	<script type="text/javascript" src="elementlist.js?3513118642"></script>
+	<script type="text/javascript" src="elementlist.js?4180708406"></script>
 	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?3505392360" />
 
 </head>
@@ -27,9 +27,11 @@
 						</li>
 				<li><a href="namespace-Ctct.Components.html">Components<span></span></a>
 						<ul>
-				<li><a href="namespace-Ctct.Components.Campaigns.html">Campaigns</a>
+				<li><a href="namespace-Ctct.Components.Activities.html">Activities</a>
 						</li>
 				<li><a href="namespace-Ctct.Components.Contacts.html">Contacts</a>
+						</li>
+				<li><a href="namespace-Ctct.Components.EmailCampaigns.html">EmailCampaigns</a>
 						</li>
 				<li><a href="namespace-Ctct.Components.Tracking.html">Tracking</a>
 						</li>
@@ -50,12 +52,13 @@
 		<div id="elements">
 			<h3>Classes</h3>
 			<ul>
+				<li><a href="class-Ctct.Services.ActivityService.html">ActivityService</a></li>
 				<li><a href="class-Ctct.Services.BaseService.html">BaseService</a></li>
 				<li><a href="class-Ctct.Services.CampaignScheduleService.html">CampaignScheduleService</a></li>
-				<li><a href="class-Ctct.Services.CampaignService.html">CampaignService</a></li>
 				<li><a href="class-Ctct.Services.CampaignTrackingService.html">CampaignTrackingService</a></li>
 				<li><a href="class-Ctct.Services.ContactService.html">ContactService</a></li>
 				<li><a href="class-Ctct.Services.ContactTrackingService.html">ContactTrackingService</a></li>
+				<li><a href="class-Ctct.Services.EmailCampaignService.html">EmailCampaignService</a></li>
 				<li class="active"><a href="class-Ctct.Services.ListService.html">ListService</a></li>
 			</ul>
 
@@ -138,7 +141,7 @@
 
 				<b>Author:</b>
 				Constant Contact<br />
-		<b>Located at</b> <a href="source-class-Ctct.Services.ListService.html#9-92" title="Go to source code">Ctct/Services/ListService.php</a><br />
+		<b>Located at</b> <a href="source-class-Ctct.Services.ListService.html#10-97" title="Go to source code">Ctct/Services/ListService.php</a><br />
 	</div>
 
 
@@ -156,7 +159,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getLists">#</a>
-		<code><a href="source-class-Ctct.Services.ListService.html#17-33" title="Go to source code">getLists</a>( <span>mixed <var>$access_token</var></span> )</code>
+		<code><a href="source-class-Ctct.Services.ListService.html#18-34" title="Go to source code">getLists</a>( <span>mixed <var>$access_token</var></span> )</code>
 
 		<div class="description short">
 			
@@ -198,7 +201,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_addList">#</a>
-		<code><a href="source-class-Ctct.Services.ListService.html#35-46" title="Go to source code">addList</a>( <span>string <var>$access_token</var></span>, <span><code><a href="class-Ctct.Components.Contacts.ContactList.html">Ctct\Components\Contacts\ContactList</a></code> <var>$list</var></span> )</code>
+		<code><a href="source-class-Ctct.Services.ListService.html#36-47" title="Go to source code">addList</a>( <span>string <var>$access_token</var></span>, <span><code><a href="class-Ctct.Components.Contacts.ContactList.html">Ctct\Components\Contacts\ContactList</a></code> <var>$list</var></span> )</code>
 
 		<div class="description short">
 			
@@ -242,7 +245,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_updateList">#</a>
-		<code><a href="source-class-Ctct.Services.ListService.html#48-59" title="Go to source code">updateList</a>( <span>string <var>$access_token</var></span>, <span><code><a href="class-Ctct.Components.Contacts.ContactList.html">Ctct\Components\Contacts\ContactList</a></code> <var>$list</var></span> )</code>
+		<code><a href="source-class-Ctct.Services.ListService.html#49-60" title="Go to source code">updateList</a>( <span>string <var>$access_token</var></span>, <span><code><a href="class-Ctct.Components.Contacts.ContactList.html">Ctct\Components\Contacts\ContactList</a></code> <var>$list</var></span> )</code>
 
 		<div class="description short">
 			
@@ -286,7 +289,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getList">#</a>
-		<code><a href="source-class-Ctct.Services.ListService.html#61-72" title="Go to source code">getList</a>( <span>mixed <var>$access_token</var></span>, <span>mixed <var>$list_id</var></span> )</code>
+		<code><a href="source-class-Ctct.Services.ListService.html#62-73" title="Go to source code">getList</a>( <span>mixed <var>$access_token</var></span>, <span>mixed <var>$list_id</var></span> )</code>
 
 		<div class="description short">
 			
@@ -323,14 +326,14 @@
 
 		<td class="attributes"><code>
 			 public static
-			array
+			<code><a href="class-Ctct.Components.ResultSet.html">Ctct\Components\ResultSet</a></code>
 			
 			</code>
 		</td>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getContactsFromList">#</a>
-		<code><a href="source-class-Ctct.Services.ListService.html#74-91" title="Go to source code">getContactsFromList</a>( <span>mixed <var>$access_token</var></span>, <span>mixed <var>$list_id</var></span> )</code>
+		<code><a href="source-class-Ctct.Services.ListService.html#75-96" title="Go to source code">getContactsFromList</a>( <span>mixed <var>$access_token</var></span>, <span>mixed <var>$list_id</var></span>, <span>mixed <var>$param</var> = <span class="php-keyword1">null</span></span> )</code>
 
 		<div class="description short">
 			
@@ -350,11 +353,13 @@
 					<dd><code>mixed</code><br>$access_token - Constant Contact OAuth2 access token</dd>
 					<dt><var>$list_id</var></dt>
 					<dd><code>mixed</code><br>$list_id - list id to retrieve contacts for</dd>
+					<dt><var>$param</var></dt>
+					<dd><code>mixed</code><br>$param - query param to attach to request</dd>
 				</dl></div>
 
 				<h4>Returns</h4>
 				<div class="list">
-					<code>array</code><br>- array of Contact<br />
+					<code><code><a href="class-Ctct.Components.ResultSet.html">Ctct\Components\ResultSet</a></code></code><br />
 				</div>
 
 

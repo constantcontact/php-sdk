@@ -1,15 +1,15 @@
 <?php
 
-namespace Ctct\Components\Campaigns;
+namespace Ctct\Components\EmailCampaigns;
 
 use Ctct\Components\Component;
 
 /**
  * Represents a campaign Test Send in Constant Contact
  *
- * @package 	Components
- * @subpackage 	Campaigns
- * @author 		Constant Contact
+ * @package     Components
+ * @subpackage     Campaigns
+ * @author         Constant Contact
  */
 class TestSend extends Component
 {
@@ -42,8 +42,7 @@ class TestSend extends Component
         $test_send->format = parent::getValue($props, "format");
         $test_send->personal_message = parent::getValue($props, "personal_message");
 
-        foreach($props['email_addresses'] as $email_address)
-        {
+        foreach ($props['email_addresses'] as $email_address) {
             $test_send->email_addresses[] = $email_address;
         }
 
@@ -54,7 +53,7 @@ class TestSend extends Component
      * Add an email address to the set of addresses to send the test send too
      * @param string $email_address
      */
-    public function add_email($email_address)
+    public function addEmail($email_address)
     {
         $this->email_addresses[] = $email_address;
     }
@@ -63,9 +62,8 @@ class TestSend extends Component
      * Create json used for a POST/PUT request, also handles removing attributes that will cause errors if sent
      * @return string
      */
-    public function to_json()
+    public function toJson()
     {
         return json_encode($this);
     }
-
 }

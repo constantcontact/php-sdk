@@ -1,7 +1,7 @@
 {
     "meta": {
         "pagination": {
-            "next": "/v2/campaigns/1100394165290/tracking/forwards?limit=2&next=1354817226701"
+            "next_link": "/v2/emailcampaigns/1100394165290/tracking/forwards?next=bGltaXQ9MyZuZXh0PTEzNTQ4MTcyMTA0MzA"
         }
     },
     "results": [

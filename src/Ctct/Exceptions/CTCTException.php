@@ -1,5 +1,4 @@
 <?php
-
 namespace Ctct\Exceptions;
 
 use Exception;
@@ -7,23 +6,24 @@ use Exception;
 /**
  * General exception
  * 
- * @package 	exceptions
- * @author 		djellesma
+ * @package     exceptions
+ * @author         djellesma
  */
-class CtctException extends Exception{
-	
-	private $errors;
+class CtctException extends Exception
+{
+    
+    private $errors;
     private $curlInfo;
-	
-	public function setErrors(array $errors)
-	{
-		$this->errors = $errors;
-	}
-	
-	public function getErrors()
-	{
-		return $this->errors;
-	}
+    
+    public function setErrors(array $errors)
+    {
+        $this->errors = $errors;
+    }
+    
+    public function getErrors()
+    {
+        return $this->errors;
+    }
 
     public function setCurlInfo(array $info)
     {
@@ -34,6 +34,4 @@ class CtctException extends Exception{
     {
         return $this->curlInfo;
     }
-
-
 }

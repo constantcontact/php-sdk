@@ -7,9 +7,9 @@ use Ctct\Components\Component;
 /**
  * Represents a Forward Activity
  *
- * @package 	Components
- * @subpackage 	CampaignTracking
- * @author 		Constant Contact
+ * @package     Components
+ * @subpackage     CampaignTracking
+ * @author         Constant Contact
  */
 class ForwardActivity extends Component
 {

@@ -7,7 +7,7 @@
 	<title>Class Ctct\Services\ContactService | Appconnect PHP SDK</title>
 
 	<script type="text/javascript" src="resources/combined.js?554516056"></script>
-	<script type="text/javascript" src="elementlist.js?4180708406"></script>
+	<script type="text/javascript" src="elementlist.js?3562998511"></script>
 	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?3505392360" />
 
 </head>
@@ -141,7 +141,7 @@
 
 				<b>Author:</b>
 				Constant Contact<br />
-		<b>Located at</b> <a href="source-class-Ctct.Services.ContactService.html#9-118" title="Go to source code">Ctct/Services/ContactService.php</a><br />
+		<b>Located at</b> <a href="source-class-Ctct.Services.ContactService.html#9-131" title="Go to source code">Ctct/Services/ContactService.php</a><br />
 	</div>
 
 
@@ -159,7 +159,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getContacts">#</a>
-		<code><a href="source-class-Ctct.Services.ContactService.html#18-38" title="Go to source code">getContacts</a>( <span>string <var>$access_token</var></span>, <span>integer <var>$param</var> = <span class="php-keyword1">null</span></span> )</code>
+		<code><a href="source-class-Ctct.Services.ContactService.html#18-38" title="Go to source code">getContacts</a>( <span>string <var>$accessToken</var></span>, <span>integer <var>$param</var> = <span class="php-keyword1">null</span></span> )</code>
 
 		<div class="description short">
 			
@@ -175,8 +175,8 @@
 
 				<h4>Parameters</h4>
 				<div class="list"><dl>
-					<dt><var>$access_token</var></dt>
-					<dd><code>string</code><br>$access_token - Constant Contact OAuth2 access token</dd>
+					<dt><var>$accessToken</var></dt>
+					<dd><code>string</code><br>$accessToken - Constant Contact OAuth2 access token</dd>
 					<dt><var>$param</var></dt>
 					<dd><code>integer</code><br>$param - query param to be appended to the url (ie: limit, next, email)</dd>
 				</dl></div>
@@ -203,7 +203,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getContact">#</a>
-		<code><a href="source-class-Ctct.Services.ContactService.html#40-51" title="Go to source code">getContact</a>( <span>string <var>$access_token</var></span>, <span>integer <var>$contact_id</var></span> )</code>
+		<code><a href="source-class-Ctct.Services.ContactService.html#40-51" title="Go to source code">getContact</a>( <span>string <var>$accessToken</var></span>, <span>integer <var>$contact_id</var></span> )</code>
 
 		<div class="description short">
 			
@@ -219,8 +219,8 @@
 
 				<h4>Parameters</h4>
 				<div class="list"><dl>
-					<dt><var>$access_token</var></dt>
-					<dd><code>string</code><br>$access_token - Constant Contact OAuth2 access token</dd>
+					<dt><var>$accessToken</var></dt>
+					<dd><code>string</code><br>$accessToken - Constant Contact OAuth2 access token</dd>
 					<dt><var>$contact_id</var></dt>
 					<dd><code>integer</code><br>$contact_id - Unique contact id</dd>
 				</dl></div>
@@ -247,7 +247,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_addContact">#</a>
-		<code><a href="source-class-Ctct.Services.ContactService.html#53-64" title="Go to source code">addContact</a>( <span>string <var>$access_token</var></span>, <span><code><a href="class-Ctct.Components.Contacts.Contact.html">Ctct\Components\Contacts\Contact</a></code> <var>$contact</var></span> )</code>
+		<code><a href="source-class-Ctct.Services.ContactService.html#53-70" title="Go to source code">addContact</a>( <span>string <var>$accessToken</var></span>, <span><code><a href="class-Ctct.Components.Contacts.Contact.html">Ctct\Components\Contacts\Contact</a></code> <var>$contact</var></span>, <span>boolean <var>$actionByVisitor</var> = <span class="php-keyword1">false</span></span> )</code>
 
 		<div class="description short">
 			
@@ -263,10 +263,12 @@
 
 				<h4>Parameters</h4>
 				<div class="list"><dl>
-					<dt><var>$access_token</var></dt>
-					<dd><code>string</code><br>$access_token - Constant Contact OAuth2 access token</dd>
+					<dt><var>$accessToken</var></dt>
+					<dd><code>string</code><br>$accessToken - Constant Contact OAuth2 access token</dd>
 					<dt><var>$contact</var></dt>
 					<dd><code><code><a href="class-Ctct.Components.Contacts.Contact.html">Ctct\Components\Contacts\Contact</a></code></code><br>$contact - Contact to add</dd>
+					<dt><var>$actionByVisitor</var></dt>
+					<dd><code>boolean</code><br>$actionByVisitor - is the action being taken by the visitor</dd>
 				</dl></div>
 
 				<h4>Returns</h4>
@@ -291,7 +293,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_deleteContact">#</a>
-		<code><a href="source-class-Ctct.Services.ContactService.html#66-77" title="Go to source code">deleteContact</a>( <span>string <var>$access_token</var></span>, <span>integer <var>$contact_id</var></span> )</code>
+		<code><a href="source-class-Ctct.Services.ContactService.html#72-83" title="Go to source code">deleteContact</a>( <span>string <var>$accessToken</var></span>, <span>integer <var>$contact_id</var></span> )</code>
 
 		<div class="description short">
 			
@@ -307,8 +309,8 @@
 
 				<h4>Parameters</h4>
 				<div class="list"><dl>
-					<dt><var>$access_token</var></dt>
-					<dd><code>string</code><br>$access_token - Constant Contact OAuth2 access token</dd>
+					<dt><var>$accessToken</var></dt>
+					<dd><code>string</code><br>$accessToken - Constant Contact OAuth2 access token</dd>
 					<dt><var>$contact_id</var></dt>
 					<dd><code>integer</code><br>$contact_id - Unique contact id</dd>
 				</dl></div>
@@ -335,7 +337,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_deleteContactFromLists">#</a>
-		<code><a href="source-class-Ctct.Services.ContactService.html#79-90" title="Go to source code">deleteContactFromLists</a>( <span>string <var>$access_token</var></span>, <span>integer <var>$contact_id</var></span> )</code>
+		<code><a href="source-class-Ctct.Services.ContactService.html#85-96" title="Go to source code">deleteContactFromLists</a>( <span>string <var>$accessToken</var></span>, <span>integer <var>$contact_id</var></span> )</code>
 
 		<div class="description short">
 			
@@ -351,8 +353,8 @@
 
 				<h4>Parameters</h4>
 				<div class="list"><dl>
-					<dt><var>$access_token</var></dt>
-					<dd><code>string</code><br>$access_token - Constant Contact OAuth2 access token</dd>
+					<dt><var>$accessToken</var></dt>
+					<dd><code>string</code><br>$accessToken - Constant Contact OAuth2 access token</dd>
 					<dt><var>$contact_id</var></dt>
 					<dd><code>integer</code><br>$contact_id - Contact id to be removed from lists</dd>
 				</dl></div>
@@ -379,7 +381,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_deleteContactFromList">#</a>
-		<code><a href="source-class-Ctct.Services.ContactService.html#92-104" title="Go to source code">deleteContactFromList</a>( <span>string <var>$access_token</var></span>, <span>integer <var>$contact_id</var></span>, <span>integer <var>$list_id</var></span> )</code>
+		<code><a href="source-class-Ctct.Services.ContactService.html#98-111" title="Go to source code">deleteContactFromList</a>( <span>string <var>$accessToken</var></span>, <span>integer <var>$contact_id</var></span>, <span>integer <var>$list_id</var></span> )</code>
 
 		<div class="description short">
 			
@@ -395,8 +397,8 @@
 
 				<h4>Parameters</h4>
 				<div class="list"><dl>
-					<dt><var>$access_token</var></dt>
-					<dd><code>string</code><br>$access_token - Constant Contact OAuth2 access token</dd>
+					<dt><var>$accessToken</var></dt>
+					<dd><code>string</code><br>$accessToken - Constant Contact OAuth2 access token</dd>
 					<dt><var>$contact_id</var></dt>
 					<dd><code>integer</code><br>$contact_id - Contact id to be removed</dd>
 					<dt><var>$list_id</var></dt>
@@ -425,7 +427,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_updateContact">#</a>
-		<code><a href="source-class-Ctct.Services.ContactService.html#106-117" title="Go to source code">updateContact</a>( <span>string <var>$access_token</var></span>, <span><code><a href="class-Ctct.Components.Contacts.Contact.html">Ctct\Components\Contacts\Contact</a></code> <var>$contact</var></span> )</code>
+		<code><a href="source-class-Ctct.Services.ContactService.html#113-130" title="Go to source code">updateContact</a>( <span>string <var>$accessToken</var></span>, <span><code><a href="class-Ctct.Components.Contacts.Contact.html">Ctct\Components\Contacts\Contact</a></code> <var>$contact</var></span>, <span>boolean <var>$actionByVisitor</var> = <span class="php-keyword1">false</span></span> )</code>
 
 		<div class="description short">
 			
@@ -441,10 +443,12 @@
 
 				<h4>Parameters</h4>
 				<div class="list"><dl>
-					<dt><var>$access_token</var></dt>
-					<dd><code>string</code><br>$access_token - Constant Contact OAuth2 access token</dd>
+					<dt><var>$accessToken</var></dt>
+					<dd><code>string</code><br>$accessToken - Constant Contact OAuth2 access token</dd>
 					<dt><var>$contact</var></dt>
 					<dd><code><code><a href="class-Ctct.Components.Contacts.Contact.html">Ctct\Components\Contacts\Contact</a></code></code><br>$contact - Contact to be updated</dd>
+					<dt><var>$actionByVisitor</var></dt>
+					<dd><code>boolean</code><br>$actionByVisitor - is the action being taken by the visitor</dd>
 				</dl></div>
 
 				<h4>Returns</h4>

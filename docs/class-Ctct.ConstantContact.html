@@ -7,7 +7,7 @@
 	<title>Class Ctct\ConstantContact | Appconnect PHP SDK</title>
 
 	<script type="text/javascript" src="resources/combined.js?554516056"></script>
-	<script type="text/javascript" src="elementlist.js?4180708406"></script>
+	<script type="text/javascript" src="elementlist.js?3562998511"></script>
 	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?3505392360" />
 
 </head>
@@ -53,6 +53,7 @@
 			<h3>Classes</h3>
 			<ul>
 				<li class="active"><a href="class-Ctct.ConstantContact.html">ConstantContact</a></li>
+				<li><a href="class-Ctct.SplClassLoader.html">SplClassLoader</a></li>
 			</ul>
 
 
@@ -120,7 +121,7 @@
 
 				<b>Author:</b>
 				Constant Contact<br />
-		<b>Located at</b> <a href="source-class-Ctct.ConstantContact.html#25-711" title="Go to source code">Ctct/ConstantContact.php</a><br />
+		<b>Located at</b> <a href="source-class-Ctct.ConstantContact.html#24-712" title="Go to source code">Ctct/ConstantContact.php</a><br />
 	</div>
 
 
@@ -138,7 +139,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#___construct">#</a>
-		<code><a href="source-class-Ctct.ConstantContact.html#81-95" title="Go to source code">__construct</a>( <span>string <var>$apiKey</var></span> )</code>
+		<code><a href="source-class-Ctct.ConstantContact.html#80-94" title="Go to source code">__construct</a>( <span>string <var>$apiKey</var></span> )</code>
 
 		<div class="description short">
 			
@@ -176,7 +177,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getContacts">#</a>
-		<code><a href="source-class-Ctct.ConstantContact.html#97-108" title="Go to source code">getContacts</a>( <span>string <var>$access_token</var></span>, <span>mixed <var>$param</var> = <span class="php-keyword1">null</span></span> )</code>
+		<code><a href="source-class-Ctct.ConstantContact.html#96-107" title="Go to source code">getContacts</a>( <span>string <var>$accessToken</var></span>, <span>mixed <var>$param</var> = <span class="php-keyword1">null</span></span> )</code>
 
 		<div class="description short">
 			
@@ -192,11 +193,11 @@
 
 				<h4>Parameters</h4>
 				<div class="list"><dl>
-					<dt><var>$access_token</var></dt>
-					<dd><code>string</code><br>$access_token - Constant Contact OAuth2 access token</dd>
+					<dt><var>$accessToken</var></dt>
+					<dd><code>string</code><br>$accessToken - Constant Contact OAuth2 access token</dd>
 					<dt><var>$param</var></dt>
 					<dd><code>mixed</code><br>$param - denotes the number of results per set, limited to 50, or a next
-parameter provided from a previous getCampaigns call</dd>
+parameter provided from a previous getContacts call</dd>
 				</dl></div>
 
 				<h4>Returns</h4>
@@ -221,7 +222,7 @@ parameter provided from a previous getCampaigns call</dd>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getContact">#</a>
-		<code><a href="source-class-Ctct.ConstantContact.html#110-119" title="Go to source code">getContact</a>( <span>string <var>$access_token</var></span>, <span>integer <var>$contact_id</var></span> )</code>
+		<code><a href="source-class-Ctct.ConstantContact.html#109-118" title="Go to source code">getContact</a>( <span>string <var>$accessToken</var></span>, <span>integer <var>$contactId</var></span> )</code>
 
 		<div class="description short">
 			
@@ -237,10 +238,10 @@ parameter provided from a previous getCampaigns call</dd>
 
 				<h4>Parameters</h4>
 				<div class="list"><dl>
-					<dt><var>$access_token</var></dt>
-					<dd><code>string</code><br>$access_token - Valid access token</dd>
-					<dt><var>$contact_id</var></dt>
-					<dd><code>integer</code><br>$contact_id - Id of the contact to retrieve</dd>
+					<dt><var>$accessToken</var></dt>
+					<dd><code>string</code><br>$accessToken - Valid access token</dd>
+					<dt><var>$contactId</var></dt>
+					<dd><code>integer</code><br>$contactId - Id of the contact to retrieve</dd>
 				</dl></div>
 
 				<h4>Returns</h4>
@@ -265,7 +266,7 @@ parameter provided from a previous getCampaigns call</dd>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getContactByEmail">#</a>
-		<code><a href="source-class-Ctct.ConstantContact.html#121-130" title="Go to source code">getContactByEmail</a>( <span>string <var>$access_token</var></span>, <span>string <var>$email</var></span> )</code>
+		<code><a href="source-class-Ctct.ConstantContact.html#120-129" title="Go to source code">getContactByEmail</a>( <span>string <var>$accessToken</var></span>, <span>string <var>$email</var></span> )</code>
 
 		<div class="description short">
 			
@@ -281,8 +282,8 @@ parameter provided from a previous getCampaigns call</dd>
 
 				<h4>Parameters</h4>
 				<div class="list"><dl>
-					<dt><var>$access_token</var></dt>
-					<dd><code>string</code><br>$access_token - Constant Contact OAuth2 access token</dd>
+					<dt><var>$accessToken</var></dt>
+					<dd><code>string</code><br>$accessToken - Constant Contact OAuth2 access token</dd>
 					<dt><var>$email</var></dt>
 					<dd><code>string</code><br>$email - contact email address to search for</dd>
 				</dl></div>
@@ -309,7 +310,7 @@ parameter provided from a previous getCampaigns call</dd>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_addContact">#</a>
-		<code><a href="source-class-Ctct.ConstantContact.html#132-141" title="Go to source code">addContact</a>( <span>string <var>$access_token</var></span>, <span><code><a href="class-Ctct.Components.Contacts.Contact.html">Ctct\Components\Contacts\Contact</a></code> <var>$contact</var></span> )</code>
+		<code><a href="source-class-Ctct.ConstantContact.html#131-141" title="Go to source code">addContact</a>( <span>string <var>$accessToken</var></span>, <span><code><a href="class-Ctct.Components.Contacts.Contact.html">Ctct\Components\Contacts\Contact</a></code> <var>$contact</var></span>, <span>boolean <var>$actionByVisitor</var> = <span class="php-keyword1">false</span></span> )</code>
 
 		<div class="description short">
 			
@@ -325,10 +326,12 @@ parameter provided from a previous getCampaigns call</dd>
 
 				<h4>Parameters</h4>
 				<div class="list"><dl>
-					<dt><var>$access_token</var></dt>
-					<dd><code>string</code><br>$access_token - Valid access token</dd>
+					<dt><var>$accessToken</var></dt>
+					<dd><code>string</code><br>$accessToken - Valid access token</dd>
 					<dt><var>$contact</var></dt>
 					<dd><code><code><a href="class-Ctct.Components.Contacts.Contact.html">Ctct\Components\Contacts\Contact</a></code></code><br>$contact - Contact to add</dd>
+					<dt><var>$actionByVisitor</var></dt>
+					<dd><code>boolean</code><br>$actionByVisitor - is the action being taken by the visitor</dd>
 				</dl></div>
 
 				<h4>Returns</h4>
@@ -353,7 +356,7 @@ parameter provided from a previous getCampaigns call</dd>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_deleteContact">#</a>
-		<code><a href="source-class-Ctct.ConstantContact.html#143-154" title="Go to source code">deleteContact</a>( <span>string <var>$access_token</var></span>, <span>mixed <var>$contact</var></span> )</code>
+		<code><a href="source-class-Ctct.ConstantContact.html#143-154" title="Go to source code">deleteContact</a>( <span>string <var>$accessToken</var></span>, <span>mixed <var>$contact</var></span> )</code>
 
 		<div class="description short">
 			
@@ -369,8 +372,8 @@ parameter provided from a previous getCampaigns call</dd>
 
 				<h4>Parameters</h4>
 				<div class="list"><dl>
-					<dt><var>$access_token</var></dt>
-					<dd><code>string</code><br>$access_token - Valid access token</dd>
+					<dt><var>$accessToken</var></dt>
+					<dd><code>string</code><br>$accessToken - Valid access token</dd>
 					<dt><var>$contact</var></dt>
 					<dd><code>mixed</code><br>$contact - Either a Contact id or the Contact itself</dd>
 				</dl></div>
@@ -401,7 +404,7 @@ parameter provided from a previous getCampaigns call</dd>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_deleteContactFromLists">#</a>
-		<code><a href="source-class-Ctct.ConstantContact.html#156-167" title="Go to source code">deleteContactFromLists</a>( <span>string <var>$access_token</var></span>, <span>mixed <var>$contact</var></span> )</code>
+		<code><a href="source-class-Ctct.ConstantContact.html#156-167" title="Go to source code">deleteContactFromLists</a>( <span>string <var>$accessToken</var></span>, <span>mixed <var>$contact</var></span> )</code>
 
 		<div class="description short">
 			
@@ -417,8 +420,8 @@ parameter provided from a previous getCampaigns call</dd>
 
 				<h4>Parameters</h4>
 				<div class="list"><dl>
-					<dt><var>$access_token</var></dt>
-					<dd><code>string</code><br>$access_token - Constant Contact OAuth2 access token</dd>
+					<dt><var>$accessToken</var></dt>
+					<dd><code>string</code><br>$accessToken - Constant Contact OAuth2 access token</dd>
 					<dt><var>$contact</var></dt>
 					<dd><code>mixed</code><br>$contact - Contact id or the Contact object itself</dd>
 				</dl></div>
@@ -449,7 +452,7 @@ parameter provided from a previous getCampaigns call</dd>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_deleteContactFromList">#</a>
-		<code><a href="source-class-Ctct.ConstantContact.html#169-183" title="Go to source code">deleteContactFromList</a>( <span>string <var>$access_token</var></span>, <span>mixed <var>$contact</var></span>, <span>mixed <var>$list</var></span> )</code>
+		<code><a href="source-class-Ctct.ConstantContact.html#169-184" title="Go to source code">deleteContactFromList</a>( <span>string <var>$accessToken</var></span>, <span>mixed <var>$contact</var></span>, <span>mixed <var>$list</var></span> )</code>
 
 		<div class="description short">
 			
@@ -465,8 +468,8 @@ parameter provided from a previous getCampaigns call</dd>
 
 				<h4>Parameters</h4>
 				<div class="list"><dl>
-					<dt><var>$access_token</var></dt>
-					<dd><code>string</code><br>$access_token - Constant Contact OAuth2 access token</dd>
+					<dt><var>$accessToken</var></dt>
+					<dd><code>string</code><br>$accessToken - Constant Contact OAuth2 access token</dd>
 					<dt><var>$contact</var></dt>
 					<dd><code>mixed</code><br>$contact - Contact id or a Contact object</dd>
 					<dt><var>$list</var></dt>
@@ -500,7 +503,7 @@ object<br />
 
 		<td class="name"><div>
 		<a class="anchor" href="#_updateContact">#</a>
-		<code><a href="source-class-Ctct.ConstantContact.html#185-194" title="Go to source code">updateContact</a>( <span>string <var>$access_token</var></span>, <span><code><a href="class-Ctct.Components.Contacts.Contact.html">Ctct\Components\Contacts\Contact</a></code> <var>$contact</var></span> )</code>
+		<code><a href="source-class-Ctct.ConstantContact.html#186-196" title="Go to source code">updateContact</a>( <span>string <var>$accessToken</var></span>, <span><code><a href="class-Ctct.Components.Contacts.Contact.html">Ctct\Components\Contacts\Contact</a></code> <var>$contact</var></span>, <span>boolean <var>$actionByVisitor</var></span> )</code>
 
 		<div class="description short">
 			
@@ -516,10 +519,12 @@ object<br />
 
 				<h4>Parameters</h4>
 				<div class="list"><dl>
-					<dt><var>$access_token</var></dt>
-					<dd><code>string</code><br>$access_token - Valid access token</dd>
+					<dt><var>$accessToken</var></dt>
+					<dd><code>string</code><br>$accessToken - Valid access token</dd>
 					<dt><var>$contact</var></dt>
 					<dd><code><code><a href="class-Ctct.Components.Contacts.Contact.html">Ctct\Components\Contacts\Contact</a></code></code><br>$contact - Contact to update</dd>
+					<dt><var>$actionByVisitor</var></dt>
+					<dd><code>boolean</code><br>$actionByVisitor - is the action being taken by the visitor</dd>
 				</dl></div>
 
 				<h4>Returns</h4>
@@ -544,7 +549,7 @@ object<br />
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getLists">#</a>
-		<code><a href="source-class-Ctct.ConstantContact.html#196-204" title="Go to source code">getLists</a>( <span>string <var>$access_token</var></span> )</code>
+		<code><a href="source-class-Ctct.ConstantContact.html#198-206" title="Go to source code">getLists</a>( <span>string <var>$accessToken</var></span> )</code>
 
 		<div class="description short">
 			
@@ -560,8 +565,8 @@ object<br />
 
 				<h4>Parameters</h4>
 				<div class="list"><dl>
-					<dt><var>$access_token</var></dt>
-					<dd><code>string</code><br>$access_token - Valid access token</dd>
+					<dt><var>$accessToken</var></dt>
+					<dd><code>string</code><br>$accessToken - Valid access token</dd>
 				</dl></div>
 
 				<h4>Returns</h4>
@@ -586,7 +591,7 @@ object<br />
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getList">#</a>
-		<code><a href="source-class-Ctct.ConstantContact.html#206-215" title="Go to source code">getList</a>( <span>string <var>$access_token</var></span>, <span>integer <var>$list_id</var></span> )</code>
+		<code><a href="source-class-Ctct.ConstantContact.html#208-217" title="Go to source code">getList</a>( <span>string <var>$accessToken</var></span>, <span>integer <var>$listId</var></span> )</code>
 
 		<div class="description short">
 			
@@ -602,10 +607,10 @@ object<br />
 
 				<h4>Parameters</h4>
 				<div class="list"><dl>
-					<dt><var>$access_token</var></dt>
-					<dd><code>string</code><br>$access_token - Valid access token</dd>
-					<dt><var>$list_id</var></dt>
-					<dd><code>integer</code><br>$list_id - Id of the list to retrieve</dd>
+					<dt><var>$accessToken</var></dt>
+					<dd><code>string</code><br>$accessToken - Valid access token</dd>
+					<dt><var>$listId</var></dt>
+					<dd><code>integer</code><br>$listId - Id of the list to retrieve</dd>
 				</dl></div>
 
 				<h4>Returns</h4>
@@ -630,7 +635,7 @@ object<br />
 
 		<td class="name"><div>
 		<a class="anchor" href="#_addList">#</a>
-		<code><a href="source-class-Ctct.ConstantContact.html#217-226" title="Go to source code">addList</a>( <span>string <var>$access_token</var></span>, <span><code><a href="class-Ctct.Components.Contacts.ContactList.html">Ctct\Components\Contacts\ContactList</a></code> <var>$list</var></span> )</code>
+		<code><a href="source-class-Ctct.ConstantContact.html#219-228" title="Go to source code">addList</a>( <span>string <var>$accessToken</var></span>, <span><code><a href="class-Ctct.Components.Contacts.ContactList.html">Ctct\Components\Contacts\ContactList</a></code> <var>$list</var></span> )</code>
 
 		<div class="description short">
 			
@@ -646,8 +651,8 @@ object<br />
 
 				<h4>Parameters</h4>
 				<div class="list"><dl>
-					<dt><var>$access_token</var></dt>
-					<dd><code>string</code><br>$access_token - Valid access token</dd>
+					<dt><var>$accessToken</var></dt>
+					<dd><code>string</code><br>$accessToken - Valid access token</dd>
 					<dt><var>$list</var></dt>
 					<dd><code><code><a href="class-Ctct.Components.Contacts.ContactList.html">Ctct\Components\Contacts\ContactList</a></code></code><br>$list - List to add</dd>
 				</dl></div>
@@ -674,7 +679,7 @@ object<br />
 
 		<td class="name"><div>
 		<a class="anchor" href="#_updateList">#</a>
-		<code><a href="source-class-Ctct.ConstantContact.html#228-237" title="Go to source code">updateList</a>( <span>string <var>$access_token</var></span>, <span><code><a href="class-Ctct.Components.Contacts.ContactList.html">Ctct\Components\Contacts\ContactList</a></code> <var>$list</var></span> )</code>
+		<code><a href="source-class-Ctct.ConstantContact.html#230-239" title="Go to source code">updateList</a>( <span>string <var>$accessToken</var></span>, <span><code><a href="class-Ctct.Components.Contacts.ContactList.html">Ctct\Components\Contacts\ContactList</a></code> <var>$list</var></span> )</code>
 
 		<div class="description short">
 			
@@ -690,8 +695,8 @@ object<br />
 
 				<h4>Parameters</h4>
 				<div class="list"><dl>
-					<dt><var>$access_token</var></dt>
-					<dd><code>string</code><br>$access_token - Valid access token</dd>
+					<dt><var>$accessToken</var></dt>
+					<dd><code>string</code><br>$accessToken - Valid access token</dd>
 					<dt><var>$list</var></dt>
 					<dd><code><code><a href="class-Ctct.Components.Contacts.ContactList.html">Ctct\Components\Contacts\ContactList</a></code></code><br>$list - ContactList to update</dd>
 				</dl></div>
@@ -718,7 +723,7 @@ object<br />
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getContactsFromList">#</a>
-		<code><a href="source-class-Ctct.ConstantContact.html#239-250" title="Go to source code">getContactsFromList</a>( <span>string <var>$access_token</var></span>, <span>mixed <var>$list</var></span> )</code>
+		<code><a href="source-class-Ctct.ConstantContact.html#241-252" title="Go to source code">getContactsFromList</a>( <span>string <var>$accessToken</var></span>, <span>mixed <var>$list</var></span> )</code>
 
 		<div class="description short">
 			
@@ -734,8 +739,8 @@ object<br />
 
 				<h4>Parameters</h4>
 				<div class="list"><dl>
-					<dt><var>$access_token</var></dt>
-					<dd><code>string</code><br>$access_token - Constant Contact OAuth2 access token</dd>
+					<dt><var>$accessToken</var></dt>
+					<dd><code>string</code><br>$accessToken - Constant Contact OAuth2 access token</dd>
 					<dt><var>$list</var></dt>
 					<dd><code>mixed</code><br>$list - Id of the list or a ContactList object</dd>
 				</dl></div>
@@ -766,7 +771,7 @@ object<br />
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getCampaigns">#</a>
-		<code><a href="source-class-Ctct.ConstantContact.html#252-263" title="Go to source code">getCampaigns</a>( <span>string <var>$access_token</var></span>, <span>mixed <var>$param</var> = <span class="php-keyword1">null</span></span> )</code>
+		<code><a href="source-class-Ctct.ConstantContact.html#254-265" title="Go to source code">getCampaigns</a>( <span>string <var>$accessToken</var></span>, <span>mixed <var>$param</var> = <span class="php-keyword1">null</span></span> )</code>
 
 		<div class="description short">
 			
@@ -782,8 +787,8 @@ object<br />
 
 				<h4>Parameters</h4>
 				<div class="list"><dl>
-					<dt><var>$access_token</var></dt>
-					<dd><code>string</code><br>$access_token - Constant Contact OAuth2 access token</dd>
+					<dt><var>$accessToken</var></dt>
+					<dd><code>string</code><br>$accessToken - Constant Contact OAuth2 access token</dd>
 					<dt><var>$param</var></dt>
 					<dd><code>mixed</code><br>$param - denotes the number of results per set, limited to 50, or a next
 parameter provided from a previous getCampaigns call</dd>
@@ -811,7 +816,7 @@ parameter provided from a previous getCampaigns call</dd>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getCampaign">#</a>
-		<code><a href="source-class-Ctct.ConstantContact.html#265-273" title="Go to source code">getCampaign</a>( <span>string <var>$access_token</var></span>, <span>integer <var>$campaign_id</var></span> )</code>
+		<code><a href="source-class-Ctct.ConstantContact.html#267-275" title="Go to source code">getCampaign</a>( <span>string <var>$accessToken</var></span>, <span>integer <var>$campaignId</var></span> )</code>
 
 		<div class="description short">
 			
@@ -827,10 +832,10 @@ parameter provided from a previous getCampaigns call</dd>
 
 				<h4>Parameters</h4>
 				<div class="list"><dl>
-					<dt><var>$access_token</var></dt>
-					<dd><code>string</code><br>$access_token - Constant Contact OAuth2 access token</dd>
-					<dt><var>$campaign_id</var></dt>
-					<dd><code>integer</code><br>$campaign_id - Valid campaign id</dd>
+					<dt><var>$accessToken</var></dt>
+					<dd><code>string</code><br>$accessToken - Constant Contact OAuth2 access token</dd>
+					<dt><var>$campaignId</var></dt>
+					<dd><code>integer</code><br>$campaignId - Valid campaign id</dd>
 				</dl></div>
 
 
@@ -851,7 +856,7 @@ parameter provided from a previous getCampaigns call</dd>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_deleteCampaign">#</a>
-		<code><a href="source-class-Ctct.ConstantContact.html#275-286" title="Go to source code">deleteCampaign</a>( <span>string <var>$access_token</var></span>, <span>mixed <var>$campaign</var></span> )</code>
+		<code><a href="source-class-Ctct.ConstantContact.html#277-288" title="Go to source code">deleteCampaign</a>( <span>string <var>$accessToken</var></span>, <span>mixed <var>$campaign</var></span> )</code>
 
 		<div class="description short">
 			
@@ -867,8 +872,8 @@ parameter provided from a previous getCampaigns call</dd>
 
 				<h4>Parameters</h4>
 				<div class="list"><dl>
-					<dt><var>$access_token</var></dt>
-					<dd><code>string</code><br>$access_token - Constant Contact OAuth2 access token</dd>
+					<dt><var>$accessToken</var></dt>
+					<dd><code>string</code><br>$accessToken - Constant Contact OAuth2 access token</dd>
 					<dt><var>$campaign</var></dt>
 					<dd><code>mixed</code><br>$campaign - Id of a campaign or a Campaign object itself</dd>
 				</dl></div>
@@ -899,7 +904,7 @@ parameter provided from a previous getCampaigns call</dd>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_addCampaign">#</a>
-		<code><a href="source-class-Ctct.ConstantContact.html#288-297" title="Go to source code">addCampaign</a>( <span>string <var>$access_token</var></span>, <span>Ctct\Campaign <var>$campaign</var></span> )</code>
+		<code><a href="source-class-Ctct.ConstantContact.html#290-299" title="Go to source code">addCampaign</a>( <span>string <var>$accessToken</var></span>, <span>Ctct\Campaign <var>$campaign</var></span> )</code>
 
 		<div class="description short">
 			
@@ -915,8 +920,8 @@ parameter provided from a previous getCampaigns call</dd>
 
 				<h4>Parameters</h4>
 				<div class="list"><dl>
-					<dt><var>$access_token</var></dt>
-					<dd><code>string</code><br>$access_token - Constant Contact OAuth2 access token</dd>
+					<dt><var>$accessToken</var></dt>
+					<dd><code>string</code><br>$accessToken - Constant Contact OAuth2 access token</dd>
 					<dt><var>$campaign</var></dt>
 					<dd><code>Campaign</code><br>$campaign - Campaign to be created</dd>
 				</dl></div>
@@ -943,7 +948,7 @@ parameter provided from a previous getCampaigns call</dd>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_updateCampaign">#</a>
-		<code><a href="source-class-Ctct.ConstantContact.html#299-308" title="Go to source code">updateCampaign</a>( <span>string <var>$access_token</var></span>, <span>Ctct\Campaign <var>$campaign</var></span> )</code>
+		<code><a href="source-class-Ctct.ConstantContact.html#301-310" title="Go to source code">updateCampaign</a>( <span>string <var>$accessToken</var></span>, <span>Ctct\Campaign <var>$campaign</var></span> )</code>
 
 		<div class="description short">
 			
@@ -959,8 +964,8 @@ parameter provided from a previous getCampaigns call</dd>
 
 				<h4>Parameters</h4>
 				<div class="list"><dl>
-					<dt><var>$access_token</var></dt>
-					<dd><code>string</code><br>$access_token - Constant Contact OAuth2 access token</dd>
+					<dt><var>$accessToken</var></dt>
+					<dd><code>string</code><br>$accessToken - Constant Contact OAuth2 access token</dd>
 					<dt><var>$campaign</var></dt>
 					<dd><code>Campaign</code><br>$campaign - Campaign to be updated</dd>
 				</dl></div>
@@ -987,7 +992,7 @@ parameter provided from a previous getCampaigns call</dd>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_addCampaignSchedule">#</a>
-		<code><a href="source-class-Ctct.ConstantContact.html#310-321" title="Go to source code">addCampaignSchedule</a>( <span>string <var>$access_token</var></span>, <span>mixed <var>$campaign</var></span>, <span><code><a href="class-Ctct.Components.EmailCampaigns.Schedule.html">Ctct\Components\EmailCampaigns\Schedule</a></code> <var>$schedule</var></span> )</code>
+		<code><a href="source-class-Ctct.ConstantContact.html#312-323" title="Go to source code">addCampaignSchedule</a>( <span>string <var>$accessToken</var></span>, <span>mixed <var>$campaign</var></span>, <span><code><a href="class-Ctct.Components.EmailCampaigns.Schedule.html">Ctct\Components\EmailCampaigns\Schedule</a></code> <var>$schedule</var></span> )</code>
 
 		<div class="description short">
 			
@@ -1003,8 +1008,8 @@ parameter provided from a previous getCampaigns call</dd>
 
 				<h4>Parameters</h4>
 				<div class="list"><dl>
-					<dt><var>$access_token</var></dt>
-					<dd><code>string</code><br>$access_token - Constant Contact OAuth2 access token</dd>
+					<dt><var>$accessToken</var></dt>
+					<dd><code>string</code><br>$accessToken - Constant Contact OAuth2 access token</dd>
 					<dt><var>$campaign</var></dt>
 					<dd><code>mixed</code><br>$campaign - Campaign to be updated</dd>
 					<dt><var>$schedule</var></dt>
@@ -1033,7 +1038,7 @@ parameter provided from a previous getCampaigns call</dd>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getCampaignSchedules">#</a>
-		<code><a href="source-class-Ctct.ConstantContact.html#323-333" title="Go to source code">getCampaignSchedules</a>( <span>string <var>$access_token</var></span>, <span>mixed <var>$campaign</var></span> )</code>
+		<code><a href="source-class-Ctct.ConstantContact.html#325-335" title="Go to source code">getCampaignSchedules</a>( <span>string <var>$accessToken</var></span>, <span>mixed <var>$campaign</var></span> )</code>
 
 		<div class="description short">
 			
@@ -1049,8 +1054,8 @@ parameter provided from a previous getCampaigns call</dd>
 
 				<h4>Parameters</h4>
 				<div class="list"><dl>
-					<dt><var>$access_token</var></dt>
-					<dd><code>string</code><br>$access_token - Constant Contact OAuth2 access token</dd>
+					<dt><var>$accessToken</var></dt>
+					<dd><code>string</code><br>$accessToken - Constant Contact OAuth2 access token</dd>
 					<dt><var>$campaign</var></dt>
 					<dd><code>mixed</code><br>$campaign - Campaign id or Campaign object itself</dd>
 				</dl></div>
@@ -1077,7 +1082,7 @@ parameter provided from a previous getCampaigns call</dd>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getCampaignSchedule">#</a>
-		<code><a href="source-class-Ctct.ConstantContact.html#335-358" title="Go to source code">getCampaignSchedule</a>( <span>string <var>$access_token</var></span>, <span>mixed <var>$campaign</var></span>, <span>mixed <var>$schedule</var></span> )</code>
+		<code><a href="source-class-Ctct.ConstantContact.html#337-360" title="Go to source code">getCampaignSchedule</a>( <span>string <var>$accessToken</var></span>, <span>mixed <var>$campaign</var></span>, <span>mixed <var>$schedule</var></span> )</code>
 
 		<div class="description short">
 			
@@ -1093,8 +1098,8 @@ parameter provided from a previous getCampaigns call</dd>
 
 				<h4>Parameters</h4>
 				<div class="list"><dl>
-					<dt><var>$access_token</var></dt>
-					<dd><code>string</code><br>$access_token - Constant Contact OAuth2 access token</dd>
+					<dt><var>$accessToken</var></dt>
+					<dd><code>string</code><br>$accessToken - Constant Contact OAuth2 access token</dd>
 					<dt><var>$campaign</var></dt>
 					<dd><code>mixed</code><br>$campaign - Campaign id or Campaign object itself</dd>
 					<dt><var>$schedule</var></dt>
@@ -1127,7 +1132,7 @@ parameter provided from a previous getCampaigns call</dd>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_updateCampaignSchedule">#</a>
-		<code><a href="source-class-Ctct.ConstantContact.html#360-372" title="Go to source code">updateCampaignSchedule</a>( <span>string <var>$access_token</var></span>, <span>mixed <var>$campaign</var></span>, <span><code><a href="class-Ctct.Components.EmailCampaigns.Schedule.html">Ctct\Components\EmailCampaigns\Schedule</a></code> <var>$schedule</var></span> )</code>
+		<code><a href="source-class-Ctct.ConstantContact.html#362-374" title="Go to source code">updateCampaignSchedule</a>( <span>string <var>$accessToken</var></span>, <span>mixed <var>$campaign</var></span>, <span><code><a href="class-Ctct.Components.EmailCampaigns.Schedule.html">Ctct\Components\EmailCampaigns\Schedule</a></code> <var>$schedule</var></span> )</code>
 
 		<div class="description short">
 			
@@ -1143,8 +1148,8 @@ parameter provided from a previous getCampaigns call</dd>
 
 				<h4>Parameters</h4>
 				<div class="list"><dl>
-					<dt><var>$access_token</var></dt>
-					<dd><code>string</code><br>$access_token - Constant Contact OAuth2 access token</dd>
+					<dt><var>$accessToken</var></dt>
+					<dd><code>string</code><br>$accessToken - Constant Contact OAuth2 access token</dd>
 					<dt><var>$campaign</var></dt>
 					<dd><code>mixed</code><br>$campaign - Campaign id or Campaign object itself</dd>
 					<dt><var>$schedule</var></dt>
@@ -1173,7 +1178,7 @@ parameter provided from a previous getCampaigns call</dd>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_deleteCampaignSchedule">#</a>
-		<code><a href="source-class-Ctct.ConstantContact.html#374-396" title="Go to source code">deleteCampaignSchedule</a>( <span>string <var>$access_token</var></span>, <span>mixed <var>$campaign</var></span>, <span>mixed <var>$schedule</var></span> )</code>
+		<code><a href="source-class-Ctct.ConstantContact.html#376-398" title="Go to source code">deleteCampaignSchedule</a>( <span>string <var>$accessToken</var></span>, <span>mixed <var>$campaign</var></span>, <span>mixed <var>$schedule</var></span> )</code>
 
 		<div class="description short">
 			
@@ -1189,8 +1194,8 @@ parameter provided from a previous getCampaigns call</dd>
 
 				<h4>Parameters</h4>
 				<div class="list"><dl>
-					<dt><var>$access_token</var></dt>
-					<dd><code>string</code><br>$access_token - Constant Contact OAuth2 access token</dd>
+					<dt><var>$accessToken</var></dt>
+					<dd><code>string</code><br>$accessToken - Constant Contact OAuth2 access token</dd>
 					<dt><var>$campaign</var></dt>
 					<dd><code>mixed</code><br>$campaign - Campaign id or Campaign object itself</dd>
 					<dt><var>$schedule</var></dt>
@@ -1223,7 +1228,7 @@ parameter provided from a previous getCampaigns call</dd>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_sendCampaignTest">#</a>
-		<code><a href="source-class-Ctct.ConstantContact.html#398-409" title="Go to source code">sendCampaignTest</a>( <span>string <var>$access_token</var></span>, <span>mixed <var>$campaign</var></span>, <span><code><a href="class-Ctct.Components.EmailCampaigns.TestSend.html">Ctct\Components\EmailCampaigns\TestSend</a></code> <var>$test_send</var></span> )</code>
+		<code><a href="source-class-Ctct.ConstantContact.html#400-411" title="Go to source code">sendCampaignTest</a>( <span>string <var>$accessToken</var></span>, <span>mixed <var>$campaign</var></span>, <span><code><a href="class-Ctct.Components.EmailCampaigns.TestSend.html">Ctct\Components\EmailCampaigns\TestSend</a></code> <var>$test_send</var></span> )</code>
 
 		<div class="description short">
 			
@@ -1239,8 +1244,8 @@ parameter provided from a previous getCampaigns call</dd>
 
 				<h4>Parameters</h4>
 				<div class="list"><dl>
-					<dt><var>$access_token</var></dt>
-					<dd><code>string</code><br>$access_token - Constant Contact OAuth2 access token</dd>
+					<dt><var>$accessToken</var></dt>
+					<dd><code>string</code><br>$accessToken - Constant Contact OAuth2 access token</dd>
 					<dt><var>$campaign</var></dt>
 					<dd><code>mixed</code><br>$campaign - Campaign id or Campaign object itself</dd>
 					<dt><var>$test_send</var></dt>
@@ -1269,7 +1274,7 @@ parameter provided from a previous getCampaigns call</dd>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getCampaignSends">#</a>
-		<code><a href="source-class-Ctct.ConstantContact.html#411-423" title="Go to source code">getCampaignSends</a>( <span>string <var>$access_token</var></span>, <span>mixed <var>$campaign</var></span>, <span>string <var>$next</var> = <span class="php-keyword1">null</span></span>, <span>integer <var>$limit</var> = <span class="php-keyword1">null</span></span> )</code>
+		<code><a href="source-class-Ctct.ConstantContact.html#413-425" title="Go to source code">getCampaignSends</a>( <span>string <var>$accessToken</var></span>, <span>mixed <var>$campaign</var></span>, <span>string <var>$next</var> = <span class="php-keyword1">null</span></span>, <span>integer <var>$limit</var> = <span class="php-keyword1">null</span></span> )</code>
 
 		<div class="description short">
 			
@@ -1285,8 +1290,8 @@ parameter provided from a previous getCampaigns call</dd>
 
 				<h4>Parameters</h4>
 				<div class="list"><dl>
-					<dt><var>$access_token</var></dt>
-					<dd><code>string</code><br>$access_token - Constant Contact OAuth2 access token</dd>
+					<dt><var>$accessToken</var></dt>
+					<dd><code>string</code><br>$accessToken - Constant Contact OAuth2 access token</dd>
 					<dt><var>$campaign</var></dt>
 					<dd><code>mixed</code><br>$campaign - Campaign id or Campaign object itself</dd>
 					<dt><var>$next</var></dt>
@@ -1317,7 +1322,7 @@ parameter provided from a previous getCampaigns call</dd>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getCampaignBounces">#</a>
-		<code><a href="source-class-Ctct.ConstantContact.html#425-438" title="Go to source code">getCampaignBounces</a>( <span>string <var>$access_token</var></span>, <span>mixed <var>$campaign</var></span>, <span>mixed <var>$param</var> = <span class="php-keyword1">null</span></span> )</code>
+		<code><a href="source-class-Ctct.ConstantContact.html#427-440" title="Go to source code">getCampaignBounces</a>( <span>string <var>$accessToken</var></span>, <span>mixed <var>$campaign</var></span>, <span>mixed <var>$param</var> = <span class="php-keyword1">null</span></span> )</code>
 
 		<div class="description short">
 			
@@ -1333,8 +1338,8 @@ parameter provided from a previous getCampaigns call</dd>
 
 				<h4>Parameters</h4>
 				<div class="list"><dl>
-					<dt><var>$access_token</var></dt>
-					<dd><code>string</code><br>$access_token - Constant Contact OAuth2 access token</dd>
+					<dt><var>$accessToken</var></dt>
+					<dd><code>string</code><br>$accessToken - Constant Contact OAuth2 access token</dd>
 					<dt><var>$campaign</var></dt>
 					<dd><code>mixed</code><br>$campaign - Campaign id or Campaign object itself</dd>
 					<dt><var>$param</var></dt>
@@ -1364,7 +1369,7 @@ the page size of an initial request</dd>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getCampaignClicks">#</a>
-		<code><a href="source-class-Ctct.ConstantContact.html#440-453" title="Go to source code">getCampaignClicks</a>( <span>string <var>$access_token</var></span>, <span>mixed <var>$campaign</var></span>, <span>mixed <var>$param</var> = <span class="php-keyword1">null</span></span> )</code>
+		<code><a href="source-class-Ctct.ConstantContact.html#442-455" title="Go to source code">getCampaignClicks</a>( <span>string <var>$accessToken</var></span>, <span>mixed <var>$campaign</var></span>, <span>mixed <var>$param</var> = <span class="php-keyword1">null</span></span> )</code>
 
 		<div class="description short">
 			
@@ -1380,8 +1385,8 @@ the page size of an initial request</dd>
 
 				<h4>Parameters</h4>
 				<div class="list"><dl>
-					<dt><var>$access_token</var></dt>
-					<dd><code>string</code><br>$access_token - Constant Contact OAuth2 access token</dd>
+					<dt><var>$accessToken</var></dt>
+					<dd><code>string</code><br>$accessToken - Constant Contact OAuth2 access token</dd>
 					<dt><var>$campaign</var></dt>
 					<dd><code>mixed</code><br>$campaign - Campaign id or Campaign object itself</dd>
 					<dt><var>$param</var></dt>
@@ -1411,7 +1416,7 @@ the page size of an initial request</dd>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getCampaignOpens">#</a>
-		<code><a href="source-class-Ctct.ConstantContact.html#455-468" title="Go to source code">getCampaignOpens</a>( <span>string <var>$access_token</var></span>, <span>mixed <var>$campaign</var></span>, <span>mixed <var>$param</var> = <span class="php-keyword1">null</span></span> )</code>
+		<code><a href="source-class-Ctct.ConstantContact.html#457-470" title="Go to source code">getCampaignOpens</a>( <span>string <var>$accessToken</var></span>, <span>mixed <var>$campaign</var></span>, <span>mixed <var>$param</var> = <span class="php-keyword1">null</span></span> )</code>
 
 		<div class="description short">
 			
@@ -1427,8 +1432,8 @@ the page size of an initial request</dd>
 
 				<h4>Parameters</h4>
 				<div class="list"><dl>
-					<dt><var>$access_token</var></dt>
-					<dd><code>string</code><br>$access_token - Constant Contact OAuth2 access token</dd>
+					<dt><var>$accessToken</var></dt>
+					<dd><code>string</code><br>$accessToken - Constant Contact OAuth2 access token</dd>
 					<dt><var>$campaign</var></dt>
 					<dd><code>mixed</code><br>$campaign - Campaign id or Campaign object itself</dd>
 					<dt><var>$param</var></dt>
@@ -1458,7 +1463,7 @@ the page size of an initial request</dd>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getCampaignForwards">#</a>
-		<code><a href="source-class-Ctct.ConstantContact.html#470-483" title="Go to source code">getCampaignForwards</a>( <span>string <var>$access_token</var></span>, <span>mixed <var>$campaign</var></span>, <span>mixed <var>$param</var> = <span class="php-keyword1">null</span></span> )</code>
+		<code><a href="source-class-Ctct.ConstantContact.html#472-485" title="Go to source code">getCampaignForwards</a>( <span>string <var>$accessToken</var></span>, <span>mixed <var>$campaign</var></span>, <span>mixed <var>$param</var> = <span class="php-keyword1">null</span></span> )</code>
 
 		<div class="description short">
 			
@@ -1474,8 +1479,8 @@ the page size of an initial request</dd>
 
 				<h4>Parameters</h4>
 				<div class="list"><dl>
-					<dt><var>$access_token</var></dt>
-					<dd><code>string</code><br>$access_token - Constant Contact OAuth2 access token</dd>
+					<dt><var>$accessToken</var></dt>
+					<dd><code>string</code><br>$accessToken - Constant Contact OAuth2 access token</dd>
 					<dt><var>$campaign</var></dt>
 					<dd><code>mixed</code><br>$campaign - Campaign id or Campaign object itself</dd>
 					<dt><var>$param</var></dt>
@@ -1505,7 +1510,7 @@ the page size of an initial request</dd>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getCampaignOptOuts">#</a>
-		<code><a href="source-class-Ctct.ConstantContact.html#485-498" title="Go to source code">getCampaignOptOuts</a>( <span>string <var>$access_token</var></span>, <span>mixed <var>$campaign</var></span>, <span>mixed <var>$param</var> = <span class="php-keyword1">null</span></span> )</code>
+		<code><a href="source-class-Ctct.ConstantContact.html#487-500" title="Go to source code">getCampaignOptOuts</a>( <span>string <var>$accessToken</var></span>, <span>mixed <var>$campaign</var></span>, <span>mixed <var>$param</var> = <span class="php-keyword1">null</span></span> )</code>
 
 		<div class="description short">
 			
@@ -1521,8 +1526,8 @@ the page size of an initial request</dd>
 
 				<h4>Parameters</h4>
 				<div class="list"><dl>
-					<dt><var>$access_token</var></dt>
-					<dd><code>string</code><br>$access_token - Constant Contact OAuth2 access token</dd>
+					<dt><var>$accessToken</var></dt>
+					<dd><code>string</code><br>$accessToken - Constant Contact OAuth2 access token</dd>
 					<dt><var>$campaign</var></dt>
 					<dd><code>mixed</code><br>$campaign - Campaign id or Campaign object itself</dd>
 					<dt><var>$param</var></dt>
@@ -1552,7 +1557,7 @@ the page size of an initial request</dd>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getCampaignSummaryReport">#</a>
-		<code><a href="source-class-Ctct.ConstantContact.html#500-512" title="Go to source code">getCampaignSummaryReport</a>( <span>string <var>$access_token</var></span>, <span>mixed <var>$campaign</var></span> )</code>
+		<code><a href="source-class-Ctct.ConstantContact.html#502-514" title="Go to source code">getCampaignSummaryReport</a>( <span>string <var>$accessToken</var></span>, <span>mixed <var>$campaign</var></span> )</code>
 
 		<div class="description short">
 			
@@ -1568,8 +1573,8 @@ the page size of an initial request</dd>
 
 				<h4>Parameters</h4>
 				<div class="list"><dl>
-					<dt><var>$access_token</var></dt>
-					<dd><code>string</code><br>$access_token - Constant Contact OAuth2 access token</dd>
+					<dt><var>$accessToken</var></dt>
+					<dd><code>string</code><br>$accessToken - Constant Contact OAuth2 access token</dd>
 					<dt><var>$campaign</var></dt>
 					<dd><code>mixed</code><br>$campaign - Campaign id or Campaign object itself</dd>
 				</dl></div>
@@ -1596,7 +1601,7 @@ the page size of an initial request</dd>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getContactSends">#</a>
-		<code><a href="source-class-Ctct.ConstantContact.html#514-526" title="Go to source code">getContactSends</a>( <span>string <var>$access_token</var></span>, <span>mixed <var>$contact</var></span>, <span>mixed <var>$param</var> = <span class="php-keyword1">null</span></span> )</code>
+		<code><a href="source-class-Ctct.ConstantContact.html#516-528" title="Go to source code">getContactSends</a>( <span>string <var>$accessToken</var></span>, <span>mixed <var>$contact</var></span>, <span>mixed <var>$param</var> = <span class="php-keyword1">null</span></span> )</code>
 
 		<div class="description short">
 			
@@ -1612,8 +1617,8 @@ the page size of an initial request</dd>
 
 				<h4>Parameters</h4>
 				<div class="list"><dl>
-					<dt><var>$access_token</var></dt>
-					<dd><code>string</code><br>$access_token - Constant Contact OAuth2 access token</dd>
+					<dt><var>$accessToken</var></dt>
+					<dd><code>string</code><br>$accessToken - Constant Contact OAuth2 access token</dd>
 					<dt><var>$contact</var></dt>
 					<dd><code>mixed</code><br>$contact - Contact id or Contact object itself</dd>
 					<dt><var>$param</var></dt>
@@ -1643,7 +1648,7 @@ the page size of an initial request</dd>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getContactBounces">#</a>
-		<code><a href="source-class-Ctct.ConstantContact.html#528-540" title="Go to source code">getContactBounces</a>( <span>string <var>$access_token</var></span>, <span>mixed <var>$contact</var></span>, <span>mixed <var>$param</var> = <span class="php-keyword1">null</span></span> )</code>
+		<code><a href="source-class-Ctct.ConstantContact.html#530-542" title="Go to source code">getContactBounces</a>( <span>string <var>$accessToken</var></span>, <span>mixed <var>$contact</var></span>, <span>mixed <var>$param</var> = <span class="php-keyword1">null</span></span> )</code>
 
 		<div class="description short">
 			
@@ -1659,8 +1664,8 @@ the page size of an initial request</dd>
 
 				<h4>Parameters</h4>
 				<div class="list"><dl>
-					<dt><var>$access_token</var></dt>
-					<dd><code>string</code><br>$access_token - Constant Contact OAuth2 access token</dd>
+					<dt><var>$accessToken</var></dt>
+					<dd><code>string</code><br>$accessToken - Constant Contact OAuth2 access token</dd>
 					<dt><var>$contact</var></dt>
 					<dd><code>mixed</code><br>$contact - Contact id or Contact object itself</dd>
 					<dt><var>$param</var></dt>
@@ -1690,7 +1695,7 @@ the page size of an initial request</dd>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getContactClicks">#</a>
-		<code><a href="source-class-Ctct.ConstantContact.html#542-555" title="Go to source code">getContactClicks</a>( <span>string <var>$access_token</var></span>, <span>mixed <var>$contact</var></span>, <span>mixed <var>$param</var> = <span class="php-keyword1">null</span></span> )</code>
+		<code><a href="source-class-Ctct.ConstantContact.html#544-557" title="Go to source code">getContactClicks</a>( <span>string <var>$accessToken</var></span>, <span>mixed <var>$contact</var></span>, <span>mixed <var>$param</var> = <span class="php-keyword1">null</span></span> )</code>
 
 		<div class="description short">
 			
@@ -1706,8 +1711,8 @@ the page size of an initial request</dd>
 
 				<h4>Parameters</h4>
 				<div class="list"><dl>
-					<dt><var>$access_token</var></dt>
-					<dd><code>string</code><br>$access_token - Constant Contact OAuth2 access token</dd>
+					<dt><var>$accessToken</var></dt>
+					<dd><code>string</code><br>$accessToken - Constant Contact OAuth2 access token</dd>
 					<dt><var>$contact</var></dt>
 					<dd><code>mixed</code><br>$contact - Contact id or Contact object itself</dd>
 					<dt><var>$param</var></dt>
@@ -1737,7 +1742,7 @@ the page size of an initial request</dd>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getContactOpens">#</a>
-		<code><a href="source-class-Ctct.ConstantContact.html#557-570" title="Go to source code">getContactOpens</a>( <span>string <var>$access_token</var></span>, <span>mixed <var>$contact</var></span>, <span>mixed <var>$param</var> = <span class="php-keyword1">null</span></span> )</code>
+		<code><a href="source-class-Ctct.ConstantContact.html#559-572" title="Go to source code">getContactOpens</a>( <span>string <var>$accessToken</var></span>, <span>mixed <var>$contact</var></span>, <span>mixed <var>$param</var> = <span class="php-keyword1">null</span></span> )</code>
 
 		<div class="description short">
 			
@@ -1753,8 +1758,8 @@ the page size of an initial request</dd>
 
 				<h4>Parameters</h4>
 				<div class="list"><dl>
-					<dt><var>$access_token</var></dt>
-					<dd><code>string</code><br>$access_token - Constant Contact OAuth2 access token</dd>
+					<dt><var>$accessToken</var></dt>
+					<dd><code>string</code><br>$accessToken - Constant Contact OAuth2 access token</dd>
 					<dt><var>$contact</var></dt>
 					<dd><code>mixed</code><br>$contact - Contact id or Contact object itself</dd>
 					<dt><var>$param</var></dt>
@@ -1784,7 +1789,7 @@ the page size of an initial request</dd>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getContactForwards">#</a>
-		<code><a href="source-class-Ctct.ConstantContact.html#572-585" title="Go to source code">getContactForwards</a>( <span>string <var>$access_token</var></span>, <span>mixed <var>$contact</var></span>, <span>mixed <var>$param</var> = <span class="php-keyword1">null</span></span> )</code>
+		<code><a href="source-class-Ctct.ConstantContact.html#574-587" title="Go to source code">getContactForwards</a>( <span>string <var>$accessToken</var></span>, <span>mixed <var>$contact</var></span>, <span>mixed <var>$param</var> = <span class="php-keyword1">null</span></span> )</code>
 
 		<div class="description short">
 			
@@ -1800,8 +1805,8 @@ the page size of an initial request</dd>
 
 				<h4>Parameters</h4>
 				<div class="list"><dl>
-					<dt><var>$access_token</var></dt>
-					<dd><code>string</code><br>$access_token - Constant Contact OAuth2 access token</dd>
+					<dt><var>$accessToken</var></dt>
+					<dd><code>string</code><br>$accessToken - Constant Contact OAuth2 access token</dd>
 					<dt><var>$contact</var></dt>
 					<dd><code>mixed</code><br>$contact - Contact id or Contact object itself</dd>
 					<dt><var>$param</var></dt>
@@ -1831,7 +1836,7 @@ the page size of an initial request</dd>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getContactOptOuts">#</a>
-		<code><a href="source-class-Ctct.ConstantContact.html#587-600" title="Go to source code">getContactOptOuts</a>( <span>string <var>$access_token</var></span>, <span>mixed <var>$contact</var></span>, <span>mixed <var>$param</var> = <span class="php-keyword1">null</span></span> )</code>
+		<code><a href="source-class-Ctct.ConstantContact.html#589-602" title="Go to source code">getContactOptOuts</a>( <span>string <var>$accessToken</var></span>, <span>mixed <var>$contact</var></span>, <span>mixed <var>$param</var> = <span class="php-keyword1">null</span></span> )</code>
 
 		<div class="description short">
 			
@@ -1847,8 +1852,8 @@ the page size of an initial request</dd>
 
 				<h4>Parameters</h4>
 				<div class="list"><dl>
-					<dt><var>$access_token</var></dt>
-					<dd><code>string</code><br>$access_token - Constant Contact OAuth2 access token</dd>
+					<dt><var>$accessToken</var></dt>
+					<dd><code>string</code><br>$accessToken - Constant Contact OAuth2 access token</dd>
 					<dt><var>$contact</var></dt>
 					<dd><code>mixed</code><br>$contact - Contact id or Contact object itself</dd>
 					<dt><var>$param</var></dt>
@@ -1878,7 +1883,7 @@ the page size of an initial request</dd>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getContactSummaryReport">#</a>
-		<code><a href="source-class-Ctct.ConstantContact.html#602-614" title="Go to source code">getContactSummaryReport</a>( <span>string <var>$access_token</var></span>, <span>mixed <var>$contact</var></span> )</code>
+		<code><a href="source-class-Ctct.ConstantContact.html#604-616" title="Go to source code">getContactSummaryReport</a>( <span>string <var>$accessToken</var></span>, <span>mixed <var>$contact</var></span> )</code>
 
 		<div class="description short">
 			
@@ -1894,8 +1899,8 @@ the page size of an initial request</dd>
 
 				<h4>Parameters</h4>
 				<div class="list"><dl>
-					<dt><var>$access_token</var></dt>
-					<dd><code>string</code><br>$access_token - Constant Contact OAuth2 access token</dd>
+					<dt><var>$accessToken</var></dt>
+					<dd><code>string</code><br>$accessToken - Constant Contact OAuth2 access token</dd>
 					<dt><var>$contact</var></dt>
 					<dd><code>mixed</code><br>$contact - Contact id or Contact object itself</dd>
 				</dl></div>
@@ -1922,7 +1927,7 @@ the page size of an initial request</dd>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getActivities">#</a>
-		<code><a href="source-class-Ctct.ConstantContact.html#616-624" title="Go to source code">getActivities</a>( <span>string <var>$accessToken</var></span> )</code>
+		<code><a href="source-class-Ctct.ConstantContact.html#618-626" title="Go to source code">getActivities</a>( <span>string <var>$accessToken</var></span> )</code>
 
 		<div class="description short">
 			
@@ -1964,7 +1969,7 @@ the page size of an initial request</dd>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getActivity">#</a>
-		<code><a href="source-class-Ctct.ConstantContact.html#626-635" title="Go to source code">getActivity</a>( <span>string <var>$accessToken</var></span>, <span>string <var>$activityId</var></span> )</code>
+		<code><a href="source-class-Ctct.ConstantContact.html#628-637" title="Go to source code">getActivity</a>( <span>string <var>$accessToken</var></span>, <span>string <var>$activityId</var></span> )</code>
 
 		<div class="description short">
 			
@@ -2008,7 +2013,7 @@ the page size of an initial request</dd>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_addAddContactsActivity">#</a>
-		<code><a href="source-class-Ctct.ConstantContact.html#637-645" title="Go to source code">addAddContactsActivity</a>( <span>string <var>$accessToken</var></span>, <span><code><a href="class-Ctct.Components.Activities.AddContacts.html">Ctct\Components\Activities\AddContacts</a></code> <var>$addContactsActivity</var></span> )</code>
+		<code><a href="source-class-Ctct.ConstantContact.html#639-647" title="Go to source code">addAddContactsActivity</a>( <span>string <var>$accessToken</var></span>, <span><code><a href="class-Ctct.Components.Activities.AddContacts.html">Ctct\Components\Activities\AddContacts</a></code> <var>$addContactsActivity</var></span> )</code>
 
 		<div class="description short">
 			
@@ -2048,7 +2053,7 @@ the page size of an initial request</dd>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_addClearListsActivity">#</a>
-		<code><a href="source-class-Ctct.ConstantContact.html#647-655" title="Go to source code">addClearListsActivity</a>( <span>string <var>$accessToken</var></span>, <span>array <var>$lists</var></span> )</code>
+		<code><a href="source-class-Ctct.ConstantContact.html#649-657" title="Go to source code">addClearListsActivity</a>( <span>string <var>$accessToken</var></span>, <span>array <var>$lists</var></span> )</code>
 
 		<div class="description short">
 			
@@ -2088,7 +2093,7 @@ the page size of an initial request</dd>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_addRemoveContactsFromListsActivity">#</a>
-		<code><a href="source-class-Ctct.ConstantContact.html#657-667" title="Go to source code">addRemoveContactsFromListsActivity</a>( <span>string <var>$accessToken</var></span>, <span>array <var>$emailAddresses</var></span>, <span>array <var>$lists</var></span> )</code>
+		<code><a href="source-class-Ctct.ConstantContact.html#659-669" title="Go to source code">addRemoveContactsFromListsActivity</a>( <span>string <var>$accessToken</var></span>, <span>array <var>$emailAddresses</var></span>, <span>array <var>$lists</var></span> )</code>
 
 		<div class="description short">
 			
@@ -2130,7 +2135,7 @@ the page size of an initial request</dd>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_addExportContactsActivity">#</a>
-		<code><a href="source-class-Ctct.ConstantContact.html#669-678" title="Go to source code">addExportContactsActivity</a>( <span>string <var>$accessToken</var></span>, <span><code><a href="class-Ctct.Components.Activities.ExportContacts.html">Ctct\Components\Activities\ExportContacts</a></code> <var>$exportContacts</var></span> )</code>
+		<code><a href="source-class-Ctct.ConstantContact.html#671-680" title="Go to source code">addExportContactsActivity</a>( <span>string <var>$accessToken</var></span>, <span><code><a href="class-Ctct.Components.Activities.ExportContacts.html">Ctct\Components\Activities\ExportContacts</a></code> <var>$exportContacts</var></span> )</code>
 
 		<div class="description short">
 			

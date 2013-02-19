@@ -8,9 +8,9 @@ class CampaignTrackingServiceUnitTest extends PHPUnit_Framework_TestCase{
     public function testGetBounces()
     {
         $rest_client = new MockRestClient(200, JsonLoader::getBounces());
-        $svc = new CampaignTrackingService($rest_client);
+        $svc = new CampaignTrackingService("apikey", $rest_client);
 
-        $tracking_activity = $svc->getBounces('access_token', "1100394165290", 2);
+        $tracking_activity = $svc->getBounces('access_token', "1100394165290", array('limit' => 2));
 
         $this->assertEquals("?next=bGltaXQ9MyZuZXh0PTEzNTQ4MTcyMTA0MzA", $tracking_activity->next);
         $this->assertEquals("EMAIL_BOUNCE", $tracking_activity->results[0]->activity_type);
@@ -28,9 +28,9 @@ class CampaignTrackingServiceUnitTest extends PHPUnit_Framework_TestCase{
     public function testGetClicks()
     {
         $rest_client = new MockRestClient(200, JsonLoader::getClicks());
-        $svc = new CampaignTrackingService($rest_client);
+        $svc = new CampaignTrackingService("apikey", $rest_client);
 
-        $tracking_activity = $svc->getClicks('access_token', "1100394165290", 2);
+        $tracking_activity = $svc->getClicks('access_token', "1100394165290", array('limit' => 2));
 
         $this->assertEquals("?next=bGltaXQ9MyZuZXh0PTEzNTQ4MTcyMTA0MzA", $tracking_activity->next);
         $this->assertEquals("EMAIL_CLICK", $tracking_activity->results[0]->activity_type);
@@ -46,9 +46,9 @@ class CampaignTrackingServiceUnitTest extends PHPUnit_Framework_TestCase{
     public function testGetForwards()
     {
         $rest_client = new MockRestClient(200, JsonLoader::getForwards());
-        $svc = new CampaignTrackingService($rest_client);
+        $svc = new CampaignTrackingService("apikey", $rest_client);
 
-        $tracking_activity = $svc->getForwards('access_token', "1100394165290", 2);
+        $tracking_activity = $svc->getForwards('access_token', "1100394165290", array('limit' => 2));
 
         $this->assertEquals("?next=bGltaXQ9MyZuZXh0PTEzNTQ4MTcyMTA0MzA", $tracking_activity->next);
         $this->assertEquals("EMAIL_FORWARD", $tracking_activity->results[0]->activity_type);
@@ -63,9 +63,9 @@ class CampaignTrackingServiceUnitTest extends PHPUnit_Framework_TestCase{
     public function testGetOptOuts()
     {
         $rest_client = new MockRestClient(200, JsonLoader::getOptOuts());
-        $svc = new CampaignTrackingService($rest_client);
+        $svc = new CampaignTrackingService("apikey", $rest_client);
 
-        $tracking_activity = $svc->getOptOuts('access_token', "1100394165290", 2);
+        $tracking_activity = $svc->getOptOuts('access_token', "1100394165290", array('limit' => 2));
 
         $this->assertEquals("?next=bGltaXQ9MyZuZXh0PTEzNTQ4MTcyMTA0MzA", $tracking_activity->next);
         $this->assertEquals("EMAIL_UNSUBSCRIBE", $tracking_activity->results[0]->activity_type);
@@ -82,9 +82,9 @@ class CampaignTrackingServiceUnitTest extends PHPUnit_Framework_TestCase{
     public function testGetSends()
     {
         $rest_client = new MockRestClient(200, JsonLoader::getSends());
-        $svc = new CampaignTrackingService($rest_client);
+        $svc = new CampaignTrackingService("apikey", $rest_client);
 
-        $tracking_activity = $svc->getSends('access_token', "1100394165290", 2);
+        $tracking_activity = $svc->getSends('access_token', "1100394165290", array('limit' => 2));
 
         $this->assertEquals("?next=bGltaXQ9MyZuZXh0PTEzNTQ4MTcyMTA0MzA", $tracking_activity->next);
         $this->assertEquals("EMAIL_SEND", $tracking_activity->results[0]->activity_type);
@@ -99,9 +99,9 @@ class CampaignTrackingServiceUnitTest extends PHPUnit_Framework_TestCase{
     public function testGetOpens()
     {
         $rest_client = new MockRestClient(200, JsonLoader::getOpens());
-        $svc = new CampaignTrackingService($rest_client);
+        $svc = new CampaignTrackingService("apikey", $rest_client);
 
-        $tracking_activity = $svc->getOpens('access_token', "1100394165290", 2);
+        $tracking_activity = $svc->getOpens('access_token', "1100394165290", array('limit' => 2));
 
         $this->assertEquals("?next=bGltaXQ9MyZuZXh0PTEzNTQ4MTcyMTA0MzA", $tracking_activity->next);
         $this->assertEquals("EMAIL_OPEN", $tracking_activity->results[0]->activity_type);
@@ -116,7 +116,7 @@ class CampaignTrackingServiceUnitTest extends PHPUnit_Framework_TestCase{
     public function testGetSummary()
     {
         $rest_client = new MockRestClient(200, JsonLoader::getSummary());
-        $svc = new CampaignTrackingService($rest_client);
+        $svc = new CampaignTrackingService("apikey", $rest_client);
 
         $summary = $svc->getSummary('access_token', 1100394165290);
 

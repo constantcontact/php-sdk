@@ -20,9 +20,10 @@ class ListService extends BaseService
      * @param $accessToken - Constant Contact OAuth2 access token
      * @return Array - ContactLists
      */
-    public static function getLists($accessToken)
+    public function getLists($accessToken)
     {
-        $url = Config::get('endpoints.base_url') . Config::get('endpoints.lists');
+        $baseUrl = Config::get('endpoints.base_url') . Config::get('endpoints.lists');
+        $url = $this->buildUrl($baseUrl);
         $response = parent::getRestClient()->get($url, parent::getHeaders($accessToken));
         
         $lists = array();
@@ -38,7 +39,7 @@ class ListService extends BaseService
      * @param ContactList $list
      * @return ContactList
      */
-    public static function addList($accessToken, ContactList $list)
+    public function addList($accessToken, ContactList $list)
     {
         $url = Config::get('endpoints.base_url') . Config::get('endpoints.lists');
         $response = parent::getRestClient()->post($url, parent::getHeaders($accessToken), $list->toJson());
@@ -51,7 +52,7 @@ class ListService extends BaseService
      * @param ContactList $list - ContactList to be updated
      * @return ContactList
      */
-    public static function updateList($accessToken, ContactList $list)
+    public function updateList($accessToken, ContactList $list)
     {
         $url = Config::get('endpoints.base_url') . sprintf(Config::get('endpoints.list'), $list->id);
         $response = parent::getRestClient()->put($url, parent::getHeaders($accessToken), $list->toJson());
@@ -64,7 +65,7 @@ class ListService extends BaseService
      * @param $list_id - list id
      * @return ContactList
      */
-    public static function getList($accessToken, $list_id)
+    public function getList($accessToken, $list_id)
     {
         $url = Config::get('endpoints.base_url') . sprintf(Config::get('endpoints.list'), $list_id);
         $response = parent::getRestClient()->get($url, parent::getHeaders($accessToken));
@@ -73,17 +74,15 @@ class ListService extends BaseService
 
     /**
      * Get all contacts from an individual list
-     * @param $accessToken - Constant Contact OAuth2 access token
-     * @param $list_id - list id to retrieve contacts for
-     * @param $param - query param to attach to request
+     * @param string $accessToken - Constant Contact OAuth2 access token
+     * @param string $list_id - list id to retrieve contacts for
+     * @param array $params - query params to attach to request
      * @return ResultSet
      */
-    public static function getContactsFromList($accessToken, $list_id, $param = null)
+    public function getContactsFromList($accessToken, $list_id, $params = null)
     {
-        $url = Config::get('endpoints.base_url') . sprintf(Config::get('endpoints.list_contacts'), $list_id);
-        if ($param) {
-            $url .= $param;
-        }
+        $baseUrl = Config::get('endpoints.base_url') . sprintf(Config::get('endpoints.list_contacts'), $list_id);
+        $url = $this->buildUrl($baseUrl, $params);
         
         $response = parent::getRestClient()->get($url, parent::getHeaders($accessToken));
         $body = json_decode($response->body, true);

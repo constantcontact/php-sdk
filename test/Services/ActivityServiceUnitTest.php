@@ -14,7 +14,7 @@ class ActivityServiceUnitTest extends PHPUnit_Framework_TestCase{
 	{
 		$rest_client = new MockRestClient(200, JsonLoader::getActivities());
 
-        $activityService = new ActivityService($rest_client);
+        $activityService = new ActivityService("apikey", $rest_client);
         $activities = $activityService->getActivities('access_token');
         
         $activity = $activities[0];
@@ -32,7 +32,7 @@ class ActivityServiceUnitTest extends PHPUnit_Framework_TestCase{
 	{
 		$rest_client = new MockRestClient(200, JsonLoader::getActivity());
 
-        $activityService = new ActivityService($rest_client);
+        $activityService = new ActivityService("apikey", $rest_client);
         $activity = $activityService->getActivity('access_token', 'a07e1ikxyomhd4la0o9');
         
         $this->assertEquals("a07e1ikxyomhd4la0o9", $activity->id);
@@ -58,7 +58,7 @@ class ActivityServiceUnitTest extends PHPUnit_Framework_TestCase{
 	{
 		$rest_client = new MockRestClient(201, JsonLoader::getClearListsActivity());
 
-        $activityService = new ActivityService($rest_client);
+        $activityService = new ActivityService("apikey", $rest_client);
         $activity = $activityService->addClearListsActivity("access_token", array("1","2"));
 
         $this->assertEquals("a07e1il69fwhd7uan9h", $activity->id);
@@ -72,7 +72,7 @@ class ActivityServiceUnitTest extends PHPUnit_Framework_TestCase{
 		$rest_client = new MockRestClient(201, JsonLoader::getExportContactsActivity());
 		$exportContacts = new ExportContacts(array("1", "2"));
 
-        $activityService = new ActivityService($rest_client);
+        $activityService = new ActivityService("apikey", $rest_client);
         $activity = $activityService->addExportContactsActivity("access_token", $exportContacts);
 
 		$this->assertEquals("a07e1i5nqamhcfeuu0h", $activity->id);
@@ -85,7 +85,7 @@ class ActivityServiceUnitTest extends PHPUnit_Framework_TestCase{
 	{
 		$rest_client = new MockRestClient(201, JsonLoader::getRemoveContactsFromListsActivity());
 
-        $activityService = new ActivityService($rest_client);
+        $activityService = new ActivityService("apikey", $rest_client);
         $emailAddresses = array("djellesma@roving.com", "djellesma@constantcontact.com");
         $lists = array("1", "2");
         $activity = $activityService->addRemoveContactsFromListsActivity("access_token", $emailAddresses, $lists);
@@ -99,7 +99,7 @@ class ActivityServiceUnitTest extends PHPUnit_Framework_TestCase{
 	public function testAddAddContactsActivity()
 	{
         $rest_client = new MockRestClient(201, JsonLoader::getAddContactsActivity());
-        $activityService = new ActivityService($rest_client);
+        $activityService = new ActivityService("apikey", $rest_client);
 
         $contact = new AddContactsImportData();
         $address = new Address();

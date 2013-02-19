@@ -21,9 +21,11 @@ class CampaignScheduleService extends BaseService
      * @param Schedule $schedule - Schedule to be created
      * @return Campaign
      */
-    public static function addSchedule($accessToken, $campaign_id, Schedule $schedule)
+    public function addSchedule($accessToken, $campaign_id, Schedule $schedule)
     {
-        $url = Config::get('endpoints.base_url') . sprintf(Config::get('endpoints.campaign_schedules'), $campaign_id);
+        $baseUrl = Config::get('endpoints.base_url') .
+            sprintf(Config::get('endpoints.campaign_schedules'), $campaign_id);
+        $url = $this->buildUrl($baseUrl);
         $response = parent::getRestClient()->post($url, parent::getHeaders($accessToken), $schedule->toJson());
         return Schedule::create(json_decode($response->body, true));
     }
@@ -34,9 +36,11 @@ class CampaignScheduleService extends BaseService
      * @param int $campaign_id - Campaign id to be scheduled
      * @return array 
      */
-    public static function getSchedules($accessToken, $campaign_id)
+    public function getSchedules($accessToken, $campaign_id)
     {
-        $url = Config::get('endpoints.base_url') . sprintf(Config::get('endpoints.campaign_schedules'), $campaign_id);
+        $baseUrl = Config::get('endpoints.base_url') .
+            sprintf(Config::get('endpoints.campaign_schedules'), $campaign_id);
+        $url = $this->buildUrl($baseUrl);
         $response = parent::getRestClient()->get($url, parent::getHeaders($accessToken));
         
         $schedules = array();
@@ -55,10 +59,11 @@ class CampaignScheduleService extends BaseService
      * @param int $scheudle_id - Schedule id to retrieve 
      * @return Schedule 
      */
-    public static function getSchedule($accessToken, $campaign_id, $schedule_id)
+    public function getSchedule($accessToken, $campaign_id, $schedule_id)
     {
-         $url = Config::get('endpoints.base_url') .
+        $baseUrl = Config::get('endpoints.base_url') .
             sprintf(Config::get('endpoints.campaign_schedule'), $campaign_id, $schedule_id);
+        $url = $this->buildUrl($baseUrl);
         $response = parent::getRestClient()->get($url, parent::getHeaders($accessToken));
         return Schedule::create(json_decode($response->body, true));
     }
@@ -70,10 +75,11 @@ class CampaignScheduleService extends BaseService
      * @param Schedule $schedule - Schedule to retrieve 
      * @return Schedule 
      */
-    public static function updateSchedule($accessToken, $campaign_id, Schedule $schedule)
+    public function updateSchedule($accessToken, $campaign_id, Schedule $schedule)
     {
-         $url = Config::get('endpoints.base_url') .
+        $baseUrl = Config::get('endpoints.base_url') .
             sprintf(Config::get('endpoints.campaign_schedule'), $campaign_id, $schedule->schedule_id);
+        $url = $this->buildUrl($baseUrl);
         $response = parent::getRestClient()->put($url, parent::getHeaders($accessToken), $schedule->toJson());
         return Schedule::create(json_decode($response->body, true));
     }
@@ -85,10 +91,11 @@ class CampaignScheduleService extends BaseService
      * @param int $schedule_id - Schedule id to delete
      * @return Schedule 
      */
-    public static function deleteSchedule($accessToken, $campaign_id, $schedule_id)
+    public function deleteSchedule($accessToken, $campaign_id, $schedule_id)
     {
-        $url = Config::get('endpoints.base_url') .
+        $baseUrl = Config::get('endpoints.base_url') .
             sprintf(Config::get('endpoints.campaign_schedule'), $campaign_id, $schedule_id);
+        $url = $this->buildUrl($baseUrl);
         $response = parent::getRestClient()->delete($url, parent::getHeaders($accessToken));
         return ($response->info['http_code'] == 204) ? true : false;
     }
@@ -100,9 +107,11 @@ class CampaignScheduleService extends BaseService
      * @param TestSend $test_send - Test send details
      * @return TestSend
      */
-    public static function sendTest($accessToken, $campaign_id, TestSend $test_send)
+    public function sendTest($accessToken, $campaign_id, TestSend $test_send)
     {
-        $url = Config::get('endpoints.base_url') . sprintf(Config::get('endpoints.campaign_test_sends'), $campaign_id);
+        $baseUrl = Config::get('endpoints.base_url') .
+            sprintf(Config::get('endpoints.campaign_test_sends'), $campaign_id);
+        $url = $this->buildUrl($baseUrl);
         $response = parent::getRestClient()->post($url, parent::getHeaders($accessToken), $test_send->toJson());
         return TestSend::create(json_decode($response->body, true));
     }

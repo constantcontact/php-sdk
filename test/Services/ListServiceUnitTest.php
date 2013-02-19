@@ -10,7 +10,7 @@ class ListServiceUnitTest extends PHPUnit_Framework_TestCase{
 	{
         $rest_client = new MockRestClient(200, JsonLoader::getListsJson());
 
-		$list_service = new ListService($rest_client);
+		$list_service = new ListService("apikey", $rest_client);
 		$response = $list_service->getLists('access_token');
 		
 		$this->assertEquals(1, $response[0]->id);
@@ -28,7 +28,7 @@ class ListServiceUnitTest extends PHPUnit_Framework_TestCase{
 	{
         $rest_client = new MockRestClient(200, JsonLoader::getListJson());
 		
-		$list_service = new ListService($rest_client);
+		$list_service = new ListService("apikey", $rest_client);
 		$list = $list_service->getList('access_token', 6);
 		
 		$this->assertEquals(6, $list->id);
@@ -41,7 +41,7 @@ class ListServiceUnitTest extends PHPUnit_Framework_TestCase{
 	{
         $rest_client = new MockRestClient(200, JsonLoader::getListJson());
 		
-		$list_service = new ListService($rest_client);
+		$list_service = new ListService("apikey", $rest_client);
 		$list = $list_service->addList('access_token', new ContactList());
 		
 		$this->assertEquals(6, $list->id);
@@ -54,7 +54,7 @@ class ListServiceUnitTest extends PHPUnit_Framework_TestCase{
 	{
         $rest_client = new MockRestClient(200, JsonLoader::getListJson());
 		
-		$list_service = new ListService($rest_client);
+		$list_service = new ListService("apikey", $rest_client);
 		$list = $list_service->updateList('access_token', new ContactList());
 		
 		$this->assertEquals(6, $list->id);
@@ -67,7 +67,7 @@ class ListServiceUnitTest extends PHPUnit_Framework_TestCase{
 	{
         $rest_client = new MockRestClient(200, JsonLoader::getContactsJson());
 		
-		$list_service = new ListService($rest_client);
+		$list_service = new ListService("apikey", $rest_client);
 		$response = $list_service->getContactsFromList('access_token', 1);
 		$contact = $response->results[1];
 		

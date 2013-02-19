@@ -20,9 +20,10 @@ class EmailCampaignService extends BaseService
      * @param Campaign $campaign - Campign to be created
      * @return Campaign
      */
-    public static function addCampaign($accessToken, EmailCampaign $campaign)
+    public function addCampaign($accessToken, EmailCampaign $campaign)
     {
-        $url = Config::get('endpoints.base_url') . Config::get('endpoints.campaigns');
+        $baseUrl = Config::get('endpoints.base_url') . Config::get('endpoints.campaigns');
+        $url = $this->buildUrl($baseUrl);
         $response = parent::getRestClient()->post($url, parent::getHeaders($accessToken), $campaign->toJson());
         return EmailCampaign::create(json_decode($response->body, true));
     }
@@ -30,15 +31,13 @@ class EmailCampaignService extends BaseService
     /**
      * Get a set of campaigns
      * @param string $accessToken - Constant Contact OAuth2 access token
-     * @param int $param - query param to be appended to the request
+     * @param array $params - query params to be appended to the request
      * @return ResultSet 
      */
-    public static function getCampaigns($accessToken, $param = null)
+    public function getCampaigns($accessToken, Array $params = null)
     {
-        $url = Config::get('endpoints.base_url') . Config::get('endpoints.campaigns');
-        if ($param) {
-            $url .= $param;
-        }
+        $baseUrl = Config::get('endpoints.base_url') . Config::get('endpoints.campaigns');
+        $url = $this->buildUrl($baseUrl, $params);
         
         $response = parent::getRestClient()->get($url, parent::getHeaders($accessToken));
         $body = json_decode($response->body, true);
@@ -55,9 +54,10 @@ class EmailCampaignService extends BaseService
      * @param int $campaign_id - Valid campaign id
      * @return Campaign
      */
-    public static function getCampaign($accessToken, $campaign_id)
+    public function getCampaign($accessToken, $campaign_id)
     {
-        $url = Config::get('endpoints.base_url') . sprintf(Config::get('endpoints.campaign'), $campaign_id);
+        $baseUrl = Config::get('endpoints.base_url') . sprintf(Config::get('endpoints.campaign'), $campaign_id);
+        $url = $this->buildUrl($baseUrl);
         $response = parent::getRestClient()->get($url, parent::getHeaders($accessToken));
         return EmailCampaign::create(json_decode($response->body, true));
     }
@@ -68,9 +68,10 @@ class EmailCampaignService extends BaseService
      * @param int $campaign_id - Valid campaign id
      * @return boolean
      */
-    public static function deleteCampaign($accessToken, $campaign_id)
+    public function deleteCampaign($accessToken, $campaign_id)
     {
-        $url = Config::get('endpoints.base_url') . sprintf(Config::get('endpoints.campaign'), $campaign_id);
+        $baseUrl = Config::get('endpoints.base_url') . sprintf(Config::get('endpoints.campaign'), $campaign_id);
+        $url = $this->buildUrl($baseUrl);
         $response = parent::getRestClient()->delete($url, parent::getHeaders($accessToken));
         return ($response->info['http_code'] == 204) ? true : false;
     }
@@ -81,9 +82,10 @@ class EmailCampaignService extends BaseService
      * @param Campaign $campaign - Campaign to be updated
      * @return Campaign
      */
-    public static function updateCampaign($accessToken, EmailCampaign $campaign)
+    public function updateCampaign($accessToken, EmailCampaign $campaign)
     {
-        $url = Config::get('endpoints.base_url') . sprintf(Config::get('endpoints.campaign'), $campaign->id);
+        $baseUrl = Config::get('endpoints.base_url') . sprintf(Config::get('endpoints.campaign'), $campaign->id);
+        $url = $this->buildUrl($baseUrl);
         $response = parent::getRestClient()->put($url, parent::getHeaders($accessToken), $campaign->toJson());
         return EmailCampaign::create(json_decode($response->body, true));
     }

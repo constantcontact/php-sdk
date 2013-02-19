@@ -26,17 +26,15 @@ class ContactTrackingService extends BaseService
      * Get bounces for a given contact
      * @param string $accessToken - Constant Contact OAuth2 access token
      * @param int $contact_id - Contact id
-     * @param mixed $param - query param to be appended to request
+     * @param array $param - query params to be appended to request
      * @return ResultSet - Containing a results array of {@link BounceActivity}
      */
-    public static function getBounces($accessToken, $contact_id, $param = null)
+    public function getBounces($accessToken, $contact_id, Array $params = null)
     {
-        $url = Config::get('endpoints.base_url') .
+        $baseUrl = Config::get('endpoints.base_url') .
             sprintf(Config::get('endpoints.contact_tracking_bounces'), $contact_id);
 
-        if ($param) {
-            $url .= $param;
-        }
+        $url = $this->buildUrl($baseUrl, $params);
 
         $response = parent::getRestClient()->get($url, parent::getHeaders($accessToken));
         $body = json_decode($response->body, true);
@@ -53,17 +51,15 @@ class ContactTrackingService extends BaseService
      * Get clicks for a given contact
      * @param string $accessToken - Constant Contact OAuth2 access token
      * @param int $contact_id - Contact id
-     * @param mixed $param - query param to be appended to request
+     * @param array $param - query params to be appended to request
      * @return ResultSet - Containing a results array of {@link ClickActivity}
      */
-    public static function getClicks($accessToken, $contact_id, $param = null)
+    public function getClicks($accessToken, $contact_id, Array $params = null)
     {
-        $url = Config::get('endpoints.base_url') .
+        $baseUrl = Config::get('endpoints.base_url') .
             sprintf(Config::get('endpoints.contact_tracking_clicks'), $contact_id);
         
-        if ($param) {
-            $url .= $param;
-        }
+        $url = $this->buildUrl($baseUrl, $params);
 
         $response = parent::getRestClient()->get($url, parent::getHeaders($accessToken));
         $body = json_decode($response->body, true);
@@ -80,17 +76,15 @@ class ContactTrackingService extends BaseService
      * Get forwards for a given contact
      * @param string $accessToken - Constant Contact OAuth2 access token
      * @param int $contact_id - Contact id
-     * @param mixed $param - query param to be appended to request
+     * @param array $param - query params to be appended to request
      * @return ResultSet - Containing a results array of {@link ForwardActivity}
      */
-    public static function getForwards($accessToken, $contact_id, $param = null)
+    public function getForwards($accessToken, $contact_id, Array $params = null)
     {
-        $url = Config::get('endpoints.base_url') .
+        $baseUrl = Config::get('endpoints.base_url') .
             sprintf(Config::get('endpoints.contact_tracking_forwards'), $contact_id);
         
-        if ($param) {
-            $url .= $param;
-        }
+        $url = $this->buildUrl($baseUrl, $params);
 
         $response = parent::getRestClient()->get($url, parent::getHeaders($accessToken));
         $body = json_decode($response->body, true);
@@ -106,17 +100,15 @@ class ContactTrackingService extends BaseService
      * Get opens for a given contact
      * @param string $accessToken - Constant Contact OAuth2 access token
      * @param int $contact_id - Contact id
-     * @param mixed $param - query param to be appended to request
+     * @param array $param - query params to be appended to request
      * @return ResultSet - Containing a results array of {@link OpenActivity}
      */
-    public static function getOpens($accessToken, $contact_id, $param = null)
+    public function getOpens($accessToken, $contact_id, Array $params = null)
     {
-        $url = Config::get('endpoints.base_url') .
+        $baseUrl = Config::get('endpoints.base_url') .
             sprintf(Config::get('endpoints.contact_tracking_opens'), $contact_id);
         
-        if ($param) {
-            $url .= $param;
-        }
+        $url = $this->buildUrl($baseUrl, $params);
 
         $response = parent::getRestClient()->get($url, parent::getHeaders($accessToken));
         $body = json_decode($response->body, true);
@@ -133,17 +125,15 @@ class ContactTrackingService extends BaseService
      * @param string $accessToken - Constant Contact OAuth2 access token
      * @param string $accessToken - Constant Contact OAuth2 access token
      * @param int $contact_id - Contact id
-     * @param mixed $param - query param to be appended to request
+     * @param array $param - query params to be appended to request
      * @return ResultSet - Containing a results array of {@link SendActivity}
      */
-    public static function getSends($accessToken, $contact_id, $param = null)
+    public function getSends($accessToken, $contact_id, Array $params = null)
     {
-        $url = Config::get('endpoints.base_url') .
+        $baseUrl = Config::get('endpoints.base_url') .
             sprintf(Config::get('endpoints.contact_tracking_sends'), $contact_id);
         
-        if ($param) {
-            $url .= $param;
-        }
+        $url = $this->buildUrl($baseUrl, $params);
 
         $response = parent::getRestClient()->get($url, parent::getHeaders($accessToken));
         $body = json_decode($response->body, true);
@@ -159,17 +149,15 @@ class ContactTrackingService extends BaseService
      * Get opt outs for a given contact
      * @param string $accessToken - Constant Contact OAuth2 access token
      * @param int $contact_id - Contact id
-     * @param mixed $param - query param to be appended to request
+     * @param array $param - query params to be appended to request
      * @return ResultSet - Containing a results array of {@link OptOutActivity}
      */
-    public static function getOptOuts($accessToken, $contact_id, $param = null)
+    public function getOptOuts($accessToken, $contact_id, Array $params = null)
     {
-        $url = Config::get('endpoints.base_url') .
+        $baseUrl = Config::get('endpoints.base_url') .
             sprintf(Config::get('endpoints.contact_tracking_unsubscribes'), $contact_id);
 
-        if ($param) {
-            $url .= $param;
-        }
+        $url = $this->buildUrl($baseUrl, $params);
        
         $response = parent::getRestClient()->get($url, parent::getHeaders($accessToken));
         $body = json_decode($response->body, true);
@@ -187,7 +175,7 @@ class ContactTrackingService extends BaseService
      * @param int $contact_id - Contact id
      * @return TrackingSummary
      */
-    public static function getSummary($accessToken, $contact_id)
+    public function getSummary($accessToken, $contact_id)
     {
         $url = Config::get('endpoints.base_url') .
             sprintf(Config::get('endpoints.contact_tracking_summary'), $contact_id);

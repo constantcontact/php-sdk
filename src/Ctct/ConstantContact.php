@@ -84,13 +84,13 @@ class ConstantContact
     public function __construct($apiKey)
     {
         $this->api_key = $apiKey;
-        $this->contactService = new ContactService();
-        $this->emailCampaignService = new EmailCampaignService();
-        $this->activityService = new ActivityService();
-        $this->campaignTrackingService = new CampaignTrackingService();
-        $this->contactTrackingService = new ContactTrackingService();
-        $this->campaignScheduleService = new CampaignScheduleService();
-        $this->listService = new ListService();
+        $this->contactService = new ContactService($apiKey);
+        $this->emailCampaignService = new EmailCampaignService($apiKey);
+        $this->activityService = new ActivityService($apiKey);
+        $this->campaignTrackingService = new CampaignTrackingService($apiKey);
+        $this->contactTrackingService = new ContactTrackingService($apiKey);
+        $this->campaignScheduleService = new CampaignScheduleService($apiKey);
+        $this->listService = new ListService($apiKey);
     }
     
     /**
@@ -702,11 +702,20 @@ class ConstantContact
         return $id;
     }
 
+    /**
+     * Builds an array of query parameters to be added to the request
+     * @param string $param
+     * @return array
+     */
     private function determineParam($param)
     {
-        if (is_numeric($param)) {
-            $param = "?limit=".$param;
+        $params = array();
+        if (substr($param, 0, 1) === '?') {
+            $param = substr($param, 1);
+            parse_str($param, $params);
+        } else {
+            $params['limit'] = $param;
         }
-        return $param;
+        return $params;
     }
 }

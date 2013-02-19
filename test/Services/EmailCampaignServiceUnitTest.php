@@ -10,7 +10,7 @@ class EmailCampaignServiceUnitTest extends PHPUnit_Framework_TestCase{
 	{
         $rest_client = new MockRestClient(200, JsonLoader::getCampaignsJson());
 		
-		$campaign_service = new EmailCampaignService($rest_client);
+		$campaign_service = new EmailCampaignService("apikey", $rest_client);
 		$response = $campaign_service->getCampaigns('access_token');
 		$campaigns = $response->results;
 		
@@ -30,7 +30,7 @@ class EmailCampaignServiceUnitTest extends PHPUnit_Framework_TestCase{
 	{
         $rest_client = new MockRestClient(204, null);
 		
-		$campaign_service = new EmailCampaignService($rest_client);
+		$campaign_service = new EmailCampaignService("apikey", $rest_client);
 		$response = $campaign_service->deleteCampaign('access_token', "1100368835463");
 		
 		$this->assertTrue($response);
@@ -40,7 +40,7 @@ class EmailCampaignServiceUnitTest extends PHPUnit_Framework_TestCase{
 	{
         $rest_client = new MockRestClient(400, JsonLoader::getCampaignsJson());
 		
-		$campaign_service = new EmailCampaignService($rest_client);
+		$campaign_service = new EmailCampaignService("apikey", $rest_client);
 		$response = $campaign_service->deleteCampaign('access_token', "1100368835463");
 		
 		$this->assertEquals(false, $response);
@@ -50,7 +50,7 @@ class EmailCampaignServiceUnitTest extends PHPUnit_Framework_TestCase{
 	{
         $rest_client = new MockRestClient(201, JsonLoader::getCampaignJson());
 		
-		$campaign_service = new EmailCampaignService($rest_client);
+		$campaign_service = new EmailCampaignService("apikey", $rest_client);
 		$campaign = $campaign_service->getCampaign('access_token', 11109369315398);
 		
 		$this->assertEquals("1100394165290", $campaign->id);
@@ -115,7 +115,7 @@ class EmailCampaignServiceUnitTest extends PHPUnit_Framework_TestCase{
 	{
         $rest_client = new MockRestClient(204, JsonLoader::getCampaignJson());
 
-		$campaign_service = new EmailCampaignService($rest_client);
+		$campaign_service = new EmailCampaignService("apikey", $rest_client);
 		$campaign = $campaign_service->addCampaign('access_token', new EmailCampaign());
 		
 		$this->assertEquals("1100394165290", $campaign->id);
@@ -180,7 +180,7 @@ class EmailCampaignServiceUnitTest extends PHPUnit_Framework_TestCase{
 	{
         $rest_client = new MockRestClient(200, JsonLoader::getCampaignJson());
 		
-		$campaign_service = new EmailCampaignService($rest_client);
+		$campaign_service = new EmailCampaignService("apikey", $rest_client);
 		$campaign = $campaign_service->updateCampaign('access_token', new EmailCampaign());
 		
 		$this->assertEquals("1100394165290", $campaign->id);

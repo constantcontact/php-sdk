@@ -19,7 +19,7 @@ class Config
          */
         'endpoints'    => array(
         
-            'base_url'                          => 'https://api.l1.constantcontact.com/v2/',
+            'base_url'                          => 'https://api.constantcontact.com/v2/',
             
             'activity'                          => 'activities/%s',
             'activities'                        => 'activities',
@@ -69,23 +69,23 @@ class Config
          * Column names used with bulk activities
          */
         'activities_columns' => array(
-            'email'                => 'EMAIL',
+            'email'              => 'EMAIL',
             'first_name'        => 'FIRST NAME',
-            'middle_name'        => 'MIDDLE NAME',
-            'last_name'            => 'LAST NAME',
-            'job_title'            => 'JOB TITLE',
-            'company_name'        => 'COMPANY NAME',
+            'middle_name'       => 'MIDDLE NAME',
+            'last_name'         => 'LAST NAME',
+            'job_title'         => 'JOB TITLE',
+            'company_name'      => 'COMPANY NAME',
             'work_phone'        => 'WORK PHONE',
             'home_phone'        => 'HOME PHONE',
-            'address1'            => 'ADDRESS LINE 1',
-            'address2'            => 'ADDRESS LINE 2',
-            'address3'            => 'ADDRESS LINE 3',
-            'city'                => 'CITY',
-            'state'                => 'STATE',
+            'address1'          => 'ADDRESS LINE 1',
+            'address2'          => 'ADDRESS LINE 2',
+            'address3'          => 'ADDRESS LINE 3',
+            'city'              => 'CITY',
+            'state'             => 'STATE',
             'state_province'    => 'US STATE/CA PROVINCE',
-            'country'            => 'COUNTRY',
-            'postal_code'        => 'ZIP/POSTAL CODE',
-            'sub_postal_code'    => 'SUB ZIP/POSTAL CODE',
+            'country'           => 'COUNTRY',
+            'postal_code'       => 'ZIP/POSTAL CODE',
+            'sub_postal_code'   => 'SUB ZIP/POSTAL CODE',
             'custom_field_1'    => 'CUSTOM FIELD 1',
             'custom_field_2'    => 'CUSTOM FIELD 2',
             'custom_field_3'    => 'CUSTOM FIELD 3',
@@ -95,22 +95,22 @@ class Config
             'custom_field_7'    => 'CUSTOM FIELD 7',
             'custom_field_8'    => 'CUSTOM FIELD 8',
             'custom_field_9'    => 'CUSTOM FIELD 9',
-            'custom_field_10'    => 'CUSTOM FIELD 10',
-            'custom_field_11'    => 'CUSTOM FIELD 11',
-            'custom_field_12'    => 'CUSTOM FIELD 12',
-            'custom_field_13'    => 'CUSTOM FIELD 13',
-            'custom_field_14'    => 'CUSTOM FIELD 14',
-            'custom_field_15'    => 'CUSTOM FIELD 15',
+            'custom_field_10'   => 'CUSTOM FIELD 10',
+            'custom_field_11'   => 'CUSTOM FIELD 11',
+            'custom_field_12'   => 'CUSTOM FIELD 12',
+            'custom_field_13'   => 'CUSTOM FIELD 13',
+            'custom_field_14'   => 'CUSTOM FIELD 14',
+            'custom_field_15'   => 'CUSTOM FIELD 15',
         ),
 
         /**
          * OAuth2 Authorization related configuration options
          */
         'auth'    => array(
-            'base_url'                        => 'https://oauth2.l1.constantcontact.com/oauth2/',
+            'base_url'                      => 'https://oauth2.constantcontact.com/oauth2/',
             'response_type_code'            => 'code',
-            'response_type_token'            => 'token',
-            'authorization_code_grant_type'    => 'authorization_code',
+            'response_type_token'           => 'token',
+            'authorization_code_grant_type' => 'authorization_code',
             'authorization_endpoint'        => 'oauth/siteowner/authorize',
             'token_endpoint'                => 'oauth/token'
             

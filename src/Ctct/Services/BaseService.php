@@ -16,19 +16,42 @@ abstract class BaseService
      * @var $rest_client - RestClient 
      */
     public static $rest_client;
+
+    /**
+     * ApiKey for the application
+     * @var string
+     */
+    protected $apiKey;
     
     /**
      * Constructor with the option to to supply an alternative rest client to be used
      * @param RestClientInterface - RestClientInterface implementation to be used in the service
      */
-    public function __construct($rest_client = null)
+    public function __construct($apiKey, $rest_client = null)
     {
+        $this->apiKey = $apiKey;
+
         if (is_null($rest_client)) {
             self::$rest_client = new RestClient();
         } else {
             self::$rest_client = $rest_client;
         }
+    }
 
+    /**
+     * Build a url from the base url and query parameters array
+     * @return string
+     */
+    public function buildUrl($url, $queryParams = null)
+    {
+        $keyArr = array('apiKey' => $this->apiKey);
+        if ($queryParams) {
+            $params = array_merge($keyArr, $queryParams);
+        } else {
+            $params = $keyArr;
+        }
+        
+        return $url . '?' . http_build_query($params);
     }
     
     /**
@@ -57,51 +80,5 @@ abstract class BaseService
             'Accept: application/json',
             'Authorization: Bearer ' . $accessToken
         );
-    }
-
-
-    /**
-     * Helper function to build a url depending on the offset and limit
-     * @param string $url
-     * @param int $offset
-     * @param int $limit
-     * @return string - resulting url
-     */
-    protected static function paginateUrl($url, $offset = null, $limit = null)
-    {
-        $query_params = array();
-
-        if ($offset != null) {
-            $query_params['offset'] = $offset;
-        }
-
-        if ($limit != null) {
-            $query_params['limit'] = $limit;
-        }
-
-        if (!empty($query_params)) {
-            $url = $url . '?' . http_build_query($query_params);
-        }
-
-        return $url;
-    }
-
-    public static function paginateTrackingUrl($url, $next = null, $limit = null)
-    {
-        $query_params = array();
-
-        if ($next != null) {
-            $query_params['next'] = $next;
-        }
-
-        if ($limit != null) {
-            $query_params['limit'] = $limit;
-        }
-
-        if (!empty($query_params)) {
-            $url = $url . '?' . http_build_query($query_params);
-        }
-
-        return $url;
     }
 }

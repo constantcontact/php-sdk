@@ -18,16 +18,14 @@ class ContactService extends BaseService
     /**
      * Get a ResultSet of contacts
      * @param string $accessToken - Constant Contact OAuth2 access token
-     * @param int $param - query param to be appended to the url (ie: limit, next, email)
+     * @param array $params - array of query parameters to be appended to the url
      * @return ResultSet
      */
-    public function getContacts($accessToken, $param = null)
+    public function getContacts($accessToken, Array $params = null)
     {
-        $url = Config::get('endpoints.base_url') . Config::get('endpoints.contacts');
-        if ($param) {
-            $url .= $param;
-        }
-        
+        $baseUrl = Config::get('endpoints.base_url') . Config::get('endpoints.contacts');
+        $url = $this->buildUrl($baseUrl, $params);
+
         $response = parent::getRestClient()->get($url, parent::getHeaders($accessToken));
         $body = json_decode($response->body, true);
         $contacts = array();
@@ -45,7 +43,8 @@ class ContactService extends BaseService
      */
     public function getContact($accessToken, $contact_id)
     {
-        $url = Config::get('endpoints.base_url') . sprintf(Config::get('endpoints.contact'), $contact_id);
+        $baseUrl = Config::get('endpoints.base_url') . sprintf(Config::get('endpoints.contact'), $contact_id);
+        $url = $this->buildUrl($baseUrl);
         $response = parent::getRestClient()->get($url, parent::getHeaders($accessToken));
         return Contact::create(json_decode($response->body, true));
     }
@@ -59,11 +58,12 @@ class ContactService extends BaseService
      */
     public function addContact($accessToken, Contact $contact, $actionByVisitor = false)
     {
-        $url = Config::get('endpoints.base_url') . Config::get('endpoints.contacts');
-
+        $baseUrl = Config::get('endpoints.base_url') . Config::get('endpoints.contacts');
+        $params = array();
         if ($actionByVisitor == true) {
-            $url .= "?action_by=ACTION_BY_VISITOR";
+            $params['action_by'] = "ACTION_BY_VISITOR";
         }
+        $url = $this->buildUrl($baseUrl, $params);
 
         $response = parent::getRestClient()->post($url, parent::getHeaders($accessToken), $contact->toJson());
         return Contact::create(json_decode($response->body, true));
@@ -77,7 +77,8 @@ class ContactService extends BaseService
      */
     public function deleteContact($accessToken, $contact_id)
     {
-        $url = Config::get('endpoints.base_url') . sprintf(Config::get('endpoints.contact'), $contact_id);
+        $baseUrl = Config::get('endpoints.base_url') . sprintf(Config::get('endpoints.contact'), $contact_id);
+        $url = $this->buildUrl($baseUrl);
         $response = parent::getRestClient()->delete($url, parent::getHeaders($accessToken));
         return ($response->info['http_code'] == 204) ? true : false;
     }
@@ -90,7 +91,8 @@ class ContactService extends BaseService
      */
     public function deleteContactFromLists($accessToken, $contact_id)
     {
-        $url = Config::get('endpoints.base_url') . sprintf(Config::get('endpoints.contact_lists'), $contact_id);
+        $baseUrl = Config::get('endpoints.base_url') . sprintf(Config::get('endpoints.contact_lists'), $contact_id);
+        $url = $this->buildUrl($baseUrl);
         $response = parent::getRestClient()->delete($url, parent::getHeaders($accessToken));
         return ($response->info['http_code'] == 204) ? true : false;
     }
@@ -104,8 +106,9 @@ class ContactService extends BaseService
      */
     public function deleteContactFromList($accessToken, $contact_id, $list_id)
     {
-        $url = Config::get('endpoints.base_url') .
+        $baseUrl = Config::get('endpoints.base_url') .
             sprintf(Config::get('endpoints.contact_list'), $contact_id, $list_id);
+        $url = $this->buildUrl($baseUrl);
         $response = parent::getRestClient()->delete($url, parent::getHeaders($accessToken));
         return ($response->info['http_code'] == 204) ? true : false;
     }
@@ -119,11 +122,12 @@ class ContactService extends BaseService
      */
     public function updateContact($accessToken, Contact $contact, $actionByVisitor = false)
     {
-        $url = Config::get('endpoints.base_url') . sprintf(Config::get('endpoints.contact'), $contact->id);
-
+        $baseUrl = Config::get('endpoints.base_url') . sprintf(Config::get('endpoints.contact'), $contact->id);
+        $params = array();
         if ($actionByVisitor == true) {
-            $url .= "?action_by=ACTION_BY_VISITOR";
+            $params['action_by'] = "ACTION_BY_VISITOR";
         }
+        $url = $this->buildUrl($baseUrl, $params);
 
         $response = parent::getRestClient()->put($url, parent::getHeaders($accessToken), $contact->toJson());
         return Contact::create(json_decode($response->body, true));

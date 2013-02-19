@@ -13,8 +13,8 @@ class ContactServiceUnitTest extends PHPUnit_Framework_TestCase{
 	{
         $rest_client = new MockRestClient(200, JsonLoader::getContactsJson());
 		
-		$contact_service = new ContactService($rest_client);
-		$response = $contact_service->getContacts('access_token', 2);
+		$contact_service = new ContactService("apikey", $rest_client);
+		$response = $contact_service->getContacts('access_token', array('limit' => 2));
 
 		$this->assertEquals('?next=c3RhcnRBdD0zJmxpbWl0PTI', $response->next);
 		$contact = $response->results[1];
@@ -68,8 +68,8 @@ class ContactServiceUnitTest extends PHPUnit_Framework_TestCase{
 	{
         $rest_client = new MockRestClient(200, JsonLoader::getContactsNoNextJson());
 		
-		$contact_service = new ContactService($rest_client);
-		$response = $contact_service->getContacts('access_token', 0, 2);
+		$contact_service = new ContactService("apikey", $rest_client);
+		$response = $contact_service->getContacts('access_token', array('limit' => 2));
 		$contact = $response->results[1];
 		
 		$this->assertEquals($response->next, null);
@@ -122,7 +122,7 @@ class ContactServiceUnitTest extends PHPUnit_Framework_TestCase{
 	{
         $rest_client = new MockRestClient(200, JsonLoader::getContactJson());
 		
-		$contact_service = new ContactService($rest_client);
+		$contact_service = new ContactService("apikey", $rest_client);
 		$contact = $contact_service->getContact('access_token', 1);
 		
 		$this->assertEquals(238, $contact->id);
@@ -181,8 +181,8 @@ class ContactServiceUnitTest extends PHPUnit_Framework_TestCase{
 	{
         $rest_client = new MockRestClient(200, JsonLoader::getContactsJson());
 		
-		$contact_service = new ContactService($rest_client);
-		$response = $contact_service->getContacts('access_token', "?email=anothertest@roving.com");
+		$contact_service = new ContactService("apikey", $rest_client);
+		$response = $contact_service->getContacts('access_token', array('email' => 'anothertest@roving.com'));
 
 		$this->assertEquals('?next=c3RhcnRBdD0zJmxpbWl0PTI', $response->next);
 		$contact = $response->results[1];
@@ -237,7 +237,7 @@ class ContactServiceUnitTest extends PHPUnit_Framework_TestCase{
         $rest_client = new MockRestClient(201, JsonLoader::getContactJson());
 		
 		$testContact = new Contact();
-		$contact_service = new ContactService($rest_client);
+		$contact_service = new ContactService("apikey", $rest_client);
 		$contact = $contact_service->addContact('access_token', $testContact);
 		
 		$this->assertEquals(238, $contact->id);
@@ -296,7 +296,7 @@ class ContactServiceUnitTest extends PHPUnit_Framework_TestCase{
 	{
         $rest_client = new MockRestClient(204, null);
 		
-		$contact_service = new ContactService($rest_client);
+		$contact_service = new ContactService("apikey", $rest_client);
 		$response = $contact_service->deleteContact('access_token', 1);
 		
 		$this->assertTrue($response);
@@ -306,7 +306,7 @@ class ContactServiceUnitTest extends PHPUnit_Framework_TestCase{
 	{
         $rest_client = new MockRestClient(400, null);
 		
-		$contact_service = new ContactService($rest_client);
+		$contact_service = new ContactService("apikey", $rest_client);
 		$response = $contact_service->deleteContact('access_token', 1);
 		
 		$this->assertFalse($response);
@@ -316,7 +316,7 @@ class ContactServiceUnitTest extends PHPUnit_Framework_TestCase{
 	{
         $rest_client = new MockRestClient(204, null);
 		
-		$contact_service = new ContactService($rest_client);
+		$contact_service = new ContactService("apikey", $rest_client);
 		$response = $contact_service->deleteContactFromLists('access_token', 9);
 		
 		$this->assertTrue($response);
@@ -326,7 +326,7 @@ class ContactServiceUnitTest extends PHPUnit_Framework_TestCase{
 	{
         $rest_client = new MockRestClient(400, null);
 		
-		$contact_service = new ContactService($rest_client);
+		$contact_service = new ContactService("apikey", $rest_client);
 		$response = $contact_service->deleteContactFromLists('access_token', 9);
 		
 		$this->assertFalse($response);
@@ -336,7 +336,7 @@ class ContactServiceUnitTest extends PHPUnit_Framework_TestCase{
 	{
         $rest_client = new MockRestClient(204, null);
 		
-		$contact_service = new ContactService($rest_client);
+		$contact_service = new ContactService("apikey", $rest_client);
 		$response = $contact_service->deleteContactFromList('access_token', 9, 1);
 		
 		$this->assertTrue($response);
@@ -346,7 +346,7 @@ class ContactServiceUnitTest extends PHPUnit_Framework_TestCase{
 	{
         $rest_client = new MockRestClient(400, null);
 		
-		$contact_service = new ContactService($rest_client);
+		$contact_service = new ContactService("apikey", $rest_client);
 		$response = $contact_service->deleteContactFromList('access_token', 9, 1);
 		
 		$this->assertFalse($response);
@@ -356,7 +356,7 @@ class ContactServiceUnitTest extends PHPUnit_Framework_TestCase{
 	{
         $rest_client = new MockRestClient(200, JsonLoader::getContactJson());
 		
-		$contact_service = new ContactService($rest_client);
+		$contact_service = new ContactService("apikey", $rest_client);
 		$contact = $contact_service->updateContact('access_token', new Contact());
 		
 		$this->assertEquals(238, $contact->id);

@@ -11,8 +11,8 @@ class CampaignScheduleServiceUnitTest extends PHPUnit_Framework_TestCase{
 	{
         $rest_client = new MockRestClient(200, JsonLoader::getCampaignSchedulesJson());
 
-        $campaignSchedule_service = new CampaignScheduleService($rest_client);
-        $schedules = $campaignSchedule_service::getSchedules('access_token', 9100367935463);
+        $campaignSchedule_service = new CampaignScheduleService("apikey", $rest_client);
+        $schedules = $campaignSchedule_service->getSchedules('access_token', 9100367935463);
 
 		$this->assertEquals(1, $schedules[0]->schedule_id);
         $this->assertEquals("2012-12-16T11:07:43.626Z", $schedules[0]->scheduled_date);
@@ -25,8 +25,8 @@ class CampaignScheduleServiceUnitTest extends PHPUnit_Framework_TestCase{
     {
         $rest_client = new MockRestClient(200, JsonLoader::getCampaignScheduleJson());
 
-        $campaignSchedule_service = new CampaignScheduleService($rest_client);
-        $schedule = $campaignSchedule_service::getSchedule('access_token', 9100367935463, 1);
+        $campaignSchedule_service = new CampaignScheduleService("apikey", $rest_client);
+        $schedule = $campaignSchedule_service->getSchedule('access_token', 9100367935463, 1);
 
         $this->assertEquals(1, $schedule->schedule_id);
         $this->assertEquals("2012-12-16T11:07:43.626Z", $schedule->scheduled_date);
@@ -36,8 +36,8 @@ class CampaignScheduleServiceUnitTest extends PHPUnit_Framework_TestCase{
     {
         $rest_client = new MockRestClient(201, JsonLoader::getCampaignScheduleJson());
 
-        $campaignSchedule_service = new CampaignScheduleService($rest_client);
-        $createdSchedule = $campaignSchedule_service::addSchedule('access_token', 9100367935463, new Schedule());
+        $campaignSchedule_service = new CampaignScheduleService("apikey", $rest_client);
+        $createdSchedule = $campaignSchedule_service->addSchedule('access_token', 9100367935463, new Schedule());
 
         $this->assertEquals(1, $createdSchedule->schedule_id);
         $this->assertEquals("2012-12-16T11:07:43.626Z", $createdSchedule->scheduled_date);
@@ -47,8 +47,8 @@ class CampaignScheduleServiceUnitTest extends PHPUnit_Framework_TestCase{
     {
         $rest_client = new MockRestClient(200, JsonLoader::getCampaignScheduleJson());
 
-        $campaignSchedule_service = new CampaignScheduleService($rest_client);
-        $updatedSchedule = $campaignSchedule_service::updateSchedule('access_token', "9100367935463", new Schedule());
+        $campaignSchedule_service = new CampaignScheduleService("apikey", $rest_client);
+        $updatedSchedule = $campaignSchedule_service->updateSchedule('access_token', "9100367935463", new Schedule());
 
         $this->assertEquals(1, $updatedSchedule->schedule_id);
         $this->assertEquals("2012-12-16T11:07:43.626Z", $updatedSchedule->scheduled_date);
@@ -58,8 +58,8 @@ class CampaignScheduleServiceUnitTest extends PHPUnit_Framework_TestCase{
     {
         $rest_client = new MockRestClient(204, "");
 
-        $campaignSchedule_service = new CampaignScheduleService($rest_client);
-        $response = $campaignSchedule_service::deleteSchedule('access_token', "9100367935463", 1);
+        $campaignSchedule_service = new CampaignScheduleService("apikey", $rest_client);
+        $response = $campaignSchedule_service->deleteSchedule('access_token', "9100367935463", 1);
 
         $this->assertTrue($response);
     }
@@ -68,8 +68,8 @@ class CampaignScheduleServiceUnitTest extends PHPUnit_Framework_TestCase{
     {
         $rest_client = new MockRestClient(400, "");
 
-        $campaignSchedule_service = new CampaignScheduleService($rest_client);
-        $response = $campaignSchedule_service::deleteSchedule('access_token', "9100367935463", 1);
+        $campaignSchedule_service = new CampaignScheduleService("apikey", $rest_client);
+        $response = $campaignSchedule_service->deleteSchedule('access_token', "9100367935463", 1);
 
         $this->assertFalse($response);
     }
@@ -78,8 +78,8 @@ class CampaignScheduleServiceUnitTest extends PHPUnit_Framework_TestCase{
     {
         $rest_client = new MockRestClient(201, JsonLoader::getTestSendJson());
 
-        $campaignSchedule_service = new CampaignScheduleService($rest_client);
-        $test_send = $campaignSchedule_service::sendTest('access_token', "9100367935463", new TestSend());
+        $campaignSchedule_service = new CampaignScheduleService("apikey", $rest_client);
+        $test_send = $campaignSchedule_service->sendTest('access_token', "9100367935463", new TestSend());
 
         $this->assertEquals("HTML", $test_send->format);
         $this->assertEquals("oh hai there", $test_send->personal_message);

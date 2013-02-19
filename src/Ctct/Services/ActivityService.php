@@ -27,7 +27,8 @@ class ActivityService extends BaseService
      */
     public function getActivities($accessToken)
     {
-        $url = Config::get('endpoints.base_url') . Config::get('endpoints.activities');
+        $baseUrl = Config::get('endpoints.base_url') . Config::get('endpoints.activities');
+        $url = $this->buildUrl($baseUrl);
         $response = parent::getRestClient()->get($url, parent::getHeaders($accessToken));
         $jsonResponse = json_decode($response->body, true);
         $activities = array();
@@ -46,7 +47,8 @@ class ActivityService extends BaseService
     */
     public function getActivity($accessToken, $activityId)
     {
-        $url = Config::get('endpoints.base_url') . sprintf(Config::get('endpoints.activity'), $activityId);
+        $baseUrl = Config::get('endpoints.base_url') . sprintf(Config::get('endpoints.activity'), $activityId);
+        $url = $this->buildUrl($baseUrl);
         $response = parent::getRestClient()->get($url, parent::getHeaders($accessToken));
         return Activity::create(json_decode($response->body, true));
     }
@@ -59,7 +61,8 @@ class ActivityService extends BaseService
     */
     public function createAddContactsActivity($accessToken, AddContacts $addContacts)
     {
-        $url = Config::get('endpoints.base_url') . Config::get('endpoints.add_contacts_activity');
+        $baseUrl = Config::get('endpoints.base_url') . Config::get('endpoints.add_contacts_activity');
+        $url = $this->buildUrl($baseUrl);
         $response = parent::getRestClient()->post($url, parent::getHeaders($accessToken));
         return Activity::create(json_decode($response->body, true));
     }
@@ -72,7 +75,8 @@ class ActivityService extends BaseService
     */
     public function addClearListsActivity($accessToken, Array $lists)
     {
-        $url = Config::get('endpoints.base_url') . Config::get('endpoints.clear_lists_activity');
+        $baseUrl = Config::get('endpoints.base_url') . Config::get('endpoints.clear_lists_activity');
+        $url = $this->buildUrl($baseUrl);
         $payload = array('lists' => $lists);
         $response = parent::getRestClient()->post($url, parent::getHeaders($accessToken), json_encode($payload));
         return Activity::create(json_decode($response->body, true));
@@ -86,7 +90,8 @@ class ActivityService extends BaseService
     */
     public function addExportContactsActivity($accessToken, ExportContacts $exportContacts)
     {
-        $url = Config::get('endpoints.base_url') . Config::get('endpoints.export_contacts_activity');
+        $baseUrl = Config::get('endpoints.base_url') . Config::get('endpoints.export_contacts_activity');
+        $url = $this->buildUrl($baseUrl);
         $response = parent::getRestClient()->post($url, parent::getHeaders($accessToken), json_encode($exportContacts));
         return Activity::create(json_decode($response->body, true));
     }
@@ -99,10 +104,11 @@ class ActivityService extends BaseService
     */
     public function addRemoveContactsFromListsActivity($accessToken, Array $emailAddresses, Array $lists)
     {
-        $url = Config::get('endpoints.base_url') . Config::get('endpoints.remove_from_lists_activity');
+        $baseUrl = Config::get('endpoints.base_url') . Config::get('endpoints.remove_from_lists_activity');
+        $url = $this->buildUrl($baseUrl);
         $payload = array(
             'import_data'    => array(),
-            'lists'             => $lists
+            'lists'          => $lists
         );
 
         foreach ($emailAddresses as $emailAddress) {

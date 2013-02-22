@@ -141,7 +141,7 @@
 
 				<b>Author:</b>
 				Constant Contact<br />
-		<b>Located at</b> <a href="source-class-Ctct.Services.ListService.html#10-96" title="Go to source code">Ctct/Services/ListService.php</a><br />
+		<b>Located at</b> <a href="source-class-Ctct.Services.ListService.html#10-95" title="Go to source code">Ctct/Services/ListService.php</a><br />
 	</div>
 
 
@@ -151,7 +151,7 @@
 	<tr data-order="getLists" id="_getLists">
 
 		<td class="attributes"><code>
-			 public static
+			 public 
 			Array
 			
 			</code>
@@ -159,7 +159,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getLists">#</a>
-		<code><a href="source-class-Ctct.Services.ListService.html#18-33" title="Go to source code">getLists</a>( <span>mixed <var>$accessToken</var></span> )</code>
+		<code><a href="source-class-Ctct.Services.ListService.html#18-34" title="Go to source code">getLists</a>( <span>mixed <var>$accessToken</var></span> )</code>
 
 		<div class="description short">
 			
@@ -193,7 +193,7 @@
 	<tr data-order="addList" id="_addList">
 
 		<td class="attributes"><code>
-			 public static
+			 public 
 			<code><a href="class-Ctct.Components.Contacts.ContactList.html">Ctct\Components\Contacts\ContactList</a></code>
 			
 			</code>
@@ -201,7 +201,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_addList">#</a>
-		<code><a href="source-class-Ctct.Services.ListService.html#35-46" title="Go to source code">addList</a>( <span>string <var>$accessToken</var></span>, <span><code><a href="class-Ctct.Components.Contacts.ContactList.html">Ctct\Components\Contacts\ContactList</a></code> <var>$list</var></span> )</code>
+		<code><a href="source-class-Ctct.Services.ListService.html#36-47" title="Go to source code">addList</a>( <span>string <var>$accessToken</var></span>, <span><code><a href="class-Ctct.Components.Contacts.ContactList.html">Ctct\Components\Contacts\ContactList</a></code> <var>$list</var></span> )</code>
 
 		<div class="description short">
 			
@@ -237,7 +237,7 @@
 	<tr data-order="updateList" id="_updateList">
 
 		<td class="attributes"><code>
-			 public static
+			 public 
 			<code><a href="class-Ctct.Components.Contacts.ContactList.html">Ctct\Components\Contacts\ContactList</a></code>
 			
 			</code>
@@ -245,7 +245,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_updateList">#</a>
-		<code><a href="source-class-Ctct.Services.ListService.html#48-59" title="Go to source code">updateList</a>( <span>string <var>$accessToken</var></span>, <span><code><a href="class-Ctct.Components.Contacts.ContactList.html">Ctct\Components\Contacts\ContactList</a></code> <var>$list</var></span> )</code>
+		<code><a href="source-class-Ctct.Services.ListService.html#49-60" title="Go to source code">updateList</a>( <span>string <var>$accessToken</var></span>, <span><code><a href="class-Ctct.Components.Contacts.ContactList.html">Ctct\Components\Contacts\ContactList</a></code> <var>$list</var></span> )</code>
 
 		<div class="description short">
 			
@@ -281,7 +281,7 @@
 	<tr data-order="getList" id="_getList">
 
 		<td class="attributes"><code>
-			 public static
+			 public 
 			<code><a href="class-Ctct.Components.Contacts.ContactList.html">Ctct\Components\Contacts\ContactList</a></code>
 			
 			</code>
@@ -289,7 +289,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getList">#</a>
-		<code><a href="source-class-Ctct.Services.ListService.html#61-72" title="Go to source code">getList</a>( <span>mixed <var>$accessToken</var></span>, <span>mixed <var>$list_id</var></span> )</code>
+		<code><a href="source-class-Ctct.Services.ListService.html#62-73" title="Go to source code">getList</a>( <span>mixed <var>$accessToken</var></span>, <span>mixed <var>$list_id</var></span> )</code>
 
 		<div class="description short">
 			
@@ -325,7 +325,7 @@
 	<tr data-order="getContactsFromList" id="_getContactsFromList">
 
 		<td class="attributes"><code>
-			 public static
+			 public 
 			<code><a href="class-Ctct.Components.ResultSet.html">Ctct\Components\ResultSet</a></code>
 			
 			</code>
@@ -333,7 +333,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getContactsFromList">#</a>
-		<code><a href="source-class-Ctct.Services.ListService.html#74-95" title="Go to source code">getContactsFromList</a>( <span>mixed <var>$accessToken</var></span>, <span>mixed <var>$list_id</var></span>, <span>mixed <var>$param</var> = <span class="php-keyword1">null</span></span> )</code>
+		<code><a href="source-class-Ctct.Services.ListService.html#75-94" title="Go to source code">getContactsFromList</a>( <span>string <var>$accessToken</var></span>, <span>string <var>$list_id</var></span>, <span>array <var>$params</var> = <span class="php-keyword1">null</span></span> )</code>
 
 		<div class="description short">
 			
@@ -350,11 +350,11 @@
 				<h4>Parameters</h4>
 				<div class="list"><dl>
 					<dt><var>$accessToken</var></dt>
-					<dd><code>mixed</code><br>$accessToken - Constant Contact OAuth2 access token</dd>
+					<dd><code>string</code><br>$accessToken - Constant Contact OAuth2 access token</dd>
 					<dt><var>$list_id</var></dt>
-					<dd><code>mixed</code><br>$list_id - list id to retrieve contacts for</dd>
-					<dt><var>$param</var></dt>
-					<dd><code>mixed</code><br>$param - query param to attach to request</dd>
+					<dd><code>string</code><br>$list_id - list id to retrieve contacts for</dd>
+					<dt><var>$params</var></dt>
+					<dd><code>array</code><br>$params - query params to attach to request</dd>
 				</dl></div>
 
 				<h4>Returns</h4>
@@ -375,10 +375,9 @@
 	<tr>
 		<td><code>
 			<a href="class-Ctct.Services.BaseService.html#___construct">__construct()</a>, 
+			<a href="class-Ctct.Services.BaseService.html#_buildUrl">buildUrl()</a>, 
 			<a href="class-Ctct.Services.BaseService.html#_getHeaders">getHeaders()</a>, 
-			<a href="class-Ctct.Services.BaseService.html#_getRestClient">getRestClient()</a>, 
-			<a href="class-Ctct.Services.BaseService.html#_paginateTrackingUrl">paginateTrackingUrl()</a>, 
-			<a href="class-Ctct.Services.BaseService.html#_paginateUrl">paginateUrl()</a>
+			<a href="class-Ctct.Services.BaseService.html#_getRestClient">getRestClient()</a>
 		</code></td>
 	</tr>
 	</table>
@@ -398,6 +397,7 @@
 	<caption>Properties inherited from <a href="class-Ctct.Services.BaseService.html#properties">Ctct\Services\BaseService</a></caption>
 	<tr>
 		<td><code>
+			<a href="class-Ctct.Services.BaseService.html#$apiKey"><var>$apiKey</var></a>, 
 			<a href="class-Ctct.Services.BaseService.html#$rest_client"><var>$rest_client</var></a>
 		</code></td>
 	</tr>

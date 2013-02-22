@@ -141,7 +141,7 @@
 
 				<b>Author:</b>
 				Constant Contact<br />
-		<b>Located at</b> <a href="source-class-Ctct.Services.ActivityService.html#14-115" title="Go to source code">Ctct/Services/ActivityService.php</a><br />
+		<b>Located at</b> <a href="source-class-Ctct.Services.ActivityService.html#14-121" title="Go to source code">Ctct/Services/ActivityService.php</a><br />
 	</div>
 
 
@@ -159,7 +159,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getActivities">#</a>
-		<code><a href="source-class-Ctct.Services.ActivityService.html#23-39" title="Go to source code">getActivities</a>( <span>string <var>$accessToken</var></span> )</code>
+		<code><a href="source-class-Ctct.Services.ActivityService.html#23-40" title="Go to source code">getActivities</a>( <span>string <var>$accessToken</var></span> )</code>
 
 		<div class="description short">
 			
@@ -201,7 +201,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getActivity">#</a>
-		<code><a href="source-class-Ctct.Services.ActivityService.html#41-52" title="Go to source code">getActivity</a>( <span>string <var>$accessToken</var></span>, <span>string <var>$activityId</var></span> )</code>
+		<code><a href="source-class-Ctct.Services.ActivityService.html#42-54" title="Go to source code">getActivity</a>( <span>string <var>$accessToken</var></span>, <span>string <var>$activityId</var></span> )</code>
 
 		<div class="description short">
 			
@@ -245,7 +245,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_createAddContactsActivity">#</a>
-		<code><a href="source-class-Ctct.Services.ActivityService.html#54-65" title="Go to source code">createAddContactsActivity</a>( <span>string <var>$accessToken</var></span>, <span><code><a href="class-Ctct.Components.Activities.AddContacts.html">Ctct\Components\Activities\AddContacts</a></code> <var>$addContacts</var></span> )</code>
+		<code><a href="source-class-Ctct.Services.ActivityService.html#56-68" title="Go to source code">createAddContactsActivity</a>( <span>string <var>$accessToken</var></span>, <span><code><a href="class-Ctct.Components.Activities.AddContacts.html">Ctct\Components\Activities\AddContacts</a></code> <var>$addContacts</var></span> )</code>
 
 		<div class="description short">
 			
@@ -289,7 +289,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_addClearListsActivity">#</a>
-		<code><a href="source-class-Ctct.Services.ActivityService.html#67-79" title="Go to source code">addClearListsActivity</a>( <span>string <var>$accessToken</var></span>, <span>array <var>$lists</var></span> )</code>
+		<code><a href="source-class-Ctct.Services.ActivityService.html#70-83" title="Go to source code">addClearListsActivity</a>( <span>string <var>$accessToken</var></span>, <span>array <var>$lists</var></span> )</code>
 
 		<div class="description short">
 			
@@ -333,7 +333,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_addExportContactsActivity">#</a>
-		<code><a href="source-class-Ctct.Services.ActivityService.html#81-92" title="Go to source code">addExportContactsActivity</a>( <span>string <var>$accessToken</var></span>, <span><code><a href="class-Ctct.Components.Activities.ExportContacts.html">Ctct\Components\Activities\ExportContacts</a></code> <var>$exportContacts</var></span> )</code>
+		<code><a href="source-class-Ctct.Services.ActivityService.html#85-97" title="Go to source code">addExportContactsActivity</a>( <span>string <var>$accessToken</var></span>, <span><code><a href="class-Ctct.Components.Activities.ExportContacts.html">Ctct\Components\Activities\ExportContacts</a></code> <var>$exportContacts</var></span> )</code>
 
 		<div class="description short">
 			
@@ -377,7 +377,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_addRemoveContactsFromListsActivity">#</a>
-		<code><a href="source-class-Ctct.Services.ActivityService.html#94-114" title="Go to source code">addRemoveContactsFromListsActivity</a>( <span>string <var>$accessToken</var></span>, <span>array <var>$emailAddresses</var></span>, <span>array <var>$lists</var></span> )</code>
+		<code><a href="source-class-Ctct.Services.ActivityService.html#99-120" title="Go to source code">addRemoveContactsFromListsActivity</a>( <span>string <var>$accessToken</var></span>, <span>array <var>$emailAddresses</var></span>, <span>array <var>$lists</var></span> )</code>
 
 		<div class="description short">
 			
@@ -419,10 +419,9 @@
 	<tr>
 		<td><code>
 			<a href="class-Ctct.Services.BaseService.html#___construct">__construct()</a>, 
+			<a href="class-Ctct.Services.BaseService.html#_buildUrl">buildUrl()</a>, 
 			<a href="class-Ctct.Services.BaseService.html#_getHeaders">getHeaders()</a>, 
-			<a href="class-Ctct.Services.BaseService.html#_getRestClient">getRestClient()</a>, 
-			<a href="class-Ctct.Services.BaseService.html#_paginateTrackingUrl">paginateTrackingUrl()</a>, 
-			<a href="class-Ctct.Services.BaseService.html#_paginateUrl">paginateUrl()</a>
+			<a href="class-Ctct.Services.BaseService.html#_getRestClient">getRestClient()</a>
 		</code></td>
 	</tr>
 	</table>
@@ -442,6 +441,7 @@
 	<caption>Properties inherited from <a href="class-Ctct.Services.BaseService.html#properties">Ctct\Services\BaseService</a></caption>
 	<tr>
 		<td><code>
+			<a href="class-Ctct.Services.BaseService.html#$apiKey"><var>$apiKey</var></a>, 
 			<a href="class-Ctct.Services.BaseService.html#$rest_client"><var>$rest_client</var></a>
 		</code></td>
 	</tr>

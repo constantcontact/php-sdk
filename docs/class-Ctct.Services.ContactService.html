@@ -141,7 +141,7 @@
 
 				<b>Author:</b>
 				Constant Contact<br />
-		<b>Located at</b> <a href="source-class-Ctct.Services.ContactService.html#9-131" title="Go to source code">Ctct/Services/ContactService.php</a><br />
+		<b>Located at</b> <a href="source-class-Ctct.Services.ContactService.html#9-135" title="Go to source code">Ctct/Services/ContactService.php</a><br />
 	</div>
 
 
@@ -159,7 +159,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getContacts">#</a>
-		<code><a href="source-class-Ctct.Services.ContactService.html#18-38" title="Go to source code">getContacts</a>( <span>string <var>$accessToken</var></span>, <span>integer <var>$param</var> = <span class="php-keyword1">null</span></span> )</code>
+		<code><a href="source-class-Ctct.Services.ContactService.html#18-36" title="Go to source code">getContacts</a>( <span>string <var>$accessToken</var></span>, <span>array <var>$params</var> = <span class="php-keyword1">null</span></span> )</code>
 
 		<div class="description short">
 			
@@ -177,8 +177,8 @@
 				<div class="list"><dl>
 					<dt><var>$accessToken</var></dt>
 					<dd><code>string</code><br>$accessToken - Constant Contact OAuth2 access token</dd>
-					<dt><var>$param</var></dt>
-					<dd><code>integer</code><br>$param - query param to be appended to the url (ie: limit, next, email)</dd>
+					<dt><var>$params</var></dt>
+					<dd><code>array</code><br>$params - array of query parameters to be appended to the url</dd>
 				</dl></div>
 
 				<h4>Returns</h4>
@@ -203,7 +203,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getContact">#</a>
-		<code><a href="source-class-Ctct.Services.ContactService.html#40-51" title="Go to source code">getContact</a>( <span>string <var>$accessToken</var></span>, <span>integer <var>$contact_id</var></span> )</code>
+		<code><a href="source-class-Ctct.Services.ContactService.html#38-50" title="Go to source code">getContact</a>( <span>string <var>$accessToken</var></span>, <span>integer <var>$contact_id</var></span> )</code>
 
 		<div class="description short">
 			
@@ -247,7 +247,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_addContact">#</a>
-		<code><a href="source-class-Ctct.Services.ContactService.html#53-70" title="Go to source code">addContact</a>( <span>string <var>$accessToken</var></span>, <span><code><a href="class-Ctct.Components.Contacts.Contact.html">Ctct\Components\Contacts\Contact</a></code> <var>$contact</var></span>, <span>boolean <var>$actionByVisitor</var> = <span class="php-keyword1">false</span></span> )</code>
+		<code><a href="source-class-Ctct.Services.ContactService.html#52-70" title="Go to source code">addContact</a>( <span>string <var>$accessToken</var></span>, <span><code><a href="class-Ctct.Components.Contacts.Contact.html">Ctct\Components\Contacts\Contact</a></code> <var>$contact</var></span>, <span>boolean <var>$actionByVisitor</var> = <span class="php-keyword1">false</span></span> )</code>
 
 		<div class="description short">
 			
@@ -293,7 +293,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_deleteContact">#</a>
-		<code><a href="source-class-Ctct.Services.ContactService.html#72-83" title="Go to source code">deleteContact</a>( <span>string <var>$accessToken</var></span>, <span>integer <var>$contact_id</var></span> )</code>
+		<code><a href="source-class-Ctct.Services.ContactService.html#72-84" title="Go to source code">deleteContact</a>( <span>string <var>$accessToken</var></span>, <span>integer <var>$contact_id</var></span> )</code>
 
 		<div class="description short">
 			
@@ -337,7 +337,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_deleteContactFromLists">#</a>
-		<code><a href="source-class-Ctct.Services.ContactService.html#85-96" title="Go to source code">deleteContactFromLists</a>( <span>string <var>$accessToken</var></span>, <span>integer <var>$contact_id</var></span> )</code>
+		<code><a href="source-class-Ctct.Services.ContactService.html#86-98" title="Go to source code">deleteContactFromLists</a>( <span>string <var>$accessToken</var></span>, <span>integer <var>$contact_id</var></span> )</code>
 
 		<div class="description short">
 			
@@ -381,7 +381,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_deleteContactFromList">#</a>
-		<code><a href="source-class-Ctct.Services.ContactService.html#98-111" title="Go to source code">deleteContactFromList</a>( <span>string <var>$accessToken</var></span>, <span>integer <var>$contact_id</var></span>, <span>integer <var>$list_id</var></span> )</code>
+		<code><a href="source-class-Ctct.Services.ContactService.html#100-114" title="Go to source code">deleteContactFromList</a>( <span>string <var>$accessToken</var></span>, <span>integer <var>$contact_id</var></span>, <span>integer <var>$list_id</var></span> )</code>
 
 		<div class="description short">
 			
@@ -427,7 +427,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_updateContact">#</a>
-		<code><a href="source-class-Ctct.Services.ContactService.html#113-130" title="Go to source code">updateContact</a>( <span>string <var>$accessToken</var></span>, <span><code><a href="class-Ctct.Components.Contacts.Contact.html">Ctct\Components\Contacts\Contact</a></code> <var>$contact</var></span>, <span>boolean <var>$actionByVisitor</var> = <span class="php-keyword1">false</span></span> )</code>
+		<code><a href="source-class-Ctct.Services.ContactService.html#116-134" title="Go to source code">updateContact</a>( <span>string <var>$accessToken</var></span>, <span><code><a href="class-Ctct.Components.Contacts.Contact.html">Ctct\Components\Contacts\Contact</a></code> <var>$contact</var></span>, <span>boolean <var>$actionByVisitor</var> = <span class="php-keyword1">false</span></span> )</code>
 
 		<div class="description short">
 			
@@ -469,10 +469,9 @@
 	<tr>
 		<td><code>
 			<a href="class-Ctct.Services.BaseService.html#___construct">__construct()</a>, 
+			<a href="class-Ctct.Services.BaseService.html#_buildUrl">buildUrl()</a>, 
 			<a href="class-Ctct.Services.BaseService.html#_getHeaders">getHeaders()</a>, 
-			<a href="class-Ctct.Services.BaseService.html#_getRestClient">getRestClient()</a>, 
-			<a href="class-Ctct.Services.BaseService.html#_paginateTrackingUrl">paginateTrackingUrl()</a>, 
-			<a href="class-Ctct.Services.BaseService.html#_paginateUrl">paginateUrl()</a>
+			<a href="class-Ctct.Services.BaseService.html#_getRestClient">getRestClient()</a>
 		</code></td>
 	</tr>
 	</table>
@@ -492,6 +491,7 @@
 	<caption>Properties inherited from <a href="class-Ctct.Services.BaseService.html#properties">Ctct\Services\BaseService</a></caption>
 	<tr>
 		<td><code>
+			<a href="class-Ctct.Services.BaseService.html#$apiKey"><var>$apiKey</var></a>, 
 			<a href="class-Ctct.Services.BaseService.html#$rest_client"><var>$rest_client</var></a>
 		</code></td>
 	</tr>

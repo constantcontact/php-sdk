@@ -3,10 +3,21 @@
 use Ctct\Util\RestClientInterface;
 use Ctct\Util\CurlResponse;
 
+/**
+ * MockRestClient used in unit testing to simulate a response from a curl request 
+ */
 class MockRestClient implements RestClientInterface
 {
-	
+	/**
+	 * Response body from the server, probably JSON
+	 * @var string
+	 */
 	public $body;
+
+	/**
+	 * Response status code from the server (ie: 401, 404, 204)
+	 * @var string
+	 */
 	public $response_code;
 
     public function __construct($response_code = null, $response_body = null)
@@ -15,7 +26,10 @@ class MockRestClient implements RestClientInterface
         $this->body = $response_body;
     }
 	
-	private function get_mock_response()
+	/**
+	 * Return the stored response
+	 */
+	private function getMockResponse()
 	{
 		$curl_response = new CurlResponse();
 		$curl_response->body = $this->body;
@@ -32,7 +46,7 @@ class MockRestClient implements RestClientInterface
 	 */
 	public function get($url, array $headers)
 	{
-		return $this->get_mock_response();
+		return $this->getMockResponse();
 	}
 	
 	
@@ -45,7 +59,7 @@ class MockRestClient implements RestClientInterface
 	 */
 	public function post($url, array $headers = array(), $data = null)
 	{
-		return $this->get_mock_response();
+		return $this->getMockResponse();
 	}
 	
 	/**
@@ -57,7 +71,7 @@ class MockRestClient implements RestClientInterface
 	 */
 	public function put($url, array $headers = array(), $data = null)
 	{
-		return $this->get_mock_response();
+		return $this->getMockResponse();
 	}
 	
 	/**
@@ -69,7 +83,7 @@ class MockRestClient implements RestClientInterface
 	 */
 	public function delete($url, array $headers = array())
 	{
-		return $this->get_mock_response();
+		return $this->getMockResponse();
 	}
 	
 }

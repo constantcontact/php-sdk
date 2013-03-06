@@ -5,7 +5,7 @@ namespace Ctct\Util;
  * Configuration class to hold endpoints, urls, errors messages etc.
  *
  * @package     Util
- * @author         Constant Contact
+ * @author      Constant Contact
  */
 class Config
 {
@@ -38,21 +38,21 @@ class Config
             'contact_lists'                     => 'contacts/%s/lists',
             'contact_list'                      => 'contacts/%s/lists/%s',
 
-            'campaigns'                         => 'emailcampaigns',
-            'campaign'                          => 'emailcampaigns/%s',
+            'campaigns'                         => 'emailmarketing/campaigns',
+            'campaign'                          => 'emailmarketing/campaigns/%s',
             
-            'campaign_schedules'                => 'emailcampaigns/%s/schedules',
-            'campaign_schedule'                 => 'emailcampaigns/%s/schedules/%s',
-            'campaign_test_sends'               => 'emailcampaigns/%s/tests',
+            'campaign_schedules'                => 'emailmarketing/campaigns/%s/schedules',
+            'campaign_schedule'                 => 'emailmarketing/campaigns/%s/schedules/%s',
+            'campaign_test_sends'               => 'emailmarketing/campaigns/%s/tests',
 
-            'campaign_tracking_summary'         => 'emailcampaigns/%s/tracking/reports/summary',
-            'campaign_tracking_bounces'         => 'emailcampaigns/%s/tracking/bounces',
-            'campaign_tracking_clicks'          => 'emailcampaigns/%s/tracking/clicks',
-            'campaign_tracking_forwards'        => 'emailcampaigns/%s/tracking/forwards',
-            'campaign_tracking_opens'           => 'emailcampaigns/%s/tracking/opens',
-            'campaign_tracking_sends'           => 'emailcampaigns/%s/tracking/sends',
-            'campaign_tracking_unsubscribes'    => 'emailcampaigns/%s/tracking/unsubscribes',
-            'campaign_tracking_link'            => 'emailcampaigns/%s/tracking/clicks/%s',
+            'campaign_tracking_summary'         => 'emailmarketing/campaigns/%s/tracking/reports/summary',
+            'campaign_tracking_bounces'         => 'emailmarketing/campaigns/%s/tracking/bounces',
+            'campaign_tracking_clicks'          => 'emailmarketing/campaigns/%s/tracking/clicks',
+            'campaign_tracking_forwards'        => 'emailmarketing/campaigns/%s/tracking/forwards',
+            'campaign_tracking_opens'           => 'emailmarketing/campaigns/%s/tracking/opens',
+            'campaign_tracking_sends'           => 'emailmarketing/campaigns/%s/tracking/sends',
+            'campaign_tracking_unsubscribes'    => 'emailmarketing/campaigns/%s/tracking/unsubscribes',
+            'campaign_tracking_link'            => 'emailmarketing/campaigns/%s/tracking/clicks/%s',
 
             'contact_tracking_summary'         => 'contacts/%s/tracking/reports/summary',
             'contact_tracking_bounces'         => 'contacts/%s/tracking/bounces',
@@ -69,7 +69,7 @@ class Config
          * Column names used with bulk activities
          */
         'activities_columns' => array(
-            'email'              => 'EMAIL',
+            'email'             => 'EMAIL',
             'first_name'        => 'FIRST NAME',
             'middle_name'       => 'MIDDLE NAME',
             'last_name'         => 'LAST NAME',

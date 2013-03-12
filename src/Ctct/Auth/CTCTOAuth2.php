@@ -3,6 +3,7 @@ namespace Ctct\Auth;
 
 use Ctct\Util\Config;
 use Ctct\Util\RestClient;
+use Ctct\Exceptions\OAuth2Exception;
 
 /**
  * Class that implements necessary functionality to obtain an access token from a user

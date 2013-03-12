@@ -60,11 +60,12 @@ class ContactService extends BaseService
     {
         $baseUrl = Config::get('endpoints.base_url') . Config::get('endpoints.contacts');
         $params = array();
+
         if ($actionByVisitor == true) {
             $params['action_by'] = "ACTION_BY_VISITOR";
         }
+        
         $url = $this->buildUrl($baseUrl, $params);
-
         $response = parent::getRestClient()->post($url, parent::getHeaders($accessToken), $contact->toJson());
         return Contact::create(json_decode($response->body, true));
     }
@@ -128,7 +129,6 @@ class ContactService extends BaseService
             $params['action_by'] = "ACTION_BY_VISITOR";
         }
         $url = $this->buildUrl($baseUrl, $params);
-
         $response = parent::getRestClient()->put($url, parent::getHeaders($accessToken), $contact->toJson());
         return Contact::create(json_decode($response->body, true));
     }

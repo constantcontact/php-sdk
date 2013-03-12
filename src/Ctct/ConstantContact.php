@@ -125,7 +125,7 @@ class ConstantContact
      */
     public function getContactByEmail($accessToken, $email)
     {
-        return $this->contactService->getContacts($accessToken, "?email=".$email);
+        return $this->contactService->getContacts($accessToken, array('email' => $email));
     }
     
     /**
@@ -187,10 +187,10 @@ class ConstantContact
      * Update an individual contact
      * @param string $accessToken - Valid access token
      * @param Contact $contact - Contact to update
-     * @param boolean $actionByVisitor - is the action being taken by the visitor  
+     * @param boolean $actionByVisitor - is the action being taken by the visitor, default is false  
      * @return Contact
      */
-    public function updateContact($accessToken, Contact $contact, $actionByVisitor)
+    public function updateContact($accessToken, Contact $contact, $actionByVisitor = false)
     {
         return $this->contactService->updateContact($accessToken, $contact, $actionByVisitor);
     }

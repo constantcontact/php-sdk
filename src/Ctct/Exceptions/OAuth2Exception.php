@@ -1,5 +1,4 @@
 <?php
-
 namespace Ctct\Exceptions;
 
 use Exception;

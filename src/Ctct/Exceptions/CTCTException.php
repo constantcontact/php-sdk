@@ -15,6 +15,7 @@ class CtctException extends Exception
     private $errors;
     private $curlInfo;
     
+    
     public function setErrors(array $errors)
     {
         $this->errors = $errors;
@@ -27,7 +28,7 @@ class CtctException extends Exception
 
     public function setCurlInfo(array $info)
     {
-        $this->curl_info = $info;
+        $this->curlInfo = $info;
     }
 
     public function getCurlInfo()

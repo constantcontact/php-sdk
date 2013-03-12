@@ -1,5 +1,4 @@
 <?php
-
 namespace Ctct\Auth;
 
 use Ctct\Auth\CtctDataStore;

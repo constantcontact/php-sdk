@@ -123,12 +123,6 @@ class Contact extends Component
     public $custom_fields = array();
 
     /**
-     * Last update for this contact in ISO 8601 format
-     * @var string
-     */
-    public $last_update_date;
-
-    /**
      * Array of contact lists this contact belongs to
      * @var array
      */
@@ -180,8 +174,6 @@ class Contact extends Component
         foreach ($props['custom_fields'] as $custom_field) {
             $contact->custom_fields[] = CustomField::create($custom_field);
         }
-        
-        $contact->last_update_date = parent::getValue($props, "last_update_date");
         
         foreach ($props['lists'] as $contact_list) {
             $contact->lists[] = ContactList::create($contact_list);
@@ -239,6 +231,7 @@ class Contact extends Component
     
     public function toJson()
     {
+        unset($this->last_update_date);
         return json_encode($this);
     }
 }

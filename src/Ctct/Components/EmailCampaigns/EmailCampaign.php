@@ -24,14 +24,13 @@ class EmailCampaign extends Component
     public $from_name;
     public $from_email;
     public $reply_to_email;
-    public $campaign_type;
+    public $template_type;
     public $created_date;
     public $modified_date;
     public $last_send_date;
     public $last_edit_date;
     public $last_run_date;
     public $next_run_date;
-    public $share_page_url;
     public $is_permission_reminder_enabled;
     public $permission_reminder_text;
     public $is_view_as_webpage_enabled;
@@ -63,7 +62,7 @@ class EmailCampaign extends Component
         $campaign->from_name = parent::getValue($props, "from_name");
         $campaign->from_email = parent::getValue($props, "from_email");
         $campaign->reply_to_email = parent::getValue($props, "reply_to_email");
-        $campaign->campaign_type = parent::getValue($props, "campaign_type");
+        $campaign->template_type = parent::getValue($props, "template_type");
         $campaign->created_date = parent::getValue($props, "created_date");
         $campaign->modified_date = parent::getValue($props, "modified_date");
         $campaign->last_send_date = parent::getValue($props, "last_send_date");
@@ -71,7 +70,6 @@ class EmailCampaign extends Component
         $campaign->last_run_date = parent::getValue($props, "last_run_date");
         $campaign->next_run_date = parent::getValue($props, "next_run_date");
         $campaign->status = parent::getValue($props, "status");
-        $campaign->share_page_url = parent::getValue($props, "share_page_url");
         $campaign->is_permission_reminder_enabled = parent::getValue($props, "is_permission_reminder_enabled");
         $campaign->permission_reminder_text = parent::getValue($props, "permission_reminder_text");
         $campaign->is_view_as_webpage_enabled = parent::getValue($props, "is_view_as_webpage_enabled");

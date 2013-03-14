@@ -258,7 +258,7 @@ class ConstantContact
      * from a previous getCampaigns call
      * @return ResultSet
      */
-    public function getCampaigns($accessToken, $param = null)
+    public function getEmailCampaigns($accessToken, $param = null)
     {
         $param = $this->determineParam($param);
         return $this->emailCampaignService->getCampaigns($accessToken, $param);
@@ -269,7 +269,7 @@ class ConstantContact
      * @param string $accessToken - Constant Contact OAuth2 access token
      * @param int $campaignId - Valid campaign id
      */
-    public function getCampaign($accessToken, $campaignId)
+    public function getEmailCampaign($accessToken, $campaignId)
     {
         return $this->emailCampaignService->getCampaign($accessToken, $campaignId);
     }
@@ -281,9 +281,9 @@ class ConstantContact
      * @throws IllegalArgumentException - if a Campaign object or campaign id is not passed
      * @return boolean 
      */
-    public function deleteCampaign($accessToken, $campaign)
+    public function deleteEmailCampaign($accessToken, $campaign)
     {
-        $campaignId = $this->getArgumentId($campaign, 'Campaign');
+        $campaignId = $this->getArgumentId($campaign, 'EmailCampaign');
         return $this->emailCampaignService->deleteCampaign($accessToken, $campaignId);
     }
     
@@ -293,7 +293,7 @@ class ConstantContact
      * @param Campaign $campaign - Campaign to be created
      * @return Campaign - created campaign
      */
-    public function addCampaign($accessToken, Campaign $campaign)
+    public function addEmailCampaign($accessToken, EmailCampaign $campaign)
     {
         return $this->emailCampaignService->addCampaign($accessToken, $campaign);
     }
@@ -304,7 +304,7 @@ class ConstantContact
      * @param Campaign $campaign - Campaign to be updated
      * @return Campaign - updated campaign
      */
-    public function updateCampaign($accessToken, Campaign $campaign)
+    public function updateEmailCampaign($accessToken, EmailCampaign $campaign)
     {
         return $this->emailCampaignService->updateCampaign($accessToken, $campaign);
     }
@@ -316,7 +316,7 @@ class ConstantContact
      * @param Schedule $schedule - Schedule to be associated with the provided campaign
      * @return Campaign - updated campaign
      */
-    public function addCampaignSchedule($accessToken, $campaign, Schedule $schedule)
+    public function addEmailCampaignSchedule($accessToken, $campaign, Schedule $schedule)
     {
         $campaignId = $this->getArgumentId($campaign, 'Campaign');
         return $this->campaignScheduleService->addSchedule($accessToken, $campaignId, $schedule);
@@ -328,9 +328,9 @@ class ConstantContact
      * @param mixed $campaign - Campaign id  or Campaign object itself
      * @return array
      */
-    public function getCampaignSchedules($accessToken, $campaign)
+    public function getEmailCampaignSchedules($accessToken, $campaign)
     {
-        $campaignId = $this->getArgumentId($campaign, 'Campaign');
+        $campaignId = $this->getArgumentId($campaign, 'EmailCampaign');
         return $this->campaignScheduleService->getSchedules($accessToken, $campaignId);
     }
     
@@ -342,9 +342,9 @@ class ConstantContact
      * @throws IllegalArgumentException
      * @return array
      */
-    public function getCampaignSchedule($accessToken, $campaign, $schedule)
+    public function getEmailCampaignSchedule($accessToken, $campaign, $schedule)
     {
-        $campaignId = $this->getArgumentId($campaign, 'Campaign');
+        $campaignId = $this->getArgumentId($campaign, 'EmailCampaign');
         
         $schedule_id = null;
 
@@ -366,9 +366,9 @@ class ConstantContact
      * @param Schedule $schedule - Schedule to be updated
      * @return array
      */
-    public function updateCampaignSchedule($accessToken, $campaign, Schedule $schedule)
+    public function updateEmailCampaignSchedule($accessToken, $campaign, Schedule $schedule)
     {
-        $campaignId = $this->getArgumentId($campaign, 'Campaign');
+        $campaignId = $this->getArgumentId($campaign, 'EmailCampaign');
         
         return $this->campaignScheduleService->updateSchedule($accessToken, $campaignId, $schedule);
     }
@@ -381,9 +381,9 @@ class ConstantContact
      * @throws IllegalArgumentException
      * @return array
      */
-    public function deleteCampaignSchedule($accessToken, $campaign, $schedule)
+    public function deleteEmailCampaignSchedule($accessToken, $campaign, $schedule)
     {
-        $campaignId = $this->getArgumentId($campaign, 'Campaign');
+        $campaignId = $this->getArgumentId($campaign, 'EmailCampaign');
         $schedule_id = null;
         
         if ($schedule instanceof Schedule) {
@@ -400,41 +400,41 @@ class ConstantContact
     /**
      * Send a test send of a campaign
      * @param string $accessToken - Constant Contact OAuth2 access token
-     * @param mixed $campaign  - Campaign id or Campaign object itself
+     * @param mixed $emailCampaign  - Campaign id or Campaign object itself
      * @param TestSend $test_send - test send details
      * @return TestSend
      */
-    public function sendCampaignTest($accessToken, $campaign, TestSend $test_send)
+    public function sendEmailCampaignTest($accessToken, $campaign, TestSend $test_send)
     {
-        $campaignId = $this->getArgumentId($campaign, 'Campaign');
+        $campaignId = $this->getArgumentId($campaign, 'EmailCampaign');
         return $this->campaignScheduleService->sendTest($accessToken, $campaignId, $test_send);
     }
 
     /**
      * Get sends for a campaign
      * @param string $accessToken - Constant Contact OAuth2 access token
-     * @param mixed $campaign  - Campaign id or Campaign object itself
+     * @param mixed $emailCampaign  - Campaign id or Campaign object itself
      * @param string $next - next value returned from a previous request (used in pagination)
      * @param int $limit - number of results to return per page
      * @return TrackingActivity - Containing a results array of {@link Ctct\Components\CampaignTracking\SendActivity}
      */
-    public function getCampaignSends($accessToken, $campaign, $next = null, $limit = null)
+    public function getEmailCampaignSends($accessToken, $campaign, $next = null, $limit = null)
     {
-        $campaignId = $this->getArgumentId($campaign, 'Campaign');
+        $campaignId = $this->getArgumentId($campaign, 'EmailCampaign');
         return $this->campaignTrackingService->getSends($accessToken, $campaignId, $next, $limit);
     }
 
     /**
      * Get bounces for a campaign
      * @param string $accessToken - Constant Contact OAuth2 access token
-     * @param mixed $campaign  - Campaign id or Campaign object itself
+     * @param mixed $emailCampaign  - Campaign id or Campaign object itself
      * @param mixed $param - either the next link from a previous request, or a limit or restrict the page size of
      * an initial request
      * @return ResultSet - Containing a results array of {@link Ctct\Components\CampaignTracking\BounceActivity}
      */
-    public function getCampaignBounces($accessToken, $campaign, $param = null)
+    public function getEmailCampaignBounces($accessToken, $campaign, $param = null)
     {
-        $campaignId = $this->getArgumentId($campaign, 'Campaign');
+        $campaignId = $this->getArgumentId($campaign, 'EmailCampaign');
         $param = $this->determineParam($param);
         return $this->campaignTrackingService->getBounces($accessToken, $campaignId, $param);
     }
@@ -442,14 +442,14 @@ class ConstantContact
     /**
      * Get clicks for a campaign
      * @param string $accessToken - Constant Contact OAuth2 access token
-     * @param mixed $campaign  - Campaign id or Campaign object itself
+     * @param mixed $emailCampaign  - Campaign id or Campaign object itself
      * @param mixed $param - either the next link from a previous request, or a limit or restrict the page size of
      * an initial request
      * @return ResultSet - Containing a results array of {@link Ctct\Components\CampaignTracking\ClickActivity}
      */
-    public function getCampaignClicks($accessToken, $campaign, $param = null)
+    public function getEmailCampaignClicks($accessToken, $campaign, $param = null)
     {
-        $campaignId = $this->getArgumentId($campaign, 'Campaign');
+        $campaignId = $this->getArgumentId($campaign, 'EmailCampaign');
         $param = $this->determineParam($param);
         return $this->campaignTrackingService->getClicks($accessToken, $campaignId, $param);
     }
@@ -457,14 +457,14 @@ class ConstantContact
     /**
      * Get opens for a campaign
      * @param string $accessToken - Constant Contact OAuth2 access token
-     * @param mixed $campaign  - Campaign id or Campaign object itself
+     * @param mixed $emailCampaign  - Campaign id or Campaign object itself
      * @param mixed $param - either the next link from a previous request, or a limit or restrict the page size of
      * an initial request
      * @return ResultSet - Containing a results array of {@link Ctct\Components\CampaignTracking\OpenActivity}
      */
-    public function getCampaignOpens($accessToken, $campaign, $param = null)
+    public function getEmailCampaignOpens($accessToken, $campaign, $param = null)
     {
-        $campaignId = $this->getArgumentId($campaign, 'Campaign');
+        $campaignId = $this->getArgumentId($campaign, 'EmailCampaign');
         $param = $this->determineParam($param);
         return $this->campaignTrackingService->getOpens($accessToken, $campaignId, $param);
     }
@@ -472,14 +472,14 @@ class ConstantContact
     /**
      * Get forwards for a campaign
      * @param string $accessToken - Constant Contact OAuth2 access token
-     * @param mixed $campaign  - Campaign id or Campaign object itself
+     * @param mixed $emailCampaign  - Campaign id or Campaign object itself
      * @param mixed $param - either the next link from a previous request, or a limit or restrict the page size of
      * an initial request
      * @return ResultSet - Containing a results array of {@link Ctct\Components\CampaignTracking\ForwardActivity}
      */
-    public function getCampaignForwards($accessToken, $campaign, $param = null)
+    public function getEmailCampaignForwards($accessToken, $campaign, $param = null)
     {
-        $campaignId = $this->getArgumentId($campaign, 'Campaign');
+        $campaignId = $this->getArgumentId($campaign, 'EmailCampaign');
         $param = $this->determineParam($param);
         return $this->campaignTrackingService->getForwards($accessToken, $campaignId, $param);
     }
@@ -487,14 +487,14 @@ class ConstantContact
     /**
      * Get opt outs for a campaign
      * @param string $accessToken - Constant Contact OAuth2 access token
-     * @param mixed $campaign  - Campaign id or Campaign object itself
+     * @param mixed $emailCampaign  - Campaign id or Campaign object itself
      * @param mixed $param - either the next link from a previous request, or a limit or restrict the page size of
      * an initial request
      * @return ResultSet - Containing a results array of {@link Ctct\Components\CampaignTracking\OptOutActivity}
      */
-    public function getCampaignOptOuts($accessToken, $campaign, $param = null)
+    public function getEmailCampaignOptOuts($accessToken, $campaign, $param = null)
     {
-        $campaignId = $this->getArgumentId($campaign, 'Campaign');
+        $campaignId = $this->getArgumentId($campaign, 'EmailCampaign');
         $param = $this->determineParam($param);
         return $this->campaignTrackingService->getOptOuts($accessToken, $campaignId, $param);
     }
@@ -502,14 +502,14 @@ class ConstantContact
     /**
      * Get a reporting summary for a campaign
      * @param string $accessToken - Constant Contact OAuth2 access token
-     * @param mixed $campaign  - Campaign id or Campaign object itself
+     * @param mixed $emailCampaign  - Campaign id or Campaign object itself
      * @param string $next - next value returned from a previous request (used in pagination)
      * @param int $limit - number of results to return per page
      * @return TrackingSummary
      */
-    public function getCampaignSummaryReport($accessToken, $campaign)
+    public function getEmailCampaignSummaryReport($accessToken, $campaign)
     {
-        $campaignId = $this->getArgumentId($campaign, 'Campaign');
+        $campaignId = $this->getArgumentId($campaign, 'EmailCampaign');
         return $this->campaignTrackingService->getSummary($accessToken, $campaignId);
     }
 

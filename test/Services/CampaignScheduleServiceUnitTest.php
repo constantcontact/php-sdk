@@ -2,8 +2,8 @@
 
 use Ctct\Services\CampaignScheduleService;
 use Ctct\Util\RestClient;
-use Ctct\Components\EmailCampaigns\Schedule;
-use Ctct\Components\EmailCampaigns\TestSend;
+use Ctct\Components\EmailMarketing\Schedule;
+use Ctct\Components\EmailMarketing\TestSend;
 
 class CampaignScheduleServiceUnitTest extends PHPUnit_Framework_TestCase{
 	

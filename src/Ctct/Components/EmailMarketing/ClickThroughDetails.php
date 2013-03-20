@@ -1,13 +1,12 @@
 <?php
-
-namespace Ctct\Components\EmailCampaigns;
+namespace Ctct\Components\EmailMarketing;
 
 use Ctct\Components\Component;
 
 /**
  * Represents a click through detail 
  *
- * @package     Components
+ * @package        EmailMarketing
  * @subpackage     Campaigns
  * @author         Constant Contact
  */

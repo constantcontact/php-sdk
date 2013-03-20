@@ -8,7 +8,7 @@
 	<title>File Ctct/Services/BaseService.php | Appconnect PHP SDK</title>
 
 	<script type="text/javascript" src="resources/combined.js?554516056"></script>
-	<script type="text/javascript" src="elementlist.js?3562998511"></script>
+	<script type="text/javascript" src="elementlist.js?4186809953"></script>
 	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?3505392360" />
 
 </head>
@@ -32,7 +32,7 @@
 						</li>
 				<li><a href="namespace-Ctct.Components.Contacts.html">Contacts</a>
 						</li>
-				<li><a href="namespace-Ctct.Components.EmailCampaigns.html">EmailCampaigns</a>
+				<li><a href="namespace-Ctct.Components.EmailMarketing.html">EmailMarketing</a>
 						</li>
 				<li><a href="namespace-Ctct.Components.Tracking.html">Tracking</a>
 						</li>
@@ -59,7 +59,7 @@
 				<li><a href="class-Ctct.Services.CampaignTrackingService.html">CampaignTrackingService</a></li>
 				<li><a href="class-Ctct.Services.ContactService.html">ContactService</a></li>
 				<li><a href="class-Ctct.Services.ContactTrackingService.html">ContactTrackingService</a></li>
-				<li><a href="class-Ctct.Services.EmailCampaignService.html">EmailCampaignService</a></li>
+				<li><a href="class-Ctct.Services.EmailMarketingService.html">EmailMarketingService</a></li>
 				<li><a href="class-Ctct.Services.ListService.html">ListService</a></li>
 			</ul>
 
@@ -149,7 +149,7 @@
 </span></span><span id="44" class="l"><a class="l" href="#44">44: </a><span class="php-comment">     */</span>
 </span><span id="45" class="l"><a class="l" href="#45">45: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> <a id="_buildUrl" href="#_buildUrl">buildUrl</a>(<span class="php-var">$url</span>, <span class="php-var">$queryParams</span> = <span class="php-keyword1">null</span>)
 </span><span id="46" class="l"><a class="l" href="#46">46: </a>    {
-</span><span id="47" class="l"><a class="l" href="#47">47: </a>        <span class="php-var">$keyArr</span> = <span class="php-keyword1">array</span>(<span class="php-quote">'apiKey'</span> =&gt; <span class="php-var">$this</span>-&gt;apiKey);
+</span><span id="47" class="l"><a class="l" href="#47">47: </a>        <span class="php-var">$keyArr</span> = <span class="php-keyword1">array</span>(<span class="php-quote">'api_key'</span> =&gt; <span class="php-var">$this</span>-&gt;apiKey);
 </span><span id="48" class="l"><a class="l" href="#48">48: </a>        <span class="php-keyword1">if</span> (<span class="php-var">$queryParams</span>) {
 </span><span id="49" class="l"><a class="l" href="#49">49: </a>            <span class="php-var">$params</span> = <span class="php-keyword2">array_merge</span>(<span class="php-var">$keyArr</span>, <span class="php-var">$queryParams</span>);
 </span><span id="50" class="l"><a class="l" href="#50">50: </a>        } <span class="php-keyword1">else</span> {

@@ -81,7 +81,6 @@ class ListServiceUnitTest extends PHPUnit_Framework_TestCase{
 		$this->assertEquals("Bear Tamer", $contact->job_title);
 		$this->assertEquals("Animal Trainer Pro", $contact->company_name);
 		$this->assertEquals("details", $contact->source_details);
-		$this->assertEquals("ACTION_BY_OWNER", $contact->action_by);
 		$this->assertEquals(false, $contact->confirmed);
 		$this->assertEquals("", $contact->source);
 		

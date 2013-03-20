@@ -8,7 +8,7 @@
 	<title>File Ctct/Services/ContactService.php | Appconnect PHP SDK</title>
 
 	<script type="text/javascript" src="resources/combined.js?554516056"></script>
-	<script type="text/javascript" src="elementlist.js?3562998511"></script>
+	<script type="text/javascript" src="elementlist.js?4186809953"></script>
 	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?3505392360" />
 
 </head>
@@ -32,7 +32,7 @@
 						</li>
 				<li><a href="namespace-Ctct.Components.Contacts.html">Contacts</a>
 						</li>
-				<li><a href="namespace-Ctct.Components.EmailCampaigns.html">EmailCampaigns</a>
+				<li><a href="namespace-Ctct.Components.EmailMarketing.html">EmailMarketing</a>
 						</li>
 				<li><a href="namespace-Ctct.Components.Tracking.html">Tracking</a>
 						</li>
@@ -59,7 +59,7 @@
 				<li><a href="class-Ctct.Services.CampaignTrackingService.html">CampaignTrackingService</a></li>
 				<li class="active"><a href="class-Ctct.Services.ContactService.html">ContactService</a></li>
 				<li><a href="class-Ctct.Services.ContactTrackingService.html">ContactTrackingService</a></li>
-				<li><a href="class-Ctct.Services.EmailCampaignService.html">EmailCampaignService</a></li>
+				<li><a href="class-Ctct.Services.EmailMarketingService.html">EmailMarketingService</a></li>
 				<li><a href="class-Ctct.Services.ListService.html">ListService</a></li>
 			</ul>
 
@@ -165,75 +165,75 @@
 </span><span id="60" class="l"><a class="l" href="#60"> 60: </a>    {
 </span><span id="61" class="l"><a class="l" href="#61"> 61: </a>        <span class="php-var">$baseUrl</span> = Config::get(<span class="php-quote">'endpoints.base_url'</span>) . Config::get(<span class="php-quote">'endpoints.contacts'</span>);
 </span><span id="62" class="l"><a class="l" href="#62"> 62: </a>        <span class="php-var">$params</span> = <span class="php-keyword1">array</span>();
-</span><span id="63" class="l"><a class="l" href="#63"> 63: </a>        <span class="php-keyword1">if</span> (<span class="php-var">$actionByVisitor</span> == <span class="php-keyword1">true</span>) {
-</span><span id="64" class="l"><a class="l" href="#64"> 64: </a>            <span class="php-var">$params</span>[<span class="php-quote">'action_by'</span>] = <span class="php-quote">&quot;ACTION_BY_VISITOR&quot;</span>;
-</span><span id="65" class="l"><a class="l" href="#65"> 65: </a>        }
-</span><span id="66" class="l"><a class="l" href="#66"> 66: </a>        <span class="php-var">$url</span> = <span class="php-var">$this</span>-&gt;buildUrl(<span class="php-var">$baseUrl</span>, <span class="php-var">$params</span>);
-</span><span id="67" class="l"><a class="l" href="#67"> 67: </a>
-</span><span id="68" class="l"><a class="l" href="#68"> 68: </a>        <span class="php-var">$response</span> = parent::getRestClient()-&gt;post(<span class="php-var">$url</span>, parent::getHeaders(<span class="php-var">$accessToken</span>), <span class="php-var">$contact</span>-&gt;toJson());
-</span><span id="69" class="l"><a class="l" href="#69"> 69: </a>        <span class="php-keyword1">return</span> Contact::create(<span class="php-keyword2">json_decode</span>(<span class="php-var">$response</span>-&gt;body, <span class="php-keyword1">true</span>));
-</span><span id="70" class="l"><a class="l" href="#70"> 70: </a>    }
-</span><span id="71" class="l"><a class="l" href="#71"> 71: </a>    
-</span><span id="72" class="l"><a class="l" href="#72"> 72: </a>    <span class="php-comment">/**
-</span></span><span id="73" class="l"><a class="l" href="#73"> 73: </a><span class="php-comment">     * Delete contact details for a specific contact
-</span></span><span id="74" class="l"><a class="l" href="#74"> 74: </a><span class="php-comment">     * @param string $accessToken - Constant Contact OAuth2 access token
-</span></span><span id="75" class="l"><a class="l" href="#75"> 75: </a><span class="php-comment">     * @param int $contact_id - Unique contact id
-</span></span><span id="76" class="l"><a class="l" href="#76"> 76: </a><span class="php-comment">     * @return boolean
-</span></span><span id="77" class="l"><a class="l" href="#77"> 77: </a><span class="php-comment">     */</span>
-</span><span id="78" class="l"><a class="l" href="#78"> 78: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> <a id="_deleteContact" href="#_deleteContact">deleteContact</a>(<span class="php-var">$accessToken</span>, <span class="php-var">$contact_id</span>)
-</span><span id="79" class="l"><a class="l" href="#79"> 79: </a>    {
-</span><span id="80" class="l"><a class="l" href="#80"> 80: </a>        <span class="php-var">$baseUrl</span> = Config::get(<span class="php-quote">'endpoints.base_url'</span>) . <span class="php-keyword2">sprintf</span>(Config::get(<span class="php-quote">'endpoints.contact'</span>), <span class="php-var">$contact_id</span>);
-</span><span id="81" class="l"><a class="l" href="#81"> 81: </a>        <span class="php-var">$url</span> = <span class="php-var">$this</span>-&gt;buildUrl(<span class="php-var">$baseUrl</span>);
-</span><span id="82" class="l"><a class="l" href="#82"> 82: </a>        <span class="php-var">$response</span> = parent::getRestClient()-&gt;<span class="php-keyword2">delete</span>(<span class="php-var">$url</span>, parent::getHeaders(<span class="php-var">$accessToken</span>));
-</span><span id="83" class="l"><a class="l" href="#83"> 83: </a>        <span class="php-keyword1">return</span> (<span class="php-var">$response</span>-&gt;info[<span class="php-quote">'http_code'</span>] == <span class="php-num">204</span>) ? <span class="php-keyword1">true</span> : <span class="php-keyword1">false</span>;
-</span><span id="84" class="l"><a class="l" href="#84"> 84: </a>    }
-</span><span id="85" class="l"><a class="l" href="#85"> 85: </a>    
-</span><span id="86" class="l"><a class="l" href="#86"> 86: </a>    <span class="php-comment">/**
-</span></span><span id="87" class="l"><a class="l" href="#87"> 87: </a><span class="php-comment">     * Delete a contact from all contact lists
-</span></span><span id="88" class="l"><a class="l" href="#88"> 88: </a><span class="php-comment">     * @param string $accessToken - Constant Contact OAuth2 access token
-</span></span><span id="89" class="l"><a class="l" href="#89"> 89: </a><span class="php-comment">     * @param int $contact_id - Contact id to be removed from lists
-</span></span><span id="90" class="l"><a class="l" href="#90"> 90: </a><span class="php-comment">     * @return boolean
-</span></span><span id="91" class="l"><a class="l" href="#91"> 91: </a><span class="php-comment">     */</span>
-</span><span id="92" class="l"><a class="l" href="#92"> 92: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> <a id="_deleteContactFromLists" href="#_deleteContactFromLists">deleteContactFromLists</a>(<span class="php-var">$accessToken</span>, <span class="php-var">$contact_id</span>)
-</span><span id="93" class="l"><a class="l" href="#93"> 93: </a>    {
-</span><span id="94" class="l"><a class="l" href="#94"> 94: </a>        <span class="php-var">$baseUrl</span> = Config::get(<span class="php-quote">'endpoints.base_url'</span>) . <span class="php-keyword2">sprintf</span>(Config::get(<span class="php-quote">'endpoints.contact_lists'</span>), <span class="php-var">$contact_id</span>);
-</span><span id="95" class="l"><a class="l" href="#95"> 95: </a>        <span class="php-var">$url</span> = <span class="php-var">$this</span>-&gt;buildUrl(<span class="php-var">$baseUrl</span>);
-</span><span id="96" class="l"><a class="l" href="#96"> 96: </a>        <span class="php-var">$response</span> = parent::getRestClient()-&gt;<span class="php-keyword2">delete</span>(<span class="php-var">$url</span>, parent::getHeaders(<span class="php-var">$accessToken</span>));
-</span><span id="97" class="l"><a class="l" href="#97"> 97: </a>        <span class="php-keyword1">return</span> (<span class="php-var">$response</span>-&gt;info[<span class="php-quote">'http_code'</span>] == <span class="php-num">204</span>) ? <span class="php-keyword1">true</span> : <span class="php-keyword1">false</span>;
-</span><span id="98" class="l"><a class="l" href="#98"> 98: </a>    }
-</span><span id="99" class="l"><a class="l" href="#99"> 99: </a>    
-</span><span id="100" class="l"><a class="l" href="#100">100: </a>    <span class="php-comment">/**
-</span></span><span id="101" class="l"><a class="l" href="#101">101: </a><span class="php-comment">     * Delete a contact from a specific contact list
-</span></span><span id="102" class="l"><a class="l" href="#102">102: </a><span class="php-comment">     * @param string $accessToken - Constant Contact OAuth2 access token
-</span></span><span id="103" class="l"><a class="l" href="#103">103: </a><span class="php-comment">     * @param int $contact_id - Contact id to be removed
-</span></span><span id="104" class="l"><a class="l" href="#104">104: </a><span class="php-comment">     * @param int $list_id - ContactList to remove the contact from
-</span></span><span id="105" class="l"><a class="l" href="#105">105: </a><span class="php-comment">     * @return boolean
-</span></span><span id="106" class="l"><a class="l" href="#106">106: </a><span class="php-comment">     */</span>
-</span><span id="107" class="l"><a class="l" href="#107">107: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> <a id="_deleteContactFromList" href="#_deleteContactFromList">deleteContactFromList</a>(<span class="php-var">$accessToken</span>, <span class="php-var">$contact_id</span>, <span class="php-var">$list_id</span>)
-</span><span id="108" class="l"><a class="l" href="#108">108: </a>    {
-</span><span id="109" class="l"><a class="l" href="#109">109: </a>        <span class="php-var">$baseUrl</span> = Config::get(<span class="php-quote">'endpoints.base_url'</span>) .
-</span><span id="110" class="l"><a class="l" href="#110">110: </a>            <span class="php-keyword2">sprintf</span>(Config::get(<span class="php-quote">'endpoints.contact_list'</span>), <span class="php-var">$contact_id</span>, <span class="php-var">$list_id</span>);
-</span><span id="111" class="l"><a class="l" href="#111">111: </a>        <span class="php-var">$url</span> = <span class="php-var">$this</span>-&gt;buildUrl(<span class="php-var">$baseUrl</span>);
-</span><span id="112" class="l"><a class="l" href="#112">112: </a>        <span class="php-var">$response</span> = parent::getRestClient()-&gt;<span class="php-keyword2">delete</span>(<span class="php-var">$url</span>, parent::getHeaders(<span class="php-var">$accessToken</span>));
-</span><span id="113" class="l"><a class="l" href="#113">113: </a>        <span class="php-keyword1">return</span> (<span class="php-var">$response</span>-&gt;info[<span class="php-quote">'http_code'</span>] == <span class="php-num">204</span>) ? <span class="php-keyword1">true</span> : <span class="php-keyword1">false</span>;
-</span><span id="114" class="l"><a class="l" href="#114">114: </a>    }
-</span><span id="115" class="l"><a class="l" href="#115">115: </a>    
-</span><span id="116" class="l"><a class="l" href="#116">116: </a>    <span class="php-comment">/**
-</span></span><span id="117" class="l"><a class="l" href="#117">117: </a><span class="php-comment">     * Update contact details for a specific contact
-</span></span><span id="118" class="l"><a class="l" href="#118">118: </a><span class="php-comment">     * @param string $accessToken - Constant Contact OAuth2 access token
-</span></span><span id="119" class="l"><a class="l" href="#119">119: </a><span class="php-comment">     * @param Contact $contact - Contact to be updated
-</span></span><span id="120" class="l"><a class="l" href="#120">120: </a><span class="php-comment">     * @param boolean $actionByVisitor - is the action being taken by the visitor 
-</span></span><span id="121" class="l"><a class="l" href="#121">121: </a><span class="php-comment">     * @return Contact
-</span></span><span id="122" class="l"><a class="l" href="#122">122: </a><span class="php-comment">     */</span>
-</span><span id="123" class="l"><a class="l" href="#123">123: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> <a id="_updateContact" href="#_updateContact">updateContact</a>(<span class="php-var">$accessToken</span>, Contact <span class="php-var">$contact</span>, <span class="php-var">$actionByVisitor</span> = <span class="php-keyword1">false</span>)
-</span><span id="124" class="l"><a class="l" href="#124">124: </a>    {
-</span><span id="125" class="l"><a class="l" href="#125">125: </a>        <span class="php-var">$baseUrl</span> = Config::get(<span class="php-quote">'endpoints.base_url'</span>) . <span class="php-keyword2">sprintf</span>(Config::get(<span class="php-quote">'endpoints.contact'</span>), <span class="php-var">$contact</span>-&gt;id);
-</span><span id="126" class="l"><a class="l" href="#126">126: </a>        <span class="php-var">$params</span> = <span class="php-keyword1">array</span>();
-</span><span id="127" class="l"><a class="l" href="#127">127: </a>        <span class="php-keyword1">if</span> (<span class="php-var">$actionByVisitor</span> == <span class="php-keyword1">true</span>) {
-</span><span id="128" class="l"><a class="l" href="#128">128: </a>            <span class="php-var">$params</span>[<span class="php-quote">'action_by'</span>] = <span class="php-quote">&quot;ACTION_BY_VISITOR&quot;</span>;
-</span><span id="129" class="l"><a class="l" href="#129">129: </a>        }
-</span><span id="130" class="l"><a class="l" href="#130">130: </a>        <span class="php-var">$url</span> = <span class="php-var">$this</span>-&gt;buildUrl(<span class="php-var">$baseUrl</span>, <span class="php-var">$params</span>);
-</span><span id="131" class="l"><a class="l" href="#131">131: </a>
+</span><span id="63" class="l"><a class="l" href="#63"> 63: </a>
+</span><span id="64" class="l"><a class="l" href="#64"> 64: </a>        <span class="php-keyword1">if</span> (<span class="php-var">$actionByVisitor</span> == <span class="php-keyword1">true</span>) {
+</span><span id="65" class="l"><a class="l" href="#65"> 65: </a>            <span class="php-var">$params</span>[<span class="php-quote">'action_by'</span>] = <span class="php-quote">&quot;ACTION_BY_VISITOR&quot;</span>;
+</span><span id="66" class="l"><a class="l" href="#66"> 66: </a>        }
+</span><span id="67" class="l"><a class="l" href="#67"> 67: </a>        
+</span><span id="68" class="l"><a class="l" href="#68"> 68: </a>        <span class="php-var">$url</span> = <span class="php-var">$this</span>-&gt;buildUrl(<span class="php-var">$baseUrl</span>, <span class="php-var">$params</span>);
+</span><span id="69" class="l"><a class="l" href="#69"> 69: </a>        <span class="php-var">$response</span> = parent::getRestClient()-&gt;post(<span class="php-var">$url</span>, parent::getHeaders(<span class="php-var">$accessToken</span>), <span class="php-var">$contact</span>-&gt;toJson());
+</span><span id="70" class="l"><a class="l" href="#70"> 70: </a>        <span class="php-keyword1">return</span> Contact::create(<span class="php-keyword2">json_decode</span>(<span class="php-var">$response</span>-&gt;body, <span class="php-keyword1">true</span>));
+</span><span id="71" class="l"><a class="l" href="#71"> 71: </a>    }
+</span><span id="72" class="l"><a class="l" href="#72"> 72: </a>    
+</span><span id="73" class="l"><a class="l" href="#73"> 73: </a>    <span class="php-comment">/**
+</span></span><span id="74" class="l"><a class="l" href="#74"> 74: </a><span class="php-comment">     * Delete contact details for a specific contact
+</span></span><span id="75" class="l"><a class="l" href="#75"> 75: </a><span class="php-comment">     * @param string $accessToken - Constant Contact OAuth2 access token
+</span></span><span id="76" class="l"><a class="l" href="#76"> 76: </a><span class="php-comment">     * @param int $contact_id - Unique contact id
+</span></span><span id="77" class="l"><a class="l" href="#77"> 77: </a><span class="php-comment">     * @return boolean
+</span></span><span id="78" class="l"><a class="l" href="#78"> 78: </a><span class="php-comment">     */</span>
+</span><span id="79" class="l"><a class="l" href="#79"> 79: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> <a id="_deleteContact" href="#_deleteContact">deleteContact</a>(<span class="php-var">$accessToken</span>, <span class="php-var">$contact_id</span>)
+</span><span id="80" class="l"><a class="l" href="#80"> 80: </a>    {
+</span><span id="81" class="l"><a class="l" href="#81"> 81: </a>        <span class="php-var">$baseUrl</span> = Config::get(<span class="php-quote">'endpoints.base_url'</span>) . <span class="php-keyword2">sprintf</span>(Config::get(<span class="php-quote">'endpoints.contact'</span>), <span class="php-var">$contact_id</span>);
+</span><span id="82" class="l"><a class="l" href="#82"> 82: </a>        <span class="php-var">$url</span> = <span class="php-var">$this</span>-&gt;buildUrl(<span class="php-var">$baseUrl</span>);
+</span><span id="83" class="l"><a class="l" href="#83"> 83: </a>        <span class="php-var">$response</span> = parent::getRestClient()-&gt;<span class="php-keyword2">delete</span>(<span class="php-var">$url</span>, parent::getHeaders(<span class="php-var">$accessToken</span>));
+</span><span id="84" class="l"><a class="l" href="#84"> 84: </a>        <span class="php-keyword1">return</span> (<span class="php-var">$response</span>-&gt;info[<span class="php-quote">'http_code'</span>] == <span class="php-num">204</span>) ? <span class="php-keyword1">true</span> : <span class="php-keyword1">false</span>;
+</span><span id="85" class="l"><a class="l" href="#85"> 85: </a>    }
+</span><span id="86" class="l"><a class="l" href="#86"> 86: </a>    
+</span><span id="87" class="l"><a class="l" href="#87"> 87: </a>    <span class="php-comment">/**
+</span></span><span id="88" class="l"><a class="l" href="#88"> 88: </a><span class="php-comment">     * Delete a contact from all contact lists
+</span></span><span id="89" class="l"><a class="l" href="#89"> 89: </a><span class="php-comment">     * @param string $accessToken - Constant Contact OAuth2 access token
+</span></span><span id="90" class="l"><a class="l" href="#90"> 90: </a><span class="php-comment">     * @param int $contact_id - Contact id to be removed from lists
+</span></span><span id="91" class="l"><a class="l" href="#91"> 91: </a><span class="php-comment">     * @return boolean
+</span></span><span id="92" class="l"><a class="l" href="#92"> 92: </a><span class="php-comment">     */</span>
+</span><span id="93" class="l"><a class="l" href="#93"> 93: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> <a id="_deleteContactFromLists" href="#_deleteContactFromLists">deleteContactFromLists</a>(<span class="php-var">$accessToken</span>, <span class="php-var">$contact_id</span>)
+</span><span id="94" class="l"><a class="l" href="#94"> 94: </a>    {
+</span><span id="95" class="l"><a class="l" href="#95"> 95: </a>        <span class="php-var">$baseUrl</span> = Config::get(<span class="php-quote">'endpoints.base_url'</span>) . <span class="php-keyword2">sprintf</span>(Config::get(<span class="php-quote">'endpoints.contact_lists'</span>), <span class="php-var">$contact_id</span>);
+</span><span id="96" class="l"><a class="l" href="#96"> 96: </a>        <span class="php-var">$url</span> = <span class="php-var">$this</span>-&gt;buildUrl(<span class="php-var">$baseUrl</span>);
+</span><span id="97" class="l"><a class="l" href="#97"> 97: </a>        <span class="php-var">$response</span> = parent::getRestClient()-&gt;<span class="php-keyword2">delete</span>(<span class="php-var">$url</span>, parent::getHeaders(<span class="php-var">$accessToken</span>));
+</span><span id="98" class="l"><a class="l" href="#98"> 98: </a>        <span class="php-keyword1">return</span> (<span class="php-var">$response</span>-&gt;info[<span class="php-quote">'http_code'</span>] == <span class="php-num">204</span>) ? <span class="php-keyword1">true</span> : <span class="php-keyword1">false</span>;
+</span><span id="99" class="l"><a class="l" href="#99"> 99: </a>    }
+</span><span id="100" class="l"><a class="l" href="#100">100: </a>    
+</span><span id="101" class="l"><a class="l" href="#101">101: </a>    <span class="php-comment">/**
+</span></span><span id="102" class="l"><a class="l" href="#102">102: </a><span class="php-comment">     * Delete a contact from a specific contact list
+</span></span><span id="103" class="l"><a class="l" href="#103">103: </a><span class="php-comment">     * @param string $accessToken - Constant Contact OAuth2 access token
+</span></span><span id="104" class="l"><a class="l" href="#104">104: </a><span class="php-comment">     * @param int $contact_id - Contact id to be removed
+</span></span><span id="105" class="l"><a class="l" href="#105">105: </a><span class="php-comment">     * @param int $list_id - ContactList to remove the contact from
+</span></span><span id="106" class="l"><a class="l" href="#106">106: </a><span class="php-comment">     * @return boolean
+</span></span><span id="107" class="l"><a class="l" href="#107">107: </a><span class="php-comment">     */</span>
+</span><span id="108" class="l"><a class="l" href="#108">108: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> <a id="_deleteContactFromList" href="#_deleteContactFromList">deleteContactFromList</a>(<span class="php-var">$accessToken</span>, <span class="php-var">$contact_id</span>, <span class="php-var">$list_id</span>)
+</span><span id="109" class="l"><a class="l" href="#109">109: </a>    {
+</span><span id="110" class="l"><a class="l" href="#110">110: </a>        <span class="php-var">$baseUrl</span> = Config::get(<span class="php-quote">'endpoints.base_url'</span>) .
+</span><span id="111" class="l"><a class="l" href="#111">111: </a>            <span class="php-keyword2">sprintf</span>(Config::get(<span class="php-quote">'endpoints.contact_list'</span>), <span class="php-var">$contact_id</span>, <span class="php-var">$list_id</span>);
+</span><span id="112" class="l"><a class="l" href="#112">112: </a>        <span class="php-var">$url</span> = <span class="php-var">$this</span>-&gt;buildUrl(<span class="php-var">$baseUrl</span>);
+</span><span id="113" class="l"><a class="l" href="#113">113: </a>        <span class="php-var">$response</span> = parent::getRestClient()-&gt;<span class="php-keyword2">delete</span>(<span class="php-var">$url</span>, parent::getHeaders(<span class="php-var">$accessToken</span>));
+</span><span id="114" class="l"><a class="l" href="#114">114: </a>        <span class="php-keyword1">return</span> (<span class="php-var">$response</span>-&gt;info[<span class="php-quote">'http_code'</span>] == <span class="php-num">204</span>) ? <span class="php-keyword1">true</span> : <span class="php-keyword1">false</span>;
+</span><span id="115" class="l"><a class="l" href="#115">115: </a>    }
+</span><span id="116" class="l"><a class="l" href="#116">116: </a>    
+</span><span id="117" class="l"><a class="l" href="#117">117: </a>    <span class="php-comment">/**
+</span></span><span id="118" class="l"><a class="l" href="#118">118: </a><span class="php-comment">     * Update contact details for a specific contact
+</span></span><span id="119" class="l"><a class="l" href="#119">119: </a><span class="php-comment">     * @param string $accessToken - Constant Contact OAuth2 access token
+</span></span><span id="120" class="l"><a class="l" href="#120">120: </a><span class="php-comment">     * @param Contact $contact - Contact to be updated
+</span></span><span id="121" class="l"><a class="l" href="#121">121: </a><span class="php-comment">     * @param boolean $actionByVisitor - is the action being taken by the visitor 
+</span></span><span id="122" class="l"><a class="l" href="#122">122: </a><span class="php-comment">     * @return Contact
+</span></span><span id="123" class="l"><a class="l" href="#123">123: </a><span class="php-comment">     */</span>
+</span><span id="124" class="l"><a class="l" href="#124">124: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> <a id="_updateContact" href="#_updateContact">updateContact</a>(<span class="php-var">$accessToken</span>, Contact <span class="php-var">$contact</span>, <span class="php-var">$actionByVisitor</span> = <span class="php-keyword1">false</span>)
+</span><span id="125" class="l"><a class="l" href="#125">125: </a>    {
+</span><span id="126" class="l"><a class="l" href="#126">126: </a>        <span class="php-var">$baseUrl</span> = Config::get(<span class="php-quote">'endpoints.base_url'</span>) . <span class="php-keyword2">sprintf</span>(Config::get(<span class="php-quote">'endpoints.contact'</span>), <span class="php-var">$contact</span>-&gt;id);
+</span><span id="127" class="l"><a class="l" href="#127">127: </a>        <span class="php-var">$params</span> = <span class="php-keyword1">array</span>();
+</span><span id="128" class="l"><a class="l" href="#128">128: </a>        <span class="php-keyword1">if</span> (<span class="php-var">$actionByVisitor</span> == <span class="php-keyword1">true</span>) {
+</span><span id="129" class="l"><a class="l" href="#129">129: </a>            <span class="php-var">$params</span>[<span class="php-quote">'action_by'</span>] = <span class="php-quote">&quot;ACTION_BY_VISITOR&quot;</span>;
+</span><span id="130" class="l"><a class="l" href="#130">130: </a>        }
+</span><span id="131" class="l"><a class="l" href="#131">131: </a>        <span class="php-var">$url</span> = <span class="php-var">$this</span>-&gt;buildUrl(<span class="php-var">$baseUrl</span>, <span class="php-var">$params</span>);
 </span><span id="132" class="l"><a class="l" href="#132">132: </a>        <span class="php-var">$response</span> = parent::getRestClient()-&gt;put(<span class="php-var">$url</span>, parent::getHeaders(<span class="php-var">$accessToken</span>), <span class="php-var">$contact</span>-&gt;toJson());
 </span><span id="133" class="l"><a class="l" href="#133">133: </a>        <span class="php-keyword1">return</span> Contact::create(<span class="php-keyword2">json_decode</span>(<span class="php-var">$response</span>-&gt;body, <span class="php-keyword1">true</span>));
 </span><span id="134" class="l"><a class="l" href="#134">134: </a>    }

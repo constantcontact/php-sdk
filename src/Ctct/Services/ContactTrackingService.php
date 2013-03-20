@@ -146,13 +146,13 @@ class ContactTrackingService extends BaseService
     }
 
     /**
-     * Get opt outs for a given contact
+     * Get unsubscribes for a given contact
      * @param string $accessToken - Constant Contact OAuth2 access token
      * @param int $contact_id - Contact id
      * @param array $param - query params to be appended to request
      * @return ResultSet - Containing a results array of {@link OptOutActivity}
      */
-    public function getOptOuts($accessToken, $contact_id, Array $params = null)
+    public function getUnsubscribes($accessToken, $contact_id, Array $params = null)
     {
         $baseUrl = Config::get('endpoints.base_url') .
             sprintf(Config::get('endpoints.contact_tracking_unsubscribes'), $contact_id);

@@ -1,16 +1,16 @@
 <?php
 
-use Ctct\Services\EmailCampaignService;
+use Ctct\Services\EmailMarketingService;
 use Ctct\Util\RestClient;
-use Ctct\Components\EmailCampaigns\EmailCampaign;
+use Ctct\Components\EmailMarketing\Campaign;
  
-class EmailCampaignServiceUnitTest extends PHPUnit_Framework_TestCase{
+class EmailMarketingServiceUnitTest extends PHPUnit_Framework_TestCase{
 
 	public function testGetCampaigns()
 	{
         $rest_client = new MockRestClient(200, JsonLoader::getCampaignsJson());
 		
-		$campaign_service = new EmailCampaignService("apikey", $rest_client);
+		$campaign_service = new EmailMarketingService("apikey", $rest_client);
 		$response = $campaign_service->getCampaigns('access_token');
 		$campaigns = $response->results;
 		
@@ -30,7 +30,7 @@ class EmailCampaignServiceUnitTest extends PHPUnit_Framework_TestCase{
 	{
         $rest_client = new MockRestClient(204, null);
 		
-		$campaign_service = new EmailCampaignService("apikey", $rest_client);
+		$campaign_service = new EmailMarketingService("apikey", $rest_client);
 		$response = $campaign_service->deleteCampaign('access_token', "1100368835463");
 		
 		$this->assertTrue($response);
@@ -40,7 +40,7 @@ class EmailCampaignServiceUnitTest extends PHPUnit_Framework_TestCase{
 	{
         $rest_client = new MockRestClient(400, JsonLoader::getCampaignsJson());
 		
-		$campaign_service = new EmailCampaignService("apikey", $rest_client);
+		$campaign_service = new EmailMarketingService("apikey", $rest_client);
 		$response = $campaign_service->deleteCampaign('access_token', "1100368835463");
 		
 		$this->assertEquals(false, $response);
@@ -50,7 +50,7 @@ class EmailCampaignServiceUnitTest extends PHPUnit_Framework_TestCase{
 	{
         $rest_client = new MockRestClient(201, JsonLoader::getCampaignJson());
 		
-		$campaign_service = new EmailCampaignService("apikey", $rest_client);
+		$campaign_service = new EmailMarketingService("apikey", $rest_client);
 		$campaign = $campaign_service->getCampaign('access_token', 11109369315398);
 		
 		$this->assertEquals("1100394165290", $campaign->id);
@@ -60,7 +60,7 @@ class EmailCampaignServiceUnitTest extends PHPUnit_Framework_TestCase{
 		$this->assertEquals("From WSPI", $campaign->from_name);
 		$this->assertEquals("wiz-20121206130519@l1.snoopy.roving.com", $campaign->from_email);
 		$this->assertEquals("wiz-20121206130519@l1.snoopy.roving.com", $campaign->reply_to_email);
-		$this->assertEquals("CUSTOM", $campaign->campaign_type);
+		$this->assertEquals("CUSTOM", $campaign->template_type);
 		$this->assertEquals("2012-12-06T18:06:05.255Z", $campaign->created_date);
 		$this->assertEquals("2012-12-06T18:06:05.255Z", $campaign->last_edit_date);
 		$this->assertEquals("2012-12-06T18:06:40.342Z", $campaign->last_run_date);
@@ -115,8 +115,8 @@ class EmailCampaignServiceUnitTest extends PHPUnit_Framework_TestCase{
 	{
         $rest_client = new MockRestClient(204, JsonLoader::getCampaignJson());
 
-		$campaign_service = new EmailCampaignService("apikey", $rest_client);
-		$campaign = $campaign_service->addCampaign('access_token', new EmailCampaign());
+		$campaign_service = new EmailMarketingService("apikey", $rest_client);
+		$campaign = $campaign_service->addCampaign('access_token', new Campaign());
 		
 		$this->assertEquals("1100394165290", $campaign->id);
 		$this->assertEquals("CampaignName-05965ddb-12d2-43e5-b8f3-0c22ca487c3a", $campaign->name);
@@ -125,7 +125,7 @@ class EmailCampaignServiceUnitTest extends PHPUnit_Framework_TestCase{
 		$this->assertEquals("From WSPI", $campaign->from_name);
 		$this->assertEquals("wiz-20121206130519@l1.snoopy.roving.com", $campaign->from_email);
 		$this->assertEquals("wiz-20121206130519@l1.snoopy.roving.com", $campaign->reply_to_email);
-		$this->assertEquals("CUSTOM", $campaign->campaign_type);
+		$this->assertEquals("CUSTOM", $campaign->template_type);
 		$this->assertEquals("2012-12-06T18:06:05.255Z", $campaign->created_date);
 		$this->assertEquals("2012-12-06T18:06:05.255Z", $campaign->last_edit_date);
 		$this->assertEquals("2012-12-06T18:06:40.342Z", $campaign->last_run_date);
@@ -180,8 +180,8 @@ class EmailCampaignServiceUnitTest extends PHPUnit_Framework_TestCase{
 	{
         $rest_client = new MockRestClient(200, JsonLoader::getCampaignJson());
 		
-		$campaign_service = new EmailCampaignService("apikey", $rest_client);
-		$campaign = $campaign_service->updateCampaign('access_token', new EmailCampaign());
+		$campaign_service = new EmailMarketingService("apikey", $rest_client);
+		$campaign = $campaign_service->updateCampaign('access_token', new Campaign());
 		
 		$this->assertEquals("1100394165290", $campaign->id);
 		$this->assertEquals("CampaignName-05965ddb-12d2-43e5-b8f3-0c22ca487c3a", $campaign->name);
@@ -190,7 +190,7 @@ class EmailCampaignServiceUnitTest extends PHPUnit_Framework_TestCase{
 		$this->assertEquals("From WSPI", $campaign->from_name);
 		$this->assertEquals("wiz-20121206130519@l1.snoopy.roving.com", $campaign->from_email);
 		$this->assertEquals("wiz-20121206130519@l1.snoopy.roving.com", $campaign->reply_to_email);
-		$this->assertEquals("CUSTOM", $campaign->campaign_type);
+		$this->assertEquals("CUSTOM", $campaign->template_type);
 		$this->assertEquals("2012-12-06T18:06:05.255Z", $campaign->created_date);
 		$this->assertEquals("2012-12-06T18:06:05.255Z", $campaign->last_edit_date);
 		$this->assertEquals("2012-12-06T18:06:40.342Z", $campaign->last_run_date);

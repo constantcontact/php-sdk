@@ -1,24 +1,45 @@
 <?xml version="1.0"?>
-
 <project name="ctct-php-skd" default="build" description="Constant Contact PHP SDK">
+    
+    <!-- Generate documentation -->
+    <target name="docs">
+        <echo msg="Creating /docs folder ...."/>
+        <mkdir dir="docs"/>
+        <echo msg="Generating documentation ..."/>
+        <apigen source="src" destination="docs" title="Appconnect PHP SDK" exclude="*/autoload.php,*/Util/*"/>
+    </target>
 
-    <target name="prepare">
-    	<echo msg="Creating /docs and /reports folders ...."/>
+    <!-- PSR2 Compliance Code Sniff-->
+    <target name="sniff">
+        <phpcodesniffer standard="PSR2" file="src/Ctct" />
+    </target>
+
+    <!-- Run Unit Tests -->
+    <target name="unit-test">
+    	<echo msg="Running Unit Test Suite ..." />
+        <echo msg="Creating /docs folder ...."/>
         <mkdir dir="docs"/>
         <mkdir dir="reports"/>
-    </target>
 
-    <target name="sniff">
-        <exec command="phpcs --standard=PSR2 /src"/>
-    </target>
-
-    <target name="test">
-    	<echo msg="Running UnitTest TestSuite ..." />
-        <phpunit  haltonerror="true" haltonfailure="false" printsummary="true" configuration="./phpunit.xml">
-        <formatter type="xml" todir="reports"/>
+        <phpunit haltonerror="true" haltonfailure="false" printsummary="true" configuration="./phpunit.xml">
+            <formatter type="xml" todir="reports"/>
             <batchtest>
                 <fileset dir="test">
-                    <include name="**/*Test.php"/>
+                    <include name="services/*Test.php"/>
+                </fileset>
+            </batchtest>
+        </phpunit>
+        
+        <!-- <phpunitreport infile="reports/testsuites.xml" format="frames" todir="reports/tests" /> -->
+    </target>
+    
+    <!-- Run Integration Tests -->
+    <target name="integration-test">
+        <echo msg="Running Integration Test Suite ..." />
+        <phpunit  haltonerror="true" haltonfailure="false" printsummary="true" configuration="./phpunit.xml">
+            <batchtest>
+                <fileset dir="test">
+                    <include name="integration/*Test.php"/>
                 </fileset>
             </batchtest>
         </phpunit>
@@ -26,13 +47,4 @@
         <phpunitreport infile="reports/testsuites.xml" format="frames" todir="reports/tests" />
     </target>
 
-    <target name="docs">
-       <echo msg="Generating documentation ..."/>
-       <apigen source="src" destination="docs" title="Appconnect PHP SDK" exclude="*/autoload.php,*/Util/*"/>
-    </target>
-
-    <target name="build" depends="test,prepare,docs">
-    	<echo msg="Generating zip file ..."/>
-        <zip destfile="appconnect-php-sdk.zip" basedir="src"/>
-    </target>
 </project>

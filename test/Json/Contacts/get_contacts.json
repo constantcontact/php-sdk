@@ -107,8 +107,7 @@
                     "value": "1"
                 }
             ],
-            "source_details": "details",
-            "action_by": "ACTION_BY_OWNER"
+            "source_details": "details"
         }
     ]
 }

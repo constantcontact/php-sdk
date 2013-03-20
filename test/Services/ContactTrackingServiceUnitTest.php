@@ -60,12 +60,12 @@ class ContactTrackingServiceUnitTest extends PHPUnit_Framework_TestCase{
         $this->assertEquals("2012-12-06T13:07:06.810Z", $tracking_activity->results[0]->forward_date);
     }
 
-    public function testGetOptOuts()
+    public function testGetUnsubscribes()
     {
         $rest_client = new MockRestClient(200, JsonLoader::getOptOuts());
         $svc = new ContactTrackingService("apikey", $rest_client);
 
-        $tracking_activity = $svc->getOptOuts('access_token', 71, array('limit' => 2));
+        $tracking_activity = $svc->getUnsubscribes('access_token', 71, array('limit' => 2));
 
         $this->assertEquals("?next=bGltaXQ9MyZuZXh0PTEzNTQ4MTcyMTA0MzA", $tracking_activity->next);
         $this->assertEquals("EMAIL_UNSUBSCRIBE", $tracking_activity->results[0]->activity_type);

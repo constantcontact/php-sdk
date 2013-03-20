@@ -1,13 +1,13 @@
 <?php
-namespace Ctct\Components\EmailCampaigns;
+namespace Ctct\Components\EmailMarketing;
  
 use Ctct\Components\Component;
 
 /**
  * Represents a campaign Schedule in Constant Contact
  *
- * @package     Components
- * @subpackage     Campaigns
+ * @package        Components
+ * @subpackage     EmailMarketing
  * @author         Constant Contact
  */
 class Schedule extends Component
@@ -44,6 +44,8 @@ class Schedule extends Component
      */
     public function toJson()
     {
-        return json_encode($this);
+        $schedule = clone $this;
+        unset($schedule->schedule_id);
+        return json_encode($schedule);
     }
 }

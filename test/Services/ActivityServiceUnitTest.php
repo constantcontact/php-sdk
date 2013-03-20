@@ -96,7 +96,7 @@ class ActivityServiceUnitTest extends PHPUnit_Framework_TestCase{
         $this->assertEquals(0, $activity->contact_count);
 	}	
 
-	public function testAddAddContactsActivity()
+	public function testAddCreateContactsActivity()
 	{
         $rest_client = new MockRestClient(201, JsonLoader::getAddContactsActivity());
         $activityService = new ActivityService("apikey", $rest_client);

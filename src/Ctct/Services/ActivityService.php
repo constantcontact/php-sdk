@@ -3,8 +3,8 @@ namespace Ctct\Services;
 
 use Ctct\Util\RestClient;
 use Ctct\Util\Config;
-use Ctct\Components\EmailCampaigns\Schedule;
-use Ctct\Components\EmailCampaigns\TestSend;
+use Ctct\Components\EmailMarketing\Schedule;
+use Ctct\Components\EmailMarketing\TestSend;
 use Ctct\Components\Activities\Activity;
 use Ctct\Components\Activities\AddContacts;
 use Ctct\Components\Activities\RemoveFromLists;
@@ -63,7 +63,7 @@ class ActivityService extends BaseService
     {
         $baseUrl = Config::get('endpoints.base_url') . Config::get('endpoints.add_contacts_activity');
         $url = $this->buildUrl($baseUrl);
-        $response = parent::getRestClient()->post($url, parent::getHeaders($accessToken));
+        $response = parent::getRestClient()->post($url, parent::getHeaders($accessToken), $addContacts->toJson());
         return Activity::create(json_decode($response->body, true));
     }
 

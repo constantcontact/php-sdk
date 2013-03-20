@@ -8,7 +8,7 @@
 	<title>File Ctct/Components/Activities/AddContacts.php | Appconnect PHP SDK</title>
 
 	<script type="text/javascript" src="resources/combined.js?554516056"></script>
-	<script type="text/javascript" src="elementlist.js?3562998511"></script>
+	<script type="text/javascript" src="elementlist.js?4186809953"></script>
 	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?3505392360" />
 
 </head>
@@ -32,7 +32,7 @@
 						</li>
 				<li><a href="namespace-Ctct.Components.Contacts.html">Contacts</a>
 						</li>
-				<li><a href="namespace-Ctct.Components.EmailCampaigns.html">EmailCampaigns</a>
+				<li><a href="namespace-Ctct.Components.EmailMarketing.html">EmailMarketing</a>
 						</li>
 				<li><a href="namespace-Ctct.Components.Tracking.html">Tracking</a>
 						</li>
@@ -136,7 +136,7 @@
 </span><span id="34" class="l"><a class="l" href="#34"> 34: </a>        <span class="php-var">$this</span>-&gt;lists = <span class="php-var">$lists</span>;
 </span><span id="35" class="l"><a class="l" href="#35"> 35: </a>        
 </span><span id="36" class="l"><a class="l" href="#36"> 36: </a>        <span class="php-keyword1">if</span> (<span class="php-keyword1">empty</span>(<span class="php-var">$columnNames</span>)) {
-</span><span id="37" class="l"><a class="l" href="#37"> 37: </a>            <span class="php-var">$usedColumns</span>[] = <span class="php-keyword1">array</span>(Config::get(<span class="php-quote">'activities_columns.email'</span>));
+</span><span id="37" class="l"><a class="l" href="#37"> 37: </a>            <span class="php-var">$usedColumns</span>[] = Config::get(<span class="php-quote">'activities_columns.email'</span>);
 </span><span id="38" class="l"><a class="l" href="#38"> 38: </a>            <span class="php-var">$contact</span> = <span class="php-var">$contacts</span>[<span class="php-num">0</span>];
 </span><span id="39" class="l"><a class="l" href="#39"> 39: </a>
 </span><span id="40" class="l"><a class="l" href="#40"> 40: </a>            <span class="php-keyword1">if</span> (<span class="php-keyword1">isset</span>(<span class="php-var">$contact</span>-&gt;first_name)) {
@@ -162,63 +162,67 @@
 </span><span id="60" class="l"><a class="l" href="#60"> 60: </a>            }
 </span><span id="61" class="l"><a class="l" href="#61"> 61: </a>
 </span><span id="62" class="l"><a class="l" href="#62"> 62: </a>            <span class="php-comment">// Addresses</span>
-</span><span id="63" class="l"><a class="l" href="#63"> 63: </a>            <span class="php-var">$address</span> = <span class="php-var">$contact</span>-&gt;addresses[<span class="php-num">0</span>];
-</span><span id="64" class="l"><a class="l" href="#64"> 64: </a>            <span class="php-keyword1">if</span> (<span class="php-keyword1">isset</span>(<span class="php-var">$address</span>-&gt;line1)) {
-</span><span id="65" class="l"><a class="l" href="#65"> 65: </a>                <span class="php-var">$usedColumns</span>[] = Config::get(<span class="php-quote">'activities_columns.address1'</span>);
-</span><span id="66" class="l"><a class="l" href="#66"> 66: </a>            }
-</span><span id="67" class="l"><a class="l" href="#67"> 67: </a>            <span class="php-keyword1">if</span> (<span class="php-keyword1">isset</span>(<span class="php-var">$address</span>-&gt;line2)) {
-</span><span id="68" class="l"><a class="l" href="#68"> 68: </a>                <span class="php-var">$usedColumns</span>[] = Config::get(<span class="php-quote">'activities_columns.address2'</span>);
-</span><span id="69" class="l"><a class="l" href="#69"> 69: </a>            }
-</span><span id="70" class="l"><a class="l" href="#70"> 70: </a>            <span class="php-keyword1">if</span> (<span class="php-keyword1">isset</span>(<span class="php-var">$address</span>-&gt;line3)) {
-</span><span id="71" class="l"><a class="l" href="#71"> 71: </a>                <span class="php-var">$usedColumns</span>[] = Config::get(<span class="php-quote">'activities_columns.address3'</span>);
-</span><span id="72" class="l"><a class="l" href="#72"> 72: </a>            }
-</span><span id="73" class="l"><a class="l" href="#73"> 73: </a>            <span class="php-keyword1">if</span> (<span class="php-keyword1">isset</span>(<span class="php-var">$address</span>-&gt;city)) {
-</span><span id="74" class="l"><a class="l" href="#74"> 74: </a>                <span class="php-var">$usedColumns</span>[] = Config::get(<span class="php-quote">'activities_columns.city'</span>);
-</span><span id="75" class="l"><a class="l" href="#75"> 75: </a>            }
-</span><span id="76" class="l"><a class="l" href="#76"> 76: </a>            <span class="php-keyword1">if</span> (<span class="php-keyword1">isset</span>(<span class="php-var">$address</span>-&gt;state_code)) {
-</span><span id="77" class="l"><a class="l" href="#77"> 77: </a>                <span class="php-var">$usedColumns</span>[] = Config::get(<span class="php-quote">'activities_columns.state'</span>);
-</span><span id="78" class="l"><a class="l" href="#78"> 78: </a>            }
-</span><span id="79" class="l"><a class="l" href="#79"> 79: </a>            <span class="php-keyword1">if</span> (<span class="php-keyword1">isset</span>(<span class="php-var">$address</span>-&gt;state_province)) {
-</span><span id="80" class="l"><a class="l" href="#80"> 80: </a>                <span class="php-var">$usedColumns</span>[] = Config::get(<span class="php-quote">'activities_columns.state_province'</span>);
-</span><span id="81" class="l"><a class="l" href="#81"> 81: </a>            }
-</span><span id="82" class="l"><a class="l" href="#82"> 82: </a>            <span class="php-keyword1">if</span> (<span class="php-keyword1">isset</span>(<span class="php-var">$address</span>-&gt;country)) {
-</span><span id="83" class="l"><a class="l" href="#83"> 83: </a>                <span class="php-var">$usedColumns</span>[] = Config::get(<span class="php-quote">'activities_columns.country'</span>);
-</span><span id="84" class="l"><a class="l" href="#84"> 84: </a>            }
-</span><span id="85" class="l"><a class="l" href="#85"> 85: </a>            <span class="php-keyword1">if</span> (<span class="php-keyword1">isset</span>(<span class="php-var">$address</span>-&gt;postal_code)) {
-</span><span id="86" class="l"><a class="l" href="#86"> 86: </a>                <span class="php-var">$usedColumns</span>[] = Config::get(<span class="php-quote">'activities_columns.postal_code'</span>);
-</span><span id="87" class="l"><a class="l" href="#87"> 87: </a>            }
-</span><span id="88" class="l"><a class="l" href="#88"> 88: </a>            <span class="php-keyword1">if</span> (<span class="php-keyword1">isset</span>(<span class="php-var">$address</span>-&gt;sub_postal_code)) {
-</span><span id="89" class="l"><a class="l" href="#89"> 89: </a>                <span class="php-var">$usedColumns</span>[] = Config::get(<span class="php-quote">'activities_columns.sub_postal_code'</span>);
-</span><span id="90" class="l"><a class="l" href="#90"> 90: </a>            }
-</span><span id="91" class="l"><a class="l" href="#91"> 91: </a>
-</span><span id="92" class="l"><a class="l" href="#92"> 92: </a>            <span class="php-comment">// Custom Fields</span>
-</span><span id="93" class="l"><a class="l" href="#93"> 93: </a>            <span class="php-keyword1">foreach</span> (<span class="php-var">$contact</span>-&gt;custom_fields <span class="php-keyword1">as</span> <span class="php-var">$customField</span>) {
-</span><span id="94" class="l"><a class="l" href="#94"> 94: </a>                <span class="php-keyword1">if</span> (<span class="php-keyword2">strpos</span>(<span class="php-var">$customField</span>-&gt;name, <span class="php-quote">'custom_field_'</span>) !== <span class="php-keyword1">false</span>) {
-</span><span id="95" class="l"><a class="l" href="#95"> 95: </a>                    <span class="php-var">$customFieldNumber</span> = <span class="php-keyword2">substr</span>(<span class="php-var">$customField</span>-&gt;name, <span class="php-num">13</span>);
-</span><span id="96" class="l"><a class="l" href="#96"> 96: </a>                    <span class="php-var">$usedColumns</span>[] = Config::get(<span class="php-quote">'activities_columns.custom_field_'</span> . <span class="php-var">$customFieldNumber</span>);
-</span><span id="97" class="l"><a class="l" href="#97"> 97: </a>                }
-</span><span id="98" class="l"><a class="l" href="#98"> 98: </a>            }
-</span><span id="99" class="l"><a class="l" href="#99"> 99: </a>            <span class="php-var">$this</span>-&gt;column_names = <span class="php-var">$usedColumns</span>;
-</span><span id="100" class="l"><a class="l" href="#100">100: </a>        }
-</span><span id="101" class="l"><a class="l" href="#101">101: </a>    }
-</span><span id="102" class="l"><a class="l" href="#102">102: </a>
-</span><span id="103" class="l"><a class="l" href="#103">103: </a>    <span class="php-comment">/**
-</span></span><span id="104" class="l"><a class="l" href="#104">104: </a><span class="php-comment">     * Turn the object into json, removing any extra fields
-</span></span><span id="105" class="l"><a class="l" href="#105">105: </a><span class="php-comment">     * @return string
-</span></span><span id="106" class="l"><a class="l" href="#106">106: </a><span class="php-comment">     */</span>
-</span><span id="107" class="l"><a class="l" href="#107">107: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> <a id="_toJson" href="#_toJson">toJson</a>()
-</span><span id="108" class="l"><a class="l" href="#108">108: </a>    {
-</span><span id="109" class="l"><a class="l" href="#109">109: </a>        <span class="php-keyword1">foreach</span> (<span class="php-var">$this</span>-&gt;import_data <span class="php-keyword1">as</span> <span class="php-var">$contact</span>) {
-</span><span id="110" class="l"><a class="l" href="#110">110: </a>            <span class="php-keyword1">foreach</span> (<span class="php-var">$contact</span> <span class="php-keyword1">as</span> <span class="php-var">$key</span> =&gt; <span class="php-var">$value</span>) {
-</span><span id="111" class="l"><a class="l" href="#111">111: </a>                <span class="php-keyword1">if</span> (<span class="php-var">$value</span> == <span class="php-keyword1">null</span>) {
-</span><span id="112" class="l"><a class="l" href="#112">112: </a>                    <span class="php-keyword1">unset</span>(<span class="php-var">$contact</span>-&gt;<span class="php-var">$key</span>);
-</span><span id="113" class="l"><a class="l" href="#113">113: </a>                }
-</span><span id="114" class="l"><a class="l" href="#114">114: </a>            }
-</span><span id="115" class="l"><a class="l" href="#115">115: </a>            <span class="php-keyword1">return</span> <span class="php-keyword2">json_encode</span>(<span class="php-var">$this</span>);
-</span><span id="116" class="l"><a class="l" href="#116">116: </a>        }
-</span><span id="117" class="l"><a class="l" href="#117">117: </a>    }
-</span><span id="118" class="l"><a class="l" href="#118">118: </a>}
-</span><span id="119" class="l"><a class="l" href="#119">119: </a></span></code></pre>
+</span><span id="63" class="l"><a class="l" href="#63"> 63: </a>            <span class="php-keyword1">if</span> (!<span class="php-keyword1">empty</span>(<span class="php-var">$contact</span>-&gt;addresses)) {
+</span><span id="64" class="l"><a class="l" href="#64"> 64: </a>                <span class="php-var">$address</span> = <span class="php-var">$contact</span>-&gt;addresses[<span class="php-num">0</span>];
+</span><span id="65" class="l"><a class="l" href="#65"> 65: </a>                <span class="php-keyword1">if</span> (<span class="php-keyword1">isset</span>(<span class="php-var">$address</span>-&gt;line1)) {
+</span><span id="66" class="l"><a class="l" href="#66"> 66: </a>                    <span class="php-var">$usedColumns</span>[] = Config::get(<span class="php-quote">'activities_columns.address1'</span>);
+</span><span id="67" class="l"><a class="l" href="#67"> 67: </a>                }
+</span><span id="68" class="l"><a class="l" href="#68"> 68: </a>                <span class="php-keyword1">if</span> (<span class="php-keyword1">isset</span>(<span class="php-var">$address</span>-&gt;line2)) {
+</span><span id="69" class="l"><a class="l" href="#69"> 69: </a>                    <span class="php-var">$usedColumns</span>[] = Config::get(<span class="php-quote">'activities_columns.address2'</span>);
+</span><span id="70" class="l"><a class="l" href="#70"> 70: </a>                }
+</span><span id="71" class="l"><a class="l" href="#71"> 71: </a>                <span class="php-keyword1">if</span> (<span class="php-keyword1">isset</span>(<span class="php-var">$address</span>-&gt;line3)) {
+</span><span id="72" class="l"><a class="l" href="#72"> 72: </a>                    <span class="php-var">$usedColumns</span>[] = Config::get(<span class="php-quote">'activities_columns.address3'</span>);
+</span><span id="73" class="l"><a class="l" href="#73"> 73: </a>                }
+</span><span id="74" class="l"><a class="l" href="#74"> 74: </a>                <span class="php-keyword1">if</span> (<span class="php-keyword1">isset</span>(<span class="php-var">$address</span>-&gt;city)) {
+</span><span id="75" class="l"><a class="l" href="#75"> 75: </a>                    <span class="php-var">$usedColumns</span>[] = Config::get(<span class="php-quote">'activities_columns.city'</span>);
+</span><span id="76" class="l"><a class="l" href="#76"> 76: </a>                }
+</span><span id="77" class="l"><a class="l" href="#77"> 77: </a>                <span class="php-keyword1">if</span> (<span class="php-keyword1">isset</span>(<span class="php-var">$address</span>-&gt;state_code)) {
+</span><span id="78" class="l"><a class="l" href="#78"> 78: </a>                    <span class="php-var">$usedColumns</span>[] = Config::get(<span class="php-quote">'activities_columns.state'</span>);
+</span><span id="79" class="l"><a class="l" href="#79"> 79: </a>                }
+</span><span id="80" class="l"><a class="l" href="#80"> 80: </a>                <span class="php-keyword1">if</span> (<span class="php-keyword1">isset</span>(<span class="php-var">$address</span>-&gt;state_province)) {
+</span><span id="81" class="l"><a class="l" href="#81"> 81: </a>                    <span class="php-var">$usedColumns</span>[] = Config::get(<span class="php-quote">'activities_columns.state_province'</span>);
+</span><span id="82" class="l"><a class="l" href="#82"> 82: </a>                }
+</span><span id="83" class="l"><a class="l" href="#83"> 83: </a>                <span class="php-keyword1">if</span> (<span class="php-keyword1">isset</span>(<span class="php-var">$address</span>-&gt;country)) {
+</span><span id="84" class="l"><a class="l" href="#84"> 84: </a>                    <span class="php-var">$usedColumns</span>[] = Config::get(<span class="php-quote">'activities_columns.country'</span>);
+</span><span id="85" class="l"><a class="l" href="#85"> 85: </a>                }
+</span><span id="86" class="l"><a class="l" href="#86"> 86: </a>                <span class="php-keyword1">if</span> (<span class="php-keyword1">isset</span>(<span class="php-var">$address</span>-&gt;postal_code)) {
+</span><span id="87" class="l"><a class="l" href="#87"> 87: </a>                    <span class="php-var">$usedColumns</span>[] = Config::get(<span class="php-quote">'activities_columns.postal_code'</span>);
+</span><span id="88" class="l"><a class="l" href="#88"> 88: </a>                }
+</span><span id="89" class="l"><a class="l" href="#89"> 89: </a>                <span class="php-keyword1">if</span> (<span class="php-keyword1">isset</span>(<span class="php-var">$address</span>-&gt;sub_postal_code)) {
+</span><span id="90" class="l"><a class="l" href="#90"> 90: </a>                    <span class="php-var">$usedColumns</span>[] = Config::get(<span class="php-quote">'activities_columns.sub_postal_code'</span>);
+</span><span id="91" class="l"><a class="l" href="#91"> 91: </a>                }
+</span><span id="92" class="l"><a class="l" href="#92"> 92: </a>            }
+</span><span id="93" class="l"><a class="l" href="#93"> 93: </a>
+</span><span id="94" class="l"><a class="l" href="#94"> 94: </a>            <span class="php-comment">// Custom Fields</span>
+</span><span id="95" class="l"><a class="l" href="#95"> 95: </a>            <span class="php-keyword1">if</span> (!<span class="php-keyword1">empty</span>(<span class="php-var">$contact</span>-&gt;custom_fields)) {
+</span><span id="96" class="l"><a class="l" href="#96"> 96: </a>                <span class="php-keyword1">foreach</span> (<span class="php-var">$contact</span>-&gt;custom_fields <span class="php-keyword1">as</span> <span class="php-var">$customField</span>) {
+</span><span id="97" class="l"><a class="l" href="#97"> 97: </a>                    <span class="php-keyword1">if</span> (<span class="php-keyword2">strpos</span>(<span class="php-var">$customField</span>-&gt;name, <span class="php-quote">'custom_field_'</span>) !== <span class="php-keyword1">false</span>) {
+</span><span id="98" class="l"><a class="l" href="#98"> 98: </a>                        <span class="php-var">$customFieldNumber</span> = <span class="php-keyword2">substr</span>(<span class="php-var">$customField</span>-&gt;name, <span class="php-num">13</span>);
+</span><span id="99" class="l"><a class="l" href="#99"> 99: </a>                        <span class="php-var">$usedColumns</span>[] = Config::get(<span class="php-quote">'activities_columns.custom_field_'</span> . <span class="php-var">$customFieldNumber</span>);
+</span><span id="100" class="l"><a class="l" href="#100">100: </a>                    }
+</span><span id="101" class="l"><a class="l" href="#101">101: </a>                }
+</span><span id="102" class="l"><a class="l" href="#102">102: </a>            }
+</span><span id="103" class="l"><a class="l" href="#103">103: </a>            <span class="php-var">$this</span>-&gt;column_names = <span class="php-var">$usedColumns</span>;
+</span><span id="104" class="l"><a class="l" href="#104">104: </a>        }
+</span><span id="105" class="l"><a class="l" href="#105">105: </a>    }
+</span><span id="106" class="l"><a class="l" href="#106">106: </a>
+</span><span id="107" class="l"><a class="l" href="#107">107: </a>    <span class="php-comment">/**
+</span></span><span id="108" class="l"><a class="l" href="#108">108: </a><span class="php-comment">     * Turn the object into json, removing any extra fields
+</span></span><span id="109" class="l"><a class="l" href="#109">109: </a><span class="php-comment">     * @return string
+</span></span><span id="110" class="l"><a class="l" href="#110">110: </a><span class="php-comment">     */</span>
+</span><span id="111" class="l"><a class="l" href="#111">111: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> <a id="_toJson" href="#_toJson">toJson</a>()
+</span><span id="112" class="l"><a class="l" href="#112">112: </a>    {
+</span><span id="113" class="l"><a class="l" href="#113">113: </a>        <span class="php-keyword1">foreach</span> (<span class="php-var">$this</span>-&gt;import_data <span class="php-keyword1">as</span> <span class="php-var">$contact</span>) {
+</span><span id="114" class="l"><a class="l" href="#114">114: </a>            <span class="php-keyword1">foreach</span> (<span class="php-var">$contact</span> <span class="php-keyword1">as</span> <span class="php-var">$key</span> =&gt; <span class="php-var">$value</span>) {
+</span><span id="115" class="l"><a class="l" href="#115">115: </a>                <span class="php-keyword1">if</span> (<span class="php-var">$value</span> == <span class="php-keyword1">null</span>) {
+</span><span id="116" class="l"><a class="l" href="#116">116: </a>                    <span class="php-keyword1">unset</span>(<span class="php-var">$contact</span>-&gt;<span class="php-var">$key</span>);
+</span><span id="117" class="l"><a class="l" href="#117">117: </a>                }
+</span><span id="118" class="l"><a class="l" href="#118">118: </a>            }
+</span><span id="119" class="l"><a class="l" href="#119">119: </a>        }
+</span><span id="120" class="l"><a class="l" href="#120">120: </a>        <span class="php-keyword1">return</span> <span class="php-keyword2">json_encode</span>(<span class="php-var">$this</span>);
+</span><span id="121" class="l"><a class="l" href="#121">121: </a>    }
+</span><span id="122" class="l"><a class="l" href="#122">122: </a>}
+</span><span id="123" class="l"><a class="l" href="#123">123: </a></span></code></pre>
 
 	<div id="footer">
 		Appconnect PHP SDK API documentation generated by <a href="http://apigen.org">ApiGen 2.8.0</a>

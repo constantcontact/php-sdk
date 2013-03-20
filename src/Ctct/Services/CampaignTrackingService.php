@@ -143,18 +143,18 @@ class CampaignTrackingService extends BaseService
     }
 
     /**
-     * Get opt outs for a given campaign
+     * Get unsubscribes for a given campaign
      * @param string $accessToken - Constant Contact OAuth2 access token
      * @param string $campaign_id - Campaign id
      * @param array $param - query params to be appended to request
      * @return ResultSet - Containing a results array of {@link OptOutActivity}
      */
-    public function getOptOuts($accessToken, $campaign_id, Array $params = null)
+    public function getUnsubscribes($accessToken, $campaign_id, Array $params = null)
     {
         $baseUrl = Config::get('endpoints.base_url') .
             sprintf(Config::get('endpoints.campaign_tracking_unsubscribes'), $campaign_id);
 
-        $url = $this->buildUrl($baseUrl);
+        $url = $this->buildUrl($baseUrl, $params);
 
         $response = parent::getRestClient()->get($url, parent::getHeaders($accessToken));
         $body = json_decode($response->body, true);

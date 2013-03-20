@@ -4,7 +4,7 @@
 
 ### Manual Installation
 1. Download and extract the project into an appropriate place in your application.
-2. Require the libraries own autoloader. (note: the path to include the autoload may be different depending on your applications structure)
+2. Require the libraries autoloader. (note: the path to include the autoload may be different depending on your applications structure)
 ```
 require '/src/Ctct/autoload.php'
 ```

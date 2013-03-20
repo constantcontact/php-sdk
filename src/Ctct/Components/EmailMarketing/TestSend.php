@@ -1,14 +1,13 @@
 <?php
-
-namespace Ctct\Components\EmailCampaigns;
+namespace Ctct\Components\EmailMarketing;
 
 use Ctct\Components\Component;
 
 /**
  * Represents a campaign Test Send in Constant Contact
  *
- * @package     Components
- * @subpackage     Campaigns
+ * @package        Components
+ * @subpackage     EmailMarketing
  * @author         Constant Contact
  */
 class TestSend extends Component

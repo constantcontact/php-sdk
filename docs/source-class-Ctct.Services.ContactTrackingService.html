@@ -8,7 +8,7 @@
 	<title>File Ctct/Services/ContactTrackingService.php | Appconnect PHP SDK</title>
 
 	<script type="text/javascript" src="resources/combined.js?554516056"></script>
-	<script type="text/javascript" src="elementlist.js?3562998511"></script>
+	<script type="text/javascript" src="elementlist.js?4186809953"></script>
 	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?3505392360" />
 
 </head>
@@ -32,7 +32,7 @@
 						</li>
 				<li><a href="namespace-Ctct.Components.Contacts.html">Contacts</a>
 						</li>
-				<li><a href="namespace-Ctct.Components.EmailCampaigns.html">EmailCampaigns</a>
+				<li><a href="namespace-Ctct.Components.EmailMarketing.html">EmailMarketing</a>
 						</li>
 				<li><a href="namespace-Ctct.Components.Tracking.html">Tracking</a>
 						</li>
@@ -59,7 +59,7 @@
 				<li><a href="class-Ctct.Services.CampaignTrackingService.html">CampaignTrackingService</a></li>
 				<li><a href="class-Ctct.Services.ContactService.html">ContactService</a></li>
 				<li class="active"><a href="class-Ctct.Services.ContactTrackingService.html">ContactTrackingService</a></li>
-				<li><a href="class-Ctct.Services.EmailCampaignService.html">EmailCampaignService</a></li>
+				<li><a href="class-Ctct.Services.EmailMarketingService.html">EmailMarketingService</a></li>
 				<li><a href="class-Ctct.Services.ListService.html">ListService</a></li>
 			</ul>
 
@@ -251,13 +251,13 @@
 </span><span id="146" class="l"><a class="l" href="#146">146: </a>    }
 </span><span id="147" class="l"><a class="l" href="#147">147: </a>
 </span><span id="148" class="l"><a class="l" href="#148">148: </a>    <span class="php-comment">/**
-</span></span><span id="149" class="l"><a class="l" href="#149">149: </a><span class="php-comment">     * Get opt outs for a given contact
+</span></span><span id="149" class="l"><a class="l" href="#149">149: </a><span class="php-comment">     * Get unsubscribes for a given contact
 </span></span><span id="150" class="l"><a class="l" href="#150">150: </a><span class="php-comment">     * @param string $accessToken - Constant Contact OAuth2 access token
 </span></span><span id="151" class="l"><a class="l" href="#151">151: </a><span class="php-comment">     * @param int $contact_id - Contact id
 </span></span><span id="152" class="l"><a class="l" href="#152">152: </a><span class="php-comment">     * @param array $param - query params to be appended to request
 </span></span><span id="153" class="l"><a class="l" href="#153">153: </a><span class="php-comment">     * @return ResultSet - Containing a results array of {@link OptOutActivity}
 </span></span><span id="154" class="l"><a class="l" href="#154">154: </a><span class="php-comment">     */</span>
-</span><span id="155" class="l"><a class="l" href="#155">155: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> <a id="_getOptOuts" href="#_getOptOuts">getOptOuts</a>(<span class="php-var">$accessToken</span>, <span class="php-var">$contact_id</span>, <span class="php-keyword1">Array</span> <span class="php-var">$params</span> = <span class="php-keyword1">null</span>)
+</span><span id="155" class="l"><a class="l" href="#155">155: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> <a id="_getUnsubscribes" href="#_getUnsubscribes">getUnsubscribes</a>(<span class="php-var">$accessToken</span>, <span class="php-var">$contact_id</span>, <span class="php-keyword1">Array</span> <span class="php-var">$params</span> = <span class="php-keyword1">null</span>)
 </span><span id="156" class="l"><a class="l" href="#156">156: </a>    {
 </span><span id="157" class="l"><a class="l" href="#157">157: </a>        <span class="php-var">$baseUrl</span> = Config::get(<span class="php-quote">'endpoints.base_url'</span>) .
 </span><span id="158" class="l"><a class="l" href="#158">158: </a>            <span class="php-keyword2">sprintf</span>(Config::get(<span class="php-quote">'endpoints.contact_tracking_unsubscribes'</span>), <span class="php-var">$contact_id</span>);

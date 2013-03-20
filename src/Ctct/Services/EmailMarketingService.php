@@ -3,16 +3,16 @@ namespace Ctct\Services;
 
 use Ctct\Util\RestClient;
 use Ctct\Util\Config;
-use Ctct\Components\EmailCampaigns\EmailCampaign;
+use Ctct\Components\EmailMarketing\Campaign;
 use Ctct\Components\ResultSet;
 
 /**
  * Performs all actions pertaining to Constant Contact Campaigns
  *
- * @package     Services
+ * @package        Services
  * @author         Constant Contact
  */
-class EmailCampaignService extends BaseService
+class EmailMarketingService extends BaseService
 {
     /**
      * Create a new campaign
@@ -20,12 +20,12 @@ class EmailCampaignService extends BaseService
      * @param Campaign $campaign - Campign to be created
      * @return Campaign
      */
-    public function addCampaign($accessToken, EmailCampaign $campaign)
+    public function addCampaign($accessToken, Campaign $campaign)
     {
         $baseUrl = Config::get('endpoints.base_url') . Config::get('endpoints.campaigns');
         $url = $this->buildUrl($baseUrl);
         $response = parent::getRestClient()->post($url, parent::getHeaders($accessToken), $campaign->toJson());
-        return EmailCampaign::create(json_decode($response->body, true));
+        return Campaign::create(json_decode($response->body, true));
     }
     
     /**
@@ -38,12 +38,11 @@ class EmailCampaignService extends BaseService
     {
         $baseUrl = Config::get('endpoints.base_url') . Config::get('endpoints.campaigns');
         $url = $this->buildUrl($baseUrl, $params);
-        
         $response = parent::getRestClient()->get($url, parent::getHeaders($accessToken));
         $body = json_decode($response->body, true);
         $campaigns = array();
         foreach ($body['results'] as $contact) {
-            $campaigns[] = EmailCampaign::createSummary($contact);
+            $campaigns[] = Campaign::createSummary($contact);
         }
         return new ResultSet($campaigns, $body['meta']);
     }
@@ -59,7 +58,7 @@ class EmailCampaignService extends BaseService
         $baseUrl = Config::get('endpoints.base_url') . sprintf(Config::get('endpoints.campaign'), $campaign_id);
         $url = $this->buildUrl($baseUrl);
         $response = parent::getRestClient()->get($url, parent::getHeaders($accessToken));
-        return EmailCampaign::create(json_decode($response->body, true));
+        return Campaign::create(json_decode($response->body, true));
     }
     
     /**
@@ -82,11 +81,11 @@ class EmailCampaignService extends BaseService
      * @param Campaign $campaign - Campaign to be updated
      * @return Campaign
      */
-    public function updateCampaign($accessToken, EmailCampaign $campaign)
+    public function updateCampaign($accessToken, Campaign $campaign)
     {
         $baseUrl = Config::get('endpoints.base_url') . sprintf(Config::get('endpoints.campaign'), $campaign->id);
         $url = $this->buildUrl($baseUrl);
         $response = parent::getRestClient()->put($url, parent::getHeaders($accessToken), $campaign->toJson());
-        return EmailCampaign::create(json_decode($response->body, true));
+        return Campaign::create(json_decode($response->body, true));
     }
 }

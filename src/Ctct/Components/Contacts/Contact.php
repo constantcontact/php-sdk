@@ -180,7 +180,6 @@ class Contact extends Component
         }
         
         $contact->source_details = parent::getValue($props, "source_details");
-        $contact->action_by = parent::getValue($props, "action_by");
 
         return $contact;
     }

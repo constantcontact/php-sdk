@@ -53,8 +53,7 @@
             "department_name": "",
             "company_name": "",
             "custom_fields": [],
-            "source_details": "",
-            "action_by": "ACTION_BY_VISITOR"
+            "source_details": ""
         },
         {
             "id": 231,
@@ -105,8 +104,7 @@
                     "value": "1"
                 }
             ],
-            "source_details": "details",
-            "action_by": "ACTION_BY_OWNER"
+            "source_details": "details"
         }
     ]
 }

@@ -29,7 +29,6 @@ class ContactServiceUnitTest extends PHPUnit_Framework_TestCase{
 		$this->assertEquals("Bear Tamer", $contact->job_title);
 		$this->assertEquals("Animal Trainer Pro", $contact->company_name);
 		$this->assertEquals("details", $contact->source_details);
-		$this->assertEquals("ACTION_BY_OWNER", $contact->action_by);
 		$this->assertEquals(false, $contact->confirmed);
 		$this->assertEquals("", $contact->source);
 		
@@ -83,7 +82,6 @@ class ContactServiceUnitTest extends PHPUnit_Framework_TestCase{
 		$this->assertEquals("Bear Tamer", $contact->job_title);
 		$this->assertEquals("Animal Trainer Pro", $contact->company_name);
 		$this->assertEquals("details", $contact->source_details);
-		$this->assertEquals("ACTION_BY_OWNER", $contact->action_by);
 		$this->assertEquals(false, $contact->confirmed);
 		$this->assertEquals("", $contact->source);
 		
@@ -138,7 +136,6 @@ class ContactServiceUnitTest extends PHPUnit_Framework_TestCase{
 		$this->assertEquals("555-1213", $contact->work_phone);
 		$this->assertEquals("555-1214", $contact->cell_phone);
 		$this->assertEquals("69f9d72b-0a5e-479d-b844-722b1da9595f", $contact->source_details);
-		$this->assertEquals("ACTION_BY_VISITOR", $contact->action_by);
 		$this->assertEquals(false, $contact->confirmed);
 		$this->assertEquals("API", $contact->source);
 		
@@ -197,7 +194,6 @@ class ContactServiceUnitTest extends PHPUnit_Framework_TestCase{
 		$this->assertEquals("Bear Tamer", $contact->job_title);
 		$this->assertEquals("Animal Trainer Pro", $contact->company_name);
 		$this->assertEquals("details", $contact->source_details);
-		$this->assertEquals("ACTION_BY_OWNER", $contact->action_by);
 		$this->assertEquals(false, $contact->confirmed);
 		$this->assertEquals("", $contact->source);
 		
@@ -253,7 +249,6 @@ class ContactServiceUnitTest extends PHPUnit_Framework_TestCase{
 		$this->assertEquals("555-1213", $contact->work_phone);
 		$this->assertEquals("555-1214", $contact->cell_phone);
 		$this->assertEquals("69f9d72b-0a5e-479d-b844-722b1da9595f", $contact->source_details);
-		$this->assertEquals("ACTION_BY_VISITOR", $contact->action_by);
 		$this->assertEquals(false, $contact->confirmed);
 		$this->assertEquals("API", $contact->source);
 		
@@ -372,7 +367,6 @@ class ContactServiceUnitTest extends PHPUnit_Framework_TestCase{
 		$this->assertEquals("555-1213", $contact->work_phone);
 		$this->assertEquals("555-1214", $contact->cell_phone);
 		$this->assertEquals("69f9d72b-0a5e-479d-b844-722b1da9595f", $contact->source_details);
-		$this->assertEquals("ACTION_BY_VISITOR", $contact->action_by);
 		$this->assertEquals(false, $contact->confirmed);
 		$this->assertEquals("API", $contact->source);
 		

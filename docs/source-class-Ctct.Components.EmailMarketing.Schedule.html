@@ -5,10 +5,10 @@
 	<meta name="generator" content="ApiGen 2.8.0" />
 	<meta name="robots" content="noindex" />
 
-	<title>File Ctct/Components/EmailCampaigns/Schedule.php | Appconnect PHP SDK</title>
+	<title>File Ctct/Components/EmailMarketing/Schedule.php | Appconnect PHP SDK</title>
 
 	<script type="text/javascript" src="resources/combined.js?554516056"></script>
-	<script type="text/javascript" src="elementlist.js?3562998511"></script>
+	<script type="text/javascript" src="elementlist.js?4186809953"></script>
 	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?3505392360" />
 
 </head>
@@ -32,7 +32,7 @@
 						</li>
 				<li><a href="namespace-Ctct.Components.Contacts.html">Contacts</a>
 						</li>
-				<li class="active"><a href="namespace-Ctct.Components.EmailCampaigns.html">EmailCampaigns</a>
+				<li class="active"><a href="namespace-Ctct.Components.EmailMarketing.html">EmailMarketing</a>
 						</li>
 				<li><a href="namespace-Ctct.Components.Tracking.html">Tracking</a>
 						</li>
@@ -53,11 +53,11 @@
 		<div id="elements">
 			<h3>Classes</h3>
 			<ul>
-				<li><a href="class-Ctct.Components.EmailCampaigns.ClickThroughDetails.html">ClickThroughDetails</a></li>
-				<li><a href="class-Ctct.Components.EmailCampaigns.EmailCampaign.html">EmailCampaign</a></li>
-				<li><a href="class-Ctct.Components.EmailCampaigns.MessageFooter.html">MessageFooter</a></li>
-				<li class="active"><a href="class-Ctct.Components.EmailCampaigns.Schedule.html">Schedule</a></li>
-				<li><a href="class-Ctct.Components.EmailCampaigns.TestSend.html">TestSend</a></li>
+				<li><a href="class-Ctct.Components.EmailMarketing.Campaign.html">Campaign</a></li>
+				<li><a href="class-Ctct.Components.EmailMarketing.ClickThroughDetails.html">ClickThroughDetails</a></li>
+				<li><a href="class-Ctct.Components.EmailMarketing.MessageFooter.html">MessageFooter</a></li>
+				<li class="active"><a href="class-Ctct.Components.EmailMarketing.Schedule.html">Schedule</a></li>
+				<li><a href="class-Ctct.Components.EmailMarketing.TestSend.html">TestSend</a></li>
 			</ul>
 
 
@@ -85,10 +85,10 @@
 				<a href="index.html" title="Overview"><span>Overview</span></a>
 			</li>
 			<li>
-				<a href="namespace-Ctct.Components.EmailCampaigns.html" title="Summary of Ctct\Components\EmailCampaigns"><span>Namespace</span></a>
+				<a href="namespace-Ctct.Components.EmailMarketing.html" title="Summary of Ctct\Components\EmailMarketing"><span>Namespace</span></a>
 			</li>
 			<li>
-				<a href="class-Ctct.Components.EmailCampaigns.Schedule.html" title="Summary of Ctct\Components\EmailCampaigns\Schedule"><span>Class</span></a>
+				<a href="class-Ctct.Components.EmailMarketing.Schedule.html" title="Summary of Ctct\Components\EmailMarketing\Schedule"><span>Class</span></a>
 			</li>
 		</ul>
 		<ul>
@@ -101,15 +101,15 @@
 	</div>
 
 <pre><code><span id="1" class="l"><a class="l" href="#1"> 1: </a><span class="xlang">&lt;?php</span>
-</span><span id="2" class="l"><a class="l" href="#2"> 2: </a><span class="php-keyword1">namespace</span> Ctct\Components\EmailCampaigns;
+</span><span id="2" class="l"><a class="l" href="#2"> 2: </a><span class="php-keyword1">namespace</span> Ctct\Components\EmailMarketing;
 </span><span id="3" class="l"><a class="l" href="#3"> 3: </a> 
 </span><span id="4" class="l"><a class="l" href="#4"> 4: </a><span class="php-keyword1">use</span> Ctct\Components\Component;
 </span><span id="5" class="l"><a class="l" href="#5"> 5: </a>
 </span><span id="6" class="l"><a class="l" href="#6"> 6: </a><span class="php-comment">/**
 </span></span><span id="7" class="l"><a class="l" href="#7"> 7: </a><span class="php-comment"> * Represents a campaign Schedule in Constant Contact
 </span></span><span id="8" class="l"><a class="l" href="#8"> 8: </a><span class="php-comment"> *
-</span></span><span id="9" class="l"><a class="l" href="#9"> 9: </a><span class="php-comment"> * @package     Components
-</span></span><span id="10" class="l"><a class="l" href="#10">10: </a><span class="php-comment"> * @subpackage     Campaigns
+</span></span><span id="9" class="l"><a class="l" href="#9"> 9: </a><span class="php-comment"> * @package        Components
+</span></span><span id="10" class="l"><a class="l" href="#10">10: </a><span class="php-comment"> * @subpackage     EmailMarketing
 </span></span><span id="11" class="l"><a class="l" href="#11">11: </a><span class="php-comment"> * @author         Constant Contact
 </span></span><span id="12" class="l"><a class="l" href="#12">12: </a><span class="php-comment"> */</span>
 </span><span id="13" class="l"><a class="l" href="#13">13: </a><span class="php-keyword1">class</span> <a id="Schedule" href="#Schedule">Schedule</a> <span class="php-keyword1">extends</span> Component
@@ -146,10 +146,12 @@
 </span></span><span id="44" class="l"><a class="l" href="#44">44: </a><span class="php-comment">     */</span>
 </span><span id="45" class="l"><a class="l" href="#45">45: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> <a id="_toJson" href="#_toJson">toJson</a>()
 </span><span id="46" class="l"><a class="l" href="#46">46: </a>    {
-</span><span id="47" class="l"><a class="l" href="#47">47: </a>        <span class="php-keyword1">return</span> <span class="php-keyword2">json_encode</span>(<span class="php-var">$this</span>);
-</span><span id="48" class="l"><a class="l" href="#48">48: </a>    }
-</span><span id="49" class="l"><a class="l" href="#49">49: </a>}
-</span><span id="50" class="l"><a class="l" href="#50">50: </a></span></code></pre>
+</span><span id="47" class="l"><a class="l" href="#47">47: </a>        <span class="php-var">$schedule</span> = <span class="php-keyword1">clone</span> <span class="php-var">$this</span>;
+</span><span id="48" class="l"><a class="l" href="#48">48: </a>        <span class="php-keyword1">unset</span>(<span class="php-var">$schedule</span>-&gt;schedule_id);
+</span><span id="49" class="l"><a class="l" href="#49">49: </a>        <span class="php-keyword1">return</span> <span class="php-keyword2">json_encode</span>(<span class="php-var">$schedule</span>);
+</span><span id="50" class="l"><a class="l" href="#50">50: </a>    }
+</span><span id="51" class="l"><a class="l" href="#51">51: </a>}
+</span><span id="52" class="l"><a class="l" href="#52">52: </a></span></code></pre>
 
 	<div id="footer">
 		Appconnect PHP SDK API documentation generated by <a href="http://apigen.org">ApiGen 2.8.0</a>

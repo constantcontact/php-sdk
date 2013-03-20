@@ -34,7 +34,7 @@ class AddContacts extends Component
         $this->lists = $lists;
         
         if (empty($columnNames)) {
-            $usedColumns[] = array(Config::get('activities_columns.email'));
+            $usedColumns[] = Config::get('activities_columns.email');
             $contact = $contacts[0];
 
             if (isset($contact->first_name)) {
@@ -60,40 +60,44 @@ class AddContacts extends Component
             }
 
             // Addresses
-            $address = $contact->addresses[0];
-            if (isset($address->line1)) {
-                $usedColumns[] = Config::get('activities_columns.address1');
-            }
-            if (isset($address->line2)) {
-                $usedColumns[] = Config::get('activities_columns.address2');
-            }
-            if (isset($address->line3)) {
-                $usedColumns[] = Config::get('activities_columns.address3');
-            }
-            if (isset($address->city)) {
-                $usedColumns[] = Config::get('activities_columns.city');
-            }
-            if (isset($address->state_code)) {
-                $usedColumns[] = Config::get('activities_columns.state');
-            }
-            if (isset($address->state_province)) {
-                $usedColumns[] = Config::get('activities_columns.state_province');
-            }
-            if (isset($address->country)) {
-                $usedColumns[] = Config::get('activities_columns.country');
-            }
-            if (isset($address->postal_code)) {
-                $usedColumns[] = Config::get('activities_columns.postal_code');
-            }
-            if (isset($address->sub_postal_code)) {
-                $usedColumns[] = Config::get('activities_columns.sub_postal_code');
+            if (!empty($contact->addresses)) {
+                $address = $contact->addresses[0];
+                if (isset($address->line1)) {
+                    $usedColumns[] = Config::get('activities_columns.address1');
+                }
+                if (isset($address->line2)) {
+                    $usedColumns[] = Config::get('activities_columns.address2');
+                }
+                if (isset($address->line3)) {
+                    $usedColumns[] = Config::get('activities_columns.address3');
+                }
+                if (isset($address->city)) {
+                    $usedColumns[] = Config::get('activities_columns.city');
+                }
+                if (isset($address->state_code)) {
+                    $usedColumns[] = Config::get('activities_columns.state');
+                }
+                if (isset($address->state_province)) {
+                    $usedColumns[] = Config::get('activities_columns.state_province');
+                }
+                if (isset($address->country)) {
+                    $usedColumns[] = Config::get('activities_columns.country');
+                }
+                if (isset($address->postal_code)) {
+                    $usedColumns[] = Config::get('activities_columns.postal_code');
+                }
+                if (isset($address->sub_postal_code)) {
+                    $usedColumns[] = Config::get('activities_columns.sub_postal_code');
+                }
             }
 
             // Custom Fields
-            foreach ($contact->custom_fields as $customField) {
-                if (strpos($customField->name, 'custom_field_') !== false) {
-                    $customFieldNumber = substr($customField->name, 13);
-                    $usedColumns[] = Config::get('activities_columns.custom_field_' . $customFieldNumber);
+            if (!empty($contact->custom_fields)) {
+                foreach ($contact->custom_fields as $customField) {
+                    if (strpos($customField->name, 'custom_field_') !== false) {
+                        $customFieldNumber = substr($customField->name, 13);
+                        $usedColumns[] = Config::get('activities_columns.custom_field_' . $customFieldNumber);
+                    }
                 }
             }
             $this->column_names = $usedColumns;
@@ -112,7 +116,7 @@ class AddContacts extends Component
                     unset($contact->$key);
                 }
             }
-            return json_encode($this);
         }
+        return json_encode($this);
     }
 }

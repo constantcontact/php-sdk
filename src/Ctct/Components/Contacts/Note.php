@@ -1,5 +1,4 @@
 <?php
-
 namespace Ctct\Components\Contacts;
 
 use Ctct\Components\Component;

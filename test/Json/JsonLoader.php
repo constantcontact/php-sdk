@@ -8,6 +8,12 @@ class JsonLoader
 	const CAMPAIGNS_FOLDER = "/Campaigns";
     const CAMPAIGN_TRACKING_FOLDER = "/Tracking";
     const ACTIVITES_FOLDER = "/Activities";
+    const ACCCOUNT_FOLDER = "/Account";
+
+    public static function getVerifiedAddressesJson()
+    {
+        return file_get_contents(__DIR__ . self::ACCCOUNT_FOLDER . "/get_verified_email_addresses.json");
+    }
 	
 	public static function getContactJson()
 	{

@@ -8,8 +8,6 @@ use Ctct\Components\Activities\ExportContacts;
 use Ctct\Components\Activities\AddContactsImportData;
 use Ctct\Components\Activities\AddContacts;
 
-require_once 'config.inc';
-
 class ActivityIntegrationTest extends PHPUnit_Framework_TestCase{
         
     public $cc; 

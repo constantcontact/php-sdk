@@ -1,10 +1,10 @@
 [
 	{
-    "schedule_id": 1,
-    "scheduled_date": "2012-12-16T11:07:43.626Z"
+        "id": 1,
+        "scheduled_date": "2012-12-16T11:07:43.626Z"
 	},
 	{
-    "schedule_id": 2,
-    "scheduled_date": "2012-12-17T11:08:00.000Z"
-}
+        "id": 2,
+        "scheduled_date": "2012-12-17T11:08:00.000Z"
+    }
 ]

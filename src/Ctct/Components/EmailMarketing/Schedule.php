@@ -16,7 +16,7 @@ class Schedule extends Component
      * unique id of the schedule
      * @var string
      */
-    public $schedule_id;
+    public $id;
     
     /**
      * The scheduled start date/time in ISO 8601 format
@@ -33,7 +33,7 @@ class Schedule extends Component
     public static function create(array $props)
     {
         $schedule = new Schedule();
-        $schedule->schedule_id = parent::getValue($props, "schedule_id");
+        $schedule->id = parent::getValue($props, "id");
         $schedule->scheduled_date = parent::getValue($props, "scheduled_date");
         return $schedule;
     }
@@ -45,7 +45,7 @@ class Schedule extends Component
     public function toJson()
     {
         $schedule = clone $this;
-        unset($schedule->schedule_id);
+        unset($schedule->id);
         return json_encode($schedule);
     }
 }

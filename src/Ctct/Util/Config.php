@@ -21,6 +21,8 @@ class Config
         
             'base_url'                          => 'https://api.l1.constantcontact.com/v2/',
             
+            'account_verified_addresses'        => 'account/verifiedemailaddresses',
+
             'activity'                          => 'activities/%s',
             'activities'                        => 'activities',
             'export_contacts_activity'          => 'activities/exportcontacts',

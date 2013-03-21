@@ -20,174 +20,171 @@ class Campaign extends Component
     /**
      * Unique identifier for the email campaign
      * @var string
-     */ 
+     */
     public $id;
 
     /**
      * Name of the email campaign; each email campaign name must be unique within a user's account
      * @var string
-     */ 
+     */
     public $name;
 
     /**
      * The Subject Line for the email campaign
      * @var string
-     */ 
+     */
     public $subject;
 
     /**
      * Current status of the email campaign
      * @var string
-     */ 
+     */
     public $status;
 
     /**
      * Name displayed in the From field to indicate whom the email is from
      * @var string
-     */ 
+     */
     public $from_name;
 
     /**
      * The email address the email campaign originated from, this must be a verified email address for the account owner
      * @var string
-     */ 
+     */
     public $from_email;
 
     /**
      * The reply-to email address for the email campaign, this must be a verified email address for the account owner
      * @var string
-     */ 
+     */
     public $reply_to_email;
     
     /**
      * The template used to create the email campaign
      * @var string
-     */ 
+     */
     public $template_type;
 
     /**
      * Date the email campaign was last sent to contacts, in ISO-8601 format
      * @var string
-     */ 
+     */
     public $created_date;
 
     /**
      * Date the email campaign was last modified, in ISO-8601 format
      * @var string
-     */ 
+     */
     public $modified_date;
-
-    /**
-     * Date the email campaign was last sent to contacts, in ISO-8601 format
-     * @var string
-     */ 
-    public $last_sent_date;
 
     /**
      * Date the email campaign was last run, in ISO-8601 format
      * @var string
-     */ 
+     */
     public $last_run_date;
 
     /**
      * Date the email campaign is next scheduled to run and be sent to contacts, in ISO-8601 format
      * @var string
-     */ 
+     */
     public $next_run_date;
 
     /**
      * If true, displays permission_reminder_text at top of email message
      * @var boolean
-     */ 
+     */
     public $is_permission_reminder_enabled;
 
     /**
      * Text to be displayed at the top of the email if is_permission_reminder_enabled is true
      * @var string
-     */ 
+     */
     public $permission_reminder_text;
 
     /**
-     * If true, displays the text and link specified in permission_reminder_text to view web page version of email message
+     * If true, displays the text and link specified in permission_reminder_text to view web page 
+     * version of email message
      * @var string
-     */ 
+     */
     public $is_view_as_webpage_enabled;
 
     /**
      * Text to be displayed if is_view_as_webpage_enabled is true
      * @var string
-     */ 
+     */
     public $view_as_web_page_text;
 
     /**
      * Text that will be dispalyed as the link if is_view_as_webpage_enabled is true
      * @var string
-     */ 
+     */
     public $view_as_web_page_link_text;
 
     /**
      * The salutation used in the email message (e.g. Dear)
      * @var string
-     */ 
+     */
     public $greeting_salutations;
 
     /**
      * This is the personalized content for each contact that will be used in the greeting
      * @var string
-     */ 
+     */
     public $greeting_name;
 
     /**
      * Specifies the greeting text used if not using greeting_name and greeting_salutations
      * @var string
-     */ 
+     */
     public $greeting_string;
 
     /**
      * Defines the content of the email campaign message footer
      * @var MessageFooter
-     */ 
+     */
     public $message_footer;
 
     /**
      * Campaign Tracking summary data for this campaign
      * @var TrackingSummary
-     */ 
+     */
     public $tracking_summary;
 
     /**
+     * The full HTML or XHTML content of the email campaign
      * @var string
-     */ 
+     */
     public $email_content;
 
     /**
+     * Specifies the email campaign message format, valid values: HTML, XHTML
      * @var string
-     */ 
+     */
     public $email_content_format;
 
     /**
      * Style sheet used in the email
      * @var string
-     */ 
+     */
     public $style_sheet;
 
     /**
      * The content for the text-only version of the email campaign which is viewed by recipients 
      * whose email client does not accept HTML email
      * @var string
-     */ 
+     */
     public $text_content;
 
     /**
      * Unique IDs of the contact lists the email campaign message is sent to
      * @var array
-     */ 
+     */
     public $sent_to_contact_lists = array();
 
     /**
      * Tracking summary data for this email campaign
      * @var array
-     */ 
+     */
     public $click_through_details = array();
 
     /**
@@ -207,8 +204,6 @@ class Campaign extends Component
         $campaign->template_type = parent::getValue($props, "template_type");
         $campaign->created_date = parent::getValue($props, "created_date");
         $campaign->modified_date = parent::getValue($props, "modified_date");
-        $campaign->last_send_date = parent::getValue($props, "last_send_date");
-        $campaign->last_edit_date = parent::getValue($props, "last_edit_date");
         $campaign->last_run_date = parent::getValue($props, "last_run_date");
         $campaign->next_run_date = parent::getValue($props, "next_run_date");
         $campaign->status = parent::getValue($props, "status");
@@ -296,14 +291,12 @@ class Campaign extends Component
     public function toJson()
     {
         $contact = clone $this;
-        unset($contact->last_send_date);
         unset($contact->id);
         unset($contact->created_date);
         unset($contact->last_run_date);
         unset($contact->next_run_date);
         unset($contact->tracking_summary);
         unset($contact->click_through_details);
-        unset($contact->last_edit_date);
 
         if (is_null($contact->message_footer)) {
             unset($contact->message_footer);

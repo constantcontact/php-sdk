@@ -5,8 +5,6 @@ use Ctct\Components\Contacts\Address;
 use Ctct\Components\Contacts\CustomField;
 use Ctct\Components\Contacts\Contact;
 
-require_once 'config.inc';
-
 class ContactTrackingIntegrationTest extends PHPUnit_Framework_TestCase{
         
     public $cc; 

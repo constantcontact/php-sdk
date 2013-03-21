@@ -1,6 +1,7 @@
 <?php
 namespace Ctct;
 
+use Ctct\Services\AccountService;
 use Ctct\Services\ContactService;
 use Ctct\Services\ListService;
 use Ctct\Services\EmailMarketingService;
@@ -8,6 +9,7 @@ use Ctct\Services\CampaignScheduleService;
 use Ctct\Services\CampaignTrackingService;
 use Ctct\Services\ContactTrackingService;
 use Ctct\Services\ActivityService;
+use Ctct\Components\Account\VerifiedEmailAddress;
 use Ctct\Components\Contacts\Contact;
 use Ctct\Components\Contacts\ContactList;
 use Ctct\Components\EmailMarketing\Campaign;
@@ -22,7 +24,6 @@ use Ctct\Exceptions\IllegalArgumentException;
 use Ctct\Util\Config;
 
 /**
- *
  * Exposes all implemented Constant Contact API functionality
  * @package Ctct
  * @author Constant Contact
@@ -72,10 +73,16 @@ class ConstantContact
     private $contactTrackingService;
 
     /**
-     * CampaignScheduleService;
-     * @var CampaignScheduleService;
+     * CampaignScheduleService
+     * @var CampaignScheduleService
      */
     private $campaignScheduleService;
+
+    /**
+     * AccountService
+     * @var AccountService
+     */
+    private $accountService;
 
     /**
      * Class constructor
@@ -91,6 +98,7 @@ class ConstantContact
         $this->contactTrackingService = new ContactTrackingService($apiKey);
         $this->campaignScheduleService = new CampaignScheduleService($apiKey);
         $this->listService = new ListService($apiKey);
+        $this->accountService = new AccountService($apiKey);
     }
     
     /**
@@ -605,6 +613,16 @@ class ConstantContact
         $contactId = $this->getArgumentId($contact, 'Contact');
         $param = $this->determineParam($param);
         return $this->contactTrackingService->getUnsubscribes($accessToken, $contactId, $param);
+    }
+
+    /**
+     * Get verified addresses for the account
+     * @param string $accessToken - Constant Contact OAuth2 access token
+     * @return array of VerifiedEmailAddress objects
+     */
+    public function getVerifiedEmailAddresses($accessToken)
+    {
+        return $this->accountService->getVerifiedEmailAddresses($accessToken);
     }
 
     /**

@@ -62,7 +62,6 @@ class EmailMarketingServiceUnitTest extends PHPUnit_Framework_TestCase{
 		$this->assertEquals("wiz-20121206130519@l1.snoopy.roving.com", $campaign->reply_to_email);
 		$this->assertEquals("CUSTOM", $campaign->template_type);
 		$this->assertEquals("2012-12-06T18:06:05.255Z", $campaign->created_date);
-		$this->assertEquals("2012-12-06T18:06:05.255Z", $campaign->last_edit_date);
 		$this->assertEquals("2012-12-06T18:06:40.342Z", $campaign->last_run_date);
 		$this->assertEquals(false, $campaign->is_permission_reminder_enabled);
 		$this->assertEquals("", $campaign->permission_reminder_text);
@@ -127,7 +126,6 @@ class EmailMarketingServiceUnitTest extends PHPUnit_Framework_TestCase{
 		$this->assertEquals("wiz-20121206130519@l1.snoopy.roving.com", $campaign->reply_to_email);
 		$this->assertEquals("CUSTOM", $campaign->template_type);
 		$this->assertEquals("2012-12-06T18:06:05.255Z", $campaign->created_date);
-		$this->assertEquals("2012-12-06T18:06:05.255Z", $campaign->last_edit_date);
 		$this->assertEquals("2012-12-06T18:06:40.342Z", $campaign->last_run_date);
 		$this->assertEquals(false, $campaign->is_permission_reminder_enabled);
 		$this->assertEquals("", $campaign->permission_reminder_text);
@@ -192,7 +190,6 @@ class EmailMarketingServiceUnitTest extends PHPUnit_Framework_TestCase{
 		$this->assertEquals("wiz-20121206130519@l1.snoopy.roving.com", $campaign->reply_to_email);
 		$this->assertEquals("CUSTOM", $campaign->template_type);
 		$this->assertEquals("2012-12-06T18:06:05.255Z", $campaign->created_date);
-		$this->assertEquals("2012-12-06T18:06:05.255Z", $campaign->last_edit_date);
 		$this->assertEquals("2012-12-06T18:06:40.342Z", $campaign->last_run_date);
 		$this->assertEquals(false, $campaign->is_permission_reminder_enabled);
 		$this->assertEquals("", $campaign->permission_reminder_text);

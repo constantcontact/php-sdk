@@ -4,8 +4,6 @@ use Ctct\ConstantContact;
 use Ctct\Components\Contacts\Contact;
 use Ctct\Components\Contacts\ContactList;
 
-require_once 'config.inc';
-
 class ListsIntegrationTest extends PHPUnit_Framework_TestCase{
         
     public $cc; 

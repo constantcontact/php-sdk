@@ -7,8 +7,6 @@ use Ctct\Components\Contacts\Contact;
 use Ctct\Components\Contacts\ContactList;
 use Ctct\Components\EmailMarketing\TestSend;
 
-require_once 'config.inc';
-
 class CampaignScheduleIntegrationTest extends PHPUnit_Framework_TestCase{
         
     public $cc; 

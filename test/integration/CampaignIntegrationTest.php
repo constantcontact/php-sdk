@@ -4,8 +4,6 @@ use Ctct\ConstantContact;
 use Ctct\Components\EmailMarketing\Campaign;
 use Ctct\Exceptions\CtctException;
 
-require_once 'config.inc';
-
 class CampaignIntegrationTest extends PHPUnit_Framework_TestCase{
         
     public $cc; 

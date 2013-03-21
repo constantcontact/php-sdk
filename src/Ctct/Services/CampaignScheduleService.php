@@ -17,14 +17,14 @@ class CampaignScheduleService extends BaseService
     /**
      * Create a new schedule for a campaign
      * @param string $accessToken - Constant Contact OAuth2 access token
-     * @param int $campaign_id - Campaign id to be scheduled
+     * @param int $campaignId - Campaign id to be scheduled
      * @param Schedule $schedule - Schedule to be created
      * @return Campaign
      */
-    public function addSchedule($accessToken, $campaign_id, Schedule $schedule)
+    public function addSchedule($accessToken, $campaignId, Schedule $schedule)
     {
         $baseUrl = Config::get('endpoints.base_url') .
-            sprintf(Config::get('endpoints.campaign_schedules'), $campaign_id);
+            sprintf(Config::get('endpoints.campaign_schedules'), $campaignId);
         $url = $this->buildUrl($baseUrl);
         $response = parent::getRestClient()->post($url, parent::getHeaders($accessToken), $schedule->toJson());
         return Schedule::create(json_decode($response->body, true));
@@ -33,13 +33,13 @@ class CampaignScheduleService extends BaseService
      /**
      * Get a list of schedules for a campaign
      * @param string $accessToken - Constant Contact OAuth2 access token
-     * @param int $campaign_id - Campaign id to be scheduled
+     * @param int $campaignId - Campaign id to be scheduled
      * @return array 
      */
-    public function getSchedules($accessToken, $campaign_id)
+    public function getSchedules($accessToken, $campaignId)
     {
         $baseUrl = Config::get('endpoints.base_url') .
-            sprintf(Config::get('endpoints.campaign_schedules'), $campaign_id);
+            sprintf(Config::get('endpoints.campaign_schedules'), $campaignId);
         $url = $this->buildUrl($baseUrl);
         $response = parent::getRestClient()->get($url, parent::getHeaders($accessToken));
         
@@ -55,14 +55,14 @@ class CampaignScheduleService extends BaseService
      /**
      * Get a specific schedule for a campaign
      * @param string $accessToken - Constant Contact OAuth2 access token
-     * @param int $campaign_id - Campaign id to be get a schedule for
+     * @param int $campaignId - Campaign id to be get a schedule for
      * @param int $scheudle_id - Schedule id to retrieve 
      * @return Schedule 
      */
-    public function getSchedule($accessToken, $campaign_id, $schedule_id)
+    public function getSchedule($accessToken, $campaignId, $scheduleId)
     {
         $baseUrl = Config::get('endpoints.base_url') .
-            sprintf(Config::get('endpoints.campaign_schedule'), $campaign_id, $schedule_id);
+            sprintf(Config::get('endpoints.campaign_schedule'), $campaignId, $scheduleId);
         $url = $this->buildUrl($baseUrl);
         $response = parent::getRestClient()->get($url, parent::getHeaders($accessToken));
         return Schedule::create(json_decode($response->body, true));
@@ -71,14 +71,14 @@ class CampaignScheduleService extends BaseService
     /**
      * Update a specific schedule for a campaign
      * @param string $accessToken - Constant Contact OAuth2 access token
-     * @param int $campaign_id - Campaign id to be scheduled
+     * @param int $campaignId - Campaign id to be scheduled
      * @param Schedule $schedule - Schedule to retrieve 
      * @return Schedule 
      */
-    public function updateSchedule($accessToken, $campaign_id, Schedule $schedule)
+    public function updateSchedule($accessToken, $campaignId, Schedule $schedule)
     {
         $baseUrl = Config::get('endpoints.base_url') .
-            sprintf(Config::get('endpoints.campaign_schedule'), $campaign_id, $schedule->schedule_id);
+            sprintf(Config::get('endpoints.campaign_schedule'), $campaignId, $schedule->id);
         $url = $this->buildUrl($baseUrl);
         $response = parent::getRestClient()->put($url, parent::getHeaders($accessToken), $schedule->toJson());
         return Schedule::create(json_decode($response->body, true));
@@ -87,14 +87,14 @@ class CampaignScheduleService extends BaseService
      /**
      * Get a specific schedule for a campaign
      * @param string $accessToken - Constant Contact OAuth2 access token
-     * @param int $campaign_id - Campaign id
-     * @param int $schedule_id - Schedule id to delete
+     * @param int $campaignId - Campaign id
+     * @param int $scheduleId - Schedule id to delete
      * @return Schedule 
      */
-    public function deleteSchedule($accessToken, $campaign_id, $schedule_id)
+    public function deleteSchedule($accessToken, $campaignId, $scheduleId)
     {
         $baseUrl = Config::get('endpoints.base_url') .
-            sprintf(Config::get('endpoints.campaign_schedule'), $campaign_id, $schedule_id);
+            sprintf(Config::get('endpoints.campaign_schedule'), $campaignId, $scheduleId);
         $url = $this->buildUrl($baseUrl);
         $response = parent::getRestClient()->delete($url, parent::getHeaders($accessToken));
         return ($response->info['http_code'] == 204) ? true : false;
@@ -103,14 +103,14 @@ class CampaignScheduleService extends BaseService
     /**
      * Send a test send of a campaign
      * @param string $accessToken - Constant Contact OAuth2 access token
-     * @param int $campaign_id - Id of campaign to send test of
+     * @param int $campaignId - Id of campaign to send test of
      * @param TestSend $test_send - Test send details
      * @return TestSend
      */
-    public function sendTest($accessToken, $campaign_id, TestSend $test_send)
+    public function sendTest($accessToken, $campaignId, TestSend $test_send)
     {
         $baseUrl = Config::get('endpoints.base_url') .
-            sprintf(Config::get('endpoints.campaign_test_sends'), $campaign_id);
+            sprintf(Config::get('endpoints.campaign_test_sends'), $campaignId);
         $url = $this->buildUrl($baseUrl);
         $response = parent::getRestClient()->post($url, parent::getHeaders($accessToken), $test_send->toJson());
         return TestSend::create(json_decode($response->body, true));

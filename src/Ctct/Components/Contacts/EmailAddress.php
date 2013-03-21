@@ -12,6 +12,13 @@ use Ctct\Components\Component;
  */
 class EmailAddress extends Component
 {
+
+    /**
+     * Id of the email address
+     * @var string
+     */
+    public $id;
+
     /**
      * Status of the email address, must be one of "ACTIVE", "UNCONFIRMED", "OPTOUT", "REMOVED", 
      * "NON_SUBSCRIBER", "VISITOR"
@@ -66,6 +73,7 @@ class EmailAddress extends Component
     public static function create(array $props)
     {
         $email_address = new EmailAddress();
+        $email_address->id = parent::getValue($props, "id");
         $email_address->status = parent::getValue($props, "status");
         $email_address->confirm_status = parent::getValue($props, "confirm_status");
         $email_address->opt_in_source = parent::getValue($props, "opt_in_source");

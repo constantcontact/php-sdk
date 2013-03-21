@@ -4,13 +4,13 @@
  */
 
 // autoloader for the SDK
-require_once(realpath(dirname(__FILE__) . '/../') . "/src/Ctct/autoload.php");
+require_once(realpath(dirname(__FILE__) . '/../../') . "/src/Ctct/autoload.php");
 
 // load the MockRestClient implementation of RestClientInterface
-require_once(__DIR__ . "/MockRestClient.php");
+require_once(__DIR__ . "/../MockRestClient.php");
 
 // load the JsonLoader 
-require_once(__DIR__ . "/Json/JsonLoader.php");
+require_once(__DIR__ . "/../Json/JsonLoader.php");
 
 
 define("APIKEY", "3485aa9d-be72-4176-9d01-c337dbb4ffcc");

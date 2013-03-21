@@ -12,6 +12,13 @@ use Ctct\Components\Component;
  */
 class Address extends Component
 {
+
+    /**
+     * Id of the address
+     * @var string
+     */
+    public $id;
+
     /**
      * Line 1 of the address
      * @var string
@@ -74,6 +81,7 @@ class Address extends Component
     public static function create(array $props)
     {
         $address = new Address();
+        $address->id = parent::getValue($props, "id");
         $address->line1 = parent::getValue($props, "line1");
         $address->line2 = parent::getValue($props, "line2");
         $address->line3 = parent::getValue($props, "line3");

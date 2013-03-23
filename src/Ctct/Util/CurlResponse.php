@@ -15,7 +15,7 @@ class CurlResponse
     public $error;
     public $info;
     
-    public static function create($body, $info, $error)
+    public static function create($body, $info, $error = null)
     {
         $curl = new CurlResponse();
         

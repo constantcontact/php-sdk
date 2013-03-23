@@ -8,7 +8,7 @@ use Ctct\Components\Tracking\TrackingActivity;
 use Ctct\Components\Tracking\ClickActivity;
 use Ctct\Components\Tracking\ForwardActivity;
 use Ctct\Components\Tracking\OpenActivity;
-use Ctct\Components\Tracking\OptOutActivity;
+use Ctct\Components\Tracking\UnsubscribeActivity;
 use Ctct\Components\Tracking\SendActivity;
 use Ctct\Components\Tracking\TrackingSummary;
 use Ctct\Components\ResultSet;
@@ -147,7 +147,7 @@ class CampaignTrackingService extends BaseService
      * @param string $accessToken - Constant Contact OAuth2 access token
      * @param string $campaign_id - Campaign id
      * @param array $param - query params to be appended to request
-     * @return ResultSet - Containing a results array of {@link OptOutActivity}
+     * @return ResultSet - Containing a results array of {@link UnsubscribeActivity}
      */
     public function getUnsubscribes($accessToken, $campaign_id, Array $params = null)
     {
@@ -158,12 +158,12 @@ class CampaignTrackingService extends BaseService
 
         $response = parent::getRestClient()->get($url, parent::getHeaders($accessToken));
         $body = json_decode($response->body, true);
-        $opt_outs = array();
+        $optOuts = array();
         foreach ($body['results'] as $opt_out_activity) {
-            $opt_outs[] = OptOutActivity::create($opt_out_activity);
+            $optOuts[] = UnsubscribeActivity::create($opt_out_activity);
         }
 
-        return new ResultSet($opt_outs, $body['meta']);
+        return new ResultSet($optOuts, $body['meta']);
     }
 
     /**

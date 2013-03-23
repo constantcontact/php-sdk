@@ -13,9 +13,10 @@ use Ctct\Util\RestClientInterface;
 abstract class BaseService
 {
     /**
-     * @var $rest_client - RestClient 
+     * RestClient Implementation to use for HTTP requests
+     * @var $restClient - RestClient 
      */
-    public static $rest_client;
+    public $restClient;
 
     /**
      * ApiKey for the application
@@ -27,14 +28,14 @@ abstract class BaseService
      * Constructor with the option to to supply an alternative rest client to be used
      * @param RestClientInterface - RestClientInterface implementation to be used in the service
      */
-    public function __construct($apiKey, $rest_client = null)
+    public function __construct($apiKey, $restClient = null)
     {
         $this->apiKey = $apiKey;
 
-        if (is_null($rest_client)) {
-            self::$rest_client = new RestClient();
+        if (is_null($restClient)) {
+            $this->restClient = new RestClient();
         } else {
-            self::$rest_client = $rest_client;
+            $this->restClient = $restClient;
         }
     }
 
@@ -58,13 +59,14 @@ abstract class BaseService
      * Get the rest client being used by the service
      * @return RestClientInterface - RestClientInterface implementation being used
      */
-    public static function getRestClient()
+    public function getRestClient()
     {
-        if (is_null(self::$rest_client)) {
-            return new RestClient();
-        } else {
-            return self::$rest_client;
-        }
+        return $this->restClient;
+    }
+
+    public function setRestClient(RestClientInterface $restClient)
+    {
+        $this->restClient = $restClient;
     }
     
     

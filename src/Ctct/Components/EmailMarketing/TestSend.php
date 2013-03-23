@@ -62,7 +62,11 @@ class TestSend extends Component
      * @return string
      */
     public function toJson()
-    {
-        return json_encode($this);
+    {   
+        $testsend = clone $this;
+        if ($testsend->personal_message == null) {
+            unset($testsend->personal_message);
+        }
+        return json_encode($testsend);
     }
 }

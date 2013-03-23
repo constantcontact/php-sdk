@@ -4,12 +4,12 @@
     "status": "COMPLETE",
     "errors": [
         {
-            "message": "djellesma@roving.com (not found in subscriber list)",
+            "message": "test@roving.com (not found in subscriber list)",
             "line_number": 0,
             "email_address": ""
         },
         {
-            "message": "djellesma@constantcontact.com (not found in subscriber list)",
+            "message": "test1@roving.com (not found in subscriber list)",
             "line_number": 0,
             "email_address": ""
         }

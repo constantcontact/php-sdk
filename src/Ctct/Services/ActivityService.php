@@ -14,12 +14,11 @@ use Ctct\Components\Activities\ClearLists;
 /**
  * Performs all actions pertaining to scheduling Constant Contact Activities
  *
- * @package     Services
- * @author         Constant Contact
+ * @package Services
+ * @author ConstantContact
  */
 class ActivityService extends BaseService
 {
-
     /**
      * Get an array of activities
      * @param string $accessToken - Constant Contact OAuth2 access token
@@ -71,7 +70,7 @@ class ActivityService extends BaseService
     * Create a Clear Lists Activity
     * @param string $accessToken - Constant Contact OAuth2 access token
     * @param array $clearLists - Array of list id's to be cleared
-    * @return array - Array of all ActivitySummaryReports
+    * @return array - Array of all Activity
     */
     public function addClearListsActivity($accessToken, Array $lists)
     {

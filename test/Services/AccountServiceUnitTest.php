@@ -1,18 +1,31 @@
 <?php
 
 use Ctct\Services\AccountService;
+use Ctct\Util\CurlResponse;
 
 class AccountServiceUnitTest extends PHPUnit_Framework_TestCase{
-    
-  public function testGetActivity()
-    {
-        $rest_client = new MockRestClient(200, JsonLoader::getVerifiedAddressesJson());
 
-        $accountService = new AccountService("apikey", $rest_client);
-        $verifedAddresses = $accountService->getVerifiedEmailAddresses('access_token');
-        
-        $this->assertEquals(1, count($verifedAddresses));
-        $this->assertEquals("test123@roving.com", $verifedAddresses[0]->email_address);
-        $this->assertEquals("CONFIRMED", $verifedAddresses[0]->status);
+    private $restClient;
+    private $accountService;
+
+    public function setUp()
+    {
+        $this->restClient = $this->getMock('Ctct\Util\RestClientInterface');
+        $this->accountService = new AccountService("apikey", $this->restClient);
+    }
+
+    public function testGetVerifiedAddresses()
+    {
+        $curlResponse = CurlResponse::create(JsonLoader::getVerifiedAddressesJson(), array('http_code' => 200));
+        $this->restClient->expects($this->once())
+            ->method('get')
+            ->with()
+            ->will($this->returnValue($curlResponse));
+
+        $response = $this->accountService->getVerifiedEmailAddresses("accessToken");
+
+        $this->assertInstanceOf('Ctct\Components\Account\VerifiedEmailAddress', $response[0]);
+        $this->assertEquals("test123@roving.com", $response[0]->email_address);
+        $this->assertEquals("CONFIRMED", $response[0]->status);
     }
 }

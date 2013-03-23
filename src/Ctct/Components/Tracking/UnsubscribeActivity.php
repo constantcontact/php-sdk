@@ -11,7 +11,7 @@ use Ctct\Components\Component;
  * @subpackage     CampaignTracking
  * @author         Constant Contact
  */
-class OptOutActivity extends Component
+class UnsubscribeActivity extends Component
 {
     public $activity_type;
     public $campaign_id;
@@ -28,7 +28,7 @@ class OptOutActivity extends Component
      */
     public static function create(array $props)
     {
-        $opt_out_activity = new OptOutActivity();
+        $opt_out_activity = new UnsubscribeActivity();
         $opt_out_activity->activity_type = parent::getValue($props, "activity_type");
         $opt_out_activity->unsubscribe_date = parent::getValue($props, "unsubscribe_date");
         $opt_out_activity->unsubscribe_source = parent::getValue($props, "unsubscribe_source");

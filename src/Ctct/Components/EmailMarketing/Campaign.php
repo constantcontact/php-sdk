@@ -290,22 +290,30 @@ class Campaign extends Component
      */
     public function toJson()
     {
-        $contact = clone $this;
-        unset($contact->id);
-        unset($contact->created_date);
-        unset($contact->last_run_date);
-        unset($contact->next_run_date);
-        unset($contact->tracking_summary);
-        unset($contact->click_through_details);
+        $campaign = clone $this;
+        unset($campaign->id);
+        unset($campaign->created_date);
+        unset($campaign->last_run_date);
+        unset($campaign->next_run_date);
+        unset($campaign->tracking_summary);
+        unset($campaign->click_through_details);
 
-        if (is_null($contact->message_footer)) {
-            unset($contact->message_footer);
+        if (is_null($campaign->message_footer)) {
+            unset($campaign->message_footer);
         }
 
-        if (empty($contact->sent_to_contact_lists)) {
-            unset($contact->sent_to_contact_lists);
+        if (empty($campaign->sent_to_contact_lists)) {
+            unset($campaign->sent_to_contact_lists);
+        } else {
+
+            // remove sent_to_contact_lists fields that cause errors
+            foreach($campaign->sent_to_contact_lists as $list) {
+                unset($list->name);
+                unset($list->contact_count);
+                unset($list->status);
+            }
         }
     
-        return json_encode($contact);
+        return json_encode($campaign);
     }
 }

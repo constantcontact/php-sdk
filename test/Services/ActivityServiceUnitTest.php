@@ -7,17 +7,52 @@ use Ctct\Components\Contacts\CustomField;
 use Ctct\Components\Activities\ExportContacts;
 use Ctct\Components\Activities\AddContacts;
 use Ctct\Components\Activities\AddContactsImportData;
+use Ctct\Util\CurlResponse;
 
 class ActivityServiceUnitTest extends PHPUnit_Framework_TestCase{
 	
-	public function testGetActivity()
-	{
-		$rest_client = new MockRestClient(200, JsonLoader::getActivities());
+    private $restClient;
+    private $activityService;
 
-        $activityService = new ActivityService("apikey", $rest_client);
-        $activities = $activityService->getActivities('access_token');
-        
+    public function setUp()
+    {
+        $this->restClient = $this->getMock('Ctct\Util\RestClientInterface');
+        $this->activityService = new ActivityService("apikey", $this->restClient);
+    }
+
+    public function testGetActivity()
+    {
+        $curlResponse = CurlResponse::create(JsonLoader::getActivity(), array('http_code' => 200));
+        $this->restClient->expects($this->once())
+            ->method('get')
+            ->with()
+            ->will($this->returnValue($curlResponse));
+
+        $activity = $this->activityService->getActivity("accessToken", "a07e1ikxwuphd4nwjxl");
+        $this->assertInstanceOf('Ctct\Components\Activities\Activity', $activity);
+        $this->assertEquals("a07e1ikxyomhd4la0o9", $activity->id);
+        $this->assertEquals("REMOVE_CONTACTS_FROM_LISTS", $activity->type);
+        $this->assertEquals("COMPLETE", $activity->status);
+        $this->assertEquals("2013-02-13T14:43:01.635Z", $activity->start_date);
+        $this->assertEquals("2013-02-13T14:43:01.662Z", $activity->finish_date);
+        $this->assertEquals("2013-02-13T14:42:44.073Z", $activity->created_date);
+        $this->assertEquals(2, $activity->error_count);
+        $this->assertEquals(2, $activity->contact_count);
+        $this->assertEquals("test@roving.com (not found in subscriber list)", $activity->errors[0]->message);
+        $this->assertEquals(0, $activity->errors[0]->line_number);
+    }
+
+	public function testGetActivities()
+	{
+		$curlResponse = CurlResponse::create(JsonLoader::getActivities(), array('http_code' => 200));
+        $this->restClient->expects($this->once())
+            ->method('get')
+            ->with()
+            ->will($this->returnValue($curlResponse));
+
+        $activities = $this->activityService->getActivities('access_token');
         $activity = $activities[0];
+        $this->assertInstanceOf('Ctct\Components\Activities\Activity', $activity);
         $this->assertEquals("a07e1ikxwuphd4nwjxl", $activity->id);
         $this->assertEquals("EXPORT_CONTACTS", $activity->type);
         $this->assertEquals("COMPLETE", $activity->status);
@@ -28,39 +63,16 @@ class ActivityServiceUnitTest extends PHPUnit_Framework_TestCase{
         $this->assertEquals(0, $activity->contact_count);
 	}
 
-	public function testGetActivities()
-	{
-		$rest_client = new MockRestClient(200, JsonLoader::getActivity());
-
-        $activityService = new ActivityService("apikey", $rest_client);
-        $activity = $activityService->getActivity('access_token', 'a07e1ikxyomhd4la0o9');
-        
-        $this->assertEquals("a07e1ikxyomhd4la0o9", $activity->id);
-        $this->assertEquals("REMOVE_CONTACTS_FROM_LISTS", $activity->type);
-        $this->assertEquals("COMPLETE", $activity->status);
-
-    	$this->assertEquals("djellesma@roving.com (not found in subscriber list)", $activity->errors[0]->message);
-    	$this->assertEquals(0, $activity->errors[0]->line_number);
-    	$this->assertEquals("", $activity->errors[0]->email_address);
-
-    	$this->assertEquals("djellesma@constantcontact.com (not found in subscriber list)", $activity->errors[1]->message);
-    	$this->assertEquals(0, $activity->errors[1]->line_number);
-    	$this->assertEquals("", $activity->errors[1]->email_address);
-
-        $this->assertEquals("2013-02-13T14:43:01.635Z", $activity->start_date);
-        $this->assertEquals("2013-02-13T14:43:01.662Z", $activity->finish_date);
-        $this->assertEquals("2013-02-13T14:42:44.073Z", $activity->created_date);
-        $this->assertEquals(2, $activity->error_count);
-        $this->assertEquals(2, $activity->contact_count);
-	}
-
 	public function testAddClearListsActivity()
 	{
-		$rest_client = new MockRestClient(201, JsonLoader::getClearListsActivity());
+        $curlResponse = CurlResponse::create(JsonLoader::getClearListsActivity(), array('http_code' => 201));
+        $this->restClient->expects($this->once())
+            ->method('post')
+            ->with()
+            ->will($this->returnValue($curlResponse));
 
-        $activityService = new ActivityService("apikey", $rest_client);
-        $activity = $activityService->addClearListsActivity("access_token", array("1","2"));
-
+        $activity = $this->activityService->addClearListsActivity("access_token", array("1","2"));
+        $this->assertInstanceOf('Ctct\Components\Activities\Activity', $activity);
         $this->assertEquals("a07e1il69fwhd7uan9h", $activity->id);
         $this->assertEquals("CLEAR_CONTACTS_FROM_LISTS", $activity->type);
         $this->assertEquals(0, $activity->error_count);
@@ -69,12 +81,15 @@ class ActivityServiceUnitTest extends PHPUnit_Framework_TestCase{
 
 	public function testAddExportContactsActivity()
 	{
-		$rest_client = new MockRestClient(201, JsonLoader::getExportContactsActivity());
+        $curlResponse = CurlResponse::create(JsonLoader::getExportContactsActivity(), array('http_code' => 201));
+        $this->restClient->expects($this->once())
+            ->method('post')
+            ->with()
+            ->will($this->returnValue($curlResponse));
+
 		$exportContacts = new ExportContacts(array("1", "2"));
-
-        $activityService = new ActivityService("apikey", $rest_client);
-        $activity = $activityService->addExportContactsActivity("access_token", $exportContacts);
-
+        $activity = $this->activityService->addExportContactsActivity("access_token", $exportContacts);
+        $this->assertInstanceOf('Ctct\Components\Activities\Activity', $activity);
 		$this->assertEquals("a07e1i5nqamhcfeuu0h", $activity->id);
         $this->assertEquals("EXPORT_CONTACTS", $activity->type);
         $this->assertEquals(0, $activity->error_count);
@@ -83,13 +98,16 @@ class ActivityServiceUnitTest extends PHPUnit_Framework_TestCase{
 
 	public function testAddRemoveContactsFromListsActivity()
 	{
-		$rest_client = new MockRestClient(201, JsonLoader::getRemoveContactsFromListsActivity());
+        $curlResponse = CurlResponse::create(JsonLoader::getRemoveContactsFromListsActivity(), array('http_code' => 201));
+        $this->restClient->expects($this->once())
+            ->method('post')
+            ->with()
+            ->will($this->returnValue($curlResponse));
 
-        $activityService = new ActivityService("apikey", $rest_client);
         $emailAddresses = array("djellesma@roving.com", "djellesma@constantcontact.com");
         $lists = array("1", "2");
-        $activity = $activityService->addRemoveContactsFromListsActivity("access_token", $emailAddresses, $lists);
-
+        $activity = $this->activityService->addRemoveContactsFromListsActivity("access_token", $emailAddresses, $lists);
+        $this->assertInstanceOf('Ctct\Components\Activities\Activity', $activity);
 		$this->assertEquals("a07e1i5nqamhcfeuu0h", $activity->id);
         $this->assertEquals("REMOVE_CONTACTS_FROM_LISTS", $activity->type);
         $this->assertEquals(0, $activity->error_count);
@@ -98,8 +116,11 @@ class ActivityServiceUnitTest extends PHPUnit_Framework_TestCase{
 
 	public function testAddCreateContactsActivity()
 	{
-        $rest_client = new MockRestClient(201, JsonLoader::getAddContactsActivity());
-        $activityService = new ActivityService("apikey", $rest_client);
+        $curlResponse = CurlResponse::create(JsonLoader::getAddContactsActivity(), array('http_code' => 201));
+        $this->restClient->expects($this->once())
+            ->method('post')
+            ->with()
+            ->will($this->returnValue($curlResponse));
 
         $contact = new AddContactsImportData();
         $address = new Address();
@@ -121,7 +142,8 @@ class ActivityServiceUnitTest extends PHPUnit_Framework_TestCase{
 
         $addContacts = new AddContacts(array($contact), array("1"));
 
-        $activity = $activityService->createAddContactsActivity("access_token", $addContacts);
+        $activity = $this->activityService->createAddContactsActivity("access_token", $addContacts);
+        $this->assertInstanceOf('Ctct\Components\Activities\Activity', $activity);
         $this->assertEquals("a07e1il69qzhdby44ro", $activity->id);
         $this->assertEquals("ADD_CONTACTS", $activity->type);
         $this->assertEquals(0, $activity->error_count);

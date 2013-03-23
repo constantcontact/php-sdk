@@ -26,7 +26,6 @@ class AccountService extends BaseService
 
         $url = $this->buildUrl($baseUrl);
         $response = parent::getRestClient()->get($url, parent::getHeaders($accessToken));
-        
         $verifiedAddresses = array();
         
         foreach (json_decode($response->body, true) as $verifiedAddress) {

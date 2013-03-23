@@ -1,6 +1,7 @@
 <?php
 namespace Ctct;
 
+use Ctct\Services\BaseService;
 use Ctct\Services\AccountService;
 use Ctct\Services\ContactService;
 use Ctct\Services\ListService;
@@ -357,17 +358,17 @@ class ConstantContact
     {
         $campaignId = $this->getArgumentId($campaign, 'Campaign');
         
-        $schedule_id = null;
+        $scheduleId = null;
 
         if ($schedule instanceof Schedule) {
-            $schedule_id = $schedule->schedule_id;
+            $scheduleId = $schedule->id;
         } elseif (is_numeric($schedule)) {
-            $schedule_id = $schedule;
+            $scheduleId = $schedule;
         } else {
             throw new IllegalArgumentException(sprintf(Config::get('errors.id_or_object'), 'Schedule'));
         }
         
-        return $this->campaignScheduleService->getSchedule($accessToken, $campaignId, $schedule_id);
+        return $this->campaignScheduleService->getSchedule($accessToken, $campaignId, $scheduleId);
     }
     
     /**
@@ -379,8 +380,7 @@ class ConstantContact
      */
     public function updateEmailCampaignSchedule($accessToken, $campaign, Schedule $schedule)
     {
-        $campaignId = $this->getArgumentId($campaign, 'EmailCampaign');
-        
+        $campaignId = $this->getArgumentId($campaign, 'Campaign');
         return $this->campaignScheduleService->updateSchedule($accessToken, $campaignId, $schedule);
     }
     
@@ -395,17 +395,17 @@ class ConstantContact
     public function deleteEmailCampaignSchedule($accessToken, $campaign, $schedule)
     {
         $campaignId = $this->getArgumentId($campaign, 'Campaign');
-        $schedule_id = null;
+        $scheduleId = null;
         
         if ($schedule instanceof Schedule) {
-            $schedule_id = $schedule->schedule_id;
+            $scheduleId = $schedule->id;
         } elseif (is_numeric($schedule)) {
-            $schedule_id = $schedule;
+            $scheduleId = $schedule;
         } else {
             throw new IllegalArgumentException(sprintf(Config::get('errors.id_or_object'), 'Schedule'));
         }
         
-        return $this->campaignScheduleService->deleteSchedule($accessToken, $campaignId, $schedule_id);
+        return $this->campaignScheduleService->deleteSchedule($accessToken, $campaignId, $scheduleId);
     }
 
     /**
@@ -502,7 +502,7 @@ class ConstantContact
      * @param mixed $emailCampaign  - Campaign id or Campaign object itself
      * @param mixed $param - either the next link from a previous request, or a limit or restrict the page size of
      * an initial request
-     * @return ResultSet - Containing a results array of {@link Ctct\Components\CampaignTracking\OptOutActivity}
+     * @return ResultSet - Containing a results array of {@link Ctct\Components\CampaignTracking\UnsubscribeActivity}
      */
     public function getEmailCampaignUnsubscribes($accessToken, $campaign, $param = null)
     {
@@ -606,7 +606,7 @@ class ConstantContact
      * @param mixed $contact  - Contact id or Contact object itself
      * @param mixed $param - either the next link from a previous request, or a limit or restrict the page size of
      * an initial request
-     * @return TrackingActivity - Containing a results array of {@link Ctct\Components\Tracking\OptOutActivity}
+     * @return TrackingActivity - Containing a results array of {@link Ctct\Components\Tracking\UnsubscribeActivity}
      */
     public function getContactUnsubscribes($accessToken, $contact, $param = null)
     {

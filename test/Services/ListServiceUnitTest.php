@@ -1,18 +1,32 @@
 <?php
 
+use Ctct\Util\CurlResponse;
 use Ctct\Services\ListService;
 use Ctct\Util\RestClient;
 use Ctct\Components\Contacts\ContactList;
  
 class ListServiceUnitTest extends PHPUnit_Framework_TestCase{
 
+	private $restClient;
+    private $listService;
+
+    public function setUp()
+    {
+        $this->restClient = $this->getMock('Ctct\Util\RestClientInterface');
+        $this->listService = new ListService("apikey", $this->restClient);
+    }
+
 	public function testGetLists()
 	{
-        $rest_client = new MockRestClient(200, JsonLoader::getListsJson());
+		$curlResponse = CurlResponse::create(JsonLoader::getListsJson(), array('http_code' => 200));
+        $this->restClient->expects($this->once())
+            ->method('get')
+            ->with()
+            ->will($this->returnValue($curlResponse));
 
-		$list_service = new ListService("apikey", $rest_client);
-		$response = $list_service->getLists('access_token');
+		$response = $this->listService->getLists('access_token');
 		
+        $this->assertInstanceOf("Ctct\Components\Contacts\ContactList", $response[0]);
 		$this->assertEquals(1, $response[0]->id);
 		$this->assertEquals("General Interest", $response[0]->name);
 		$this->assertEquals("ACTIVE", $response[0]->status);
@@ -26,11 +40,14 @@ class ListServiceUnitTest extends PHPUnit_Framework_TestCase{
 	
 	public function testGetList()
 	{
-        $rest_client = new MockRestClient(200, JsonLoader::getListJson());
-		
-		$list_service = new ListService("apikey", $rest_client);
-		$list = $list_service->getList('access_token', 6);
-		
+		$curlResponse = CurlResponse::create(JsonLoader::getListJson(), array('http_code' => 200));
+        $this->restClient->expects($this->once())
+            ->method('get')
+            ->with()
+            ->will($this->returnValue($curlResponse));
+
+		$list = $this->listService->getList('access_token', 6);
+        $this->assertInstanceOf("Ctct\Components\Contacts\ContactList", $list);
 		$this->assertEquals(6, $list->id);
 		$this->assertEquals("Test List 4", $list->name);
 		$this->assertEquals("HIDDEN", $list->status);
@@ -39,11 +56,14 @@ class ListServiceUnitTest extends PHPUnit_Framework_TestCase{
 
 	public function testAddList()
 	{
-        $rest_client = new MockRestClient(200, JsonLoader::getListJson());
-		
-		$list_service = new ListService("apikey", $rest_client);
-		$list = $list_service->addList('access_token', new ContactList());
-		
+        $curlResponse = CurlResponse::create(JsonLoader::getListJson(), array('http_code' => 204));
+        $this->restClient->expects($this->once())
+            ->method('post')
+            ->with()
+            ->will($this->returnValue($curlResponse));
+
+		$list = $this->listService->addList('access_token', new ContactList());
+        $this->assertInstanceOf("Ctct\Components\Contacts\ContactList", $list);
 		$this->assertEquals(6, $list->id);
 		$this->assertEquals("Test List 4", $list->name);
 		$this->assertEquals("HIDDEN", $list->status);
@@ -52,11 +72,14 @@ class ListServiceUnitTest extends PHPUnit_Framework_TestCase{
 	
 	public function testUpdateList()
 	{
-        $rest_client = new MockRestClient(200, JsonLoader::getListJson());
+        $curlResponse = CurlResponse::create(JsonLoader::getListJson(), array('http_code' => 200));
+        $this->restClient->expects($this->once())
+            ->method('put')
+            ->with()
+            ->will($this->returnValue($curlResponse));
 		
-		$list_service = new ListService("apikey", $rest_client);
-		$list = $list_service->updateList('access_token', new ContactList());
-		
+		$list = $this->listService->updateList('access_token', new ContactList());
+        $this->assertInstanceOf("Ctct\Components\Contacts\ContactList", $list);
 		$this->assertEquals(6, $list->id);
 		$this->assertEquals("Test List 4", $list->name);
 		$this->assertEquals("HIDDEN", $list->status);
@@ -65,12 +88,17 @@ class ListServiceUnitTest extends PHPUnit_Framework_TestCase{
 	
 	public function testGetContactsFromList()
 	{
-        $rest_client = new MockRestClient(200, JsonLoader::getContactsJson());
+        $curlResponse = CurlResponse::create(JsonLoader::getContactsJson(), array('http_code' => 200));
+        $this->restClient->expects($this->once())
+            ->method('get')
+            ->with()
+            ->will($this->returnValue($curlResponse));
 		
-		$list_service = new ListService("apikey", $rest_client);
-		$response = $list_service->getContactsFromList('access_token', 1);
+		$response = $this->listService->getContactsFromList('access_token', 1);
+        $this->assertInstanceOf("Ctct\Components\ResultSet", $response);
+        
 		$contact = $response->results[1];
-		
+        
 		$this->assertEquals(231, $contact->id);
 		$this->assertEquals("ACTIVE", $contact->status);
 		$this->assertEquals("", $contact->fax);

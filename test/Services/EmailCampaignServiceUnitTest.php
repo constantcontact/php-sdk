@@ -2,18 +2,32 @@
 
 use Ctct\Services\EmailMarketingService;
 use Ctct\Util\RestClient;
+use Ctct\Util\CurlResponse;
 use Ctct\Components\EmailMarketing\Campaign;
  
 class EmailMarketingServiceUnitTest extends PHPUnit_Framework_TestCase{
 
+	private $restClient;
+    private $emailMarketingService;
+
+    public function setUp()
+    {
+        $this->restClient = $this->getMock('Ctct\Util\RestClientInterface');
+        $this->emailMarketingService = new EmailMarketingService("apikey", $this->restClient);
+    }
+
 	public function testGetCampaigns()
 	{
-        $rest_client = new MockRestClient(200, JsonLoader::getCampaignsJson());
-		
-		$campaign_service = new EmailMarketingService("apikey", $rest_client);
-		$response = $campaign_service->getCampaigns('access_token');
+        $curlResponse = CurlResponse::create(JsonLoader::getCampaignsJson(), array('http_code' => 200));
+        $this->restClient->expects($this->once())
+            ->method('get')
+            ->with()
+            ->will($this->returnValue($curlResponse));
+
+		$response = $this->emailMarketingService->getCampaigns('access_token');
 		$campaigns = $response->results;
-		
+
+		$this->assertInstanceOf('Ctct\Components\EmailMarketing\Campaign', $campaigns[0]);
 		$this->assertEquals("?next=cGFnZU51bT0yJnBhZ2VTaXplPTM", $response->next);
 		$this->assertEquals("1100371240640", $campaigns[0]->id);
 		$this->assertEquals("Email Created 2012/11/29, 4:13 PM", $campaigns[0]->name);
@@ -28,30 +42,37 @@ class EmailMarketingServiceUnitTest extends PHPUnit_Framework_TestCase{
 	
 	public function testDeleteCampaign()
 	{
-        $rest_client = new MockRestClient(204, null);
+        $curlResponse = CurlResponse::create(null, array('http_code' => 204));
+        $this->restClient->expects($this->once())
+            ->method('delete')
+            ->with()
+            ->will($this->returnValue($curlResponse));
 		
-		$campaign_service = new EmailMarketingService("apikey", $rest_client);
-		$response = $campaign_service->deleteCampaign('access_token', "1100368835463");
-		
+		$response = $this->emailMarketingService->deleteCampaign('access_token', "1100368835463");
 		$this->assertTrue($response);
 	}
 	
 	public function testDeleteCampaignFailed()
 	{
-        $rest_client = new MockRestClient(400, JsonLoader::getCampaignsJson());
-		
-		$campaign_service = new EmailMarketingService("apikey", $rest_client);
-		$response = $campaign_service->deleteCampaign('access_token', "1100368835463");
-		
+		$curlResponse = CurlResponse::create(null, array('http_code' => 400));
+        $this->restClient->expects($this->once())
+            ->method('delete')
+            ->with()
+            ->will($this->returnValue($curlResponse));
+
+		$response = $this->emailMarketingService->deleteCampaign('access_token', "1100368835463");
 		$this->assertEquals(false, $response);
 	}
 	
 	public function testGetCampaign()
 	{
-        $rest_client = new MockRestClient(201, JsonLoader::getCampaignJson());
-		
-		$campaign_service = new EmailMarketingService("apikey", $rest_client);
-		$campaign = $campaign_service->getCampaign('access_token', 11109369315398);
+		$curlResponse = CurlResponse::create(JsonLoader::getCampaignJson(), array('http_code' => 201));
+		$this->restClient->expects($this->once())
+            ->method('get')
+            ->with()
+            ->will($this->returnValue($curlResponse));
+
+		$campaign = $this->emailMarketingService->getCampaign('access_token', 11109369315398);
 		
 		$this->assertEquals("1100394165290", $campaign->id);
 		$this->assertEquals("CampaignName-05965ddb-12d2-43e5-b8f3-0c22ca487c3a", $campaign->name);
@@ -112,10 +133,13 @@ class EmailMarketingServiceUnitTest extends PHPUnit_Framework_TestCase{
 	
 	public function testAddCampaign()
 	{
-        $rest_client = new MockRestClient(204, JsonLoader::getCampaignJson());
+		$curlResponse = CurlResponse::create(JsonLoader::getCampaignJson(), array('http_code' => 201));
+		$this->restClient->expects($this->once())
+            ->method('post')
+            ->with()
+            ->will($this->returnValue($curlResponse));
 
-		$campaign_service = new EmailMarketingService("apikey", $rest_client);
-		$campaign = $campaign_service->addCampaign('access_token', new Campaign());
+		$campaign = $this->emailMarketingService->addCampaign('access_token', new Campaign());
 		
 		$this->assertEquals("1100394165290", $campaign->id);
 		$this->assertEquals("CampaignName-05965ddb-12d2-43e5-b8f3-0c22ca487c3a", $campaign->name);
@@ -176,10 +200,13 @@ class EmailMarketingServiceUnitTest extends PHPUnit_Framework_TestCase{
 
 	public function testUpdateCampaign()
 	{
-        $rest_client = new MockRestClient(200, JsonLoader::getCampaignJson());
-		
-		$campaign_service = new EmailMarketingService("apikey", $rest_client);
-		$campaign = $campaign_service->updateCampaign('access_token', new Campaign());
+		$curlResponse = CurlResponse::create(JsonLoader::getCampaignJson(), array('http_code' => 200));
+		$this->restClient->expects($this->once())
+            ->method('put')
+            ->with()
+            ->will($this->returnValue($curlResponse));
+
+		$campaign = $this->emailMarketingService->updateCampaign('access_token', new Campaign());
 		
 		$this->assertEquals("1100394165290", $campaign->id);
 		$this->assertEquals("CampaignName-05965ddb-12d2-43e5-b8f3-0c22ca487c3a", $campaign->name);

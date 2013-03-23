@@ -9,6 +9,17 @@ class JsonLoader
     const CAMPAIGN_TRACKING_FOLDER = "/Tracking";
     const ACTIVITES_FOLDER = "/Activities";
     const ACCCOUNT_FOLDER = "/Account";
+    const AUTH_FOLDER = "/Auth";
+
+    public static function getTokenInfoJson()
+    {
+        return file_get_contents(__DIR__ . self::AUTH_FOLDER . "/token_info.json");
+    }
+
+    public static function getAccessTokenJson()
+    {
+        return file_get_contents(__DIR__ . self::AUTH_FOLDER . "/get_access_token.json");
+    }
 
     public static function getVerifiedAddressesJson()
     {

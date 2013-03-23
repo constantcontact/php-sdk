@@ -7,19 +7,19 @@ use Ctct\Components\Activities\ActivityError;
 use Ctct\Components\Activities\AddContactsImportData;
 use Ctct\Exceptions\IllegalArgumentException;
 
+/**
+ * Represents an AddContacts Activity
+ *
+ * @package        Components
+ * @subpackage     Activities
+ * @author         Constant Contact
+ */
 class AddContacts extends Component
 {
     public $import_data = array();
     public $lists = array();
     public $column_names = array();
 
-    /**
-     * Represents an AddContact activity
-     *
-     * @package     Components
-     * @subpackage     Activities
-     * @author         Constant Contact
-     */
     public function __construct(Array $contacts, Array $lists, Array $columnNames = array())
     {
         if (!empty($contacts)) {

@@ -6,7 +6,7 @@ use Ctct\Components\Component;
 /**
  * Represents a single EmailAddress of a Contact
  *
- * @package     Components
+ * @package        Components
  * @subpackage     Contacts
  * @author         Constant Contact
  */

@@ -4,7 +4,7 @@ namespace Ctct\Components\Account;
 use Ctct\Components\Component;
  
 /**
- * Represents a single Activity in Constant Contact
+ * Represents a single Verified Email Address in Constant Contact
  *
  * @package        Components
  * @subpackage     Account

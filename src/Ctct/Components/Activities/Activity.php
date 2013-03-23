@@ -7,7 +7,7 @@ use Ctct\Components\Activities\ActivityError;
 /**
  * Represents a single Activity in Constant Contact
  *
- * @package     Components
+ * @package        Components
  * @subpackage     Activities
  * @author         Constant Contact
  */

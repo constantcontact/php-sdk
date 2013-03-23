@@ -9,20 +9,21 @@ use Ctct\Exceptions\OAuth2Exception;
  * Class that implements necessary functionality to obtain an access token from a user
  *
  * @package     Auth
- * @author         Constant Contact
+ * @author      Constant Contact
  */
 class CtctOAuth2
 {
-    public $client_id;
-    public $client_secret;
-    public $redirect_uri;
+    public $clientId;
+    public $clientSecret;
+    public $redirectUri;
     public $props;
     
-    public function __construct($client_id, $client_secret, $redirect_uri)
+    public function __construct($clientId, $clientSecret, $redirectUri, $restClient = null)
     {
-        $this->client_id = $client_id;
-        $this->client_secret = $client_secret;
-        $this->redirect_uri = $redirect_uri;
+        $this->clientId = $clientId;
+        $this->clientSecret = $clientSecret;
+        $this->redirectUri = $redirectUri;
+        $this->restClient = ($restClient) ? $restClient : new RestClient();
     }
     
     /**
@@ -35,8 +36,8 @@ class CtctOAuth2
         $responseType = ($server) ? Config::get('auth.response_type_code') : Config::get("auth.response_type_token");
         $params = array(
             'response_type' => $responseType,
-            'client_id'     => $this->client_id,
-            'redirect_uri'  => $this->redirect_uri
+            'clientId'     => $this->clientId,
+            'redirectUri'  => $this->redirectUri
         );
         
         $url = Config::get('auth.base_url') . Config::get('auth.authorization_endpoint');
@@ -47,27 +48,41 @@ class CtctOAuth2
      * Obtain an access token
      * @param string $code - code returned from Constant Contact after a user has granted access to their account
      * @return array
+     * @throws \Ctct\Exception\OAuth2Exception
      */
     public function getAccessToken($code)
     {
         $params = array(
             'grant_type'        => Config::get('auth.authorization_code_grant_type'),
-            'client_id'         => $this->client_id,
-            'client_secret'     => $this->client_secret,
+            'clientId'         => $this->clientId,
+            'clientSecret'     => $this->clientSecret,
             'code'              => $code,
-            'redirect_uri'      => $this->redirect_uri
+            'redirectUri'      => $this->redirectUri
         );
         
         $url = Config::get('auth.base_url') . Config::get('auth.token_endpoint') . '?' . http_build_query($params);
         
-        $rest_client = new RestClient();
-        $response = $rest_client->post($url);
-        $response_body = json_decode($response->body, true);
+        $response = $this->restClient->post($url);
+        $resposeBody = json_decode($response->body, true);
         
-        if (array_key_exists('error', $response_body)) {
-            throw new OAuth2Exception($response_body['error'] . ': ' . $response_body['error_description']);
+        if (array_key_exists('error', $resposeBody)) {
+            throw new OAuth2Exception($resposeBody['error'] . ': ' . $resposeBody['error_description']);
         }
         
-        return $response_body;
+        return $resposeBody;
+    }
+
+    /**
+     * Get an information about an access token
+     * @param string $accessToken - Constant Contact OAuth2 access token
+     * @return array
+     * @throws \Ctct\Exception\CtctException
+     */ 
+    public function getTokenInfo($accessToken)
+    {
+        $restClient = new RestClient();
+        $url = Config::get('auth.base_url') . Config::get('auth.token_info');
+        $response = $this->restClient->post($url, array(), "access_token=".$accessToken);
+        return json_decode($response->body, true);
     }
 }

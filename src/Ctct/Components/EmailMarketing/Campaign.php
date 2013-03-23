@@ -307,13 +307,13 @@ class Campaign extends Component
         } else {
 
             // remove sent_to_contact_lists fields that cause errors
-            foreach($campaign->sent_to_contact_lists as $list) {
+            foreach ($campaign->sent_to_contact_lists as $list) {
                 unset($list->name);
                 unset($list->contact_count);
                 unset($list->status);
             }
         }
-    
+        
         return json_encode($campaign);
     }
 }

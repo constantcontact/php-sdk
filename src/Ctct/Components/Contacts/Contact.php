@@ -7,7 +7,7 @@ use Ctct\Util\Config;
 /**
  * Represents a single Contact in Constant Contact
  *
- * @package     Components
+ * @package        Components
  * @subpackage     Contacts
  * @author         Constant Contact
  */

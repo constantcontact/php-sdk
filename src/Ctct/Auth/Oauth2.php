@@ -36,8 +36,8 @@ class CtctOAuth2
         $responseType = ($server) ? Config::get('auth.response_type_code') : Config::get("auth.response_type_token");
         $params = array(
             'response_type' => $responseType,
-            'clientId'     => $this->clientId,
-            'redirectUri'  => $this->redirectUri
+            'client_id'     => $this->clientId,
+            'redirect_uri'  => $this->redirectUri
         );
         
         $url = Config::get('auth.base_url') . Config::get('auth.authorization_endpoint');

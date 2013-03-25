@@ -47,7 +47,7 @@ class ConstantContact
      * CampaignService
      * @var CampaignService
      */
-    private $EmailMarketingService;
+    private $emailMarketingService;
 
     /**
      * ListService
@@ -93,7 +93,7 @@ class ConstantContact
     {
         $this->api_key = $apiKey;
         $this->contactService = new ContactService($apiKey);
-        $this->EmailMarketingService = new EmailMarketingService($apiKey);
+        $this->emailMarketingService = new EmailMarketingService($apiKey);
         $this->activityService = new ActivityService($apiKey);
         $this->campaignTrackingService = new CampaignTrackingService($apiKey);
         $this->contactTrackingService = new ContactTrackingService($apiKey);
@@ -273,7 +273,7 @@ class ConstantContact
     public function getEmailCampaigns($accessToken, $param = null)
     {
         $param = $this->determineParam($param);
-        return $this->EmailMarketingService->getCampaigns($accessToken, $param);
+        return $this->emailMarketingService->getCampaigns($accessToken, $param);
     }
     
     /**
@@ -283,7 +283,7 @@ class ConstantContact
      */
     public function getEmailCampaign($accessToken, $campaignId)
     {
-        return $this->EmailMarketingService->getCampaign($accessToken, $campaignId);
+        return $this->emailMarketingService->getCampaign($accessToken, $campaignId);
     }
     
     /**
@@ -296,7 +296,7 @@ class ConstantContact
     public function deleteEmailCampaign($accessToken, $campaign)
     {
         $campaignId = $this->getArgumentId($campaign, 'Campaign');
-        return $this->EmailMarketingService->deleteCampaign($accessToken, $campaignId);
+        return $this->emailMarketingService->deleteCampaign($accessToken, $campaignId);
     }
     
     /**
@@ -307,7 +307,7 @@ class ConstantContact
      */
     public function addEmailCampaign($accessToken, Campaign $campaign)
     {
-        return $this->EmailMarketingService->addCampaign($accessToken, $campaign);
+        return $this->emailMarketingService->addCampaign($accessToken, $campaign);
     }
     
     /**
@@ -318,7 +318,7 @@ class ConstantContact
      */
     public function updateEmailCampaign($accessToken, Campaign $campaign)
     {
-        return $this->EmailMarketingService->updateCampaign($accessToken, $campaign);
+        return $this->emailMarketingService->updateCampaign($accessToken, $campaign);
     }
     
     /**
@@ -618,11 +618,16 @@ class ConstantContact
     /**
      * Get verified addresses for the account
      * @param string $accessToken - Constant Contact OAuth2 access token
+     * @param string $status - Status to filter query results by
      * @return array of VerifiedEmailAddress objects
      */
-    public function getVerifiedEmailAddresses($accessToken)
+    public function getVerifiedEmailAddresses($accessToken, $status = null)
     {
-        return $this->accountService->getVerifiedEmailAddresses($accessToken);
+        $params = array();
+        if ($status) {
+            $params['status'] = $status;
+        }
+        return $this->accountService->getVerifiedEmailAddresses($accessToken, $params);
     }
 
     /**

@@ -19,7 +19,7 @@ class Config
          */
         'endpoints'    => array(
         
-            'base_url'                          => 'https://api.l1.constantcontact.com/v2/',
+            'base_url'                          => 'https://api.constantcontact.com/v2/',
             
             'account_verified_addresses'        => 'account/verifiedemailaddresses',
 
@@ -109,7 +109,7 @@ class Config
          * OAuth2 Authorization related configuration options
          */
         'auth'    => array(
-            'base_url'                      => 'https://oauth2.l1.constantcontact.com/oauth2/',
+            'base_url'                      => 'https://oauth2.constantcontact.com/oauth2/',
             'response_type_code'            => 'code',
             'response_type_token'           => 'token',
             'authorization_code_grant_type' => 'authorization_code',

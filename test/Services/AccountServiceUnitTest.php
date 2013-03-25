@@ -22,7 +22,7 @@ class AccountServiceUnitTest extends PHPUnit_Framework_TestCase{
             ->with()
             ->will($this->returnValue($curlResponse));
 
-        $response = $this->accountService->getVerifiedEmailAddresses("accessToken");
+        $response = $this->accountService->getVerifiedEmailAddresses("accessToken", array());
 
         $this->assertInstanceOf('Ctct\Components\Account\VerifiedEmailAddress', $response[0]);
         $this->assertEquals("test123@roving.com", $response[0]->email_address);

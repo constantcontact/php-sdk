@@ -13,18 +13,18 @@ use Ctct\Components\Account\VerifiedEmailAddress;
  */
 class AccountService extends BaseService
 {
-
     /**
      * Get all verified email addresses associated with an account
-     * @param $accessToken - Constant Contact OAuth2 Access Token
+     * @param string $accessToken - Constant Contact OAuth2 Access Token
+     * @param array $params - array of query parameters/values to append to the request
      * @return array of VerifiedEmailAddress 
      */
-    public function getVerifiedEmailAddresses($accessToken)
+    public function getVerifiedEmailAddresses($accessToken, Array $params)
     {
         $baseUrl = Config::get('endpoints.base_url')
             . sprintf(Config::get('endpoints.account_verified_addresses'));
 
-        $url = $this->buildUrl($baseUrl);
+        $url = $this->buildUrl($baseUrl, $params);
         $response = parent::getRestClient()->get($url, parent::getHeaders($accessToken));
         $verifiedAddresses = array();
         

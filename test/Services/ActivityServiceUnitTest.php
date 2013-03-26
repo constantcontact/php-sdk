@@ -9,8 +9,9 @@ use Ctct\Components\Activities\AddContacts;
 use Ctct\Components\Activities\AddContactsImportData;
 use Ctct\Util\CurlResponse;
 
-class ActivityServiceUnitTest extends PHPUnit_Framework_TestCase{
-	
+class ActivityServiceUnitTest extends PHPUnit_Framework_TestCase
+{
+    
     private $restClient;
     private $activityService;
 
@@ -42,9 +43,9 @@ class ActivityServiceUnitTest extends PHPUnit_Framework_TestCase{
         $this->assertEquals(0, $activity->errors[0]->line_number);
     }
 
-	public function testGetActivities()
-	{
-		$curlResponse = CurlResponse::create(JsonLoader::getActivities(), array('http_code' => 200));
+    public function testGetActivities()
+    {
+        $curlResponse = CurlResponse::create(JsonLoader::getActivities(), array('http_code' => 200));
         $this->restClient->expects($this->once())
             ->method('get')
             ->with()
@@ -61,10 +62,10 @@ class ActivityServiceUnitTest extends PHPUnit_Framework_TestCase{
         $this->assertEquals("2013-02-13T15:56:14.697Z", $activity->created_date);
         $this->assertEquals(0, $activity->error_count);
         $this->assertEquals(0, $activity->contact_count);
-	}
+    }
 
-	public function testAddClearListsActivity()
-	{
+    public function testAddClearListsActivity()
+    {
         $curlResponse = CurlResponse::create(JsonLoader::getClearListsActivity(), array('http_code' => 201));
         $this->restClient->expects($this->once())
             ->method('post')
@@ -77,28 +78,32 @@ class ActivityServiceUnitTest extends PHPUnit_Framework_TestCase{
         $this->assertEquals("CLEAR_CONTACTS_FROM_LISTS", $activity->type);
         $this->assertEquals(0, $activity->error_count);
         $this->assertEquals(0, $activity->contact_count);
-	}
+    }
 
-	public function testAddExportContactsActivity()
-	{
+    public function testAddExportContactsActivity()
+    {
         $curlResponse = CurlResponse::create(JsonLoader::getExportContactsActivity(), array('http_code' => 201));
         $this->restClient->expects($this->once())
             ->method('post')
             ->with()
             ->will($this->returnValue($curlResponse));
 
-		$exportContacts = new ExportContacts(array("1", "2"));
+        $exportContacts = new ExportContacts(array("1", "2"));
         $activity = $this->activityService->addExportContactsActivity("access_token", $exportContacts);
         $this->assertInstanceOf('Ctct\Components\Activities\Activity', $activity);
-		$this->assertEquals("a07e1i5nqamhcfeuu0h", $activity->id);
+        $this->assertEquals("a07e1i5nqamhcfeuu0h", $activity->id);
         $this->assertEquals("EXPORT_CONTACTS", $activity->type);
         $this->assertEquals(0, $activity->error_count);
         $this->assertEquals(0, $activity->contact_count);
-	}
+    }
 
-	public function testAddRemoveContactsFromListsActivity()
-	{
-        $curlResponse = CurlResponse::create(JsonLoader::getRemoveContactsFromListsActivity(), array('http_code' => 201));
+    public function testAddRemoveContactsFromListsActivity()
+    {
+        $curlResponse = CurlResponse::create(
+            JsonLoader::getRemoveContactsFromListsActivity(),
+            array('http_code' => 201)
+        );
+
         $this->restClient->expects($this->once())
             ->method('post')
             ->with()
@@ -108,14 +113,14 @@ class ActivityServiceUnitTest extends PHPUnit_Framework_TestCase{
         $lists = array("1", "2");
         $activity = $this->activityService->addRemoveContactsFromListsActivity("access_token", $emailAddresses, $lists);
         $this->assertInstanceOf('Ctct\Components\Activities\Activity', $activity);
-		$this->assertEquals("a07e1i5nqamhcfeuu0h", $activity->id);
+        $this->assertEquals("a07e1i5nqamhcfeuu0h", $activity->id);
         $this->assertEquals("REMOVE_CONTACTS_FROM_LISTS", $activity->type);
         $this->assertEquals(0, $activity->error_count);
         $this->assertEquals(0, $activity->contact_count);
-	}	
+    }
 
-	public function testAddCreateContactsActivity()
-	{
+    public function testAddCreateContactsActivity()
+    {
         $curlResponse = CurlResponse::create(JsonLoader::getAddContactsActivity(), array('http_code' => 201));
         $this->restClient->expects($this->once())
             ->method('post')
@@ -148,5 +153,5 @@ class ActivityServiceUnitTest extends PHPUnit_Framework_TestCase{
         $this->assertEquals("ADD_CONTACTS", $activity->type);
         $this->assertEquals(0, $activity->error_count);
         $this->assertEquals(1, $activity->contact_count);
-	}
+    }
 }

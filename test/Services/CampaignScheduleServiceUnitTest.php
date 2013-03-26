@@ -6,8 +6,9 @@ use Ctct\Util\CurlResponse;
 use Ctct\Components\EmailMarketing\Schedule;
 use Ctct\Components\EmailMarketing\TestSend;
 
-class CampaignScheduleServiceUnitTest extends PHPUnit_Framework_TestCase{
-	
+class CampaignScheduleServiceUnitTest extends PHPUnit_Framework_TestCase
+{
+    
     private $restClient;
     private $campaignScheduleService;
 
@@ -17,8 +18,8 @@ class CampaignScheduleServiceUnitTest extends PHPUnit_Framework_TestCase{
         $this->campaignScheduleService = new CampaignScheduleService("apikey", $this->restClient);
     }
 
-	public function testGetSchedules()
-	{
+    public function testGetSchedules()
+    {
         $curlResponse = CurlResponse::create(JsonLoader::getCampaignSchedulesJson(), array('http_code' => 200));
         $this->restClient->expects($this->once())
             ->method('get')
@@ -27,12 +28,12 @@ class CampaignScheduleServiceUnitTest extends PHPUnit_Framework_TestCase{
 
         $schedules = $this->campaignScheduleService->getSchedules('access_token', 9100367935463);
         $this->assertInstanceOf('Ctct\Components\EmailMarketing\Schedule', $schedules[0]);
-		$this->assertEquals(1, $schedules[0]->id);
+        $this->assertEquals(1, $schedules[0]->id);
         $this->assertEquals("2012-12-16T11:07:43.626Z", $schedules[0]->scheduled_date);
 
         $this->assertEquals(2, $schedules[1]->id);
         $this->assertEquals("2012-12-17T11:08:00.000Z", $schedules[1]->scheduled_date);
-	}
+    }
 
     public function testGetSchedule()
     {
@@ -70,7 +71,12 @@ class CampaignScheduleServiceUnitTest extends PHPUnit_Framework_TestCase{
             ->with()
             ->will($this->returnValue($curlResponse));
         
-        $updatedSchedule = $this->campaignScheduleService->updateSchedule('access_token', "9100367935463", new Schedule());
+        $updatedSchedule = $this->campaignScheduleService->updateSchedule(
+            'access_token',
+            "9100367935463",
+            new Schedule()
+        );
+
         $this->assertInstanceOf('Ctct\Components\EmailMarketing\Schedule', $updatedSchedule);
         $this->assertEquals(1, $updatedSchedule->id);
         $this->assertEquals("2012-12-16T11:07:43.626Z", $updatedSchedule->scheduled_date);
@@ -87,7 +93,7 @@ class CampaignScheduleServiceUnitTest extends PHPUnit_Framework_TestCase{
         $this->assertTrue($this->campaignScheduleService->deleteSchedule('access_token', "9100367935463", 1));
     }
 
-    public function testDeleteSchedule_failed()
+    public function testDeleteScheduleFailed()
     {
         $curlResponse = CurlResponse::create("", array('http_code' => 400));
         $this->restClient->expects($this->once())

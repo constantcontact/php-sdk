@@ -3,7 +3,8 @@
 use Ctct\Services\AccountService;
 use Ctct\Util\CurlResponse;
 
-class AccountServiceUnitTest extends PHPUnit_Framework_TestCase{
+class AccountServiceUnitTest extends PHPUnit_Framework_TestCase
+{
 
     private $restClient;
     private $accountService;

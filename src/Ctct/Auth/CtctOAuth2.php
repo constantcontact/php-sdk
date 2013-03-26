@@ -77,7 +77,7 @@ class CtctOAuth2
      * @param string $accessToken - Constant Contact OAuth2 access token
      * @return array
      * @throws \Ctct\Exception\CtctException
-     */ 
+     */
     public function getTokenInfo($accessToken)
     {
         $restClient = new RestClient();

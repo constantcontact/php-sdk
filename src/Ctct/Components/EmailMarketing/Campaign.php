@@ -7,6 +7,7 @@ use Ctct\Components\EmailMarketing\MessageFooter;
 use Ctct\Components\Tracking\TrackingSummary;
 use Ctct\Components\EmailMarketing\ClickThroughDetails;
 use Ctct\Components\Contacts\ContactList;
+use Ctct\Exceptions\IllegalArgumentException;
 
 /**
  * Represents a single Campaign in Constant Contact

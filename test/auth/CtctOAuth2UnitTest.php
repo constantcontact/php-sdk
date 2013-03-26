@@ -4,7 +4,8 @@ use Ctct\Auth\CtctOAuth2;
 use Ctct\Util\CurlResponse;
 use Ctct\Util\Config;
 
-class CtctOAuth2UnitTest extends PHPUnit_Framework_TestCase{
+class CtctOAuth2UnitTest extends PHPUnit_Framework_TestCase
+{
 
     private $restClient;
     private $ctctOAuth2;
@@ -47,7 +48,7 @@ class CtctOAuth2UnitTest extends PHPUnit_Framework_TestCase{
 
     /**
      * @dataProvider authorizationUrlProvider
-     */ 
+     */
     public function testGetAuthorizationUrl($server, $expectedResponse)
     {
         $this->assertEquals($expectedResponse, $this->ctctOAuth2->getAuthorizationUrl($server));

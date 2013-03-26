@@ -46,3 +46,5 @@ $cc = new ConstantContact('your api key');
 
 $contacts = $cc->getContacts('your access token')
 ```
+## Minimum Requirements
+Use of this library requires PHP 5.3+, and PHP cURL extension (http://php.net/manual/en/book.curl.php)

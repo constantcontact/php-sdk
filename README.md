@@ -1,4 +1,5 @@
 # Constant Contact PHP SDK
+[![Build Status](https://secure.travis-ci.org/dsjellz/dsjtest.png?branch=development)](http://travis-ci.org/dsjellz/dsjtest)
 
 ## Installation
 
@@ -45,6 +46,3 @@ $cc = new ConstantContact('your api key');
 
 $contacts = $cc->getContacts('your access token')
 ```
-
-## Testing
-[![Build Status](https://secure.travis-ci.org/dsjellz/dsjtest.png?branch=development)](http://travis-ci.org/dsjellz/dsjtest)

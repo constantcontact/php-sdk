@@ -177,8 +177,9 @@ class ContactTrackingService extends BaseService
      */
     public function getSummary($accessToken, $contact_id)
     {
-        $url = Config::get('endpoints.base_url') .
+        $baseUrl = Config::get('endpoints.base_url') .
             sprintf(Config::get('endpoints.contact_tracking_summary'), $contact_id);
+        $url = $this->buildUrl($baseUrl);
         $response = parent::getRestClient()->get($url, parent::getHeaders($accessToken));
         return TrackingSummary::create(json_decode($response->body, true));
     }

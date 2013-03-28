@@ -41,7 +41,8 @@ class ListService extends BaseService
      */
     public function addList($accessToken, ContactList $list)
     {
-        $url = Config::get('endpoints.base_url') . Config::get('endpoints.lists');
+        $baseUrl = Config::get('endpoints.base_url') . Config::get('endpoints.lists');
+        $url = $this->buildUrl($baseUrl);
         $response = parent::getRestClient()->post($url, parent::getHeaders($accessToken), $list->toJson());
         return ContactList::create(json_decode($response->body, true));
     }
@@ -54,7 +55,8 @@ class ListService extends BaseService
      */
     public function updateList($accessToken, ContactList $list)
     {
-        $url = Config::get('endpoints.base_url') . sprintf(Config::get('endpoints.list'), $list->id);
+        $baseUrl = Config::get('endpoints.base_url') . sprintf(Config::get('endpoints.list'), $list->id);
+        $url = $this->buildUrl($baseUrl);
         $response = parent::getRestClient()->put($url, parent::getHeaders($accessToken), $list->toJson());
         return ContactList::create(json_decode($response->body, true));
     }
@@ -67,7 +69,8 @@ class ListService extends BaseService
      */
     public function getList($accessToken, $list_id)
     {
-        $url = Config::get('endpoints.base_url') . sprintf(Config::get('endpoints.list'), $list_id);
+        $baseUrl = Config::get('endpoints.base_url') . sprintf(Config::get('endpoints.list'), $list_id);
+        $url = $this->buildUrl($baseUrl);
         $response = parent::getRestClient()->get($url, parent::getHeaders($accessToken));
         return ContactList::create(json_decode($response->body, true));
     }

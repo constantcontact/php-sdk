@@ -174,8 +174,9 @@ class CampaignTrackingService extends BaseService
      */
     public function getSummary($accessToken, $campaign_id)
     {
-        $url = Config::get('endpoints.base_url') .
+        $baseUrl = Config::get('endpoints.base_url') .
             sprintf(Config::get('endpoints.campaign_tracking_summary'), $campaign_id);
+        $url = $this->buildUrl($baseUrl);
         $response = parent::getRestClient()->get($url, parent::getHeaders($accessToken));
         return TrackingSummary::create(json_decode($response->body, true));
     }

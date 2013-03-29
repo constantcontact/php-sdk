@@ -270,10 +270,13 @@ class ConstantContact
      * from a previous getCampaigns call
      * @return ResultSet
      */
-    public function getEmailCampaigns($accessToken, $param = null)
+    public function getEmailCampaigns($accessToken, $status = null, $param = null)
     {
-        $param = $this->determineParam($param);
-        return $this->emailMarketingService->getCampaigns($accessToken, $param);
+        $params = $this->determineParam($param);
+        if ($status) {
+            $params['status'] = $status;
+        }
+        return $this->emailMarketingService->getCampaigns($accessToken, $params);
     }
     
     /**

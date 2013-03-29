@@ -1,0 +1,9 @@
+.success-pre{
+    background-color: #DFF0D8;
+    border-color: #DFF0D8;
+}
+
+.failure-pre{
+    background-color: #F2DEDE;
+    border-color: #F2DEDE;
+}

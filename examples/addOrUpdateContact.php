@@ -114,7 +114,7 @@ if (isset($_POST['email']) && strlen($_POST['email']) > 1) {
         echo '<div class="container alert-success"><pre class="success-pre">';
         print_r(returnContact); 
         echo '</pre></div>';
-        <?php } ?>
+    } ?>
 
 </body>
 </html>

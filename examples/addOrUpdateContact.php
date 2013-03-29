@@ -112,7 +112,7 @@ if (isset($_POST['email']) && strlen($_POST['email']) > 1) {
     <!-- Success Message -->
     <?php if (isset($returnContact)) {
         echo '<div class="container alert-success"><pre class="success-pre">';
-        print_r(returnContact); 
+        print_r($returnContact); 
         echo '</pre></div>';
     } ?>
 

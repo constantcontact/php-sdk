@@ -53,11 +53,11 @@ class CtctOAuth2
     public function getAccessToken($code)
     {
         $params = array(
-            'grant_type'        => Config::get('auth.authorization_code_grant_type'),
-            'clientId'         => $this->clientId,
-            'clientSecret'     => $this->clientSecret,
-            'code'              => $code,
-            'redirectUri'      => $this->redirectUri
+            'grant_type'       => Config::get('auth.authorization_code_grant_type'),
+            'client_id'         => $this->clientId,
+            'client_secret'     => $this->clientSecret,
+            'code'             => $code,
+            'redirect_uri'      => $this->redirectUri
         );
         
         $url = Config::get('auth.base_url') . Config::get('auth.token_endpoint') . '?' . http_build_query($params);

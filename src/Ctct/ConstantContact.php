@@ -27,6 +27,7 @@ use Ctct\Util\Config;
 /**
  * Exposes all implemented Constant Contact API functionality
  * @package Ctct
+ * @version 1.0.0
  * @author Constant Contact
  */
 class ConstantContact

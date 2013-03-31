@@ -1,11 +1,11 @@
 # Constant Contact PHP SDK
-[![Build Status](https://secure.travis-ci.org/dsjellz/dsjtest.png?branch=development)](http://travis-ci.org/dsjellz/dsjtest)
+[![Build Status](https://secure.travis-ci.org/constantcontact/php-sdk.png?branch=master)](http://travis-ci.org/constantcontact/php-sdk)
 
 ## Installation
 
 ### Manual Installation
 1. Download and extract the project into an appropriate place in your application.
-2. Require the libraries autoloader. (note: the path to include the autoload may be different depending on your applications structure)
+2. Require the SDK's autoloader. (note: the path to include the autoload may be different depending on the structure of your application)
 ```
 require '/src/Ctct/autoload.php'
 ```
@@ -17,7 +17,7 @@ Composer is a dependency management tool for PHP that allows you to declare the 
 ```javascript
  {
         "require": {
-            "ctct/ctct-sdk-php": "1.0"
+            "constantcontact/constantcontact": "1.0.*"
         }
     }
 ```
@@ -33,13 +33,13 @@ php composer.phar install
 ```
 
 4. Require Composer's autoloader.
-Composer also prepared an autoload file that's capable of autoloading all of the classes in any of the libraries that it downloads. To use it, just add the following line to your code's bootstrap process.
+Composer also prepares an autoload file that's capable of autoloading all of the classes in any of the libraries that it downloads. To use it, just add the following line to your code's bootstrap process.
 ```
 require 'vendor/autoload.php';
 ```
 
 ## Usage
-Once the autoloader has been required, you can now starting using the SDK.
+Once either the composer or built in autoloader has been required, you can begin using the SDK.
 ```php
 use Ctct/ConstantContact;
 $cc = new ConstantContact('your api key');

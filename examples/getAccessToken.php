@@ -55,9 +55,8 @@ if (isset($_GET['code'])) {
 } else { 
 ?>
     <button class="btn btn-primary" type="button" onclick="window.location.href='<?php echo $oauth->getAuthorizationUrl();?>';">Get Access Token</button>
-    
+<?php } ?>    
 </div>    
 
 </body>
 </html>
-<?php } ?>

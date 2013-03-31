@@ -16,6 +16,12 @@ use Ctct\Components\EmailMarketing\MessageFooter;
 use Ctct\Components\EmailMarketing\Schedule;
 use Ctct\Exceptions\CtctException;
 
+/**
+ * Note: This example expects that your account already has a physical address set up in your Constant Contact account settings.
+ * For more information on this, please visit: http://support2.constantcontact.com/articles/FAQ/2801#future%20emails
+ * 
+ */
+
 define("APIKEY", "ENTER YOUR API KEY");
 define("ACCESS_TOKEN", "ENTER YOUR ACCESS TOKEN");
 

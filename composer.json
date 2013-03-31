@@ -1,8 +1,21 @@
 {
-    "name": "dsjellz/composertest",
+    "name": "constantcontact/constantcontact",
+    "type": "library",
+    "description": "Constant Contact PHP SDK for v2",
+    "keywords": ["constantcontact", "ctct", "email marketing", "constant contact"],
+    "homepage": "http://developer.constantcontact.com",
+    "license": "MIT"
     "require": {
-        "php": ">=5.3.0"
+        "php": ">=5.3.0",
+        "ext-curl": "*"
     },
+    "authors": [
+        {
+            "name": "Constant Contact Web Services",
+            "email": "webservices@constantcontact.com",
+            "homepage": "http://developer.constantcontact.com"
+        }
+    ]
     "autoload":{
     	"psr-0": {
     		"Ctct": "src"

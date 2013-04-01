@@ -4,7 +4,7 @@
     "description": "Constant Contact PHP SDK for v2",
     "keywords": ["constantcontact", "ctct", "email marketing", "constant contact"],
     "homepage": "http://developer.constantcontact.com",
-    "license": "MIT"
+    "license": "MIT",
     "require": {
         "php": ">=5.3.0",
         "ext-curl": "*"
@@ -15,10 +15,10 @@
             "email": "webservices@constantcontact.com",
             "homepage": "http://developer.constantcontact.com"
         }
-    ]
+    ],
     "autoload":{
     	"psr-0": {
-    		"Ctct": "src"
+            "Ctct": "src"
     	}
     }
 }

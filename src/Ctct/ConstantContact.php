@@ -92,7 +92,7 @@ class ConstantContact
      */
     public function __construct($apiKey)
     {
-        $this->api_key = $apiKey;
+        $this->apiKey = $apiKey;
         $this->contactService = new ContactService($apiKey);
         $this->emailMarketingService = new EmailMarketingService($apiKey);
         $this->activityService = new ActivityService($apiKey);

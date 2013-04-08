@@ -9,8 +9,8 @@ use Ctct\Components\ResultSet;
 /**
  * Performs all actions pertaining to Constant Contact Campaigns
  *
- * @package        Services
- * @author         Constant Contact
+ * @package Services
+ * @author Constant Contact
  */
 class EmailMarketingService extends BaseService
 {

@@ -42,49 +42,49 @@ class ConstantContact
      * ContactService
      * @var ContactService
      */
-    private $contactService;
+    protected $contactService;
 
     /**
      * CampaignService
      * @var CampaignService
      */
-    private $emailMarketingService;
+    protected $emailMarketingService;
 
     /**
      * ListService
      * @var ListService
      */
-    private $listService;
+    protected $listService;
 
     /**
      * ActivityService
      * @var ActivityService
      */
-    private $activityService;
+    protected $activityService;
 
     /**
      * CampaignTrackingService
      * @var CampaignTrackingService
      */
-    private $campaignTrackingService;
+    protected $campaignTrackingService;
 
     /**
      * ContactTrackingService
      * @var ContactTrackingService
      */
-    private $contactTrackingService;
+    protected $contactTrackingService;
 
     /**
      * CampaignScheduleService
      * @var CampaignScheduleService
      */
-    private $campaignScheduleService;
+    protected $campaignScheduleService;
 
     /**
      * AccountService
      * @var AccountService
      */
-    private $accountService;
+    protected $accountService;
 
     /**
      * Class constructor

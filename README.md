@@ -41,7 +41,7 @@ require 'vendor/autoload.php';
 ## Usage
 Once either the composer or built in autoloader has been required, you can begin using the SDK.
 ```php
-use Ctct/ConstantContact;
+use Ctct\ConstantContact;
 $cc = new ConstantContact('your api key');
 
 $contacts = $cc->getContacts('your access token')

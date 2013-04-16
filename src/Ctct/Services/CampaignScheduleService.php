@@ -9,8 +9,8 @@ use Ctct\Components\EmailMarketing\TestSend;
 /**
  * Performs all actions pertaining to scheduling Constant Contact Campaigns
  *
- * @package     Services
- * @author         Constant Contact
+ * @package Services
+ * @author Constant Contact
  */
 class CampaignScheduleService extends BaseService
 {

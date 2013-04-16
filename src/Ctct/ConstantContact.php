@@ -147,7 +147,11 @@ class ConstantContact
      */
     public function addContact($accessToken, Contact $contact, $actionByVisitor = false)
     {
-        return $this->contactService->addContact($accessToken, $contact, $actionByVisitor);
+        $params = array();
+        if ($actionByVisitor == true) {
+            $params['action_by'] = "ACTION_BY_VISITOR";
+        }
+        return $this->contactService->addContact($accessToken, $contact, $params);
     }
     
     /**
@@ -202,7 +206,11 @@ class ConstantContact
      */
     public function updateContact($accessToken, Contact $contact, $actionByVisitor = false)
     {
-        return $this->contactService->updateContact($accessToken, $contact, $actionByVisitor);
+        $params = array();
+        if ($actionByVisitor == true) {
+            $params['action_by'] = "ACTION_BY_VISITOR";
+        }
+        return $this->contactService->updateContact($accessToken, $contact, $params);
     }
     
     /**
@@ -361,7 +369,6 @@ class ConstantContact
     public function getEmailCampaignSchedule($accessToken, $campaign, $schedule)
     {
         $campaignId = $this->getArgumentId($campaign, 'Campaign');
-        
         $scheduleId = null;
 
         if ($schedule instanceof Schedule) {
@@ -720,16 +727,16 @@ class ConstantContact
      * converted to a numeric value
      * @return int
      */
-    private function getArgumentId($item, $class_name)
+    private function getArgumentId($item, $className)
     {
         $id = null;
 
         if (is_numeric($item)) {
             $id = $item;
-        } elseif (join('', array_slice(explode('\\', get_class($item)), -1)) == $class_name) {
+        } elseif (join('', array_slice(explode('\\', get_class($item)), -1)) == $className) {
             $id = $item->id;
         } else {
-            throw new IllegalArgumentException(sprintf(Config::get('errors.id_or_object'), $class_name));
+            throw new IllegalArgumentException(sprintf(Config::get('errors.id_or_object'), $className));
         }
 
         return $id;

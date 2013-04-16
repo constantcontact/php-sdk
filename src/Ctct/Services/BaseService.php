@@ -7,8 +7,8 @@ use Ctct\Util\RestClientInterface;
 /**
  * Super class for all services
  *
- * @package     Services
- * @author         Constant Contact
+ * @package Services
+ * @author Constant Contact
  */
 abstract class BaseService
 {
@@ -16,7 +16,7 @@ abstract class BaseService
      * RestClient Implementation to use for HTTP requests
      * @var $restClient - RestClient 
      */
-    public $restClient;
+    protected $restClient;
 
     /**
      * ApiKey for the application

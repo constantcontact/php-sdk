@@ -8,8 +8,8 @@ use Ctct\Components\Account\VerifiedEmailAddress;
 /**
  * Performs all actions pertaining to scheduling Constant Contact Account's
  *
- * @package     Services
- * @author         Constant Contact
+ * @package Services
+ * @author Constant Contact
  */
 class AccountService extends BaseService
 {

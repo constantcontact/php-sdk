@@ -16,8 +16,8 @@ use Ctct\Components\ResultSet;
 /**
  * Performs all actions pertaining to Contact Tracking
  *
- * @package     Services
- * @author         Constant Contact
+ * @package Services
+ * @author Constant Contact
  */
 class ContactTrackingService extends BaseService
 {

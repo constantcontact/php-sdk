@@ -278,7 +278,7 @@ class ContactServiceUnitTest extends PHPUnit_Framework_TestCase
             ->with()
             ->will($this->returnValue($curlResponse));
         
-        $contact = $this->contactService->addContact('access_token', new Contact());
+        $contact = $this->contactService->addContact('access_token', new Contact(), array());
         $this->assertInstanceOf("Ctct\Components\Contacts\Contact", $contact);
         $this->assertEquals(238, $contact->id);
         $this->assertEquals("ACTIVE", $contact->status);
@@ -417,7 +417,7 @@ class ContactServiceUnitTest extends PHPUnit_Framework_TestCase
             ->with()
             ->will($this->returnValue($curlResponse));
 
-        $contact = $this->contactService->updateContact('access_token', new Contact());
+        $contact = $this->contactService->updateContact('access_token', new Contact(), array());
 
         $this->assertInstanceOf("Ctct\Components\Contacts\Contact", $contact);
         $this->assertEquals(238, $contact->id);

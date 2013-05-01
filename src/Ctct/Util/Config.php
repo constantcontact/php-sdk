@@ -116,7 +116,6 @@ class Config
             'authorization_endpoint'        => 'oauth/siteowner/authorize',
             'token_endpoint'                => 'oauth/token',
             'token_info'                    => 'tokeninfo.htm'
-            
         ),
 
         /**

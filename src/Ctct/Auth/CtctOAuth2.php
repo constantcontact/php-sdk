@@ -29,9 +29,10 @@ class CtctOAuth2
     /**
      * Get the URL at which the user can authenticate and authorize the requesting application
      * @param boolean $server - Whether or not to use OAuth2 server flow, alternative is client flow
-     * @return string - url to send a user to, to grant access to their account
+     * @param string $state - An optional value used by the client to maintain state between the request and callback. 
+     * @return string $url - The url to send a user to, to grant access to their account
      */
-    public function getAuthorizationUrl($server = true)
+    public function getAuthorizationUrl($server = true, $state = null)
     {
         $responseType = ($server) ? Config::get('auth.response_type_code') : Config::get("auth.response_type_token");
         $params = array(
@@ -39,6 +40,11 @@ class CtctOAuth2
             'client_id'     => $this->clientId,
             'redirect_uri'  => $this->redirectUri
         );
+
+        // add the state param if it was provided
+        if ($state != null) {
+            $params['state'] = $state;
+        }
         
         $url = Config::get('auth.base_url') . Config::get('auth.authorization_endpoint');
         return $url . '?' . http_build_query($params);
@@ -53,10 +59,10 @@ class CtctOAuth2
     public function getAccessToken($code)
     {
         $params = array(
-            'grant_type'       => Config::get('auth.authorization_code_grant_type'),
+            'grant_type'        => Config::get('auth.authorization_code_grant_type'),
             'client_id'         => $this->clientId,
             'client_secret'     => $this->clientSecret,
-            'code'             => $code,
+            'code'              => $code,
             'redirect_uri'      => $this->redirectUri
         );
         

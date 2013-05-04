@@ -7,7 +7,7 @@
 	<title>Class Ctct\Services\ListService | Appconnect PHP SDK</title>
 
 	<script type="text/javascript" src="resources/combined.js?554516056"></script>
-	<script type="text/javascript" src="elementlist.js?246402171"></script>
+	<script type="text/javascript" src="elementlist.js?1423846706"></script>
 	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?3505392360" />
 
 </head>
@@ -144,7 +144,7 @@
 
 				<b>Author:</b>
 				Constant Contact<br />
-		<b>Located at</b> <a href="source-class-Ctct.Services.ListService.html#10-95" title="Go to source code">Ctct/Services/ListService.php</a><br />
+		<b>Located at</b> <a href="source-class-Ctct.Services.ListService.html#10-99" title="Go to source code">Ctct/Services/ListService.php</a><br />
 	</div>
 
 
@@ -162,7 +162,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getLists">#</a>
-		<code><a href="source-class-Ctct.Services.ListService.html#18-34" title="Go to source code">getLists</a>( <span>mixed <var>$accessToken</var></span> )</code>
+		<code><a href="source-class-Ctct.Services.ListService.html#18-35" title="Go to source code">getLists</a>( <span>mixed <var>$accessToken</var></span>, <span>array <var>$params</var> = <span class="php-keyword1">array</span>()</span> )</code>
 
 		<div class="description short">
 			
@@ -180,6 +180,8 @@
 				<div class="list"><dl>
 					<dt><var>$accessToken</var></dt>
 					<dd><code>mixed</code><br>$accessToken - Constant Contact OAuth2 access token</dd>
+					<dt><var>$params</var></dt>
+					<dd><code>array</code><br>$params - array of query parameters to be appened to the request</dd>
 				</dl></div>
 
 				<h4>Returns</h4>
@@ -204,7 +206,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_addList">#</a>
-		<code><a href="source-class-Ctct.Services.ListService.html#36-47" title="Go to source code">addList</a>( <span>string <var>$accessToken</var></span>, <span><code><a href="class-Ctct.Components.Contacts.ContactList.html">Ctct\Components\Contacts\ContactList</a></code> <var>$list</var></span> )</code>
+		<code><a href="source-class-Ctct.Services.ListService.html#37-49" title="Go to source code">addList</a>( <span>string <var>$accessToken</var></span>, <span><code><a href="class-Ctct.Components.Contacts.ContactList.html">Ctct\Components\Contacts\ContactList</a></code> <var>$list</var></span> )</code>
 
 		<div class="description short">
 			
@@ -248,7 +250,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_updateList">#</a>
-		<code><a href="source-class-Ctct.Services.ListService.html#49-60" title="Go to source code">updateList</a>( <span>string <var>$accessToken</var></span>, <span><code><a href="class-Ctct.Components.Contacts.ContactList.html">Ctct\Components\Contacts\ContactList</a></code> <var>$list</var></span> )</code>
+		<code><a href="source-class-Ctct.Services.ListService.html#51-63" title="Go to source code">updateList</a>( <span>string <var>$accessToken</var></span>, <span><code><a href="class-Ctct.Components.Contacts.ContactList.html">Ctct\Components\Contacts\ContactList</a></code> <var>$list</var></span> )</code>
 
 		<div class="description short">
 			
@@ -292,7 +294,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getList">#</a>
-		<code><a href="source-class-Ctct.Services.ListService.html#62-73" title="Go to source code">getList</a>( <span>mixed <var>$accessToken</var></span>, <span>mixed <var>$list_id</var></span> )</code>
+		<code><a href="source-class-Ctct.Services.ListService.html#65-77" title="Go to source code">getList</a>( <span>mixed <var>$accessToken</var></span>, <span>mixed <var>$list_id</var></span> )</code>
 
 		<div class="description short">
 			
@@ -336,7 +338,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getContactsFromList">#</a>
-		<code><a href="source-class-Ctct.Services.ListService.html#75-94" title="Go to source code">getContactsFromList</a>( <span>string <var>$accessToken</var></span>, <span>string <var>$list_id</var></span>, <span>array <var>$params</var> = <span class="php-keyword1">null</span></span> )</code>
+		<code><a href="source-class-Ctct.Services.ListService.html#79-98" title="Go to source code">getContactsFromList</a>( <span>string <var>$accessToken</var></span>, <span>string <var>$list_id</var></span>, <span>array <var>$params</var> = <span class="php-keyword1">null</span></span> )</code>
 
 		<div class="description short">
 			
@@ -380,7 +382,8 @@
 			<a href="class-Ctct.Services.BaseService.html#___construct">__construct()</a>, 
 			<a href="class-Ctct.Services.BaseService.html#_buildUrl">buildUrl()</a>, 
 			<a href="class-Ctct.Services.BaseService.html#_getHeaders">getHeaders()</a>, 
-			<a href="class-Ctct.Services.BaseService.html#_getRestClient">getRestClient()</a>
+			<a href="class-Ctct.Services.BaseService.html#_getRestClient">getRestClient()</a>, 
+			<a href="class-Ctct.Services.BaseService.html#_setRestClient">setRestClient()</a>
 		</code></td>
 	</tr>
 	</table>
@@ -401,7 +404,7 @@
 	<tr>
 		<td><code>
 			<a href="class-Ctct.Services.BaseService.html#$apiKey"><var>$apiKey</var></a>, 
-			<a href="class-Ctct.Services.BaseService.html#$rest_client"><var>$rest_client</var></a>
+			<a href="class-Ctct.Services.BaseService.html#$restClient"><var>$restClient</var></a>
 		</code></td>
 	</tr>
 	</table>

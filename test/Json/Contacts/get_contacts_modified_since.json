@@ -1,0 +1,110 @@
+{
+    "meta": {
+        "pagination": {
+            "next_link": "/v2/contacts?next=c3RhcnRBdD0yMjQmbGltaXQ9Mg"
+        }
+    },
+    "results": [
+        {
+            "id": "1",
+            "status": "REMOVED",
+            "fax": "",
+            "addresses": [
+                {
+                    "id": "2",
+                    "line1": "",
+                    "line2": "",
+                    "line3": "",
+                    "city": "",
+                    "address_type": "PERSONAL",
+                    "state_code": "",
+                    "country_code": "",
+                    "postal_code": "",
+                    "sub_postal_code": ""
+                },
+                {
+                    "id": "3",
+                    "line1": "",
+                    "line2": "",
+                    "line3": "",
+                    "city": "",
+                    "address_type": "BUSINESS",
+                    "state_code": "",
+                    "country_code": "",
+                    "postal_code": "",
+                    "sub_postal_code": ""
+                }
+            ],
+            "notes": [],
+            "confirmed": false,
+            "lists": [],
+            "source": "",
+            "email_addresses": [
+                {
+                    "id": "1",
+                    "status": "REMOVED",
+                    "confirm_status": "NO_CONFIRMATION_REQUIRED",
+                    "opt_in_source": "ACTION_BY_OWNER",
+                    "opt_in_date": "2012-02-09T23:27:35.517Z",
+                    "email_address": "testaddress@example.com"
+                }
+            ],
+            "prefix_name": "",
+            "first_name": "John",
+            "middle_name": "",
+            "last_name": "Doe",
+            "job_title": "",
+            "company_name": "",
+            "home_phone": "",
+            "work_phone": "",
+            "cell_phone": "",
+            "custom_fields": [
+                {
+                    "name": "CustomField1",
+                    "value": "adfasdfasdf"
+                }
+            ],
+            "created_date": "2012-01-02T15:26:11.214Z",
+            "modified_date": "2013-05-01T15:21:13.000Z",
+            "source_details": ""
+        },
+        {
+            "id": "6",
+            "status": "ACTIVE",
+            "fax": "",
+            "addresses": [],
+            "notes": [],
+            "confirmed": false,
+            "lists": [
+                {
+                    "id": "18",
+                    "status": "ACTIVE"
+                }
+            ],
+            "source": "",
+            "email_addresses": [
+                {
+                    "id": "1",
+                    "status": "ACTIVE",
+                    "confirm_status": "NO_CONFIRMATION_REQUIRED",
+                    "opt_in_source": "ACTION_BY_OWNER",
+                    "opt_in_date": "2012-02-12T16:25:15.089Z",
+                    "email_address": "testaddress2@example.com"
+                }
+            ],
+            "prefix_name": "",
+            "first_name": "",
+            "middle_name": "",
+            "last_name": "",
+            "job_title": "",
+            "company_name": "",
+            "home_phone": "",
+            "work_phone": "",
+            "cell_phone": "",
+            "custom_fields": [],
+            "created_date": "2012-02-05T20:59:24.553Z",
+            "modified_date": "2013-02-01T18:07:50.350Z",
+            "source_details": ""
+        }
+    ]
+}

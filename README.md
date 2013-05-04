@@ -17,12 +17,12 @@ Composer is a dependency management tool for PHP that allows you to declare the 
 ```javascript
  {
         "require": {
-            "constantcontact/constantcontact": "1.0.*"
+            "constantcontact/constantcontact": "1.1.*"
         }
     }
 ```
 
-2. Downoad and Install Composer.
+2. Download and Install Composer.
 ```
 curl -s "http://getcomposer.org/installer" | php
 ```

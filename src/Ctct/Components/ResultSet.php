@@ -30,7 +30,7 @@ class ResultSet
 
         if (array_key_exists('next_link', $meta['pagination'])) {
             $nextLink = $meta['pagination']['next_link'];
-            $this->next = substr($nextLink, strpos($nextLink, '?'));
+            $this->next = substr($nextLink, strpos($nextLink, '?')+6);
         }
     }
 }

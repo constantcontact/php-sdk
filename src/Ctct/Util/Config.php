@@ -19,7 +19,7 @@ class Config
          */
         'endpoints'    => array(
         
-            'base_url'                          => 'https://api.constantcontact.com/v2/',
+            'base_url'                          => 'https://api.l1.constantcontact.com/v2/',
             
             'account_verified_addresses'        => 'account/verifiedemailaddresses',
 

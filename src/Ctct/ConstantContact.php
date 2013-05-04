@@ -26,8 +26,9 @@ use Ctct\Util\Config;
 
 /**
  * Exposes all implemented Constant Contact API functionality
+ *
  * @package Ctct
- * @version 1.0.0
+ * @version 1.1.0
  * @author Constant Contact
  */
 class ConstantContact
@@ -39,55 +40,56 @@ class ConstantContact
     private $apiKey;
 
     /**
-     * ContactService
+     * ContactService for handling interaction with contact management
      * @var ContactService
      */
     protected $contactService;
 
     /**
-     * CampaignService
+     * EmailMarketingService for handling interaction with email marketing
      * @var CampaignService
      */
     protected $emailMarketingService;
 
     /**
-     * ListService
+     * ListService for handling interaction with contact list management
      * @var ListService
      */
     protected $listService;
 
     /**
-     * ActivityService
+     * ActivityService for handling interaction with bulk activities
      * @var ActivityService
      */
     protected $activityService;
 
     /**
-     * CampaignTrackingService
+     * CampaignTrackingService for handling interaction with email marketing tracking
      * @var CampaignTrackingService
      */
     protected $campaignTrackingService;
 
     /**
-     * ContactTrackingService
+     * ContactTrackingService for handling interaction with contact tracking
      * @var ContactTrackingService
      */
     protected $contactTrackingService;
 
     /**
-     * CampaignScheduleService
+     * CampaignScheduleService for handling interaction with email marketing campaign scheduling
      * @var CampaignScheduleService
      */
     protected $campaignScheduleService;
 
     /**
-     * AccountService
+     * AccountService for handling interaction with account management
      * @var AccountService
      */
     protected $accountService;
 
     /**
      * Class constructor
+     * Registers the API key with the ConstantContact class that will be used for all API calls.
      * @param string $apiKey - Constant Contact API Key
      */
     public function __construct($apiKey)
@@ -106,14 +108,17 @@ class ConstantContact
     /**
      * Get a set of campaigns
      * @param string $accessToken - Constant Contact OAuth2 access token
-     * @param mixed $param - denotes the number of results per set, limited to 50, or a next parameter provided
-     * from a previous getContacts call
-     * @return ResultSet
+     * @param mixed $params - associative array of query parameters and values to append to the request. 
+     *      Allow parameters include:
+     *      limit - Specifies the number of results displayed per page of output, from 1 - 500, default = 50.
+     *      modified_since - ISO-8601 formatted timestamp.
+     *      next - the next link returned from a previous paginated call. May only be used by itself.
+     *      email - the contact by email address to retrieve information for
+     * @return ResultSet containing a results array of {@link Ctct\Components\Contacts\Contact}
      */
-    public function getContacts($accessToken, $param = null)
+    public function getContacts($accessToken, array $params = array())
     {
-        $param = $this->determineParam($param);
-        return $this->contactService->getContacts($accessToken, $param);
+        return $this->contactService->getContacts($accessToken, $params);
     }
     
     /**
@@ -216,13 +221,14 @@ class ConstantContact
     /**
      * Get lists
      * @param string $accessToken - Valid access token
+     * @param string $date - ISO-8601 date to query by
      * @return array
      */
-    public function getLists($accessToken)
+    public function getLists($accessToken, array $params = array())
     {
-        return $this->listService->getLists($accessToken);
+        return $this->listService->getLists($accessToken, $params);
     }
-    
+
     /**
      * Get an individual list
      * @param string $accessToken - Valid access token
@@ -275,16 +281,16 @@ class ConstantContact
     /**
      * Get a set of campaigns
      * @param string $accessToken - Constant Contact OAuth2 access token
-     * @param mixed $param - denotes the number of results per set, limited to 50, or a next parameter provided
-     * from a previous getCampaigns call
-     * @return ResultSet
+     * @param mixed $params - associative array of query parameters and values to append to the request. 
+     *      Allow parameters include:
+     *      limit - Specifies the number of results displayed per page of output, from 1 - 500, default = 50.
+     *      modified_since - ISO-8601 formatted timestamp.
+     *      next - the next link returned from a previous paginated call. May only be used by itself.
+     *      email - the contact by email address to retrieve information for
+     * @return ResultSet containing a results array of {@link Ctct\Components\EmailMarketing\Campaign}
      */
-    public function getEmailCampaigns($accessToken, $status = null, $param = null)
+    public function getEmailCampaigns($accessToken, array $params = array())
     {
-        $params = $this->determineParam($param);
-        if ($status) {
-            $params['status'] = $status;
-        }
         return $this->emailMarketingService->getCampaigns($accessToken, $params);
     }
     
@@ -338,7 +344,7 @@ class ConstantContact
      * @param string $accessToken - Constant Contact OAuth2 access token
      * @param mixed $campaign - Campaign to be updated
      * @param Schedule $schedule - Schedule to be associated with the provided campaign
-     * @return Campaign - updated campaign
+     * @return Schedule schedule created
      */
     public function addEmailCampaignSchedule($accessToken, $campaign, Schedule $schedule)
     {
@@ -435,99 +441,109 @@ class ConstantContact
     /**
      * Get sends for a campaign
      * @param string $accessToken - Constant Contact OAuth2 access token
-     * @param mixed $emailCampaign  - Campaign id or Campaign object itself
-     * @param mixed $param - either the next link from a previous request, or a limit or restrict the page size of
-     * an initial request
-     * @return TrackingActivity - Containing a results array of {@link Ctct\Components\CampaignTracking\SendActivity}
+     * @param mixed $campaign - Campaign id or Campaign object itself
+     * @param mixed $params - associative array of query parameters and values to append to the request. 
+     *      Allow parameters include:
+     *      limit - Specifies the number of results displayed per page of output, from 1 - 500, default = 50.
+     *      created_since - Used to retrieve a list of events since the date and time specified (in ISO-8601 format).
+     *      next - the next link returned from a previous paginated call. May only be used by itself.
+     * @return ResultSet - Containing a results array of {@link Ctct\Components\CampaignTracking\SendActivity}
      */
-    public function getEmailCampaignSends($accessToken, $campaign, $param = null)
+    public function getEmailCampaignSends($accessToken, $campaign, array $params = array())
     {
         $campaignId = $this->getArgumentId($campaign, 'Campaign');
-        $param = $this->determineParam($param);
-        return $this->campaignTrackingService->getSends($accessToken, $campaignId, $param);
+        return $this->campaignTrackingService->getSends($accessToken, $campaignId, $params);
     }
 
     /**
      * Get bounces for a campaign
      * @param string $accessToken - Constant Contact OAuth2 access token
-     * @param mixed $emailCampaign  - Campaign id or Campaign object itself
-     * @param mixed $param - either the next link from a previous request, or a limit or restrict the page size of
-     * an initial request
+     * @param mixed $campaign  - Campaign id or Campaign object itself
+     * @param mixed $params - associative array of query parameters and values to append to the request. 
+     *      Allow parameters include:
+     *      limit - Specifies the number of results displayed per page of output, from 1 - 500, default = 50.
+     *      created_since - Used to retrieve a list of events since the date and time specified (in ISO-8601 format).
+     *      next - the next link returned from a previous paginated call. May only be used by itself.
      * @return ResultSet - Containing a results array of {@link Ctct\Components\CampaignTracking\BounceActivity}
      */
-    public function getEmailCampaignBounces($accessToken, $campaign, $param = null)
+    public function getEmailCampaignBounces($accessToken, $campaign, array $params = array())
     {
         $campaignId = $this->getArgumentId($campaign, 'Campaign');
-        $param = $this->determineParam($param);
-        return $this->campaignTrackingService->getBounces($accessToken, $campaignId, $param);
+        return $this->campaignTrackingService->getBounces($accessToken, $campaignId, $params);
     }
 
     /**
      * Get clicks for a campaign
      * @param string $accessToken - Constant Contact OAuth2 access token
      * @param mixed $emailCampaign  - Campaign id or Campaign object itself
-     * @param mixed $param - either the next link from a previous request, or a limit or restrict the page size of
-     * an initial request
+     * @param mixed $params - associative array of query parameters and values to append to the request. 
+     *      Allow parameters include:
+     *      limit - Specifies the number of results displayed per page of output, from 1 - 500, default = 50.
+     *      created_since - Used to retrieve a list of events since the date and time specified (in ISO-8601 format).
+     *      next - the next link returned from a previous paginated call. May only be used by itself.
      * @return ResultSet - Containing a results array of {@link Ctct\Components\CampaignTracking\ClickActivity}
      */
-    public function getEmailCampaignClicks($accessToken, $campaign, $param = null)
+    public function getEmailCampaignClicks($accessToken, $campaign, array $params = array())
     {
         $campaignId = $this->getArgumentId($campaign, 'Campaign');
-        $param = $this->determineParam($param);
-        return $this->campaignTrackingService->getClicks($accessToken, $campaignId, $param);
+        return $this->campaignTrackingService->getClicks($accessToken, $campaignId, $params);
     }
 
     /**
      * Get opens for a campaign
      * @param string $accessToken - Constant Contact OAuth2 access token
-     * @param mixed $emailCampaign  - Campaign id or Campaign object itself
-     * @param mixed $param - either the next link from a previous request, or a limit or restrict the page size of
-     * an initial request
+     * @param mixed $campaign  - Campaign id or Campaign object itself
+     * @param mixed $params - associative array of query parameters and values to append to the request. 
+     *      Allow parameters include:
+     *      limit - Specifies the number of results displayed per page of output, from 1 - 500, default = 50.
+     *      created_since - Used to retrieve a list of events since the date and time specified (in ISO-8601 format).
+     *      next - the next link returned from a previous paginated call. May only be used by itself.
      * @return ResultSet - Containing a results array of {@link Ctct\Components\CampaignTracking\OpenActivity}
      */
-    public function getEmailCampaignOpens($accessToken, $campaign, $param = null)
+    public function getEmailCampaignOpens($accessToken, $campaign, array $params = array())
     {
         $campaignId = $this->getArgumentId($campaign, 'Campaign');
-        $param = $this->determineParam($param);
-        return $this->campaignTrackingService->getOpens($accessToken, $campaignId, $param);
+        return $this->campaignTrackingService->getOpens($accessToken, $campaignId, $params);
     }
 
     /**
      * Get forwards for a campaign
      * @param string $accessToken - Constant Contact OAuth2 access token
-     * @param mixed $emailCampaign  - Campaign id or Campaign object itself
-     * @param mixed $param - either the next link from a previous request, or a limit or restrict the page size of
-     * an initial request
+     * @param mixed $campaign  - Campaign id or Campaign object itself
+     * @param mixed $params - associative array of query parameters and values to append to the request. 
+     *      Allow parameters include:
+     *      limit - Specifies the number of results displayed per page of output, from 1 - 500, default = 50.
+     *      created_since - Used to retrieve a list of events since the date and time specified (in ISO-8601 format).
+     *      next - the next link returned from a previous paginated call. May only be used by itself.
      * @return ResultSet - Containing a results array of {@link Ctct\Components\CampaignTracking\ForwardActivity}
      */
-    public function getEmailCampaignForwards($accessToken, $campaign, $param = null)
+    public function getEmailCampaignForwards($accessToken, $campaign, array $params = array())
     {
         $campaignId = $this->getArgumentId($campaign, 'Campaign');
-        $param = $this->determineParam($param);
-        return $this->campaignTrackingService->getForwards($accessToken, $campaignId, $param);
+        return $this->campaignTrackingService->getForwards($accessToken, $campaignId, $params);
     }
 
     /**
      * Get unsubscribes for a campaign
      * @param string $accessToken - Constant Contact OAuth2 access token
-     * @param mixed $emailCampaign  - Campaign id or Campaign object itself
-     * @param mixed $param - either the next link from a previous request, or a limit or restrict the page size of
-     * an initial request
+     * @param mixed $campaign  - Campaign id or Campaign object itself
+     * @param mixed $params - associative array of query parameters and values to append to the request. 
+     *      Allow parameters include:
+     *      limit - Specifies the number of results displayed per page of output, from 1 - 500, default = 50.
+     *      created_since - Used to retrieve a list of events since the date and time specified (in ISO-8601 format).
+     *      next - the next link returned from a previous paginated call. May only be used by itself.
      * @return ResultSet - Containing a results array of {@link Ctct\Components\CampaignTracking\UnsubscribeActivity}
      */
-    public function getEmailCampaignUnsubscribes($accessToken, $campaign, $param = null)
+    public function getEmailCampaignUnsubscribes($accessToken, $campaign, array $params = array())
     {
         $campaignId = $this->getArgumentId($campaign, 'Campaign');
-        $param = $this->determineParam($param);
-        return $this->campaignTrackingService->getUnsubscribes($accessToken, $campaignId, $param);
+        return $this->campaignTrackingService->getUnsubscribes($accessToken, $campaignId, $params);
     }
 
     /**
      * Get a reporting summary for a campaign
      * @param string $accessToken - Constant Contact OAuth2 access token
-     * @param mixed $emailCampaign  - Campaign id or Campaign object itself
-     * @param string $next - next value returned from a previous request (used in pagination)
-     * @param int $limit - number of results to return per page
+     * @param mixed $campaign  - Campaign id or Campaign object itself
      * @return TrackingSummary
      */
     public function getEmailCampaignSummaryReport($accessToken, $campaign)
@@ -540,90 +556,102 @@ class ConstantContact
      * Get sends for a Contact
      * @param string $accessToken - Constant Contact OAuth2 access token
      * @param mixed $contact  - Contact id or Contact object itself
-     * @param mixed $param - either the next link from a previous request, or a limit or restrict the page size of
-     * an initial request
+     * @param mixed $params - associative array of query parameters and values to append to the request. 
+     *      Allow parameters include:
+     *      limit - Specifies the number of results displayed per page of output, from 1 - 500, default = 50.
+     *      created_since - Used to retrieve a list of events since the date and time specified (in ISO-8601 format).
+     *      next - the next link returned from a previous paginated call. May only be used by itself.
      * @return ResultSet - Containing a results array of {@link Ctct\Components\Tracking\SendActivity}
      */
-    public function getContactSends($accessToken, $contact, $param = null)
+    public function getContactSends($accessToken, $contact, array $params = array())
     {
         $contactId = $this->getArgumentId($contact, 'Contact');
-        $param = $this->determineParam($param);
-        return $this->contactTrackingService->getSends($accessToken, $contactId, $param);
+        return $this->contactTrackingService->getSends($accessToken, $contactId, $params);
     }
 
     /**
      * Get bounces for a Contact
      * @param string $accessToken - Constant Contact OAuth2 access token
      * @param mixed $contact  - Contact id or Contact object itself
-     * @param mixed $param - either the next link from a previous request, or a limit or restrict the page size of
-     * an initial request
+     * @param mixed $params - associative array of query parameters and values to append to the request. 
+     *      Allow parameters include:
+     *      limit - Specifies the number of results displayed per page of output, from 1 - 500, default = 50.
+     *      created_since - Used to retrieve a list of events since the date and time specified (in ISO-8601 format).
+     *      next - the next link returned from a previous paginated call. May only be used by itself.
      * @return ResultSet - Containing a results array of {@link Ctct\Components\Tracking\BounceActivity}
      */
-    public function getContactBounces($accessToken, $contact, $param = null)
+    public function getContactBounces($accessToken, $contact, array $params = array())
     {
         $contactId = $this->getArgumentId($contact, 'Contact');
-        $param = $this->determineParam($param);
-        return $this->contactTrackingService->getBounces($accessToken, $contactId, $param);
+        return $this->contactTrackingService->getBounces($accessToken, $contactId, $params);
     }
 
     /**
      * Get clicks for a Contact
      * @param string $accessToken - Constant Contact OAuth2 access token
      * @param mixed $contact  - Contact id or Contact object itself
-     * @param mixed $param - either the next link from a previous request, or a limit or restrict the page size of
-     * an initial request
+     * @param mixed $params - associative array of query parameters and values to append to the request. 
+     *      Allow parameters include:
+     *      limit - Specifies the number of results displayed per page of output, from 1 - 500, default = 50.
+     *      created_since - Used to retrieve a list of events since the date and time specified (in ISO-8601 format).
+     *      next - the next link returned from a previous paginated call. May only be used by itself.
      * @return ResultSet - Containing a results array of {@link Ctct\Components\Tracking\ClickActivity}
      */
-    public function getContactClicks($accessToken, $contact, $param = null)
+    public function getContactClicks($accessToken, $contact, array $params = array())
     {
         $contactId = $this->getArgumentId($contact, 'Contact');
-        $param = $this->determineParam($param);
-        return $this->contactTrackingService->getClicks($accessToken, $contactId, $param);
+        return $this->contactTrackingService->getClicks($accessToken, $contactId, $params);
     }
 
     /**
      * Get opens for a Contact
      * @param string $accessToken - Constant Contact OAuth2 access token
      * @param mixed $contact  - Contact id or Contact object itself
-     * @param mixed $param - either the next link from a previous request, or a limit or restrict the page size of
-     * an initial request
+     * @param mixed $params - associative array of query parameters and values to append to the request. 
+     *      Allow parameters include:
+     *      limit - Specifies the number of results displayed per page of output, from 1 - 500, default = 50.
+     *      created_since - Used to retrieve a list of events since the date and time specified (in ISO-8601 format).
+     *      next - the next link returned from a previous paginated call. May only be used by itself.
      * @return ResultSet - Containing a results array of {@link Ctct\Components\Tracking\OpenActivity}
      */
-    public function getContactOpens($accessToken, $contact, $param = null)
+    public function getContactOpens($accessToken, $contact, array $params = array())
     {
         $contactId = $this->getArgumentId($contact, 'Contact');
-        $param = $this->determineParam($param);
-        return $this->contactTrackingService->getOpens($accessToken, $contactId, $param);
+        return $this->contactTrackingService->getOpens($accessToken, $contactId, $params);
     }
 
     /**
      * Get forwards for a Contact
      * @param string $accessToken - Constant Contact OAuth2 access token
      * @param mixed $contact  - Contact id or Contact object itself
-     * @param mixed $param - either the next link from a previous request, or a limit or restrict the page size of
-     * an initial request
+     * @param mixed $params - associative array of query parameters and values to append to the request. 
+     *      Allow parameters include:
+     *      limit - Specifies the number of results displayed per page of output, from 1 - 500, default = 50.
+     *      created_since - Used to retrieve a list of events since the date and time specified (in ISO-8601 format).
+     *      next - the next link returned from a previous paginated call. May only be used by itself.
      * @return ResultSet - Containing a results array of {@link Ctct\Components\Tracking\ForwardActivity}
      */
-    public function getContactForwards($accessToken, $contact, $param = null)
+    public function getContactForwards($accessToken, $contact, array $params = array())
     {
         $contactId = $this->getArgumentId($contact, 'Contact');
-        $param = $this->determineParam($param);
-        return $this->contactTrackingService->getForwards($accessToken, $contactId, $param);
+        return $this->contactTrackingService->getForwards($accessToken, $contactId, $params);
     }
 
     /**
      * Get opt outs for a Contact
      * @param string $accessToken - Constant Contact OAuth2 access token
      * @param mixed $contact  - Contact id or Contact object itself
-     * @param mixed $param - either the next link from a previous request, or a limit or restrict the page size of
-     * an initial request
-     * @return TrackingActivity - Containing a results array of {@link Ctct\Components\Tracking\UnsubscribeActivity}
+     * @param mixed $params - associative array of query parameters and values to append to the request. 
+     *      Allow parameters include:
+     *      limit - Specifies the number of results displayed per page of output, from 1 - 500, default = 50.
+     *      created_since - Used to retrieve a list of events since the date and time specified (in ISO-8601 format).
+     *      next - the next link returned from a previous paginated call. May only be used by itself.
+     * @return ResultSet - Containing a results array of {@link Ctct\Components\Tracking\UnsubscribeActivity}
      */
-    public function getContactUnsubscribes($accessToken, $contact, $param = null)
+    public function getContactUnsubscribes($accessToken, $contact, array $params = array())
     {
         $contactId = $this->getArgumentId($contact, 'Contact');
-        $param = $this->determineParam($param);
-        return $this->contactTrackingService->getUnsubscribes($accessToken, $contactId, $param);
+        return $this->contactTrackingService->getUnsubscribes($accessToken, $contactId, $params);
     }
 
     /**
@@ -645,8 +673,6 @@ class ConstantContact
      * Get a reporting summary for a Contact
      * @param string $accessToken - Constant Contact OAuth2 access token
      * @param mixed $contact  - Contact id or Contact object itself
-     * @param string $next - next value returned from a previous request (used in pagination)
-     * @param int $limit - number of results to return per page
      * @return TrackingSummary
      */
     public function getContactSummaryReport($accessToken, $contact)
@@ -658,7 +684,7 @@ class ConstantContact
     /**
      * Get an array of activities
      * @param string $accessToken - Constant Contact OAuth2 access token
-     * @return array 
+     * @return array of {@link Ctct\Components\Activities\Activity}
      */
     public function getActivities($accessToken)
     {
@@ -669,7 +695,7 @@ class ConstantContact
      * Get a single activity by id
      * @param string $accessToken - Constant Contact OAuth2 access token
      * @param string $activityId - Activity id
-     * @return array 
+     * @return {@link Ctct\Components\Activities\Activity} 
      */
     public function getActivity($accessToken, $activityId)
     {

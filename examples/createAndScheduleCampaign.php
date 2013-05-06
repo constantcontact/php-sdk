@@ -6,7 +6,18 @@
     <link href="styles.css" rel="stylesheet">
 </head> 
 
+<!--
+README: Create and schedule an email marketing campaign for delivery
+This example flow illustrates how to create a new email campaign, and schedule it to be sent to the selected contact lists(s). 
+In order for this example to function properly, you must have a valid Constant Contact API Key as well as an access token. Both of these 
+can be obtained from http://constantcontact.mashery.com.
+
+NOTE: This example expects that your account already has a physical address set up in your Constant Contact account settings.
+For more information on this, please visit: http://support2.constantcontact.com/articles/FAQ/2801#future%20emails
+-->
+
 <?php
+// require the autoloader
 require_once '../src/Ctct/autoload.php';
 
 use Ctct\ConstantContact;
@@ -16,20 +27,15 @@ use Ctct\Components\EmailMarketing\MessageFooter;
 use Ctct\Components\EmailMarketing\Schedule;
 use Ctct\Exceptions\CtctException;
 
-/**
- * Note: This example expects that your account already has a physical address set up in your Constant Contact account settings.
- * For more information on this, please visit: http://support2.constantcontact.com/articles/FAQ/2801#future%20emails
- * 
- */
-
-define("APIKEY", "ENTER YOUR API KEY");
-define("ACCESS_TOKEN", "ENTER YOUR ACCESS TOKEN");
+// Enter your Constant Contact APIKEY and ACCESS_TOKEN
+define("APIKEY", "dj758qtz7sgjg539cg9hbj53");
+define("ACCESS_TOKEN", "ae62daa3-02ff-459d-abae-aaf5e2bfd8de");
 
 $cc = new ConstantContact(APIKEY);
 $date = date('Y-m-d\TH:i:s\.000\Z', strtotime("+1 month"));
 
 /**
- * Create a campaign with parameters provided
+ * Create an email campaign with the parameters provided
  * @param array $params associative array of parameters to create a campaign from
  */ 
 function createCampaign(array $params) {
@@ -60,7 +66,7 @@ function createCampaign(array $params) {
 }
 
 /**
- * Create a schedule for a campaign
+ * Create a schedule for a campaign - this is time the campaign will be sent out
  * @param $campaignId - Id of the campaign to be scheduled
  * @param $time - ISO 8601 formatted timestamp of when the campaign should be sent
  */ 
@@ -71,9 +77,10 @@ function createSchedule($campaignId, $time) {
     return $cc->addEmailCampaignSchedule(ACCESS_TOKEN, $campaignId, $schedule);
 }
 
+// check to see if the form was submitted
 if (isset($_POST['name'])) {
 
-    // attempt to create a campaign with the fields submitted
+    // attempt to create a campaign with the fields submitted, displaying any errors that occur
     try{
         $campaign = createCampaign($_POST);
     } catch (CtctException $ex) {
@@ -84,7 +91,7 @@ if (isset($_POST['name'])) {
         die();
     }
 
-    // attempt to schedule a campaign with the fields submitted
+    // attempt to schedule a campaign with the fields submitted, displaying any errors that occur
     try {
         $schedule = createSchedule($campaign->id, $_POST['schedule_time']);
     } catch (CtctException $ex) {
@@ -97,6 +104,7 @@ if (isset($_POST['name'])) {
         
 }
 
+// attempt to get the lists in this account, displaying any errors that occur
 try{
     $lists = $cc->getLists(ACCESS_TOKEN);
 } catch (CtctException $ex) {

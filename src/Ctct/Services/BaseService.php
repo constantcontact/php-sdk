@@ -23,10 +23,11 @@ abstract class BaseService
      * @var string
      */
     protected $apiKey;
-    
+
     /**
      * Constructor with the option to to supply an alternative rest client to be used
-     * @param RestClientInterface - RestClientInterface implementation to be used in the service
+     * @param string $apiKey - Constant Contact API Key
+     * @param RestClientInterface $restClient - RestClientInterface implementation to be used in the service
      */
     public function __construct($apiKey, $restClient = null)
     {

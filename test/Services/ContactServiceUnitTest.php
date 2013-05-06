@@ -7,7 +7,6 @@ use Ctct\Util\CurlResponse;
  
 class ContactServiceUnitTest extends PHPUnit_Framework_TestCase
 {
-
     private $restClient;
     private $contactService;
 
@@ -28,7 +27,7 @@ class ContactServiceUnitTest extends PHPUnit_Framework_TestCase
         $response = $this->contactService->getContacts('access_token', array('limit' => 2));
 
         $this->assertInstanceOf("Ctct\Components\ResultSet", $response);
-        $this->assertEquals('?next=c3RhcnRBdD0zJmxpbWl0PTI', $response->next);
+        $this->assertEquals('c3RhcnRBdD0zJmxpbWl0PTI', $response->next);
 
         $contact = $response->results[1];
         $this->assertInstanceOf("Ctct\Components\Contacts\Contact", $contact);
@@ -76,6 +75,27 @@ class ContactServiceUnitTest extends PHPUnit_Framework_TestCase
         $this->assertEquals("2012-06-22T10:29:09.976Z", $contact->email_addresses[0]->opt_in_date);
         $this->assertEquals("", $contact->email_addresses[0]->opt_out_date);
         $this->assertEquals("anothertest@roving.com", $contact->email_addresses[0]->email_address);
+    }
+
+    public function testGetContactsModifiedSince()
+    {
+        $curlResponse = CurlResponse::create(JsonLoader::getContactsModifiedSinceJson(), array('modified_since' => '2013-01-12T20:04:59.436Z', 'limit' => 2));
+        $this->restClient->expects($this->once())
+            ->method('get')
+            ->with()
+            ->will($this->returnValue($curlResponse));
+
+        $response = $this->contactService->getContacts('access_token', array('limit' => 2));
+        $this->assertInstanceOf("Ctct\Components\ResultSet", $response);
+        $contact = $response->results[0];
+
+        $this->assertEquals('c3RhcnRBdD0yMjQmbGltaXQ9Mg', $response->next);
+        $this->assertEquals('1', $contact->id);
+        $this->assertEquals('John', $contact->first_name);
+        $this->assertEquals('Doe', $contact->last_name);
+
+        $this->assertEquals('6', $response->results[1]->id);
+        $this->assertEquals('ACTIVE', $response->results[1]->status);
     }
 
     public function testGetContactsNoNextLink()
@@ -218,7 +238,7 @@ class ContactServiceUnitTest extends PHPUnit_Framework_TestCase
         $response = $this->contactService->getContacts('access_token', array('email' => 'anothertest@roving.com'));
 
         $this->assertInstanceOf("Ctct\Components\ResultSet", $response);
-        $this->assertEquals('?next=c3RhcnRBdD0zJmxpbWl0PTI', $response->next);
+        $this->assertEquals('c3RhcnRBdD0zJmxpbWl0PTI', $response->next);
         $contact = $response->results[1];
         
         $this->assertInstanceOf("Ctct\Components\Contacts\Contact", $contact);

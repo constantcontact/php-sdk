@@ -19,7 +19,7 @@ class CampaignScheduleService extends BaseService
      * @param string $accessToken - Constant Contact OAuth2 access token
      * @param int $campaignId - Campaign id to be scheduled
      * @param Schedule $schedule - Schedule to be created
-     * @return Campaign
+     * @return Schedule
      */
     public function addSchedule($accessToken, $campaignId, Schedule $schedule)
     {
@@ -56,7 +56,7 @@ class CampaignScheduleService extends BaseService
      * Get a specific schedule for a campaign
      * @param string $accessToken - Constant Contact OAuth2 access token
      * @param int $campaignId - Campaign id to be get a schedule for
-     * @param int $scheudle_id - Schedule id to retrieve 
+     * @param int $scheduleId - Schedule id to retrieve
      * @return Schedule 
      */
     public function getSchedule($accessToken, $campaignId, $scheduleId)

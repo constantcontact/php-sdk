@@ -7,7 +7,7 @@
 	<title>Class Ctct\Services\BaseService | Appconnect PHP SDK</title>
 
 	<script type="text/javascript" src="resources/combined.js?554516056"></script>
-	<script type="text/javascript" src="elementlist.js?246402171"></script>
+	<script type="text/javascript" src="elementlist.js?1423846706"></script>
 	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?3505392360" />
 
 </head>
@@ -141,7 +141,7 @@
 
 				<b>Author:</b>
 				Constant Contact<br />
-		<b>Located at</b> <a href="source-class-Ctct.Services.BaseService.html#7-84" title="Go to source code">Ctct/Services/BaseService.php</a><br />
+		<b>Located at</b> <a href="source-class-Ctct.Services.BaseService.html#7-86" title="Go to source code">Ctct/Services/BaseService.php</a><br />
 	</div>
 
 
@@ -159,7 +159,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#___construct">#</a>
-		<code><a href="source-class-Ctct.Services.BaseService.html#26-39" title="Go to source code">__construct</a>( <span>Ctct\Util\RestClientInterface <var>$apiKey</var></span>, <span>mixed <var>$rest_client</var> = <span class="php-keyword1">null</span></span> )</code>
+		<code><a href="source-class-Ctct.Services.BaseService.html#27-40" title="Go to source code">__construct</a>( <span>Ctct\Util\RestClientInterface <var>$apiKey</var></span>, <span>mixed <var>$restClient</var> = <span class="php-keyword1">null</span></span> )</code>
 
 		<div class="description short">
 			
@@ -179,7 +179,7 @@ used</p>
 				<div class="list"><dl>
 					<dt><var>$apiKey</var></dt>
 					<dd><code>Ctct\Util\RestClientInterface</code><br>- RestClientInterface implementation to be used in the service</dd>
-					<dt><var>$rest_client</var></dt>
+					<dt><var>$restClient</var></dt>
 					<dd></dd>
 				</dl></div>
 
@@ -201,7 +201,7 @@ used</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_buildUrl">#</a>
-		<code><a href="source-class-Ctct.Services.BaseService.html#41-55" title="Go to source code">buildUrl</a>( <span>mixed <var>$url</var></span>, <span>mixed <var>$queryParams</var> = <span class="php-keyword1">null</span></span> )</code>
+		<code><a href="source-class-Ctct.Services.BaseService.html#42-56" title="Go to source code">buildUrl</a>( <span>mixed <var>$url</var></span>, <span>mixed <var>$queryParams</var> = <span class="php-keyword1">null</span></span> )</code>
 
 		<div class="description short">
 			
@@ -230,7 +230,7 @@ used</p>
 	<tr data-order="getRestClient" id="_getRestClient">
 
 		<td class="attributes"><code>
-			 public static
+			 public 
 			Ctct\Util\RestClientInterface
 			
 			</code>
@@ -238,7 +238,7 @@ used</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getRestClient">#</a>
-		<code><a href="source-class-Ctct.Services.BaseService.html#57-68" title="Go to source code">getRestClient</a>( )</code>
+		<code><a href="source-class-Ctct.Services.BaseService.html#58-65" title="Go to source code">getRestClient</a>( )</code>
 
 		<div class="description short">
 			
@@ -264,6 +264,35 @@ used</p>
 		</div>
 		</div></td>
 	</tr>
+	<tr data-order="setRestClient" id="_setRestClient">
+
+		<td class="attributes"><code>
+			 public 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_setRestClient">#</a>
+		<code><a href="source-class-Ctct.Services.BaseService.html#67-70" title="Go to source code">setRestClient</a>( <span>Ctct\Util\RestClientInterface <var>$restClient</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
 	<tr data-order="getHeaders" id="_getHeaders">
 
 		<td class="attributes"><code>
@@ -275,7 +304,7 @@ used</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getHeaders">#</a>
-		<code><a href="source-class-Ctct.Services.BaseService.html#71-83" title="Go to source code">getHeaders</a>( <span>mixed <var>$accessToken</var></span> )</code>
+		<code><a href="source-class-Ctct.Services.BaseService.html#73-85" title="Go to source code">getHeaders</a>( <span>mixed <var>$accessToken</var></span> )</code>
 
 		<div class="description short">
 			
@@ -323,32 +352,28 @@ constant contact</p>
 
 	<table class="summary" id="properties">
 	<caption>Properties summary</caption>
-	<tr data-order="rest_client" id="$rest_client">
+	<tr data-order="restClient" id="$restClient">
 		<td class="attributes"><code>
-			public static 
+			protected  
 			mixed
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-Ctct.Services.BaseService.html#15-18" title="Go to source code"><var>$rest_client</var></a>
+				<a href="source-class-Ctct.Services.BaseService.html#15-19" title="Go to source code"><var>$restClient</var></a>
 		</td>
 		<td class="value"><code></code></td>
 		<td class="description"><div>
-			<a href="#$rest_client" class="anchor">#</a>
+			<a href="#$restClient" class="anchor">#</a>
 
 			<div class="description short">
 				
-<ul>
-	<li>RestClient</li>
-</ul>
+<p>RestClient Implementation to use for HTTP requests</p>
 
 			</div>
 
 			<div class="description detailed hidden">
 				
-<ul>
-	<li>RestClient</li>
-</ul>
+<p>RestClient Implementation to use for HTTP requests</p>
 
 
 			</div>
@@ -361,7 +386,7 @@ constant contact</p>
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-Ctct.Services.BaseService.html#20-24" title="Go to source code"><var>$apiKey</var></a>
+				<a href="source-class-Ctct.Services.BaseService.html#21-25" title="Go to source code"><var>$apiKey</var></a>
 		</td>
 		<td class="value"><code></code></td>
 		<td class="description"><div>

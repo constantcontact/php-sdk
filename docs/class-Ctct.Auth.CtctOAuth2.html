@@ -7,7 +7,7 @@
 	<title>Class Ctct\Auth\CtctOAuth2 | Appconnect PHP SDK</title>
 
 	<script type="text/javascript" src="resources/combined.js?554516056"></script>
-	<script type="text/javascript" src="elementlist.js?246402171"></script>
+	<script type="text/javascript" src="elementlist.js?1423846706"></script>
 	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?3505392360" />
 
 </head>
@@ -128,7 +128,7 @@ a user</p>
 
 				<b>Author:</b>
 				Constant Contact<br />
-		<b>Located at</b> <a href="source-class-Ctct.Auth.CtctOAuth2.html#8-73" title="Go to source code">Ctct/Auth/CtctOAuth2.php</a><br />
+		<b>Located at</b> <a href="source-class-Ctct.Auth.CtctOAuth2.html#8-94" title="Go to source code">Ctct/Auth/CtctOAuth2.php</a><br />
 	</div>
 
 
@@ -146,7 +146,7 @@ a user</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#___construct">#</a>
-		<code><a href="source-class-Ctct.Auth.CtctOAuth2.html#21-26" title="Go to source code">__construct</a>( <span>mixed <var>$client_id</var></span>, <span>mixed <var>$client_secret</var></span>, <span>mixed <var>$redirect_uri</var></span> )</code>
+		<code><a href="source-class-Ctct.Auth.CtctOAuth2.html#21-27" title="Go to source code">__construct</a>( <span>mixed <var>$clientId</var></span>, <span>mixed <var>$clientSecret</var></span>, <span>mixed <var>$redirectUri</var></span>, <span>mixed <var>$restClient</var> = <span class="php-keyword1">null</span></span> )</code>
 
 		<div class="description short">
 			
@@ -175,7 +175,7 @@ a user</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getAuthorizationUrl">#</a>
-		<code><a href="source-class-Ctct.Auth.CtctOAuth2.html#28-44" title="Go to source code">getAuthorizationUrl</a>( <span>boolean <var>$server</var> = <span class="php-keyword1">true</span></span> )</code>
+		<code><a href="source-class-Ctct.Auth.CtctOAuth2.html#29-51" title="Go to source code">getAuthorizationUrl</a>( <span>boolean <var>$server</var> = <span class="php-keyword1">true</span></span>, <span>string <var>$state</var> = <span class="php-keyword1">null</span></span> )</code>
 
 		<div class="description short">
 			
@@ -195,11 +195,14 @@ application</p>
 				<div class="list"><dl>
 					<dt><var>$server</var></dt>
 					<dd><code>boolean</code><br>$server - Whether or not to use OAuth2 server flow, alternative is client flow</dd>
+					<dt><var>$state</var></dt>
+					<dd><code>string</code><br>$state - An optional value used by the client to maintain state between the
+request and callback.</dd>
 				</dl></div>
 
 				<h4>Returns</h4>
 				<div class="list">
-					<code>string</code><br>- url to send a user to, to grant access to their account<br />
+					<code>string</code><br>$url - The url to send a user to, to grant access to their account<br />
 				</div>
 
 
@@ -219,7 +222,7 @@ application</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getAccessToken">#</a>
-		<code><a href="source-class-Ctct.Auth.CtctOAuth2.html#46-72" title="Go to source code">getAccessToken</a>( <span>string <var>$code</var></span> )</code>
+		<code><a href="source-class-Ctct.Auth.CtctOAuth2.html#53-79" title="Go to source code">getAccessToken</a>( <span>string <var>$code</var></span> )</code>
 
 		<div class="description short">
 			
@@ -245,6 +248,56 @@ their account</dd>
 					<code>array</code><br />
 				</div>
 
+				<h4>Throws</h4>
+				<div class="list">
+					<code>Ctct\Exception\OAuth2Exception</code><br />
+				</div>
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getTokenInfo" id="_getTokenInfo">
+
+		<td class="attributes"><code>
+			 public 
+			array
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getTokenInfo">#</a>
+		<code><a href="source-class-Ctct.Auth.CtctOAuth2.html#81-93" title="Go to source code">getTokenInfo</a>( <span>string <var>$accessToken</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Get an information about an access token</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Get an information about an access token</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$accessToken</var></dt>
+					<dd><code>string</code><br>$accessToken - Constant Contact OAuth2 access token</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>array</code><br />
+				</div>
+
+				<h4>Throws</h4>
+				<div class="list">
+					<code>Ctct\Exception\CtctException</code><br />
+				</div>
 
 
 
@@ -266,18 +319,18 @@ their account</dd>
 
 	<table class="summary" id="properties">
 	<caption>Properties summary</caption>
-	<tr data-order="client_id" id="$client_id">
+	<tr data-order="clientId" id="$clientId">
 		<td class="attributes"><code>
 			public  
 			mixed
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-Ctct.Auth.CtctOAuth2.html#16" title="Go to source code"><var>$client_id</var></a>
+				<a href="source-class-Ctct.Auth.CtctOAuth2.html#16" title="Go to source code"><var>$clientId</var></a>
 		</td>
 		<td class="value"><code></code></td>
 		<td class="description"><div>
-			<a href="#$client_id" class="anchor">#</a>
+			<a href="#$clientId" class="anchor">#</a>
 
 			<div class="description short">
 				
@@ -289,18 +342,18 @@ their account</dd>
 			</div>
 		</div></td>
 	</tr>
-	<tr data-order="client_secret" id="$client_secret">
+	<tr data-order="clientSecret" id="$clientSecret">
 		<td class="attributes"><code>
 			public  
 			mixed
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-Ctct.Auth.CtctOAuth2.html#17" title="Go to source code"><var>$client_secret</var></a>
+				<a href="source-class-Ctct.Auth.CtctOAuth2.html#17" title="Go to source code"><var>$clientSecret</var></a>
 		</td>
 		<td class="value"><code></code></td>
 		<td class="description"><div>
-			<a href="#$client_secret" class="anchor">#</a>
+			<a href="#$clientSecret" class="anchor">#</a>
 
 			<div class="description short">
 				
@@ -312,18 +365,18 @@ their account</dd>
 			</div>
 		</div></td>
 	</tr>
-	<tr data-order="redirect_uri" id="$redirect_uri">
+	<tr data-order="redirectUri" id="$redirectUri">
 		<td class="attributes"><code>
 			public  
 			mixed
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-Ctct.Auth.CtctOAuth2.html#18" title="Go to source code"><var>$redirect_uri</var></a>
+				<a href="source-class-Ctct.Auth.CtctOAuth2.html#18" title="Go to source code"><var>$redirectUri</var></a>
 		</td>
 		<td class="value"><code></code></td>
 		<td class="description"><div>
-			<a href="#$redirect_uri" class="anchor">#</a>
+			<a href="#$redirectUri" class="anchor">#</a>
 
 			<div class="description short">
 				

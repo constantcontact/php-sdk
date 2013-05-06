@@ -4,9 +4,17 @@
     <title>Constant Contact API v2 Add/Update Contact Example</title>
     <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-combined.min.css" rel="stylesheet">
     <link href="styles.css" rel="stylesheet">
-</head> 
+</head>
+
+<!--
+README: Add or update contact example
+This example flow illustrates how a Constant Contact account owner can add or update a contact in their account. In order for this example to function 
+properly, you must have a valid Constant Contact API Key as well as an access token. Both of these can be obtained from 
+http://constantcontact.mashery.com.
+-->
 
 <?php
+// require the autoloader
 require_once '../src/Ctct/autoload.php';
 
 use Ctct\ConstantContact;
@@ -15,6 +23,7 @@ use Ctct\Components\Contacts\ContactList;
 use Ctct\Components\Contacts\EmailAddress;
 use Ctct\Exceptions\CtctException;
 
+// Enter your Constant Contact APIKEY and ACCESS_TOKEN
 define("APIKEY", "ENTER YOUR API KEY");
 define("ACCESS_TOKEN", "ENTER YOUR ACCESS TOKEN");
 

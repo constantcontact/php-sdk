@@ -7,7 +7,7 @@
 	<title>Class Ctct\Services\AccountService | Appconnect PHP SDK</title>
 
 	<script type="text/javascript" src="resources/combined.js?554516056"></script>
-	<script type="text/javascript" src="elementlist.js?246402171"></script>
+	<script type="text/javascript" src="elementlist.js?1423846706"></script>
 	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?3505392360" />
 
 </head>
@@ -144,7 +144,7 @@
 
 				<b>Author:</b>
 				Constant Contact<br />
-		<b>Located at</b> <a href="source-class-Ctct.Services.AccountService.html#8-38" title="Go to source code">Ctct/Services/AccountService.php</a><br />
+		<b>Located at</b> <a href="source-class-Ctct.Services.AccountService.html#8-37" title="Go to source code">Ctct/Services/AccountService.php</a><br />
 	</div>
 
 
@@ -162,7 +162,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getVerifiedEmailAddresses">#</a>
-		<code><a href="source-class-Ctct.Services.AccountService.html#17-37" title="Go to source code">getVerifiedEmailAddresses</a>( <span>mixed <var>$accessToken</var></span> )</code>
+		<code><a href="source-class-Ctct.Services.AccountService.html#16-36" title="Go to source code">getVerifiedEmailAddresses</a>( <span>string <var>$accessToken</var></span>, <span>array <var>$params</var></span> )</code>
 
 		<div class="description short">
 			
@@ -179,7 +179,9 @@
 				<h4>Parameters</h4>
 				<div class="list"><dl>
 					<dt><var>$accessToken</var></dt>
-					<dd><code>mixed</code><br>$accessToken - Constant Contact OAuth2 Access Token</dd>
+					<dd><code>string</code><br>$accessToken - Constant Contact OAuth2 Access Token</dd>
+					<dt><var>$params</var></dt>
+					<dd><code>array</code><br>$params - array of query parameters/values to append to the request</dd>
 				</dl></div>
 
 				<h4>Returns</h4>
@@ -202,7 +204,8 @@
 			<a href="class-Ctct.Services.BaseService.html#___construct">__construct()</a>, 
 			<a href="class-Ctct.Services.BaseService.html#_buildUrl">buildUrl()</a>, 
 			<a href="class-Ctct.Services.BaseService.html#_getHeaders">getHeaders()</a>, 
-			<a href="class-Ctct.Services.BaseService.html#_getRestClient">getRestClient()</a>
+			<a href="class-Ctct.Services.BaseService.html#_getRestClient">getRestClient()</a>, 
+			<a href="class-Ctct.Services.BaseService.html#_setRestClient">setRestClient()</a>
 		</code></td>
 	</tr>
 	</table>
@@ -223,7 +226,7 @@
 	<tr>
 		<td><code>
 			<a href="class-Ctct.Services.BaseService.html#$apiKey"><var>$apiKey</var></a>, 
-			<a href="class-Ctct.Services.BaseService.html#$rest_client"><var>$rest_client</var></a>
+			<a href="class-Ctct.Services.BaseService.html#$restClient"><var>$restClient</var></a>
 		</code></td>
 	</tr>
 	</table>

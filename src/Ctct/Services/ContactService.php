@@ -21,7 +21,7 @@ class ContactService extends BaseService
      * @param array $params - array of query parameters to be appended to the url
      * @return ResultSet
      */
-    public function getContacts($accessToken, Array $params = null)
+    public function getContacts($accessToken, array $params = array())
     {
         $baseUrl = Config::get('endpoints.base_url') . Config::get('endpoints.contacts');
         $url = $this->buildUrl($baseUrl, $params);
@@ -56,7 +56,7 @@ class ContactService extends BaseService
      * @param array $params - query params to be appended to the request
      * @return Contact
      */
-    public function addContact($accessToken, Contact $contact, Array $params)
+    public function addContact($accessToken, Contact $contact, array $params = array())
     {
         $baseUrl = Config::get('endpoints.base_url') . Config::get('endpoints.contacts');
         $url = $this->buildUrl($baseUrl, $params);
@@ -115,7 +115,7 @@ class ContactService extends BaseService
      * @param array $params - query params to be appended to the request
      * @return Contact
      */
-    public function updateContact($accessToken, Contact $contact, Array $params)
+    public function updateContact($accessToken, Contact $contact, array $params = array())
     {
         $baseUrl = Config::get('endpoints.base_url') . sprintf(Config::get('endpoints.contact'), $contact->id);
         $url = $this->buildUrl($baseUrl, $params);

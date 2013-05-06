@@ -1,7 +1,6 @@
 <?php
 namespace Ctct;
 
-use Ctct\Services\BaseService;
 use Ctct\Services\AccountService;
 use Ctct\Services\ContactService;
 use Ctct\Services\ListService;
@@ -10,17 +9,16 @@ use Ctct\Services\CampaignScheduleService;
 use Ctct\Services\CampaignTrackingService;
 use Ctct\Services\ContactTrackingService;
 use Ctct\Services\ActivityService;
-use Ctct\Components\Account\VerifiedEmailAddress;
+use Ctct\Components\ResultSet;
+use Ctct\Components\Activities\Activity;
 use Ctct\Components\Contacts\Contact;
 use Ctct\Components\Contacts\ContactList;
 use Ctct\Components\EmailMarketing\Campaign;
 use Ctct\Components\EmailMarketing\Schedule;
 use Ctct\Components\EmailMarketing\TestSend;
 use Ctct\Components\Tracking\TrackingSummary;
-use Ctct\Components\Tracking\TrackingActivity;
 use Ctct\Components\Activities\AddContacts;
 use Ctct\Components\Activities\ExportContacts;
-use Ctct\Exceptions\CtctException;
 use Ctct\Exceptions\IllegalArgumentException;
 use Ctct\Util\Config;
 
@@ -30,6 +28,7 @@ use Ctct\Util\Config;
  * @package Ctct
  * @version 1.1.0
  * @author Constant Contact
+ * @link https://developer.constantcontact.com
  */
 class ConstantContact
 {
@@ -40,19 +39,19 @@ class ConstantContact
     private $apiKey;
 
     /**
-     * ContactService for handling interaction with contact management
+     * Handles handling interaction with contact management
      * @var ContactService
      */
     protected $contactService;
 
     /**
-     * EmailMarketingService for handling interaction with email marketing
-     * @var CampaignService
+     * Handles interaction with email marketing
+     * @var EmailMarketingService
      */
     protected $emailMarketingService;
 
     /**
-     * ListService for handling interaction with contact list management
+     * Handles interaction with contact list management
      * @var ListService
      */
     protected $listService;
@@ -64,25 +63,25 @@ class ConstantContact
     protected $activityService;
 
     /**
-     * CampaignTrackingService for handling interaction with email marketing tracking
+     * Handles interaction with email marketing tracking
      * @var CampaignTrackingService
      */
     protected $campaignTrackingService;
 
     /**
-     * ContactTrackingService for handling interaction with contact tracking
+     * Handles interaction with contact tracking
      * @var ContactTrackingService
      */
     protected $contactTrackingService;
 
     /**
-     * CampaignScheduleService for handling interaction with email marketing campaign scheduling
+     * Handles interaction with email marketing campaign scheduling
      * @var CampaignScheduleService
      */
     protected $campaignScheduleService;
 
     /**
-     * AccountService for handling interaction with account management
+     * Handles interaction with account management
      * @var AccountService
      */
     protected $accountService;
@@ -221,8 +220,10 @@ class ConstantContact
     /**
      * Get lists
      * @param string $accessToken - Valid access token
-     * @param string $date - ISO-8601 date to query by
-     * @return array
+     * @param array $params - associative array of query parameters and values to append to the request.
+     *      Allow parameters include:
+     *      modified_since - ISO-8601 formatted timestamp.
+     * @return array of ContactList
      */
     public function getLists($accessToken, array $params = array())
     {
@@ -298,6 +299,7 @@ class ConstantContact
      * Get an individual campaign
      * @param string $accessToken - Constant Contact OAuth2 access token
      * @param int $campaignId - Valid campaign id
+     * @return \Ctct\Components\EmailMarketing\Campaign
      */
     public function getEmailCampaign($accessToken, $campaignId)
     {
@@ -428,14 +430,14 @@ class ConstantContact
     /**
      * Send a test send of a campaign
      * @param string $accessToken - Constant Contact OAuth2 access token
-     * @param mixed $emailCampaign  - Campaign id or Campaign object itself
-     * @param TestSend $test_send - test send details
+     * @param mixed $campaign  - Campaign id or Campaign object itself
+     * @param TestSend $testSend - test send details
      * @return TestSend
      */
-    public function sendEmailCampaignTest($accessToken, $campaign, TestSend $test_send)
+    public function sendEmailCampaignTest($accessToken, $campaign, TestSend $testSend)
     {
         $campaignId = $this->getArgumentId($campaign, 'Campaign');
-        return $this->campaignScheduleService->sendTest($accessToken, $campaignId, $test_send);
+        return $this->campaignScheduleService->sendTest($accessToken, $campaignId, $testSend);
     }
 
     /**
@@ -475,8 +477,8 @@ class ConstantContact
     /**
      * Get clicks for a campaign
      * @param string $accessToken - Constant Contact OAuth2 access token
-     * @param mixed $emailCampaign  - Campaign id or Campaign object itself
-     * @param mixed $params - associative array of query parameters and values to append to the request. 
+     * @param mixed $campaign  - Campaign id or Campaign object itself
+     * @param array $params - associative array of query parameters and values to append to the request.
      *      Allow parameters include:
      *      limit - Specifies the number of results displayed per page of output, from 1 - 500, default = 50.
      *      created_since - Used to retrieve a list of events since the date and time specified (in ISO-8601 format).
@@ -684,7 +686,7 @@ class ConstantContact
     /**
      * Get an array of activities
      * @param string $accessToken - Constant Contact OAuth2 access token
-     * @return array of {@link Ctct\Components\Activities\Activity}
+     * @return Activity
      */
     public function getActivities($accessToken)
     {
@@ -695,7 +697,7 @@ class ConstantContact
      * Get a single activity by id
      * @param string $accessToken - Constant Contact OAuth2 access token
      * @param string $activityId - Activity id
-     * @return {@link Ctct\Components\Activities\Activity} 
+     * @return Activity
      */
     public function getActivity($accessToken, $activityId)
     {
@@ -705,7 +707,8 @@ class ConstantContact
     /**
      * Add an AddContacts Activity to add contacts in bulk
      * @param string $accessToken - Constant Contact OAuth2 access token
-     * @param AddContacts - Add Contacts Activity
+     * @param AddContacts $addContactsActivity - Add Contacts Activity
+     * @return Activity
      */
     public function addCreateContactsActivity($accessToken, AddContacts $addContactsActivity)
     {
@@ -715,7 +718,8 @@ class ConstantContact
     /**
      * Add an ClearLists Activity to remove all contacts from the provided lists
      * @param string $accessToken - Constant Contact OAuth2 access token
-     * @param AddContacts - Add Contacts Activity
+     * @param array $lists - Array of list id's to be cleared
+     * @return Activity
      */
     public function addClearListsActivity($accessToken, Array $lists)
     {
@@ -727,7 +731,7 @@ class ConstantContact
      * @param string $accessToken - Constant Contact OAuth2 access token
      * @param array $emailAddresses - email addresses to be removed
      * @param array $lists - lists to remove the provided email addresses from
-     * @param AddContacts - Add Contacts Activity
+     * @return Activity
      */
     public function addRemoveContactsFromListsActivity($accessToken, Array $emailAddresses, Array $lists)
     {
@@ -748,7 +752,7 @@ class ConstantContact
     /**
      * Get the id of object, or attempt to convert the argument to an int
      * @param mixed $item - object or a numeric value
-     * @param string $class_name - class name to test the given object against
+     * @param string $className - class name to test the given object against
      * @throws IllegalArgumentException - if the item is not an instance of the class name given, or cannot be
      * converted to a numeric value
      * @return int

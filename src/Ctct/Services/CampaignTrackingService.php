@@ -29,7 +29,7 @@ class CampaignTrackingService extends BaseService
      * @param array $params - query parameters to be appended to the request
      * @return ResultSet - Containing a results array of {@link BounceActivity}
      */
-    public function getBounces($accessToken, $campaign_id, Array $params = null)
+    public function getBounces($accessToken, $campaign_id, array $params = array())
     {
         $baseUrl = Config::get('endpoints.base_url') .
             sprintf(Config::get('endpoints.campaign_tracking_bounces'), $campaign_id);
@@ -48,14 +48,14 @@ class CampaignTrackingService extends BaseService
     /**
      * Get clicks for a given campaign
      * @param string $accessToken - Constant Contact OAuth2 access token
-     * @param string $campaign_id - Campaign id
-     * @param array $param - query params to be appended to request
-     * @return TrackingActivity - Containing a results array of {@link ClickActivity}
+     * @param string $campaignId - Campaign id
+     * @param array $params - query params to be appended to request
+     * @return ResultSet - Containing a results array of {@link ClickActivity}
      */
-    public function getClicks($accessToken, $campaign_id, Array $params = null)
+    public function getClicks($accessToken, $campaignId, array $params = array())
     {
         $baseUrl = Config::get('endpoints.base_url') .
-            sprintf(Config::get('endpoints.campaign_tracking_clicks'), $campaign_id);
+            sprintf(Config::get('endpoints.campaign_tracking_clicks'), $campaignId);
 
         $url = $this->buildUrl($baseUrl, $params);
 
@@ -73,14 +73,14 @@ class CampaignTrackingService extends BaseService
     /**
      * Get forwards for a given campaign
      * @param string $accessToken - Constant Contact OAuth2 access token
-     * @param string $campaign_id - Campaign id
-     * @param array $param - query param to be appended to request
+     * @param string $campaignId - Campaign id
+     * @param array $params - query param to be appended to request
      * @return ResultSet - Containing a results array of {@link ForwardActivity}
      */
-    public function getForwards($accessToken, $campaign_id, Array $params = null)
+    public function getForwards($accessToken, $campaignId, array $params = array())
     {
         $baseUrl = Config::get('endpoints.base_url') .
-            sprintf(Config::get('endpoints.campaign_tracking_forwards'), $campaign_id);
+            sprintf(Config::get('endpoints.campaign_tracking_forwards'), $campaignId);
 
         $url = $this->buildUrl($baseUrl, $params);
 
@@ -101,7 +101,7 @@ class CampaignTrackingService extends BaseService
      * @param array $params - query params to be appended to request
      * @return ResultSet - Containing a results array of {@link OpenActivity}
      */
-    public function getOpens($accessToken, $campaign_id, Array $params = null)
+    public function getOpens($accessToken, $campaign_id, array $params = array())
     {
         $baseUrl = Config::get('endpoints.base_url') .
             sprintf(Config::get('endpoints.campaign_tracking_opens'), $campaign_id);
@@ -121,14 +121,14 @@ class CampaignTrackingService extends BaseService
     /**
      * Get sends for a given campaign
      * @param string $accessToken - Constant Contact OAuth2 access token
-     * @param string $campaign_id - Campaign id
-     * @param Array $param - query params to be appended to request
+     * @param string $campaignId - Campaign id
+     * @param Array $params - query params to be appended to request
      * @return TrackingActivity - Containing a results array of {@link SendActivity}
      */
-    public function getSends($accessToken, $campaign_id, Array $params = null)
+    public function getSends($accessToken, $campaignId, array $params = array())
     {
         $baseUrl = Config::get('endpoints.base_url') .
-            sprintf(Config::get('endpoints.campaign_tracking_sends'), $campaign_id);
+            sprintf(Config::get('endpoints.campaign_tracking_sends'), $campaignId);
 
         $url = $this->buildUrl($baseUrl, $params);
 
@@ -145,14 +145,14 @@ class CampaignTrackingService extends BaseService
     /**
      * Get unsubscribes for a given campaign
      * @param string $accessToken - Constant Contact OAuth2 access token
-     * @param string $campaign_id - Campaign id
-     * @param array $param - query params to be appended to request
+     * @param string $campaignId - Campaign id
+     * @param array $params - query params to be appended to request
      * @return ResultSet - Containing a results array of {@link UnsubscribeActivity}
      */
-    public function getUnsubscribes($accessToken, $campaign_id, Array $params = null)
+    public function getUnsubscribes($accessToken, $campaignId, array $params = array())
     {
         $baseUrl = Config::get('endpoints.base_url') .
-            sprintf(Config::get('endpoints.campaign_tracking_unsubscribes'), $campaign_id);
+            sprintf(Config::get('endpoints.campaign_tracking_unsubscribes'), $campaignId);
 
         $url = $this->buildUrl($baseUrl, $params);
 

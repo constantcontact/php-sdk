@@ -55,7 +55,7 @@ class ActivityService extends BaseService
     /**
     * Create an Add Contacts Activity
     * @param string $accessToken - Constant Contact OAuth2 access token
-    * @param AddContacts $addContact
+    * @param AddContacts $addContacts
     * @return array - Array of all ActivitySummaryReports
     */
     public function createAddContactsActivity($accessToken, AddContacts $addContacts)
@@ -69,10 +69,10 @@ class ActivityService extends BaseService
     /**
     * Create a Clear Lists Activity
     * @param string $accessToken - Constant Contact OAuth2 access token
-    * @param array $clearLists - Array of list id's to be cleared
+    * @param array $lists - Array of list id's to be cleared
     * @return array - Array of all Activity
     */
-    public function addClearListsActivity($accessToken, Array $lists)
+    public function addClearListsActivity($accessToken, array $lists)
     {
         $baseUrl = Config::get('endpoints.base_url') . Config::get('endpoints.clear_lists_activity');
         $url = $this->buildUrl($baseUrl);
@@ -96,12 +96,13 @@ class ActivityService extends BaseService
     }
 
     /**
-    * Create a Remove Contacts From Lists Activity
-    * @param string $accessToken - Constant Contact OAuth2 access token
-    * @param RemoveFromLists $removeFromLists
-    * @return array - Array of all ActivitySummaryReports
-    */
-    public function addRemoveContactsFromListsActivity($accessToken, Array $emailAddresses, Array $lists)
+     * Create a Remove Contacts From Lists Activity
+     * @param string $accessToken - Constant Contact OAuth2 access token
+     * @param array $emailAddresses - array of email addresses to remove
+     * @param array $lists - array of lists to remove the provided email addresses from
+     * @return array - Array of all ActivitySummaryReports
+     */
+    public function addRemoveContactsFromListsActivity($accessToken, array $emailAddresses, array $lists)
     {
         $baseUrl = Config::get('endpoints.base_url') . Config::get('endpoints.remove_from_lists_activity');
         $url = $this->buildUrl($baseUrl);

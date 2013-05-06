@@ -36,6 +36,11 @@ class JsonLoader
         return file_get_contents(__DIR__ . self::CONTACTS_FOLDER . "/get_contacts.json");
     }
 
+    public static function getContactsModifiedSinceJson()
+    {
+        return file_get_contents(__DIR__ . self::CONTACTS_FOLDER . "/get_contacts_modified_since.json");
+    }
+
     public static function getContactsNoNextJson()
     {
         return file_get_contents(__DIR__ . self::CONTACTS_FOLDER . "/get_contacts_no_next.json");
@@ -55,14 +60,16 @@ class JsonLoader
     {
         return file_get_contents(__DIR__ . self::CAMPAIGNS_FOLDER . "/get_campaign.json");
     }
+
+    public static function getCampaignModifiedSinceJson($page = 1) {
+        return file_get_contents(__DIR__ . self::CAMPAIGNS_FOLDER . "/get_campaigns_modified_since{$page}.json");
+    }
     
-    public static function getCampaignsJson()
-    {
+    public static function getCampaignsJson() {
         return file_get_contents(__DIR__ . self::CAMPAIGNS_FOLDER . "/get_campaigns.json");
     }
 
-    public static function getCampaignScheduleJson()
-    {
+    public static function getCampaignScheduleJson() {
         return file_get_contents(__DIR__ . self::CAMPAIGNS_FOLDER . "/get_schedule.json");
     }
 

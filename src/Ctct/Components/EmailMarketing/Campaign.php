@@ -189,6 +189,12 @@ class Campaign extends Component
     public $click_through_details = array();
 
     /**
+     * URL of the permalink for this email campaign if it exists
+     * @var string
+     */
+    public $permalink_url;
+
+    /**
      * Factory method to create a Campaign object from an array
      * @param array $props - associative array of initial properties to set
      * @return Campaign
@@ -229,6 +235,7 @@ class Campaign extends Component
         $campaign->email_content_format = parent::getValue($props, "email_content_format");
         $campaign->style_sheet = parent::getValue($props, "style_sheet");
         $campaign->text_content = parent::getValue($props, "text_content");
+        $campaign->permalink_url = parent::getValue($props, "permalink_url");
         
         if (array_key_exists('sent_to_contact_lists', $props)) {
             foreach ($props['sent_to_contact_lists'] as $sent_to_contact_list) {

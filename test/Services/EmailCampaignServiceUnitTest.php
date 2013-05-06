@@ -16,6 +16,30 @@ class EmailMarketingServiceUnitTest extends PHPUnit_Framework_TestCase
         $this->emailMarketingService = new EmailMarketingService("apikey", $this->restClient);
     }
 
+    public function testGetCampaignsModifiedSince()
+    {
+        $curlResponse = CurlResponse::create(JsonLoader::getCampaignModifiedSinceJson(1), array('http_code' => 200));
+        $this->restClient->expects($this->once())
+            ->method('get')
+            ->with()
+            ->will($this->returnValue($curlResponse));
+
+        $response = $this->emailMarketingService->getCampaigns('access_token', array('modified_since' => '2013-01-12T20:04:59.436Z', 'limit' => 2));
+        $campaigns = $response->results;
+
+        $this->assertInstanceOf('Ctct\Components\EmailMarketing\Campaign', $campaigns[0]);
+        $this->assertEquals("ABcGFnZU51bT0yJnBhZ2VTaXplPTImbW9kaWZpZWRfc2luY2U9MTM1OTUxNjYzMDU5MA", $response->next);
+        $this->assertEquals("9112921497760", $campaigns[0]->id);
+        $this->assertEquals("Email Created 2013/03/29, 11:30 PM", $campaigns[0]->name);
+        $this->assertEquals("DRAFT", $campaigns[0]->status);
+        $this->assertEquals("2013-03-30T03:30:48.033Z", $campaigns[0]->modified_date);
+
+        $this->assertEquals("9112756952331", $campaigns[1]->id);
+        $this->assertEquals("CampaignName234", $campaigns[1]->name);
+        $this->assertEquals("DRAFT", $campaigns[1]->status);
+        $this->assertEquals("2013-03-14T15:00:07.883Z", $campaigns[1]->modified_date);
+    }
+
     public function testGetCampaigns()
     {
         $curlResponse = CurlResponse::create(JsonLoader::getCampaignsJson(), array('http_code' => 200));
@@ -28,7 +52,7 @@ class EmailMarketingServiceUnitTest extends PHPUnit_Framework_TestCase
         $campaigns = $response->results;
 
         $this->assertInstanceOf('Ctct\Components\EmailMarketing\Campaign', $campaigns[0]);
-        $this->assertEquals("?next=cGFnZU51bT0yJnBhZ2VTaXplPTM", $response->next);
+        $this->assertEquals("cGFnZU51bT0yJnBhZ2VTaXplPTM", $response->next);
         $this->assertEquals("1100371240640", $campaigns[0]->id);
         $this->assertEquals("Email Created 2012/11/29, 4:13 PM", $campaigns[0]->name);
         $this->assertEquals("SENT", $campaigns[0]->status);
@@ -92,6 +116,7 @@ class EmailMarketingServiceUnitTest extends PHPUnit_Framework_TestCase
         $this->assertEquals("Hi", $campaign->greeting_salutations);
         $this->assertEquals("FIRST_NAME", $campaign->greeting_name);
         $this->assertEquals("", $campaign->greeting_string);
+        $this->assertEquals("http://www.constantcontact.com", $campaign->permalink_url);
 
         $this->assertEquals(
             "<html><body>Hi <a href=\"http://www.constantcontact.com\">Visit ConstantContact.com!</a> </body></html>",

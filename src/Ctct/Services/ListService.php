@@ -18,12 +18,13 @@ class ListService extends BaseService
     /**
      * Get lists within an account
      * @param $accessToken - Constant Contact OAuth2 access token
+     * @param array $params - array of query parameters to be appened to the request
      * @return Array - ContactLists
      */
-    public function getLists($accessToken)
+    public function getLists($accessToken, array $params = array())
     {
         $baseUrl = Config::get('endpoints.base_url') . Config::get('endpoints.lists');
-        $url = $this->buildUrl($baseUrl);
+        $url = $this->buildUrl($baseUrl, $params);
         $response = parent::getRestClient()->get($url, parent::getHeaders($accessToken));
         
         $lists = array();

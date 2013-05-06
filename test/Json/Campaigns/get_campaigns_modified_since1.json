@@ -1,0 +1,21 @@
+{
+    "meta": {
+        "pagination": {
+            "next_link": "/v2/emailmarketing/campaigns?next=ABcGFnZU51bT0yJnBhZ2VTaXplPTImbW9kaWZpZWRfc2luY2U9MTM1OTUxNjYzMDU5MA"
+        }
+    },
+    "results": [
+        {
+            "id": "9112921497760",
+            "name": "Email Created 2013/03/29, 11:30 PM",
+            "status": "DRAFT",
+            "modified_date": "2013-03-30T03:30:48.033Z"
+        },
+        {
+            "id": "9112756952331",
+            "name": "CampaignName234",
+            "status": "DRAFT",
+            "modified_date": "2013-03-14T15:00:07.883Z"
+        }
+    ]
+}

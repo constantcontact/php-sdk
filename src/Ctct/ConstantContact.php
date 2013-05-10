@@ -103,11 +103,11 @@ class ConstantContact
         $this->listService = new ListService($apiKey);
         $this->accountService = new AccountService($apiKey);
     }
-    
+
     /**
      * Get a set of campaigns
      * @param string $accessToken - Constant Contact OAuth2 access token
-     * @param mixed $params - associative array of query parameters and values to append to the request. 
+     * @param mixed $params - associative array of query parameters and values to append to the request.
      *      Allow parameters include:
      *      limit - Specifies the number of results displayed per page of output, from 1 - 500, default = 50.
      *      modified_since - ISO-8601 formatted timestamp.
@@ -119,7 +119,7 @@ class ConstantContact
     {
         return $this->contactService->getContacts($accessToken, $params);
     }
-    
+
     /**
      * Get an individual contact
      * @param string $accessToken - Valid access token
@@ -130,7 +130,7 @@ class ConstantContact
     {
         return $this->contactService->getContact($accessToken, $contactId);
     }
-    
+
     /**
      * Get contacts with a specified email eaddress
      * @param string $accessToken - Constant Contact OAuth2 access token
@@ -141,12 +141,12 @@ class ConstantContact
     {
         return $this->contactService->getContacts($accessToken, array('email' => $email));
     }
-    
+
     /**
      * Add a new contact to an account
      * @param string $accessToken - Valid access token
      * @param Contact $contact - Contact to add
-     * @param boolean $actionByVisitor - is the action being taken by the visitor 
+     * @param boolean $actionByVisitor - is the action being taken by the visitor
      * @return Contact
      */
     public function addContact($accessToken, Contact $contact, $actionByVisitor = false)
@@ -157,7 +157,7 @@ class ConstantContact
         }
         return $this->contactService->addContact($accessToken, $contact, $params);
     }
-    
+
     /**
      * Sets an individual contact to 'REMOVED' status
      * @param string $accessToken - Valid access token
@@ -170,7 +170,7 @@ class ConstantContact
         $contactId = $this->getArgumentId($contact, 'Contact');
         return $this->contactService->deleteContact($accessToken, $contactId);
     }
-    
+
     /**
      * Delete a contact from all contact lists
      * @param string $accessToken - Constant Contact OAuth2 access token
@@ -189,7 +189,7 @@ class ConstantContact
      * @param string $accessToken - Constant Contact OAuth2 access token
      * @param mixed $contact - Contact id or a Contact object
      * @param mixed $list - ContactList id or a ContactList object
-     * @throws IllegalArgumentException - if an int or Contact object is not provided, 
+     * @throws IllegalArgumentException - if an int or Contact object is not provided,
      * as well as an int or ContactList object
      * @return boolean
      */
@@ -197,15 +197,15 @@ class ConstantContact
     {
         $contactId = $this->getArgumentId($contact, 'Contact');
         $listId = $this->getArgumentId($list, 'ContactList');
-        
+
         return $this->contactService->deleteContactFromList($accessToken, $contactId, $listId);
     }
-    
+
     /**
      * Update an individual contact
      * @param string $accessToken - Valid access token
      * @param Contact $contact - Contact to update
-     * @param boolean $actionByVisitor - is the action being taken by the visitor, default is false  
+     * @param boolean $actionByVisitor - is the action being taken by the visitor, default is false
      * @return Contact
      */
     public function updateContact($accessToken, Contact $contact, $actionByVisitor = false)
@@ -216,7 +216,7 @@ class ConstantContact
         }
         return $this->contactService->updateContact($accessToken, $contact, $params);
     }
-    
+
     /**
      * Get lists
      * @param string $accessToken - Valid access token
@@ -240,7 +240,7 @@ class ConstantContact
     {
         return $this->listService->getList($accessToken, $listId);
     }
-    
+
     /**
      * Add a new contact list to an account
      * @param string $accessToken - Valid access token
@@ -251,7 +251,7 @@ class ConstantContact
     {
         return $this->listService->addList($accessToken, $list);
     }
-    
+
     /**
      * Update a contact list
      * @param string $accessToken - Valid access token
@@ -278,11 +278,11 @@ class ConstantContact
         $param = $this->determineParam($param);
         return $this->listService->getContactsFromList($accessToken, $listId, $param);
     }
-    
+
     /**
      * Get a set of campaigns
      * @param string $accessToken - Constant Contact OAuth2 access token
-     * @param mixed $params - associative array of query parameters and values to append to the request. 
+     * @param mixed $params - associative array of query parameters and values to append to the request.
      *      Allow parameters include:
      *      limit - Specifies the number of results displayed per page of output, from 1 - 500, default = 50.
      *      modified_since - ISO-8601 formatted timestamp.
@@ -294,7 +294,7 @@ class ConstantContact
     {
         return $this->emailMarketingService->getCampaigns($accessToken, $params);
     }
-    
+
     /**
      * Get an individual campaign
      * @param string $accessToken - Constant Contact OAuth2 access token
@@ -305,20 +305,20 @@ class ConstantContact
     {
         return $this->emailMarketingService->getCampaign($accessToken, $campaignId);
     }
-    
+
     /**
      * Delete an individual campaign
      * @param string $accessToken - Constant Contact OAuth2 access token
      * @param mixed $campaign - Id of a campaign or a Campaign object itself
      * @throws IllegalArgumentException - if a Campaign object or campaign id is not passed
-     * @return boolean 
+     * @return boolean
      */
     public function deleteEmailCampaign($accessToken, $campaign)
     {
         $campaignId = $this->getArgumentId($campaign, 'Campaign');
         return $this->emailMarketingService->deleteCampaign($accessToken, $campaignId);
     }
-    
+
     /**
      * Create a new campaign
      * @param string $accessToken - Constant Contact OAuth2 access token
@@ -329,7 +329,7 @@ class ConstantContact
     {
         return $this->emailMarketingService->addCampaign($accessToken, $campaign);
     }
-    
+
     /**
      * Update a specific campaign
      * @param string $accessToken - Constant Contact OAuth2 access token
@@ -340,7 +340,7 @@ class ConstantContact
     {
         return $this->emailMarketingService->updateCampaign($accessToken, $campaign);
     }
-    
+
     /**
      * Schedule a campaign to be sent
      * @param string $accessToken - Constant Contact OAuth2 access token
@@ -353,7 +353,7 @@ class ConstantContact
         $campaignId = $this->getArgumentId($campaign, 'Campaign');
         return $this->campaignScheduleService->addSchedule($accessToken, $campaignId, $schedule);
     }
-    
+
     /**
      * Get an array of schedules associated with a given campaign
      * @param string $accessToken - Constant Contact OAuth2 access token
@@ -365,7 +365,7 @@ class ConstantContact
         $campaignId = $this->getArgumentId($campaign, 'Campaign');
         return $this->campaignScheduleService->getSchedules($accessToken, $campaignId);
     }
-    
+
     /**
      * Get a specific schedule associated with a given campaign
      * @param string $accessToken - Constant Contact OAuth2 access token
@@ -386,10 +386,10 @@ class ConstantContact
         } else {
             throw new IllegalArgumentException(sprintf(Config::get('errors.id_or_object'), 'Schedule'));
         }
-        
+
         return $this->campaignScheduleService->getSchedule($accessToken, $campaignId, $scheduleId);
     }
-    
+
     /**
      * Update a specific schedule associated with a given campaign
      * @param string $accessToken - Constant Contact OAuth2 access token
@@ -402,7 +402,7 @@ class ConstantContact
         $campaignId = $this->getArgumentId($campaign, 'Campaign');
         return $this->campaignScheduleService->updateSchedule($accessToken, $campaignId, $schedule);
     }
-    
+
     /**
      * Delete a specific schedule associated with a given campaign
      * @param string $accessToken - Constant Contact OAuth2 access token
@@ -415,7 +415,7 @@ class ConstantContact
     {
         $campaignId = $this->getArgumentId($campaign, 'Campaign');
         $scheduleId = null;
-        
+
         if ($schedule instanceof Schedule) {
             $scheduleId = $schedule->id;
         } elseif (is_numeric($schedule)) {
@@ -423,7 +423,7 @@ class ConstantContact
         } else {
             throw new IllegalArgumentException(sprintf(Config::get('errors.id_or_object'), 'Schedule'));
         }
-        
+
         return $this->campaignScheduleService->deleteSchedule($accessToken, $campaignId, $scheduleId);
     }
 
@@ -444,7 +444,7 @@ class ConstantContact
      * Get sends for a campaign
      * @param string $accessToken - Constant Contact OAuth2 access token
      * @param mixed $campaign - Campaign id or Campaign object itself
-     * @param mixed $params - associative array of query parameters and values to append to the request. 
+     * @param mixed $params - associative array of query parameters and values to append to the request.
      *      Allow parameters include:
      *      limit - Specifies the number of results displayed per page of output, from 1 - 500, default = 50.
      *      created_since - Used to retrieve a list of events since the date and time specified (in ISO-8601 format).
@@ -461,7 +461,7 @@ class ConstantContact
      * Get bounces for a campaign
      * @param string $accessToken - Constant Contact OAuth2 access token
      * @param mixed $campaign  - Campaign id or Campaign object itself
-     * @param mixed $params - associative array of query parameters and values to append to the request. 
+     * @param mixed $params - associative array of query parameters and values to append to the request.
      *      Allow parameters include:
      *      limit - Specifies the number of results displayed per page of output, from 1 - 500, default = 50.
      *      created_since - Used to retrieve a list of events since the date and time specified (in ISO-8601 format).
@@ -495,7 +495,7 @@ class ConstantContact
      * Get opens for a campaign
      * @param string $accessToken - Constant Contact OAuth2 access token
      * @param mixed $campaign  - Campaign id or Campaign object itself
-     * @param mixed $params - associative array of query parameters and values to append to the request. 
+     * @param mixed $params - associative array of query parameters and values to append to the request.
      *      Allow parameters include:
      *      limit - Specifies the number of results displayed per page of output, from 1 - 500, default = 50.
      *      created_since - Used to retrieve a list of events since the date and time specified (in ISO-8601 format).
@@ -512,7 +512,7 @@ class ConstantContact
      * Get forwards for a campaign
      * @param string $accessToken - Constant Contact OAuth2 access token
      * @param mixed $campaign  - Campaign id or Campaign object itself
-     * @param mixed $params - associative array of query parameters and values to append to the request. 
+     * @param mixed $params - associative array of query parameters and values to append to the request.
      *      Allow parameters include:
      *      limit - Specifies the number of results displayed per page of output, from 1 - 500, default = 50.
      *      created_since - Used to retrieve a list of events since the date and time specified (in ISO-8601 format).
@@ -529,7 +529,7 @@ class ConstantContact
      * Get unsubscribes for a campaign
      * @param string $accessToken - Constant Contact OAuth2 access token
      * @param mixed $campaign  - Campaign id or Campaign object itself
-     * @param mixed $params - associative array of query parameters and values to append to the request. 
+     * @param mixed $params - associative array of query parameters and values to append to the request.
      *      Allow parameters include:
      *      limit - Specifies the number of results displayed per page of output, from 1 - 500, default = 50.
      *      created_since - Used to retrieve a list of events since the date and time specified (in ISO-8601 format).
@@ -558,7 +558,7 @@ class ConstantContact
      * Get sends for a Contact
      * @param string $accessToken - Constant Contact OAuth2 access token
      * @param mixed $contact  - Contact id or Contact object itself
-     * @param mixed $params - associative array of query parameters and values to append to the request. 
+     * @param mixed $params - associative array of query parameters and values to append to the request.
      *      Allow parameters include:
      *      limit - Specifies the number of results displayed per page of output, from 1 - 500, default = 50.
      *      created_since - Used to retrieve a list of events since the date and time specified (in ISO-8601 format).
@@ -575,7 +575,7 @@ class ConstantContact
      * Get bounces for a Contact
      * @param string $accessToken - Constant Contact OAuth2 access token
      * @param mixed $contact  - Contact id or Contact object itself
-     * @param mixed $params - associative array of query parameters and values to append to the request. 
+     * @param mixed $params - associative array of query parameters and values to append to the request.
      *      Allow parameters include:
      *      limit - Specifies the number of results displayed per page of output, from 1 - 500, default = 50.
      *      created_since - Used to retrieve a list of events since the date and time specified (in ISO-8601 format).
@@ -592,7 +592,7 @@ class ConstantContact
      * Get clicks for a Contact
      * @param string $accessToken - Constant Contact OAuth2 access token
      * @param mixed $contact  - Contact id or Contact object itself
-     * @param mixed $params - associative array of query parameters and values to append to the request. 
+     * @param mixed $params - associative array of query parameters and values to append to the request.
      *      Allow parameters include:
      *      limit - Specifies the number of results displayed per page of output, from 1 - 500, default = 50.
      *      created_since - Used to retrieve a list of events since the date and time specified (in ISO-8601 format).
@@ -609,7 +609,7 @@ class ConstantContact
      * Get opens for a Contact
      * @param string $accessToken - Constant Contact OAuth2 access token
      * @param mixed $contact  - Contact id or Contact object itself
-     * @param mixed $params - associative array of query parameters and values to append to the request. 
+     * @param mixed $params - associative array of query parameters and values to append to the request.
      *      Allow parameters include:
      *      limit - Specifies the number of results displayed per page of output, from 1 - 500, default = 50.
      *      created_since - Used to retrieve a list of events since the date and time specified (in ISO-8601 format).
@@ -626,7 +626,7 @@ class ConstantContact
      * Get forwards for a Contact
      * @param string $accessToken - Constant Contact OAuth2 access token
      * @param mixed $contact  - Contact id or Contact object itself
-     * @param mixed $params - associative array of query parameters and values to append to the request. 
+     * @param mixed $params - associative array of query parameters and values to append to the request.
      *      Allow parameters include:
      *      limit - Specifies the number of results displayed per page of output, from 1 - 500, default = 50.
      *      created_since - Used to retrieve a list of events since the date and time specified (in ISO-8601 format).
@@ -643,7 +643,7 @@ class ConstantContact
      * Get opt outs for a Contact
      * @param string $accessToken - Constant Contact OAuth2 access token
      * @param mixed $contact  - Contact id or Contact object itself
-     * @param mixed $params - associative array of query parameters and values to append to the request. 
+     * @param mixed $params - associative array of query parameters and values to append to the request.
      *      Allow parameters include:
      *      limit - Specifies the number of results displayed per page of output, from 1 - 500, default = 50.
      *      created_since - Used to retrieve a list of events since the date and time specified (in ISO-8601 format).
@@ -738,7 +738,7 @@ class ConstantContact
         return $this->activityService->addRemoveContactsFromListsActivity($accessToken, $emailAddresses, $lists);
     }
 
-     /**
+    /**
      * Create an Export Contacts Activity
      * @param string $accessToken - Constant Contact OAuth2 access token
      * @param ExportContacts $exportContacts
@@ -748,7 +748,7 @@ class ConstantContact
     {
         return $this->activityService->addExportContactsActivity($accessToken, $exportContacts);
     }
-    
+
     /**
      * Get the id of object, or attempt to convert the argument to an int
      * @param mixed $item - object or a numeric value

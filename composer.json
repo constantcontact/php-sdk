@@ -16,9 +16,9 @@
             "homepage": "http://developer.constantcontact.com"
         }
     ],
-    "autoload":{
-    	"psr-0": {
+    "autoload": {
+        "psr-0": {
             "Ctct": "src"
-    	}
+        }
     }
 }

@@ -17,13 +17,13 @@ class Note extends Component
      * @var string
      */
     public $id;
-    
+
     /**
      * Content of the note
      * @var string
      */
     public $note;
-    
+
     /**
      * Date the note was created
      * @var string

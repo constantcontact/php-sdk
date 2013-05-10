@@ -1,6 +1,6 @@
 <?php
 namespace Ctct\Components\EmailMarketing;
- 
+
 use Ctct\Components\Component;
 use Ctct\Util\Config;
 use Ctct\Components\EmailMarketing\MessageFooter;
@@ -59,7 +59,7 @@ class Campaign extends Component
      * @var string
      */
     public $reply_to_email;
-    
+
     /**
      * The template used to create the email campaign
      * @var string
@@ -103,7 +103,7 @@ class Campaign extends Component
     public $permission_reminder_text;
 
     /**
-     * If true, displays the text and link specified in permission_reminder_text to view web page 
+     * If true, displays the text and link specified in permission_reminder_text to view web page
      * version of email message
      * @var string
      */
@@ -170,7 +170,7 @@ class Campaign extends Component
     public $style_sheet;
 
     /**
-     * The content for the text-only version of the email campaign which is viewed by recipients 
+     * The content for the text-only version of the email campaign which is viewed by recipients
      * whose email client does not accept HTML email
      * @var string
      */
@@ -222,21 +222,21 @@ class Campaign extends Component
         $campaign->greeting_salutations = parent::getValue($props, "greeting_salutations");
         $campaign->greeting_name = parent::getValue($props, "greeting_name");
         $campaign->greeting_string = parent::getValue($props, "greeting_string");
-        
+
         if (array_key_exists("message_footer", $props)) {
             $campaign->message_footer = MessageFooter::create($props['message_footer']);
         }
-        
+
         if (array_key_exists("tracking_summary", $props)) {
             $campaign->tracking_summary = TrackingSummary::create($props['tracking_summary']);
         }
-        
+
         $campaign->email_content = parent::getValue($props, "email_content");
         $campaign->email_content_format = parent::getValue($props, "email_content_format");
         $campaign->style_sheet = parent::getValue($props, "style_sheet");
         $campaign->text_content = parent::getValue($props, "text_content");
         $campaign->permalink_url = parent::getValue($props, "permalink_url");
-        
+
         if (array_key_exists('sent_to_contact_lists', $props)) {
             foreach ($props['sent_to_contact_lists'] as $sent_to_contact_list) {
                 $campaign->sent_to_contact_lists[] = ContactList::create($sent_to_contact_list);
@@ -248,7 +248,7 @@ class Campaign extends Component
                 $campaign->click_through_details[] = ClickThroughDetails::create($click_through_details);
             }
         }
-        
+
         return $campaign;
     }
 
@@ -288,13 +288,13 @@ class Campaign extends Component
         } else {
             throw new IllegalArgumentException(sprintf(Config::get('errors.id_or_object'), 'ContactList'));
         }
-        
+
         $this->sent_to_contact_lists[] = $list;
     }
-    
+
     /**
-     * Create json used for a POST/PUT request, also handles removing attributes that will cause errors if sent 
-     * @return string 
+     * Create json used for a POST/PUT request, also handles removing attributes that will cause errors if sent
+     * @return string
      */
     public function toJson()
     {
@@ -321,7 +321,7 @@ class Campaign extends Component
                 unset($list->status);
             }
         }
-        
+
         return json_encode($campaign);
     }
 }

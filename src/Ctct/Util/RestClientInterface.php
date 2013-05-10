@@ -17,7 +17,7 @@ interface RestClientInterface
      * @return array - array of the response body, http info, and error (if one exists)
      */
     public function get($url, array $headers);
-    
+
     /**
      * Make an Http POST request
      * @param $url - request url
@@ -26,7 +26,7 @@ interface RestClientInterface
      * @return array - array of the response body, http info, and error (if one exists)
      */
     public function post($url, array $headers = array(), $data = null);
-    
+
     /**
      * Make an Http PUT request
      * @param $url - request url
@@ -35,7 +35,7 @@ interface RestClientInterface
      * @return array - array of the response body, http info, and error (if one exists)
      */
     public function put($url, array $headers = array(), $data = null);
-    
+
     /**
      * Make an Http DELETE request
      * @param $url - request url

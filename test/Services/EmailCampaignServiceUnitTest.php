@@ -4,7 +4,7 @@ use Ctct\Services\EmailMarketingService;
 use Ctct\Util\RestClient;
 use Ctct\Util\CurlResponse;
 use Ctct\Components\EmailMarketing\Campaign;
- 
+
 class EmailMarketingServiceUnitTest extends PHPUnit_Framework_TestCase
 {
     private $restClient;
@@ -24,7 +24,10 @@ class EmailMarketingServiceUnitTest extends PHPUnit_Framework_TestCase
             ->with()
             ->will($this->returnValue($curlResponse));
 
-        $response = $this->emailMarketingService->getCampaigns('access_token', array('modified_since' => '2013-01-12T20:04:59.436Z', 'limit' => 2));
+        $response = $this->emailMarketingService->getCampaigns(
+            'access_token',
+            array('modified_since' => '2013-01-12T20:04:59.436Z', 'limit' => 2)
+        );
         $campaigns = $response->results;
 
         $this->assertInstanceOf('Ctct\Components\EmailMarketing\Campaign', $campaigns[0]);
@@ -91,7 +94,7 @@ class EmailMarketingServiceUnitTest extends PHPUnit_Framework_TestCase
     public function testGetCampaign()
     {
         $curlResponse = CurlResponse::create(JsonLoader::getCampaignJson(), array('http_code' => 201));
-            $this->restClient->expects($this->once())
+        $this->restClient->expects($this->once())
             ->method('get')
             ->with()
             ->will($this->returnValue($curlResponse));

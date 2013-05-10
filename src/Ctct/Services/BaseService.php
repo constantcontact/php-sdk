@@ -14,7 +14,7 @@ abstract class BaseService
 {
     /**
      * RestClient Implementation to use for HTTP requests
-     * @var $restClient - RestClient 
+     * @var $restClient - RestClient
      */
     protected $restClient;
 
@@ -52,10 +52,10 @@ abstract class BaseService
         } else {
             $params = $keyArr;
         }
-        
+
         return $url . '?' . http_build_query($params);
     }
-    
+
     /**
      * Get the rest client being used by the service
      * @return RestClientInterface - RestClientInterface implementation being used
@@ -69,8 +69,8 @@ abstract class BaseService
     {
         $this->restClient = $restClient;
     }
-    
-    
+
+
     /**
      * Helper function to return required headers for making an http request with constant contact
      * @param $accessToken - OAuth2 access token to be placed into the Authorization header

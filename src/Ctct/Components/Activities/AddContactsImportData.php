@@ -5,7 +5,7 @@ use Ctct\Components\Component;
 use Ctct\Components\Contacts\Contact;
 use Ctct\Components\Contacts\Address;
 use Ctct\Components\Contacts\CustomField;
- 
+
 /**
  * Represents a single Activity in Constant Contact
  *

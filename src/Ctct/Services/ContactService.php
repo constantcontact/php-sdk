@@ -34,7 +34,7 @@ class ContactService extends BaseService
         }
         return new ResultSet($contacts, $body['meta']);
     }
-    
+
     /**
      * Get contact details for a specific contact
      * @param string $accessToken - Constant Contact OAuth2 access token
@@ -48,7 +48,7 @@ class ContactService extends BaseService
         $response = parent::getRestClient()->get($url, parent::getHeaders($accessToken));
         return Contact::create(json_decode($response->body, true));
     }
-    
+
     /**
      * Add a new contact to the Constant Contact account
      * @param string $accessToken - Constant Contact OAuth2 access token
@@ -63,7 +63,7 @@ class ContactService extends BaseService
         $response = parent::getRestClient()->post($url, parent::getHeaders($accessToken), $contact->toJson());
         return Contact::create(json_decode($response->body, true));
     }
-    
+
     /**
      * Delete contact details for a specific contact
      * @param string $accessToken - Constant Contact OAuth2 access token
@@ -77,7 +77,7 @@ class ContactService extends BaseService
         $response = parent::getRestClient()->delete($url, parent::getHeaders($accessToken));
         return ($response->info['http_code'] == 204) ? true : false;
     }
-    
+
     /**
      * Delete a contact from all contact lists
      * @param string $accessToken - Constant Contact OAuth2 access token
@@ -91,7 +91,7 @@ class ContactService extends BaseService
         $response = parent::getRestClient()->delete($url, parent::getHeaders($accessToken));
         return ($response->info['http_code'] == 204) ? true : false;
     }
-    
+
     /**
      * Delete a contact from a specific contact list
      * @param string $accessToken - Constant Contact OAuth2 access token
@@ -107,7 +107,7 @@ class ContactService extends BaseService
         $response = parent::getRestClient()->delete($url, parent::getHeaders($accessToken));
         return ($response->info['http_code'] == 204) ? true : false;
     }
-    
+
     /**
      * Update contact details for a specific contact
      * @param string $accessToken - Constant Contact OAuth2 access token

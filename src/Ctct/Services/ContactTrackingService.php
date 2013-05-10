@@ -58,7 +58,7 @@ class ContactTrackingService extends BaseService
     {
         $baseUrl = Config::get('endpoints.base_url') .
             sprintf(Config::get('endpoints.contact_tracking_clicks'), $contactId);
-        
+
         $url = $this->buildUrl($baseUrl, $params);
 
         $response = parent::getRestClient()->get($url, parent::getHeaders($accessToken));
@@ -83,7 +83,7 @@ class ContactTrackingService extends BaseService
     {
         $baseUrl = Config::get('endpoints.base_url') .
             sprintf(Config::get('endpoints.contact_tracking_forwards'), $contactId);
-        
+
         $url = $this->buildUrl($baseUrl, $params);
 
         $response = parent::getRestClient()->get($url, parent::getHeaders($accessToken));
@@ -107,7 +107,7 @@ class ContactTrackingService extends BaseService
     {
         $baseUrl = Config::get('endpoints.base_url') .
             sprintf(Config::get('endpoints.contact_tracking_opens'), $contactId);
-        
+
         $url = $this->buildUrl($baseUrl, $params);
 
         $response = parent::getRestClient()->get($url, parent::getHeaders($accessToken));
@@ -132,7 +132,7 @@ class ContactTrackingService extends BaseService
     {
         $baseUrl = Config::get('endpoints.base_url') .
             sprintf(Config::get('endpoints.contact_tracking_sends'), $contact_id);
-        
+
         $url = $this->buildUrl($baseUrl, $params);
 
         $response = parent::getRestClient()->get($url, parent::getHeaders($accessToken));
@@ -158,7 +158,7 @@ class ContactTrackingService extends BaseService
             sprintf(Config::get('endpoints.contact_tracking_unsubscribes'), $contact_id);
 
         $url = $this->buildUrl($baseUrl, $params);
-       
+
         $response = parent::getRestClient()->get($url, parent::getHeaders($accessToken));
         $body = json_decode($response->body, true);
         $opt_outs = array();

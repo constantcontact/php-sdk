@@ -1,6 +1,6 @@
 <?php
 namespace Ctct\Components\Contacts;
- 
+
 use Ctct\Components\Component;
 
 /**
@@ -12,13 +12,13 @@ use Ctct\Components\Component;
  */
 class CustomField extends Component
 {
-    
+
     /**
      * Name of the custom field
      * @var string
      */
     public $name;
-    
+
     /**
      * Value of the custom field
      * @var string

@@ -32,7 +32,7 @@ class AddContacts extends Component
         }
 
         $this->lists = $lists;
-        
+
         if (empty($columnNames)) {
             $usedColumns[] = Config::get('activities_columns.email');
             $contact = $contacts[0];

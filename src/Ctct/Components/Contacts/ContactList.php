@@ -1,6 +1,6 @@
 <?php
 namespace Ctct\Components\Contacts;
- 
+
 use Ctct\Components\Component;
 
 /**
@@ -41,7 +41,7 @@ class ContactList extends Component
         if (!is_null($list_id)) {
             $this->id = $list_id;
         }
-        
+
         return $this;
     }
 
@@ -59,7 +59,7 @@ class ContactList extends Component
         $contact_list->contact_count = parent::getValue($props, "contact_count");
         return $contact_list;
     }
-    
+
     public function toJson()
     {
         return json_encode($this);

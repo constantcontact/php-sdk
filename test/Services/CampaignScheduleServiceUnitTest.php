@@ -8,7 +8,7 @@ use Ctct\Components\EmailMarketing\TestSend;
 
 class CampaignScheduleServiceUnitTest extends PHPUnit_Framework_TestCase
 {
-    
+
     private $restClient;
     private $campaignScheduleService;
 
@@ -70,7 +70,7 @@ class CampaignScheduleServiceUnitTest extends PHPUnit_Framework_TestCase
             ->method('put')
             ->with()
             ->will($this->returnValue($curlResponse));
-        
+
         $updatedSchedule = $this->campaignScheduleService->updateSchedule(
             'access_token',
             "9100367935463",

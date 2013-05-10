@@ -33,9 +33,9 @@ class CampaignTrackingService extends BaseService
     {
         $baseUrl = Config::get('endpoints.base_url') .
             sprintf(Config::get('endpoints.campaign_tracking_bounces'), $campaign_id);
-        
+
         $url = $this->buildUrl($baseUrl, $params);
-        
+
         $response = parent::getRestClient()->get($url, parent::getHeaders($accessToken));
         $body = json_decode($response->body, true);
         $bounces = array();

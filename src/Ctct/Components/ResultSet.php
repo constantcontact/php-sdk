@@ -3,7 +3,7 @@ namespace Ctct\Components;
 
 /**
  * Container for a get on a collection, such as Contacts, Campaigns, or TrackingData.
- * 
+ *
  */
 class ResultSet
 {
@@ -30,7 +30,7 @@ class ResultSet
 
         if (array_key_exists('next_link', $meta['pagination'])) {
             $nextLink = $meta['pagination']['next_link'];
-            $this->next = substr($nextLink, strpos($nextLink, '?')+6);
+            $this->next = substr($nextLink, strpos($nextLink, '?') + 6);
         }
     }
 }

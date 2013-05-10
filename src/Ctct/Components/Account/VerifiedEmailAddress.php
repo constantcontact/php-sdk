@@ -2,7 +2,7 @@
 namespace Ctct\Components\Account;
 
 use Ctct\Components\Component;
- 
+
 /**
  * Represents a single Verified Email Address in Constant Contact
  *

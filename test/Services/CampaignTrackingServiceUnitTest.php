@@ -179,7 +179,7 @@ class CampaignTrackingServiceUnitTest extends PHPUnit_Framework_TestCase
             ->will($this->returnValue($curlResponse));
 
         $summary = $this->campaignTrackingService->getSummary('access_token', 1100394165290);
-        
+
         $this->assertInstanceOf('Ctct\Components\Tracking\TrackingSummary', $summary);
         $this->assertEquals(15, $summary->sends);
         $this->assertEquals(10, $summary->opens);

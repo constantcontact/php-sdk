@@ -39,11 +39,11 @@ class ActivityService extends BaseService
     }
 
     /**
-    * Get an array of activities
-    * @param string $accessToken - Constant Contact OAuth2 access token
-    * @param string $activityId - Activity id
-    * @return array - Array of all ActivitySummaryReports
-    */
+     * Get an array of activities
+     * @param string $accessToken - Constant Contact OAuth2 access token
+     * @param string $activityId - Activity id
+     * @return array - Array of all ActivitySummaryReports
+     */
     public function getActivity($accessToken, $activityId)
     {
         $baseUrl = Config::get('endpoints.base_url') . sprintf(Config::get('endpoints.activity'), $activityId);
@@ -53,11 +53,11 @@ class ActivityService extends BaseService
     }
 
     /**
-    * Create an Add Contacts Activity
-    * @param string $accessToken - Constant Contact OAuth2 access token
-    * @param AddContacts $addContacts
-    * @return array - Array of all ActivitySummaryReports
-    */
+     * Create an Add Contacts Activity
+     * @param string $accessToken - Constant Contact OAuth2 access token
+     * @param AddContacts $addContacts
+     * @return array - Array of all ActivitySummaryReports
+     */
     public function createAddContactsActivity($accessToken, AddContacts $addContacts)
     {
         $baseUrl = Config::get('endpoints.base_url') . Config::get('endpoints.add_contacts_activity');
@@ -67,11 +67,11 @@ class ActivityService extends BaseService
     }
 
     /**
-    * Create a Clear Lists Activity
-    * @param string $accessToken - Constant Contact OAuth2 access token
-    * @param array $lists - Array of list id's to be cleared
-    * @return array - Array of all Activity
-    */
+     * Create a Clear Lists Activity
+     * @param string $accessToken - Constant Contact OAuth2 access token
+     * @param array $lists - Array of list id's to be cleared
+     * @return array - Array of all Activity
+     */
     public function addClearListsActivity($accessToken, array $lists)
     {
         $baseUrl = Config::get('endpoints.base_url') . Config::get('endpoints.clear_lists_activity');
@@ -82,11 +82,11 @@ class ActivityService extends BaseService
     }
 
     /**
-    * Create an Export Contacts Activity
-    * @param string $accessToken - Constant Contact OAuth2 access token
-    * @param ExportContacts $exportContacts
-    * @return array - Array of all ActivitySummaryReports
-    */
+     * Create an Export Contacts Activity
+     * @param string $accessToken - Constant Contact OAuth2 access token
+     * @param ExportContacts $exportContacts
+     * @return array - Array of all ActivitySummaryReports
+     */
     public function addExportContactsActivity($accessToken, ExportContacts $exportContacts)
     {
         $baseUrl = Config::get('endpoints.base_url') . Config::get('endpoints.export_contacts_activity');
@@ -107,8 +107,8 @@ class ActivityService extends BaseService
         $baseUrl = Config::get('endpoints.base_url') . Config::get('endpoints.remove_from_lists_activity');
         $url = $this->buildUrl($baseUrl);
         $payload = array(
-            'import_data'    => array(),
-            'lists'          => $lists
+            'import_data' => array(),
+            'lists' => $lists
         );
 
         foreach ($emailAddresses as $emailAddress) {

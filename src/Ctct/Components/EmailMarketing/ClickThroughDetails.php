@@ -4,7 +4,7 @@ namespace Ctct\Components\EmailMarketing;
 use Ctct\Components\Component;
 
 /**
- * Represents a click through detail 
+ * Represents a click through detail
  *
  * @package        EmailMarketing
  * @subpackage     Campaigns
@@ -17,16 +17,16 @@ class ClickThroughDetails extends Component
      * @var string
      */
     public $url;
-    
+
     /**
      * url unique identifier
-     * @var string 
+     * @var string
      */
     public $url_uid;
-    
+
     /**
      * number of times the url was clicked on
-     * @var int 
+     * @var int
      */
     public $click_count;
 

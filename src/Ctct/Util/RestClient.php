@@ -23,7 +23,7 @@ class RestClient implements RestClientInterface
     {
         return self::httpRequest($url, "GET", $headers);
     }
-    
+
     /**
      * Make an Http POST request
      * @param $url - request url
@@ -35,7 +35,7 @@ class RestClient implements RestClientInterface
     {
         return self::httpRequest($url, "POST", $headers, $data);
     }
-    
+
     /**
      * Make an Http PUT request
      * @param $url - request url
@@ -47,7 +47,7 @@ class RestClient implements RestClientInterface
     {
         return self::httpRequest($url, "PUT", $headers, $data);
     }
-    
+
     /**
      * Make an Http DELETE request
      * @param $url - request url
@@ -59,7 +59,7 @@ class RestClient implements RestClientInterface
     {
         return self::httpRequest($url, "DELETE", $headers);
     }
-    
+
     /**
      * Make an Http request
      * @param $url - request url
@@ -78,15 +78,15 @@ class RestClient implements RestClientInterface
         curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, 0);
         curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
         curl_setopt($curl, CURLOPT_CUSTOMREQUEST, $method);
-        
+
         // add data to send with request if present
         if ($data) {
             curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
         }
-        
+
         $response = CurlResponse::create(curl_exec($curl), curl_getinfo($curl), curl_error($curl));
         curl_close($curl);
-        
+
         // check if any errors were returned
         $body = json_decode($response->body, true);
         if (isset($body[0]) && array_key_exists('error_key', $body[0])) {
@@ -95,7 +95,7 @@ class RestClient implements RestClientInterface
             $ex->setErrors($body);
             throw $ex;
         }
-        
+
         return $response;
     }
 }

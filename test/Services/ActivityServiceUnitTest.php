@@ -11,7 +11,7 @@ use Ctct\Util\CurlResponse;
 
 class ActivityServiceUnitTest extends PHPUnit_Framework_TestCase
 {
-    
+
     private $restClient;
     private $activityService;
 
@@ -72,7 +72,7 @@ class ActivityServiceUnitTest extends PHPUnit_Framework_TestCase
             ->with()
             ->will($this->returnValue($curlResponse));
 
-        $activity = $this->activityService->addClearListsActivity("access_token", array("1","2"));
+        $activity = $this->activityService->addClearListsActivity("access_token", array("1", "2"));
         $this->assertInstanceOf('Ctct\Components\Activities\Activity', $activity);
         $this->assertEquals("a07e1il69fwhd7uan9h", $activity->id);
         $this->assertEquals("CLEAR_CONTACTS_FROM_LISTS", $activity->type);

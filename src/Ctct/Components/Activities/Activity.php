@@ -3,7 +3,7 @@ namespace Ctct\Components\Activities;
 
 use Ctct\Components\Component;
 use Ctct\Components\Activities\ActivityError;
- 
+
 /**
  * Represents a single Activity in Constant Contact
  *
@@ -72,7 +72,7 @@ class Activity extends Component
 
     /**
      * Create json used for a POST/PUT request, also handles removing attributes that will cause errors if sent
-     * @return string 
+     * @return string
      */
     public function toJson()
     {

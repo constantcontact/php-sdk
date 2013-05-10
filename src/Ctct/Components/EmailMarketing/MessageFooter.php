@@ -47,7 +47,7 @@ class MessageFooter extends Component
         $message_footer->forward_email_link_text = parent::getValue($props, "forward_email_link_text");
         $message_footer->include_subscribe_link = parent::getValue($props, "include_subscribe_link");
         $message_footer->subscribe_link_text = parent::getValue($props, "subscribe_link_text");
-        
+
         return $message_footer;
     }
 }

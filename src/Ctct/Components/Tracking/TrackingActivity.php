@@ -24,7 +24,7 @@ class TrackingActivity
         $this->results = $results;
 
         if (array_key_exists('next', $pagination)) {
-            $this->next = substr($pagination['next'], strrpos($pagination['next'], '&next=')+6);
+            $this->next = substr($pagination['next'], strrpos($pagination['next'], '&next=') + 6);
         }
     }
 }

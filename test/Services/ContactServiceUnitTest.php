@@ -4,7 +4,7 @@ use Ctct\Services\ContactService;
 use Ctct\Util\RestClient;
 use Ctct\Components\Contacts\Contact;
 use Ctct\Util\CurlResponse;
- 
+
 class ContactServiceUnitTest extends PHPUnit_Framework_TestCase
 {
     private $restClient;
@@ -43,12 +43,12 @@ class ContactServiceUnitTest extends PHPUnit_Framework_TestCase
         $this->assertEquals("details", $contact->source_details);
         $this->assertEquals(false, $contact->confirmed);
         $this->assertEquals("", $contact->source);
-        
+
         // custom fields
         $this->assertEquals("CustomField1", $contact->custom_fields[0]->name);
         $this->assertInstanceOf("Ctct\Components\Contacts\CustomField", $contact->custom_fields[0]);
         $this->assertEquals("1", $contact->custom_fields[0]->value);
-        
+
         //addresses
         $this->assertEquals("Suite 101", $contact->addresses[0]->line1);
         $this->assertEquals("line2", $contact->addresses[0]->line2);
@@ -59,10 +59,10 @@ class ContactServiceUnitTest extends PHPUnit_Framework_TestCase
         $this->assertEquals("us", $contact->addresses[0]->country_code);
         $this->assertEquals("53027", $contact->addresses[0]->postal_code);
         $this->assertEquals("", $contact->addresses[0]->sub_postal_code);
-        
+
         //notes
         $this->assertEquals(0, count($contact->notes));
-        
+
         //lists
         $this->assertEquals(1, $contact->lists[0]->id);
         $this->assertEquals("ACTIVE", $contact->lists[0]->status);
@@ -79,7 +79,10 @@ class ContactServiceUnitTest extends PHPUnit_Framework_TestCase
 
     public function testGetContactsModifiedSince()
     {
-        $curlResponse = CurlResponse::create(JsonLoader::getContactsModifiedSinceJson(), array('modified_since' => '2013-01-12T20:04:59.436Z', 'limit' => 2));
+        $curlResponse = CurlResponse::create(
+            JsonLoader::getContactsModifiedSinceJson(),
+            array('modified_since' => '2013-01-12T20:04:59.436Z', 'limit' => 2)
+        );
         $this->restClient->expects($this->once())
             ->method('get')
             ->with()
@@ -109,7 +112,7 @@ class ContactServiceUnitTest extends PHPUnit_Framework_TestCase
         $response = $this->contactService->getContacts('access_token', array('limit' => 2));
         $this->assertInstanceOf("Ctct\Components\ResultSet", $response);
         $contact = $response->results[1];
-        
+
         $this->assertInstanceOf("Ctct\Components\Contacts\Contact", $contact);
         $this->assertEquals($response->next, null);
         $this->assertEquals(231, $contact->id);
@@ -124,12 +127,12 @@ class ContactServiceUnitTest extends PHPUnit_Framework_TestCase
         $this->assertEquals("details", $contact->source_details);
         $this->assertEquals(false, $contact->confirmed);
         $this->assertEquals("", $contact->source);
-        
+
         // custom fields
         $this->assertInstanceOf("Ctct\Components\Contacts\CustomField", $contact->custom_fields[0]);
         $this->assertEquals("CustomField1", $contact->custom_fields[0]->name);
         $this->assertEquals("1", $contact->custom_fields[0]->value);
-        
+
         //addresses
         $this->assertInstanceOf("Ctct\Components\Contacts\Address", $contact->addresses[0]);
         $this->assertEquals("Suite 101", $contact->addresses[0]->line1);
@@ -141,10 +144,10 @@ class ContactServiceUnitTest extends PHPUnit_Framework_TestCase
         $this->assertEquals("us", $contact->addresses[0]->country_code);
         $this->assertEquals("53027", $contact->addresses[0]->postal_code);
         $this->assertEquals("", $contact->addresses[0]->sub_postal_code);
-        
+
         //notes
         $this->assertEquals(0, count($contact->notes));
-        
+
         //lists
         $this->assertInstanceOf("Ctct\Components\Contacts\ContactList", $contact->lists[0]);
         $this->assertEquals(1, $contact->lists[0]->id);
@@ -159,7 +162,7 @@ class ContactServiceUnitTest extends PHPUnit_Framework_TestCase
         $this->assertEquals("", $contact->email_addresses[0]->opt_out_date);
         $this->assertEquals("anothertest@roving.com", $contact->email_addresses[0]->email_address);
     }
-    
+
     public function testGetContact()
     {
         $curlResponse = CurlResponse::create(JsonLoader::getContactJson(), array('http_code' => 200));
@@ -169,7 +172,7 @@ class ContactServiceUnitTest extends PHPUnit_Framework_TestCase
             ->will($this->returnValue($curlResponse));
 
         $contact = $this->contactService->getContact('access_token', 1);
-        
+
         $this->assertInstanceOf("Ctct\Components\Contacts\Contact", $contact);
         $this->assertEquals(238, $contact->id);
         $this->assertEquals("ACTIVE", $contact->status);
@@ -186,14 +189,14 @@ class ContactServiceUnitTest extends PHPUnit_Framework_TestCase
         $this->assertEquals("69f9d72b-0a5e-479d-b844-722b1da9595f", $contact->source_details);
         $this->assertEquals(false, $contact->confirmed);
         $this->assertEquals("API", $contact->source);
-        
+
         // custom fields
         $this->assertInstanceOf("Ctct\Components\Contacts\CustomField", $contact->custom_fields[0]);
         $this->assertEquals("CustomField1", $contact->custom_fields[0]->name);
         $this->assertEquals("3/28/2011 11:09 AM EDT", $contact->custom_fields[0]->value);
         $this->assertEquals("CustomField2", $contact->custom_fields[1]->name);
         $this->assertEquals("Site owner", $contact->custom_fields[1]->value);
-        
+
         //addresses
         $this->assertInstanceOf("Ctct\Components\Contacts\Address", $contact->addresses[0]);
         $this->assertEquals("1601 Trapelo Rd", $contact->addresses[0]->line1);
@@ -205,13 +208,13 @@ class ContactServiceUnitTest extends PHPUnit_Framework_TestCase
         $this->assertEquals("us", $contact->addresses[0]->country_code);
         $this->assertEquals("01720", $contact->addresses[0]->postal_code);
         $this->assertEquals("7885", $contact->addresses[0]->sub_postal_code);
-        
+
         //notes
         $this->assertInstanceOf("Ctct\Components\Contacts\Note", $contact->notes[0]);
         $this->assertEquals(1, $contact->notes[0]->id);
         $this->assertEquals("Here are some cool notes to add", $contact->notes[0]->note);
         $this->assertEquals("2012-12-03T17:09:22.702Z", $contact->notes[0]->created_date);
-        
+
         //lists
         $this->assertInstanceOf("Ctct\Components\Contacts\ContactList", $contact->lists[0]);
         $this->assertEquals(9, $contact->lists[0]->id);
@@ -240,7 +243,7 @@ class ContactServiceUnitTest extends PHPUnit_Framework_TestCase
         $this->assertInstanceOf("Ctct\Components\ResultSet", $response);
         $this->assertEquals('c3RhcnRBdD0zJmxpbWl0PTI', $response->next);
         $contact = $response->results[1];
-        
+
         $this->assertInstanceOf("Ctct\Components\Contacts\Contact", $contact);
         $this->assertEquals(231, $contact->id);
         $this->assertEquals("ACTIVE", $contact->status);
@@ -254,12 +257,12 @@ class ContactServiceUnitTest extends PHPUnit_Framework_TestCase
         $this->assertEquals("details", $contact->source_details);
         $this->assertEquals(false, $contact->confirmed);
         $this->assertEquals("", $contact->source);
-        
+
         // custom fields
         $this->assertInstanceOf("Ctct\Components\Contacts\CustomField", $contact->custom_fields[0]);
         $this->assertEquals("CustomField1", $contact->custom_fields[0]->name);
         $this->assertEquals("1", $contact->custom_fields[0]->value);
-        
+
         //addresses
         $this->assertInstanceOf("Ctct\Components\Contacts\Address", $contact->addresses[0]);
         $this->assertEquals("Suite 101", $contact->addresses[0]->line1);
@@ -271,10 +274,10 @@ class ContactServiceUnitTest extends PHPUnit_Framework_TestCase
         $this->assertEquals("us", $contact->addresses[0]->country_code);
         $this->assertEquals("53027", $contact->addresses[0]->postal_code);
         $this->assertEquals("", $contact->addresses[0]->sub_postal_code);
-        
+
         //notes
         $this->assertEquals(0, count($contact->notes));
-        
+
         //lists
         $this->assertInstanceOf("Ctct\Components\Contacts\ContactList", $contact->lists[0]);
         $this->assertEquals(1, $contact->lists[0]->id);
@@ -297,7 +300,7 @@ class ContactServiceUnitTest extends PHPUnit_Framework_TestCase
             ->method('post')
             ->with()
             ->will($this->returnValue($curlResponse));
-        
+
         $contact = $this->contactService->addContact('access_token', new Contact(), array());
         $this->assertInstanceOf("Ctct\Components\Contacts\Contact", $contact);
         $this->assertEquals(238, $contact->id);
@@ -315,14 +318,14 @@ class ContactServiceUnitTest extends PHPUnit_Framework_TestCase
         $this->assertEquals("69f9d72b-0a5e-479d-b844-722b1da9595f", $contact->source_details);
         $this->assertEquals(false, $contact->confirmed);
         $this->assertEquals("API", $contact->source);
-        
+
         // custom fields
         $this->assertInstanceOf("Ctct\Components\Contacts\CustomField", $contact->custom_fields[0]);
         $this->assertEquals("CustomField1", $contact->custom_fields[0]->name);
         $this->assertEquals("3/28/2011 11:09 AM EDT", $contact->custom_fields[0]->value);
         $this->assertEquals("CustomField2", $contact->custom_fields[1]->name);
         $this->assertEquals("Site owner", $contact->custom_fields[1]->value);
-        
+
         //addresses
         $this->assertInstanceOf("Ctct\Components\Contacts\Address", $contact->addresses[0]);
         $this->assertEquals("1601 Trapelo Rd", $contact->addresses[0]->line1);
@@ -334,13 +337,13 @@ class ContactServiceUnitTest extends PHPUnit_Framework_TestCase
         $this->assertEquals("us", $contact->addresses[0]->country_code);
         $this->assertEquals("01720", $contact->addresses[0]->postal_code);
         $this->assertEquals("7885", $contact->addresses[0]->sub_postal_code);
-        
+
         //notes
         $this->assertInstanceOf("Ctct\Components\Contacts\Note", $contact->notes[0]);
         $this->assertEquals(1, $contact->notes[0]->id);
         $this->assertEquals("Here are some cool notes to add", $contact->notes[0]->note);
         $this->assertEquals("2012-12-03T17:09:22.702Z", $contact->notes[0]->created_date);
-        
+
         //lists
         $this->assertInstanceOf("Ctct\Components\Contacts\ContactList", $contact->lists[0]);
         $this->assertEquals(9, $contact->lists[0]->id);
@@ -355,7 +358,7 @@ class ContactServiceUnitTest extends PHPUnit_Framework_TestCase
         $this->assertEquals("2012-03-29T14:59:25.427Z", $contact->email_addresses[0]->opt_out_date);
         $this->assertEquals("john+smith@gmail.com", $contact->email_addresses[0]->email_address);
     }
-    
+
     public function testDeleteContact()
     {
         $curlResponse = CurlResponse::create(null, array('http_code' => 204));
@@ -367,7 +370,7 @@ class ContactServiceUnitTest extends PHPUnit_Framework_TestCase
         $response = $this->contactService->deleteContact('access_token', 1);
         $this->assertTrue($response);
     }
-    
+
     public function testDeleteContactFailed()
     {
         $curlResponse = CurlResponse::create(null, array('http_code' => 400));
@@ -375,11 +378,11 @@ class ContactServiceUnitTest extends PHPUnit_Framework_TestCase
             ->method('delete')
             ->with()
             ->will($this->returnValue($curlResponse));
-        
+
         $response = $this->contactService->deleteContact('access_token', 1);
         $this->assertFalse($response);
     }
-    
+
     public function testDeleteContactFromLists()
     {
         $curlResponse = CurlResponse::create(null, array('http_code' => 204));
@@ -391,7 +394,7 @@ class ContactServiceUnitTest extends PHPUnit_Framework_TestCase
         $response = $this->contactService->deleteContactFromLists('access_token', 9);
         $this->assertTrue($response);
     }
-    
+
     public function testDeleteContactFromListsFailed()
     {
         $curlResponse = CurlResponse::create(null, array('http_code' => 400), null);
@@ -400,11 +403,11 @@ class ContactServiceUnitTest extends PHPUnit_Framework_TestCase
             ->method('delete')
             ->with()
             ->will($this->returnValue($curlResponse));
-        
+
         $response = $this->contactService->deleteContactFromLists('access_token', 9);
         $this->assertFalse($response);
     }
-    
+
     public function testDeleteContactFromList()
     {
         $curlResponse = CurlResponse::create(null, array('http_code' => 204));
@@ -416,7 +419,7 @@ class ContactServiceUnitTest extends PHPUnit_Framework_TestCase
         $response = $this->contactService->deleteContactFromList('access_token', 9, 1);
         $this->assertTrue($response);
     }
-    
+
     public function testDeleteContactFromListFailed()
     {
         $curlResponse = CurlResponse::create(null, array('http_code' => 400));
@@ -428,7 +431,7 @@ class ContactServiceUnitTest extends PHPUnit_Framework_TestCase
         $response = $this->contactService->deleteContactFromList('access_token', 9, 1);
         $this->assertFalse($response);
     }
-    
+
     public function testUpdateContact()
     {
         $curlResponse = CurlResponse::create(JsonLoader::getContactJson(), array('http_code' => 200));
@@ -455,14 +458,14 @@ class ContactServiceUnitTest extends PHPUnit_Framework_TestCase
         $this->assertEquals("69f9d72b-0a5e-479d-b844-722b1da9595f", $contact->source_details);
         $this->assertEquals(false, $contact->confirmed);
         $this->assertEquals("API", $contact->source);
-        
+
         // custom fields
         $this->assertInstanceOf("Ctct\Components\Contacts\CustomField", $contact->custom_fields[0]);
         $this->assertEquals("CustomField1", $contact->custom_fields[0]->name);
         $this->assertEquals("3/28/2011 11:09 AM EDT", $contact->custom_fields[0]->value);
         $this->assertEquals("CustomField2", $contact->custom_fields[1]->name);
         $this->assertEquals("Site owner", $contact->custom_fields[1]->value);
-        
+
         //addresses
         $this->assertInstanceOf("Ctct\Components\Contacts\Address", $contact->addresses[0]);
         $this->assertEquals("1601 Trapelo Rd", $contact->addresses[0]->line1);
@@ -474,13 +477,13 @@ class ContactServiceUnitTest extends PHPUnit_Framework_TestCase
         $this->assertEquals("us", $contact->addresses[0]->country_code);
         $this->assertEquals("01720", $contact->addresses[0]->postal_code);
         $this->assertEquals("7885", $contact->addresses[0]->sub_postal_code);
-        
+
         //notes
         $this->assertInstanceOf("Ctct\Components\Contacts\Note", $contact->notes[0]);
         $this->assertEquals(1, $contact->notes[0]->id);
         $this->assertEquals("Here are some cool notes to add", $contact->notes[0]->note);
         $this->assertEquals("2012-12-03T17:09:22.702Z", $contact->notes[0]->created_date);
-        
+
         //lists
         $this->assertInstanceOf("Ctct\Components\Contacts\ContactList", $contact->lists[0]);
         $this->assertEquals(9, $contact->lists[0]->id);

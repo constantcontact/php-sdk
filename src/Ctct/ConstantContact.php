@@ -21,6 +21,7 @@ use Ctct\Components\Activities\AddContacts;
 use Ctct\Components\Activities\ExportContacts;
 use Ctct\Exceptions\IllegalArgumentException;
 use Ctct\Util\Config;
+use Ctct\Util\RestClient;
 
 /**
  * Exposes all implemented Constant Contact API functionality
@@ -90,18 +91,21 @@ class ConstantContact
      * Class constructor
      * Registers the API key with the ConstantContact class that will be used for all API calls.
      * @param string $apiKey - Constant Contact API Key
+     * @param integer $queriesPerSecond - Maximum Queries Per Second Requested
      */
-    public function __construct($apiKey)
+    public function __construct($apiKey, $queriesPerSecond = null)
     {
         $this->apiKey = $apiKey;
-        $this->contactService = new ContactService($apiKey);
-        $this->emailMarketingService = new EmailMarketingService($apiKey);
-        $this->activityService = new ActivityService($apiKey);
-        $this->campaignTrackingService = new CampaignTrackingService($apiKey);
-        $this->contactTrackingService = new ContactTrackingService($apiKey);
-        $this->campaignScheduleService = new CampaignScheduleService($apiKey);
-        $this->listService = new ListService($apiKey);
-        $this->accountService = new AccountService($apiKey);
+		$restClient = (is_int($queriesPerSecond)) ? new RestClient($queriesPerSecond) : null;
+		
+        $this->contactService = new ContactService($apiKey,$restClient);
+        $this->emailMarketingService = new EmailMarketingService($apiKey,$restClient);
+        $this->activityService = new ActivityService($apiKey,$restClient);
+        $this->campaignTrackingService = new CampaignTrackingService($apiKey,$restClient);
+        $this->contactTrackingService = new ContactTrackingService($apiKey,$restClient);
+        $this->campaignScheduleService = new CampaignScheduleService($apiKey,$restClient);
+        $this->listService = new ListService($apiKey,$restClient);
+        $this->accountService = new AccountService($apiKey,$restClient);
     }
 
     /**

@@ -28,13 +28,14 @@ abstract class BaseService
      * Constructor with the option to to supply an alternative rest client to be used
      * @param string $apiKey - Constant Contact API Key
      * @param RestClientInterface $restClient - RestClientInterface implementation to be used in the service
+     * @param integer $queriesPerSecond - Maximum Queries Per Second Requested
      */
-    public function __construct($apiKey, $restClient = null)
+    public function __construct($apiKey, $restClient = null, $queriesPerSecond = null)
     {
         $this->apiKey = $apiKey;
 
         if (is_null($restClient)) {
-            $this->restClient = new RestClient();
+            $this->restClient = new RestClient($queriesPerSecond);
         } else {
             $this->restClient = $restClient;
         }

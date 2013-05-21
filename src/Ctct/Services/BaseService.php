@@ -41,10 +41,13 @@ abstract class BaseService
     }
 
     /**
-     * Build a url from the base url and query parameters array
+     * Build a URL from a base url and optional array of query parameters to append to the url. URL query parameters
+     * should not be URL encoded and this method will handle that.
+     * @param $url
+     * @param array $queryParams
      * @return string
      */
-    public function buildUrl($url, $queryParams = null)
+    public function buildUrl($url, array $queryParams = null)
     {
         $keyArr = array('api_key' => $this->apiKey);
         if ($queryParams) {
@@ -53,7 +56,7 @@ abstract class BaseService
             $params = $keyArr;
         }
 
-        return $url . '?' . http_build_query($params);
+        return $url . '?' . http_build_query($params, '', '&');
     }
 
     /**

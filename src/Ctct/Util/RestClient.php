@@ -8,8 +8,8 @@ use Ctct\Util\CurlResponse;
 /**
  * Wrapper for curl HTTP request
  *
- * @package     Util
- * @author         Constant Contact
+ * @package Util
+ * @author Constant Contact
  */
 class RestClient implements RestClientInterface
 {
@@ -52,7 +52,6 @@ class RestClient implements RestClientInterface
      * Make an Http DELETE request
      * @param $url - request url
      * @param array $headers - array of all http headers to send
-     * @param $data - data to send with request
      * @return array - array of the response body, http info, and error (if one exists)
      */
     public function delete($url, array $headers = array())
@@ -61,20 +60,22 @@ class RestClient implements RestClientInterface
     }
 
     /**
-     * Make an Http request
+     * Make an HTTP request
      * @param $url - request url
-     * @param array $headers - array of all http headers to send
-     * @param $data - data to send with the request
-     * @throws CTCTException - if any errors are contained in the returned payload
+     * @param $method - HTTP method to use for the request
+     * @param array $headers - any http headers that should be included with the request
+     * @param string|null $data - payload to send with the request, if any
      * @return CurlResponse
+     * @throws CTCTException
      */
     private static function httpRequest($url, $method, array $headers = array(), $data = null)
     {
+        echo $url;
         $curl = curl_init();
         curl_setopt($curl, CURLOPT_URL, $url);
         curl_setopt($curl, CURLOPT_HEADER, 0);
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($curl, CURLOPT_USERAGENT, "ConstantContact Appconnect PHP Library v1.0");
+        curl_setopt($curl, CURLOPT_USERAGENT, "ConstantContact AppConnect PHP Library v1.1");
         curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, 0);
         curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
         curl_setopt($curl, CURLOPT_CUSTOMREQUEST, $method);

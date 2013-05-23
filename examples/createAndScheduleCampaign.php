@@ -59,7 +59,7 @@ function createCampaign(array $params)
                 $campaign->addList($list);
             }
         } else {
-            $campaign->addList($params['lists']);
+            $campaign->addList($params['lists'][0]);
         }
     }
 

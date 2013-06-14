@@ -11,6 +11,16 @@ class JsonLoader
     const ACCCOUNT_FOLDER = "/Account";
     const AUTH_FOLDER = "/Auth";
 
+    public static function getContactsTextContents()
+    {
+        return file_get_contents(__DIR__. self::ACTIVITES_FOLDER . "/add_contacts.txt");
+    }
+
+    public static function getRemoveContactsTextContents()
+    {
+        return file_get_contents(__DIR__. self::ACTIVITES_FOLDER . "/remove_contacts.txt");
+    }
+
     public static function getTokenInfoJson()
     {
         return file_get_contents(__DIR__ . self::AUTH_FOLDER . "/token_info.json");

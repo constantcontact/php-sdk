@@ -18,7 +18,6 @@ http://constantcontact.mashery.com.
 require_once '../src/Ctct/autoload.php';
 
 use Ctct\Auth\CtctOAuth2;
-use Ctct\Auth\SessionDataStore;
 use Ctct\Exceptions\OAuth2Exception;
 
 // Enter your Constant Contact APIKEY, CONSUMER_SECRET, and REDIRECT_URI

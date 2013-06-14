@@ -22,12 +22,13 @@ class ActivityService extends BaseService
     /**
      * Get an array of activities
      * @param string $accessToken - Constant Contact OAuth2 access token
+     * @param array $params - array of query parameters to be appended to the url
      * @return array - Array of all ActivitySummaryReports
      */
-    public function getActivities($accessToken)
+    public function getActivities($accessToken, array $params = array())
     {
         $baseUrl = Config::get('endpoints.base_url') . Config::get('endpoints.activities');
-        $url = $this->buildUrl($baseUrl);
+        $url = $this->buildUrl($baseUrl, $params);
         $response = parent::getRestClient()->get($url, parent::getHeaders($accessToken));
         $jsonResponse = json_decode($response->body, true);
         $activities = array();
@@ -63,6 +64,47 @@ class ActivityService extends BaseService
         $baseUrl = Config::get('endpoints.base_url') . Config::get('endpoints.add_contacts_activity');
         $url = $this->buildUrl($baseUrl);
         $response = parent::getRestClient()->post($url, parent::getHeaders($accessToken), $addContacts->toJson());
+        return Activity::create(json_decode($response->body, true));
+    }
+
+    /**
+     * Create an Add Contacts Activity from a file. Valid file types are txt, csv, xls, xlsx
+     * @param string $accessToken - Constant Contact OAuth2 access token
+     * @param string $fileName - The name of the file (ie: contacts.csv)
+     * @param string $contents - The contents of the file
+     * @param string $lists - Comma separated list of ContactList id's to add the contacts to
+     * @return \Ctct\Components\Activities\Activity
+     */
+    public function createAddContactsActivityFromFile($accessToken, $fileName, $contents, $lists)
+    {
+        $eol = "\r\n";
+        $data = '';
+        $boundary=md5(time());
+
+        $data .= '--' . $boundary . $eol;
+        $data .= 'Content-Disposition: form-data; name="file_name"' . $eol;
+        $data .= 'Content-Type: text/plain' . $eol . $eol;
+        $data .= $fileName . $eol;
+
+        $data .= '--' . $boundary . $eol;
+        $data .= 'Content-Disposition: form-data; name="lists"' . $eol;
+        $data .= 'Content-Type: text/plain' . $eol . $eol;
+        $data .= $lists . $eol;
+
+        $data .= '--' . $boundary . $eol;
+        $data .= 'Content-Disposition: form-data; name="data"' . $eol . $eol;
+        $data .= $contents . $eol;
+        $data .= "--" . $boundary . "--" . $eol;
+
+        $headers = array(
+            "Authorization: Bearer {$accessToken}",
+            "Content-Type: multipart/form-data; boundary={$boundary}"
+        );
+
+        $baseUrl = Config::get('endpoints.base_url') . Config::get('endpoints.add_contacts_activity');
+        $url = $this->buildUrl($baseUrl);
+
+        $response = parent::getRestClient()->post($url, $headers, $data);
         return Activity::create(json_decode($response->body, true));
     }
 
@@ -116,6 +158,47 @@ class ActivityService extends BaseService
         }
 
         $response = parent::getRestClient()->post($url, parent::getHeaders($accessToken), json_encode($payload));
+        return Activity::create(json_decode($response->body, true));
+    }
+
+    /**
+     * Create an Remove Contacts Activity from a file. Valid file types are txt, csv, xls, xlsx
+     * @param string $accessToken - Constant Contact OAuth2 access token
+     * @param string $fileName - The name of the file (ie: contacts.csv)
+     * @param string $contents - The contents of the file
+     * @param string $lists - Comma separated list of ContactList id' to add the contacts too
+     * @return \Ctct\Components\Activities\Activity
+     */
+    public function addRemoveContactsFromListsActivityFromFile($accessToken, $fileName, $contents, $lists)
+    {
+        $eol = "\r\n";
+        $data = '';
+        $boundary=md5(time());
+
+        $data .= '--' . $boundary . $eol;
+        $data .= 'Content-Disposition: form-data; name="file_name"' . $eol;
+        $data .= 'Content-Type: text/plain' . $eol . $eol;
+        $data .= $fileName . $eol;
+
+        $data .= '--' . $boundary . $eol;
+        $data .= 'Content-Disposition: form-data; name="lists"' . $eol;
+        $data .= 'Content-Type: text/plain' . $eol . $eol;
+        $data .= $lists . $eol;
+
+        $data .= '--' . $boundary . $eol;
+        $data .= 'Content-Disposition: form-data; name="data"' . $eol . $eol;
+        $data .= $contents . $eol;
+        $data .= "--" . $boundary . "--" . $eol;
+
+        $headers = array(
+            "Authorization: Bearer {$accessToken}",
+            "Content-Type: multipart/form-data; boundary={$boundary}"
+        );
+
+        $baseUrl = Config::get('endpoints.base_url') . Config::get('endpoints.remove_from_lists_activity');
+        $url = $this->buildUrl($baseUrl);
+
+        $response = parent::getRestClient()->post($url, $headers, $data);
         return Activity::create(json_decode($response->body, true));
     }
 }

@@ -108,11 +108,12 @@ class ConstantContact
      * Get a set of campaigns
      * @param string $accessToken - Constant Contact OAuth2 access token
      * @param mixed $params - associative array of query parameters and values to append to the request.
-     *      Allow parameters include:
+     *      Allowed parameters include:
      *      limit - Specifies the number of results displayed per page of output, from 1 - 500, default = 50.
      *      modified_since - ISO-8601 formatted timestamp.
      *      next - the next link returned from a previous paginated call. May only be used by itself.
-     *      email - the contact by email address to retrieve information for
+     *      email - the contact by email address to retrieve information for.
+     *      status - a contact status to filter results by. Must be one of ACTIVE, OPTOUT, REMOVED, UNCONFIRMED.
      * @return ResultSet containing a results array of {@link Ctct\Components\Contacts\Contact}
      */
     public function getContacts($accessToken, array $params = array())
@@ -221,7 +222,7 @@ class ConstantContact
      * Get lists
      * @param string $accessToken - Valid access token
      * @param array $params - associative array of query parameters and values to append to the request.
-     *      Allow parameters include:
+     *      Allowed parameters include:
      *      modified_since - ISO-8601 formatted timestamp.
      * @return array of ContactList
      */
@@ -283,7 +284,7 @@ class ConstantContact
      * Get a set of campaigns
      * @param string $accessToken - Constant Contact OAuth2 access token
      * @param mixed $params - associative array of query parameters and values to append to the request.
-     *      Allow parameters include:
+     *      Allowed parameters include:
      *      limit - Specifies the number of results displayed per page of output, from 1 - 500, default = 50.
      *      modified_since - ISO-8601 formatted timestamp.
      *      next - the next link returned from a previous paginated call. May only be used by itself.
@@ -445,11 +446,11 @@ class ConstantContact
      * @param string $accessToken - Constant Contact OAuth2 access token
      * @param mixed $campaign - Campaign id or Campaign object itself
      * @param mixed $params - associative array of query parameters and values to append to the request.
-     *      Allow parameters include:
+     *      Allowed parameters include:
      *      limit - Specifies the number of results displayed per page of output, from 1 - 500, default = 50.
      *      created_since - Used to retrieve a list of events since the date and time specified (in ISO-8601 format).
      *      next - the next link returned from a previous paginated call. May only be used by itself.
-     * @return ResultSet - Containing a results array of {@link Ctct\Components\CampaignTracking\SendActivity}
+     * @return ResultSet - Containing a results array of {@link Ctct\Components\Tracking\SendActivity}
      */
     public function getEmailCampaignSends($accessToken, $campaign, array $params = array())
     {
@@ -462,11 +463,11 @@ class ConstantContact
      * @param string $accessToken - Constant Contact OAuth2 access token
      * @param mixed $campaign  - Campaign id or Campaign object itself
      * @param mixed $params - associative array of query parameters and values to append to the request.
-     *      Allow parameters include:
+     *      Allowed parameters include:
      *      limit - Specifies the number of results displayed per page of output, from 1 - 500, default = 50.
      *      created_since - Used to retrieve a list of events since the date and time specified (in ISO-8601 format).
      *      next - the next link returned from a previous paginated call. May only be used by itself.
-     * @return ResultSet - Containing a results array of {@link Ctct\Components\CampaignTracking\BounceActivity}
+     * @return ResultSet - Containing a results array of {@link Ctct\Components\Tracking\BounceActivity}
      */
     public function getEmailCampaignBounces($accessToken, $campaign, array $params = array())
     {
@@ -479,11 +480,11 @@ class ConstantContact
      * @param string $accessToken - Constant Contact OAuth2 access token
      * @param mixed $campaign  - Campaign id or Campaign object itself
      * @param array $params - associative array of query parameters and values to append to the request.
-     *      Allow parameters include:
+     *      Allowed parameters include:
      *      limit - Specifies the number of results displayed per page of output, from 1 - 500, default = 50.
      *      created_since - Used to retrieve a list of events since the date and time specified (in ISO-8601 format).
      *      next - the next link returned from a previous paginated call. May only be used by itself.
-     * @return ResultSet - Containing a results array of {@link Ctct\Components\CampaignTracking\ClickActivity}
+     * @return ResultSet - Containing a results array of {@link Ctct\Components\Tracking\ClickActivity}
      */
     public function getEmailCampaignClicks($accessToken, $campaign, array $params = array())
     {
@@ -496,11 +497,11 @@ class ConstantContact
      * @param string $accessToken - Constant Contact OAuth2 access token
      * @param mixed $campaign  - Campaign id or Campaign object itself
      * @param mixed $params - associative array of query parameters and values to append to the request.
-     *      Allow parameters include:
+     *      Allowed parameters include:
      *      limit - Specifies the number of results displayed per page of output, from 1 - 500, default = 50.
      *      created_since - Used to retrieve a list of events since the date and time specified (in ISO-8601 format).
      *      next - the next link returned from a previous paginated call. May only be used by itself.
-     * @return ResultSet - Containing a results array of {@link Ctct\Components\CampaignTracking\OpenActivity}
+     * @return ResultSet - Containing a results array of {@link Ctct\Components\Tracking\OpenActivity}
      */
     public function getEmailCampaignOpens($accessToken, $campaign, array $params = array())
     {
@@ -513,11 +514,11 @@ class ConstantContact
      * @param string $accessToken - Constant Contact OAuth2 access token
      * @param mixed $campaign  - Campaign id or Campaign object itself
      * @param mixed $params - associative array of query parameters and values to append to the request.
-     *      Allow parameters include:
+     *      Allowed parameters include:
      *      limit - Specifies the number of results displayed per page of output, from 1 - 500, default = 50.
      *      created_since - Used to retrieve a list of events since the date and time specified (in ISO-8601 format).
      *      next - the next link returned from a previous paginated call. May only be used by itself.
-     * @return ResultSet - Containing a results array of {@link Ctct\Components\CampaignTracking\ForwardActivity}
+     * @return ResultSet - Containing a results array of {@link Ctct\Components\Tracking\ForwardActivity}
      */
     public function getEmailCampaignForwards($accessToken, $campaign, array $params = array())
     {
@@ -530,11 +531,11 @@ class ConstantContact
      * @param string $accessToken - Constant Contact OAuth2 access token
      * @param mixed $campaign  - Campaign id or Campaign object itself
      * @param mixed $params - associative array of query parameters and values to append to the request.
-     *      Allow parameters include:
+     *      Allowed parameters include:
      *      limit - Specifies the number of results displayed per page of output, from 1 - 500, default = 50.
      *      created_since - Used to retrieve a list of events since the date and time specified (in ISO-8601 format).
      *      next - the next link returned from a previous paginated call. May only be used by itself.
-     * @return ResultSet - Containing a results array of {@link Ctct\Components\CampaignTracking\UnsubscribeActivity}
+     * @return ResultSet - Containing a results array of {@link Ctct\Components\Tracking\UnsubscribeActivity}
      */
     public function getEmailCampaignUnsubscribes($accessToken, $campaign, array $params = array())
     {
@@ -559,7 +560,7 @@ class ConstantContact
      * @param string $accessToken - Constant Contact OAuth2 access token
      * @param mixed $contact  - Contact id or Contact object itself
      * @param mixed $params - associative array of query parameters and values to append to the request.
-     *      Allow parameters include:
+     *      Allowed parameters include:
      *      limit - Specifies the number of results displayed per page of output, from 1 - 500, default = 50.
      *      created_since - Used to retrieve a list of events since the date and time specified (in ISO-8601 format).
      *      next - the next link returned from a previous paginated call. May only be used by itself.
@@ -576,7 +577,7 @@ class ConstantContact
      * @param string $accessToken - Constant Contact OAuth2 access token
      * @param mixed $contact  - Contact id or Contact object itself
      * @param mixed $params - associative array of query parameters and values to append to the request.
-     *      Allow parameters include:
+     *      Allowed parameters include:
      *      limit - Specifies the number of results displayed per page of output, from 1 - 500, default = 50.
      *      created_since - Used to retrieve a list of events since the date and time specified (in ISO-8601 format).
      *      next - the next link returned from a previous paginated call. May only be used by itself.
@@ -593,7 +594,7 @@ class ConstantContact
      * @param string $accessToken - Constant Contact OAuth2 access token
      * @param mixed $contact  - Contact id or Contact object itself
      * @param mixed $params - associative array of query parameters and values to append to the request.
-     *      Allow parameters include:
+     *      Allowed parameters include:
      *      limit - Specifies the number of results displayed per page of output, from 1 - 500, default = 50.
      *      created_since - Used to retrieve a list of events since the date and time specified (in ISO-8601 format).
      *      next - the next link returned from a previous paginated call. May only be used by itself.
@@ -610,7 +611,7 @@ class ConstantContact
      * @param string $accessToken - Constant Contact OAuth2 access token
      * @param mixed $contact  - Contact id or Contact object itself
      * @param mixed $params - associative array of query parameters and values to append to the request.
-     *      Allow parameters include:
+     *      Allowed parameters include:
      *      limit - Specifies the number of results displayed per page of output, from 1 - 500, default = 50.
      *      created_since - Used to retrieve a list of events since the date and time specified (in ISO-8601 format).
      *      next - the next link returned from a previous paginated call. May only be used by itself.
@@ -627,7 +628,7 @@ class ConstantContact
      * @param string $accessToken - Constant Contact OAuth2 access token
      * @param mixed $contact  - Contact id or Contact object itself
      * @param mixed $params - associative array of query parameters and values to append to the request.
-     *      Allow parameters include:
+     *      Allowed parameters include:
      *      limit - Specifies the number of results displayed per page of output, from 1 - 500, default = 50.
      *      created_since - Used to retrieve a list of events since the date and time specified (in ISO-8601 format).
      *      next - the next link returned from a previous paginated call. May only be used by itself.
@@ -644,7 +645,7 @@ class ConstantContact
      * @param string $accessToken - Constant Contact OAuth2 access token
      * @param mixed $contact  - Contact id or Contact object itself
      * @param mixed $params - associative array of query parameters and values to append to the request.
-     *      Allow parameters include:
+     *      Allowed parameters include:
      *      limit - Specifies the number of results displayed per page of output, from 1 - 500, default = 50.
      *      created_since - Used to retrieve a list of events since the date and time specified (in ISO-8601 format).
      *      next - the next link returned from a previous paginated call. May only be used by itself.
@@ -686,11 +687,16 @@ class ConstantContact
     /**
      * Get an array of activities
      * @param string $accessToken - Constant Contact OAuth2 access token
+     * @param array $params - associative array of query parameters and values to append to the request.
+     *      Allowed parameters include:
+     *      status - Status of the activity, must be one of UNCONFIRMED, PENDING, QUEUED, RUNNING, COMPLETE, ERROR
+     *      type - Type of activity, must be one of ADD_CONTACTS, REMOVE_CONTACTS_FROM_LISTS, CLEAR_CONTACTS_FROM_LISTS,
+     *             EXPORT_CONTACTS
      * @return Activity
      */
-    public function getActivities($accessToken)
+    public function getActivities($accessToken, array $params = array())
     {
-        return $this->activityService->getActivities($accessToken);
+        return $this->activityService->getActivities($accessToken, $params);
     }
 
     /**
@@ -716,6 +722,19 @@ class ConstantContact
     }
 
     /**
+     * Create an Add Contacts Activity from a file. Valid file types are txt, csv, xls, xlsx
+     * @param string $accessToken - Constant Contact OAuth2 access token
+     * @param string $fileName - The name of the file (ie: contacts.csv)
+     * @param string $contents - The contents of the file
+     * @param string $lists - Comma separated list of ContactList id's to add the contacts to
+     * @return Activity
+     */
+    public function addCreateContactsActivityFromFile($accessToken, $fileName, $contents, $lists)
+    {
+        return $this->activityService->createAddContactsActivityFromFile($accessToken, $fileName, $contents, $lists);
+    }
+
+    /**
      * Add an ClearLists Activity to remove all contacts from the provided lists
      * @param string $accessToken - Constant Contact OAuth2 access token
      * @param array $lists - Array of list id's to be cleared
@@ -736,6 +755,24 @@ class ConstantContact
     public function addRemoveContactsFromListsActivity($accessToken, Array $emailAddresses, Array $lists)
     {
         return $this->activityService->addRemoveContactsFromListsActivity($accessToken, $emailAddresses, $lists);
+    }
+
+    /**
+     * Add a Remove Contacts From Lists Activity from a file. Valid file types are txt, csv, xls, xlsx
+     * @param string $accessToken - Constant Contact OAuth2 access token
+     * @param string $fileName - The name of the file (ie: contacts.csv)
+     * @param string $contents - The contents of the file
+     * @param string $lists - Comma separated list of ContactList id' to add the contacts too
+     * @return Activity
+     */
+    public function addRemoveContactsFromListsActivityFromFile($accessToken, $fileName, $contents, $lists)
+    {
+        return $this->activityService->addRemoveContactsFromListsActivityFromFile(
+            $accessToken,
+            $fileName,
+            $contents,
+            $lists
+        );
     }
 
     /**

@@ -54,7 +54,7 @@ class CtctOAuth2
      * Obtain an access token
      * @param string $code - code returned from Constant Contact after a user has granted access to their account
      * @return array
-     * @throws \Ctct\Exception\OAuth2Exception
+     * @throws \Ctct\Exceptions\OAuth2Exception
      */
     public function getAccessToken($code)
     {
@@ -82,7 +82,7 @@ class CtctOAuth2
      * Get an information about an access token
      * @param string $accessToken - Constant Contact OAuth2 access token
      * @return array
-     * @throws \Ctct\Exception\CtctException
+     * @throws \Ctct\Exceptions\CtctException
      */
     public function getTokenInfo($accessToken)
     {

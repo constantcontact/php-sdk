@@ -151,6 +151,7 @@ class EmailMarketingServiceUnitTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(3, $campaign->tracking_summary->forwards);
         $this->assertEquals(2, $campaign->tracking_summary->unsubscribes);
         $this->assertEquals(18, $campaign->tracking_summary->bounces);
+        $this->assertEquals(1, $campaign->tracking_summary->spam_count);
 
         // sent to contact lists
         $this->assertEquals(1, count($campaign->sent_to_contact_lists));

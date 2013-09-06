@@ -19,6 +19,7 @@ class TrackingSummary extends Component
     public $forwards;
     public $unsubscribes;
     public $bounces;
+    public $spam_count;
 
     /**
      * Factory method to create a TrackingSummary object from an array
@@ -34,6 +35,7 @@ class TrackingSummary extends Component
         $tracking_summary->forwards = parent::getValue($props, "forwards");
         $tracking_summary->unsubscribes = parent::getValue($props, "unsubscribes");
         $tracking_summary->bounces = parent::getValue($props, "bounces");
+        $tracking_summary->spam_count = parent::getValue($props, "spam_count");
         return $tracking_summary;
     }
 }

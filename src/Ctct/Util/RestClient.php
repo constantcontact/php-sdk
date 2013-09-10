@@ -1,7 +1,7 @@
 <?php
 namespace Ctct\Util;
 
-use Ctct\Exceptions\CTCTException;
+use Ctct\Exceptions\CtctException;
 use Ctct\Util\RestClientInterface;
 use Ctct\Util\CurlResponse;
 

@@ -133,7 +133,7 @@ class ConstantContact
     }
 
     /**
-     * Get contacts with a specified email eaddress
+     * Get contacts with a specified email address
      * @param string $accessToken - Constant Contact OAuth2 access token
      * @param string $email - contact email address to search for
      * @return array

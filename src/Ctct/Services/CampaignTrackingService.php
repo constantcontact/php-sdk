@@ -40,9 +40,9 @@ class CampaignTrackingService extends BaseService
         $body = json_decode($response->body, true);
         $bounces = array();
         foreach ($body['results'] as $bounceActivity) {
-            $contacts[] = BounceActivity::create($bounceActivity);
+            $bounces[] = BounceActivity::create($bounceActivity);
         }
-        return new ResultSet($contacts, $body['meta']);
+        return new ResultSet($bounces, $body['meta']);
     }
 
     /**

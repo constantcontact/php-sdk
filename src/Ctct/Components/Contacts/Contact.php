@@ -150,33 +150,43 @@ class Contact extends Component
         $contact->confirmed = parent::getValue($props, "confirmed");
         $contact->source = parent::getValue($props, "source");
 
-        foreach ($props['email_addresses'] as $email_address) {
-            $contact->email_addresses[] = EmailAddress::create($email_address);
+        if (isset($props['email_addresses'])) {
+            foreach ($props['email_addresses'] as $email_address) {
+                $contact->email_addresses[] = EmailAddress::create($email_address);
+            }
         }
 
         $contact->prefix_name = parent::getValue($props, "prefix_name");
         $contact->job_title = parent::getValue($props, "job_title");
 
-        foreach ($props['addresses'] as $address) {
-            $contact->addresses[] = Address::create($address);
+        if (isset($props['addresses'])) {
+            foreach ($props['addresses'] as $address) {
+                $contact->addresses[] = Address::create($address);
+            }
         }
 
-        foreach ($props['notes'] as $note) {
-            $contact->notes[] = Note::create($note);
+        if (isset($props['notes'])) {
+            foreach ($props['notes'] as $note) {
+                $contact->notes[] = Note::create($note);
+            }
         }
-
+      
         $contact->company_name = parent::getValue($props, "company_name");
         $contact->home_phone = parent::getValue($props, "home_phone");
         $contact->work_phone = parent::getValue($props, "work_phone");
         $contact->cell_phone = parent::getValue($props, "cell_phone");
         $contact->fax = parent::getValue($props, "fax");
 
-        foreach ($props['custom_fields'] as $custom_field) {
-            $contact->custom_fields[] = CustomField::create($custom_field);
+        if (isset($props['custom_fields'])) {
+            foreach ($props['custom_fields'] as $custom_field) {
+                $contact->custom_fields[] = CustomField::create($custom_field);
+            }
         }
 
-        foreach ($props['lists'] as $contact_list) {
-            $contact->lists[] = ContactList::create($contact_list);
+        if (isset($props['lists'])) {
+          foreach ($props['lists'] as $contact_list) {
+              $contact->lists[] = ContactList::create($contact_list);
+          }
         }
 
         $contact->source_details = parent::getValue($props, "source_details");

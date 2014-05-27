@@ -129,6 +129,18 @@ class Contact extends Component
     public $lists = array();
 
     /**
+     * Date the contact was created
+     * @var string
+     */
+    public $created_date;
+
+    /**
+     * Date the contact was last modified
+     * @var string
+     */
+    public $modified_date;
+
+    /**
      * Contact source details
      * @var string
      */
@@ -170,7 +182,7 @@ class Contact extends Component
                 $contact->notes[] = Note::create($note);
             }
         }
-      
+
         $contact->company_name = parent::getValue($props, "company_name");
         $contact->home_phone = parent::getValue($props, "home_phone");
         $contact->work_phone = parent::getValue($props, "work_phone");
@@ -188,6 +200,9 @@ class Contact extends Component
               $contact->lists[] = ContactList::create($contact_list);
           }
         }
+
+        $contact->created_date = parent::getValue($props, "created_date");
+        $contact->modified_date = parent::getValue($props, "modified_date");
 
         $contact->source_details = parent::getValue($props, "source_details");
 

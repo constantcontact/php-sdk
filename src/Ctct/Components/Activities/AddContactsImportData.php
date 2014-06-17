@@ -44,8 +44,10 @@ class AddContactsImportData extends Component
 
     public function addAddress(Address $address)
     {
-        $address->state_code = $address->state;
-        unset($address->state);
+        if (isset($address->state)) {
+            $address->state_code = $address->state;
+            unset($address->state);
+        }
 
         foreach ($address as $key => $value) {
             if ($value == null) {

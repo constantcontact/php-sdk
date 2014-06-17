@@ -27,7 +27,7 @@ class Activity extends Component
     /**
      * Factory method to create an Activity object from an array
      * @param array $props - associative array of initial properties to set
-     * @return Campaign
+     * @return Activity
      */
     public static function create(array $props)
     {

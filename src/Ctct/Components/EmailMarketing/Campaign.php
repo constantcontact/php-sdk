@@ -3,9 +3,7 @@ namespace Ctct\Components\EmailMarketing;
 
 use Ctct\Components\Component;
 use Ctct\Util\Config;
-use Ctct\Components\EmailMarketing\MessageFooter;
 use Ctct\Components\Tracking\TrackingSummary;
-use Ctct\Components\EmailMarketing\ClickThroughDetails;
 use Ctct\Components\Contacts\ContactList;
 use Ctct\Exceptions\IllegalArgumentException;
 

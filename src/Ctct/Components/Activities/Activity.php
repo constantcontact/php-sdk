@@ -2,7 +2,6 @@
 namespace Ctct\Components\Activities;
 
 use Ctct\Components\Component;
-use Ctct\Components\Activities\ActivityError;
 
 /**
  * Represents a single Activity in Constant Contact

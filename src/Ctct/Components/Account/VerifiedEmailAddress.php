@@ -26,7 +26,7 @@ class VerifiedEmailAddress extends Component
     /**
      * Factory method to create an VerifiedEmail object from an array
      * @param array $props - associative array of initial properties to set
-     * @return Campaign
+     * @return VerifiedEmailAddress
      */
     public static function create(array $props)
     {

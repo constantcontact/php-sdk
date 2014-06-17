@@ -16,7 +16,7 @@ class EmailMarketingService extends BaseService
     /**
      * Create a new campaign
      * @param string $accessToken - Constant Contact OAuth2 access token
-     * @param Campaign $campaign - Campign to be created
+     * @param Campaign $campaign - Campaign to be created
      * @return Campaign
      */
     public function addCampaign($accessToken, Campaign $campaign)

@@ -1,15 +1,10 @@
 <?php
 namespace Ctct\Services;
 
-use Ctct\Util\RestClient;
 use Ctct\Util\Config;
-use Ctct\Components\EmailMarketing\Schedule;
-use Ctct\Components\EmailMarketing\TestSend;
 use Ctct\Components\Activities\Activity;
 use Ctct\Components\Activities\AddContacts;
-use Ctct\Components\Activities\RemoveFromLists;
 use Ctct\Components\Activities\ExportContacts;
-use Ctct\Components\Activities\ClearLists;
 
 /**
  * Performs all actions pertaining to scheduling Constant Contact Activities

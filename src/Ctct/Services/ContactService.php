@@ -2,7 +2,6 @@
 namespace Ctct\Services;
 
 use Ctct\Util\Config;
-use Ctct\Util\RestClient;
 use Ctct\Components\Contacts\Contact;
 use Ctct\Components\ResultSet;
 

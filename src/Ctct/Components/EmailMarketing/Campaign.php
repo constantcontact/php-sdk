@@ -276,6 +276,7 @@ class Campaign extends Component
     /**
      * Add a contact list to set of lists associated with this email
      * @param mixed $contact_list - Contact list id, or ContactList object
+     * @throws IllegalArgumentException
      */
     public function addList($contact_list)
     {

@@ -30,7 +30,6 @@ class AddContactsImportData extends Component
     /**
      * Factory method to create an Activity object from an array
      * @param array $props - associative array of initial properties to set
-     * @return Campaign
      */
     public function __construct(array $props = array())
     {

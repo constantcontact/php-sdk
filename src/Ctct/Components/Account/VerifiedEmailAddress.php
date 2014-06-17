@@ -14,6 +14,7 @@ class VerifiedEmailAddress extends Component
 {
     /**
      * Email Address associated with the account
+     * @var string
      */
     public $email_address;
 

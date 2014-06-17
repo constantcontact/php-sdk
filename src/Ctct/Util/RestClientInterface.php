@@ -40,7 +40,6 @@ interface RestClientInterface
      * Make an Http DELETE request
      * @param $url - request url
      * @param array $headers - array of all http headers to send
-     * @param $data - data to send with request
      * @return array - array of the response body, http info, and error (if one exists)
      */
     public function delete($url, array $headers = array());

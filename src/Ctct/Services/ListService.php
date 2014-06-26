@@ -62,6 +62,20 @@ class ListService extends BaseService
     }
 
     /**
+     * Delete a Contact List
+     * @param string $accessToken - Constant Contact OAuth2 access token
+     * @param $list_id - list id
+     * @return ContactList
+     */
+    public function deleteList($accessToken, $list_id)
+    {
+        $baseUrl = Config::get('endpoints.base_url') . sprintf(Config::get('endpoints.list'), $list_id);
+        $url = $this->buildUrl($baseUrl);
+        $response = parent::getRestClient()->delete($url, parent::getHeaders($accessToken));
+        return ($response->info['http_code'] == 204) ? true : false;
+    }
+
+    /**
      * Get an individual contact list
      * @param $accessToken - Constant Contact OAuth2 access token
      * @param $list_id - list id

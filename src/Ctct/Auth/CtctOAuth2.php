@@ -86,7 +86,6 @@ class CtctOAuth2
      */
     public function getTokenInfo($accessToken)
     {
-        $restClient = new RestClient();
         $url = Config::get('auth.base_url') . Config::get('auth.token_info');
         $response = $this->restClient->post($url, array(), "access_token=" . $accessToken);
         return json_decode($response->body, true);

@@ -1,5 +1,4 @@
 <?php
-
 namespace Ctct\Components\Tracking;
 
 /**

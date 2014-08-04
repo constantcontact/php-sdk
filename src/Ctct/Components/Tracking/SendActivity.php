@@ -1,5 +1,4 @@
 <?php
-
 namespace Ctct\Components\Tracking;
 
 use Ctct\Components\Component;
@@ -22,7 +21,7 @@ class SendActivity extends Component
     /**
      * Factory method to create a SentActivity object from an array
      * @param array $props - array of properties to create object from
-     * @return SentActivity
+     * @return SendActivity
      */
     public static function create(array $props)
     {

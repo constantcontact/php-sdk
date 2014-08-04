@@ -1,7 +1,6 @@
 <?php
 namespace Ctct\Services;
 
-use Ctct\Util\RestClient;
 use Ctct\Util\Config;
 use Ctct\Components\EmailMarketing\Campaign;
 use Ctct\Components\ResultSet;
@@ -17,7 +16,7 @@ class EmailMarketingService extends BaseService
     /**
      * Create a new campaign
      * @param string $accessToken - Constant Contact OAuth2 access token
-     * @param Campaign $campaign - Campign to be created
+     * @param Campaign $campaign - Campaign to be created
      * @return Campaign
      */
     public function addCampaign($accessToken, Campaign $campaign)

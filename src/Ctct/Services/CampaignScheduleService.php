@@ -1,7 +1,6 @@
 <?php
 namespace Ctct\Services;
 
-use Ctct\Util\RestClient;
 use Ctct\Util\Config;
 use Ctct\Components\EmailMarketing\Schedule;
 use Ctct\Components\EmailMarketing\TestSend;

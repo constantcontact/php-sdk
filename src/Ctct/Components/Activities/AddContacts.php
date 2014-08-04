@@ -3,8 +3,6 @@ namespace Ctct\Components\Activities;
 
 use Ctct\Components\Component;
 use Ctct\Util\Config;
-use Ctct\Components\Activities\ActivityError;
-use Ctct\Components\Activities\AddContactsImportData;
 use Ctct\Exceptions\IllegalArgumentException;
 
 /**

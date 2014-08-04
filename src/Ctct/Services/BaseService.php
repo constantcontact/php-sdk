@@ -14,7 +14,7 @@ abstract class BaseService
 {
     /**
      * RestClient Implementation to use for HTTP requests
-     * @var $restClient - RestClient
+     * @var RestClientInterface
      */
     protected $restClient;
 

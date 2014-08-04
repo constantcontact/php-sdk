@@ -1,10 +1,8 @@
 <?php
 namespace Ctct\Services;
 
-use Ctct\Util\RestClient;
 use Ctct\Util\Config;
 use Ctct\Components\Tracking\BounceActivity;
-use Ctct\Components\Tracking\TrackingActivity;
 use Ctct\Components\Tracking\ClickActivity;
 use Ctct\Components\Tracking\ForwardActivity;
 use Ctct\Components\Tracking\OpenActivity;

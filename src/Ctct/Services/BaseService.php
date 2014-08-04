@@ -7,26 +7,27 @@ use Ctct\Util\RestClientInterface;
 /**
  * Super class for all services
  *
- * @package     Services
- * @author         Constant Contact
+ * @package Services
+ * @author Constant Contact
  */
 abstract class BaseService
 {
     /**
      * RestClient Implementation to use for HTTP requests
-     * @var $restClient - RestClient 
+     * @var RestClientInterface
      */
-    public $restClient;
+    protected $restClient;
 
     /**
      * ApiKey for the application
      * @var string
      */
     protected $apiKey;
-    
+
     /**
      * Constructor with the option to to supply an alternative rest client to be used
-     * @param RestClientInterface - RestClientInterface implementation to be used in the service
+     * @param string $apiKey - Constant Contact API Key
+     * @param RestClientInterface $restClient - RestClientInterface implementation to be used in the service
      */
     public function __construct($apiKey, $restClient = null)
     {
@@ -40,10 +41,13 @@ abstract class BaseService
     }
 
     /**
-     * Build a url from the base url and query parameters array
+     * Build a URL from a base url and optional array of query parameters to append to the url. URL query parameters
+     * should not be URL encoded and this method will handle that.
+     * @param $url
+     * @param array $queryParams
      * @return string
      */
-    public function buildUrl($url, $queryParams = null)
+    public function buildUrl($url, array $queryParams = null)
     {
         $keyArr = array('api_key' => $this->apiKey);
         if ($queryParams) {
@@ -51,10 +55,10 @@ abstract class BaseService
         } else {
             $params = $keyArr;
         }
-        
-        return $url . '?' . http_build_query($params);
+
+        return $url . '?' . http_build_query($params, '', '&');
     }
-    
+
     /**
      * Get the rest client being used by the service
      * @return RestClientInterface - RestClientInterface implementation being used
@@ -68,8 +72,8 @@ abstract class BaseService
     {
         $this->restClient = $restClient;
     }
-    
-    
+
+
     /**
      * Helper function to return required headers for making an http request with constant contact
      * @param $accessToken - OAuth2 access token to be placed into the Authorization header

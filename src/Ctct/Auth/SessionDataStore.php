@@ -1,8 +1,6 @@
 <?php
 namespace Ctct\Auth;
 
-use Ctct\Auth\CtctDataStore;
-
 /**
  * Example implementation of the CTCTDataStore interface that uses session for access token storage
  *
@@ -14,13 +12,13 @@ class SessionDataStore implements CtctDataStore
     public function __construct()
     {
         session_start();
-        
+
         if (!isset($_SESSION['datastore'])) {
             $_SESSION['datastore'] = array();
         }
-        
+
     }
-    
+
     /**
      * Add a new user to the data store
      * @params string $username - Constant Contact username
@@ -30,7 +28,7 @@ class SessionDataStore implements CtctDataStore
     {
         $_SESSION['datastore'][$username] = $params;
     }
-    
+
     /**
      * Get an existing user from the data store
      * @params string $username - Constant Contact username
@@ -43,7 +41,7 @@ class SessionDataStore implements CtctDataStore
             return false;
         }
     }
-    
+
     /**
      * Update an existing user in the data store
      * @params string $username - Constant Contact username
@@ -55,12 +53,12 @@ class SessionDataStore implements CtctDataStore
             $_SESSION['datastore'][$username] = $params;
         }
     }
-    
+
     /**
      * Delete an existing user from the data store
      * @params string $username - Constant Contact username
      */
-    public function deleteUser ($username)
+    public function deleteUser($username)
     {
         unset($_SESSION['datastore'][$username]);
     }

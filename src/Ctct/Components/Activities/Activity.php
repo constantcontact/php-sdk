@@ -2,8 +2,7 @@
 namespace Ctct\Components\Activities;
 
 use Ctct\Components\Component;
-use Ctct\Components\Activities\ActivityError;
- 
+
 /**
  * Represents a single Activity in Constant Contact
  *
@@ -28,7 +27,7 @@ class Activity extends Component
     /**
      * Factory method to create an Activity object from an array
      * @param array $props - associative array of initial properties to set
-     * @return Campaign
+     * @return Activity
      */
     public static function create(array $props)
     {
@@ -72,7 +71,7 @@ class Activity extends Component
 
     /**
      * Create json used for a POST/PUT request, also handles removing attributes that will cause errors if sent
-     * @return string 
+     * @return string
      */
     public function toJson()
     {

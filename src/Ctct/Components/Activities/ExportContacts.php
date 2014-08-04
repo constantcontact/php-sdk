@@ -2,7 +2,7 @@
 namespace Ctct\Components\Activities;
 
 use Ctct\Components\Component;
- 
+
 /**
  * Represents an Export Contacts Activity in Constant Contact
  *
@@ -32,8 +32,8 @@ class ExportContacts extends Component
     }
 
     /**
-     * Create json used for a POST/PUT request, also handles removing attributes that will cause errors if sent 
-     * @return string 
+     * Create json used for a POST/PUT request, also handles removing attributes that will cause errors if sent
+     * @return string
      */
     public function toJson()
     {

@@ -1,7 +1,6 @@
 <?php
 namespace Ctct\Services;
 
-use Ctct\Util\RestClient;
 use Ctct\Util\Config;
 use Ctct\Components\EmailMarketing\Campaign;
 use Ctct\Components\ResultSet;
@@ -9,15 +8,15 @@ use Ctct\Components\ResultSet;
 /**
  * Performs all actions pertaining to Constant Contact Campaigns
  *
- * @package        Services
- * @author         Constant Contact
+ * @package Services
+ * @author Constant Contact
  */
 class EmailMarketingService extends BaseService
 {
     /**
      * Create a new campaign
      * @param string $accessToken - Constant Contact OAuth2 access token
-     * @param Campaign $campaign - Campign to be created
+     * @param Campaign $campaign - Campaign to be created
      * @return Campaign
      */
     public function addCampaign($accessToken, Campaign $campaign)
@@ -27,12 +26,12 @@ class EmailMarketingService extends BaseService
         $response = parent::getRestClient()->post($url, parent::getHeaders($accessToken), $campaign->toJson());
         return Campaign::create(json_decode($response->body, true));
     }
-    
+
     /**
      * Get a set of campaigns
      * @param string $accessToken - Constant Contact OAuth2 access token
      * @param array $params - query params to be appended to the request
-     * @return ResultSet 
+     * @return ResultSet
      */
     public function getCampaigns($accessToken, Array $params = null)
     {
@@ -60,7 +59,7 @@ class EmailMarketingService extends BaseService
         $response = parent::getRestClient()->get($url, parent::getHeaders($accessToken));
         return Campaign::create(json_decode($response->body, true));
     }
-    
+
     /**
      * Delete an email campaign
      * @param string $accessToken - Constant Contact OAuth2 access token
@@ -74,7 +73,7 @@ class EmailMarketingService extends BaseService
         $response = parent::getRestClient()->delete($url, parent::getHeaders($accessToken));
         return ($response->info['http_code'] == 204) ? true : false;
     }
-    
+
     /**
      * Update a specific email campaign
      * @param string $accessToken - Constant Contact OAuth2 access token

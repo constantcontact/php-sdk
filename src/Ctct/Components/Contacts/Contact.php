@@ -1,8 +1,7 @@
 <?php
 namespace Ctct\Components\Contacts;
- 
+
 use Ctct\Components\Component;
-use Ctct\Util\Config;
 
 /**
  * Represents a single Contact in Constant Contact
@@ -129,6 +128,18 @@ class Contact extends Component
     public $lists = array();
 
     /**
+     * Date the contact was created
+     * @var string
+     */
+    public $created_date;
+
+    /**
+     * Date the contact was last modified
+     * @var string
+     */
+    public $modified_date;
+
+    /**
      * Contact source details
      * @var string
      */
@@ -149,36 +160,49 @@ class Contact extends Component
         $contact->last_name = parent::getValue($props, "last_name");
         $contact->confirmed = parent::getValue($props, "confirmed");
         $contact->source = parent::getValue($props, "source");
-        
-        foreach ($props['email_addresses'] as $email_address) {
-            $contact->email_addresses[] = EmailAddress::create($email_address);
+
+        if (isset($props['email_addresses'])) {
+            foreach ($props['email_addresses'] as $email_address) {
+                $contact->email_addresses[] = EmailAddress::create($email_address);
+            }
         }
-        
+
         $contact->prefix_name = parent::getValue($props, "prefix_name");
         $contact->job_title = parent::getValue($props, "job_title");
 
-        foreach ($props['addresses'] as $address) {
-            $contact->addresses[] = Address::create($address);
+        if (isset($props['addresses'])) {
+            foreach ($props['addresses'] as $address) {
+                $contact->addresses[] = Address::create($address);
+            }
         }
-        
-        foreach ($props['notes'] as $note) {
-            $contact->notes[] = Note::create($note);
+
+        if (isset($props['notes'])) {
+            foreach ($props['notes'] as $note) {
+                $contact->notes[] = Note::create($note);
+            }
         }
-        
+
         $contact->company_name = parent::getValue($props, "company_name");
         $contact->home_phone = parent::getValue($props, "home_phone");
         $contact->work_phone = parent::getValue($props, "work_phone");
         $contact->cell_phone = parent::getValue($props, "cell_phone");
         $contact->fax = parent::getValue($props, "fax");
-        
-        foreach ($props['custom_fields'] as $custom_field) {
-            $contact->custom_fields[] = CustomField::create($custom_field);
+
+        if (isset($props['custom_fields'])) {
+            foreach ($props['custom_fields'] as $custom_field) {
+                $contact->custom_fields[] = CustomField::create($custom_field);
+            }
         }
-        
-        foreach ($props['lists'] as $contact_list) {
-            $contact->lists[] = ContactList::create($contact_list);
+
+        if (isset($props['lists'])) {
+          foreach ($props['lists'] as $contact_list) {
+              $contact->lists[] = ContactList::create($contact_list);
+          }
         }
-        
+
+        $contact->created_date = parent::getValue($props, "created_date");
+        $contact->modified_date = parent::getValue($props, "modified_date");
+
         $contact->source_details = parent::getValue($props, "source_details");
 
         return $contact;
@@ -196,17 +220,17 @@ class Contact extends Component
 
         $this->lists[] = $contactList;
     }
-    
+
     /**
      * Add an EmailAddress
      * @param mixed $emailAddress - EmailAddress object or email address
      */
     public function addEmail($emailAddress)
     {
-        if (! $emailAddress instanceof EmailAddress) {
+        if (!$emailAddress instanceof EmailAddress) {
             $emailAddress = new EmailAddress($emailAddress);
         }
-        
+
         $this->email_addresses[] = $emailAddress;
     }
 
@@ -218,7 +242,7 @@ class Contact extends Component
     {
         $this->custom_fields[] = $customField;
     }
-    
+
     /**
      * Add an address
      * @param Address $address - Address to add
@@ -227,7 +251,7 @@ class Contact extends Component
     {
         $this->addresses[] = $address;
     }
-    
+
     public function toJson()
     {
         unset($this->last_update_date);

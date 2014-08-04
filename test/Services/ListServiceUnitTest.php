@@ -25,7 +25,7 @@ class ListServiceUnitTest extends PHPUnit_Framework_TestCase
             ->will($this->returnValue($curlResponse));
 
         $response = $this->listService->getLists('access_token');
-              
+
         $this->assertInstanceOf("Ctct\Components\Contacts\ContactList", $response[0]);
         $this->assertEquals(1, $response[0]->id);
         $this->assertEquals("General Interest", $response[0]->name);
@@ -37,7 +37,29 @@ class ListServiceUnitTest extends PHPUnit_Framework_TestCase
         $this->assertEquals("HIDDEN", $response[1]->status);
         $this->assertEquals(18, $response[1]->contact_count);
     }
-       
+
+    public function testGetListsModifiedSince()
+    {
+        $curlResponse = CurlResponse::create(JsonLoader::getListsJson(), array('http_code' => 200));
+        $this->restClient->expects($this->once())
+            ->method('get')
+            ->with()
+            ->will($this->returnValue($curlResponse));
+
+        $response = $this->listService->getLists('access_token', array('modified_since' => '2013-01-12T20:04:59.436Z'));
+
+        $this->assertInstanceOf("Ctct\Components\Contacts\ContactList", $response[0]);
+        $this->assertEquals(1, $response[0]->id);
+        $this->assertEquals("General Interest", $response[0]->name);
+        $this->assertEquals("ACTIVE", $response[0]->status);
+        $this->assertEquals(17, $response[0]->contact_count);
+
+        $this->assertEquals(3, $response[1]->id);
+        $this->assertEquals("mod_Test List 1", $response[1]->name);
+        $this->assertEquals("HIDDEN", $response[1]->status);
+        $this->assertEquals(18, $response[1]->contact_count);
+    }
+
     public function testGetList()
     {
         $curlResponse = CurlResponse::create(JsonLoader::getListJson(), array('http_code' => 200));
@@ -69,7 +91,7 @@ class ListServiceUnitTest extends PHPUnit_Framework_TestCase
         $this->assertEquals("HIDDEN", $list->status);
         $this->assertEquals(19, $list->contact_count);
     }
-   
+
     public function testUpdateList()
     {
         $curlResponse = CurlResponse::create(JsonLoader::getListJson(), array('http_code' => 200));
@@ -85,7 +107,7 @@ class ListServiceUnitTest extends PHPUnit_Framework_TestCase
         $this->assertEquals("HIDDEN", $list->status);
         $this->assertEquals(19, $list->contact_count);
     }
-   
+
     public function testGetContactsFromList()
     {
         $curlResponse = CurlResponse::create(JsonLoader::getContactsJson(), array('http_code' => 200));

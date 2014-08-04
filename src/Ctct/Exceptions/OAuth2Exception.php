@@ -5,7 +5,7 @@ use Exception;
 
 /**
  * Exception thrown if an error occured during OAuth2 authentication process
- * 
+ *
  * @package     exceptions
  * @author         djellesma
  */

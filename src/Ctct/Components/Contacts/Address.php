@@ -55,6 +55,12 @@ class Address extends Component
      */
     public $state_code;
 
+	/**
+	 * The state for this address (non-US/Canada) 
+	 *
+	 */
+	public $state;
+	
     /**
      * The country code for this address
      * @var string
@@ -88,6 +94,7 @@ class Address extends Component
         $address->city = parent::getValue($props, "city");
         $address->address_type = parent::getValue($props, "address_type");
         $address->state_code = parent::getValue($props, "state_code");
+		$address->state = parent::getValue($props, "state");
         $address->country_code = parent::getValue($props, "country_code");
         $address->postal_code = parent::getValue($props, "postal_code");
         $address->sub_postal_code = parent::getValue($props, "sub_postal_code");

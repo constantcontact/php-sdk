@@ -8,7 +8,7 @@
 	<title>File Ctct/Services/CampaignTrackingService.php | Appconnect PHP SDK</title>
 
 	<script type="text/javascript" src="resources/combined.js?554516056"></script>
-	<script type="text/javascript" src="elementlist.js?246402171"></script>
+	<script type="text/javascript" src="elementlist.js?1423846706"></script>
 	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?3505392360" />
 
 </head>
@@ -116,7 +116,7 @@
 </span><span id="8" class="l"><a class="l" href="#8">  8: </a><span class="php-keyword1">use</span> Ctct\Components\Tracking\ClickActivity;
 </span><span id="9" class="l"><a class="l" href="#9">  9: </a><span class="php-keyword1">use</span> Ctct\Components\Tracking\ForwardActivity;
 </span><span id="10" class="l"><a class="l" href="#10"> 10: </a><span class="php-keyword1">use</span> Ctct\Components\Tracking\OpenActivity;
-</span><span id="11" class="l"><a class="l" href="#11"> 11: </a><span class="php-keyword1">use</span> Ctct\Components\Tracking\OptOutActivity;
+</span><span id="11" class="l"><a class="l" href="#11"> 11: </a><span class="php-keyword1">use</span> Ctct\Components\Tracking\UnsubscribeActivity;
 </span><span id="12" class="l"><a class="l" href="#12"> 12: </a><span class="php-keyword1">use</span> Ctct\Components\Tracking\SendActivity;
 </span><span id="13" class="l"><a class="l" href="#13"> 13: </a><span class="php-keyword1">use</span> Ctct\Components\Tracking\TrackingSummary;
 </span><span id="14" class="l"><a class="l" href="#14"> 14: </a><span class="php-keyword1">use</span> Ctct\Components\ResultSet;
@@ -124,8 +124,8 @@
 </span><span id="16" class="l"><a class="l" href="#16"> 16: </a><span class="php-comment">/**
 </span></span><span id="17" class="l"><a class="l" href="#17"> 17: </a><span class="php-comment"> * Performs all actions pertaining to Constant Contact Campaign Tracking
 </span></span><span id="18" class="l"><a class="l" href="#18"> 18: </a><span class="php-comment"> *
-</span></span><span id="19" class="l"><a class="l" href="#19"> 19: </a><span class="php-comment"> * @package     Services
-</span></span><span id="20" class="l"><a class="l" href="#20"> 20: </a><span class="php-comment"> * @author         Constant Contact
+</span></span><span id="19" class="l"><a class="l" href="#19"> 19: </a><span class="php-comment"> * @package Services
+</span></span><span id="20" class="l"><a class="l" href="#20"> 20: </a><span class="php-comment"> * @author Constant Contact
 </span></span><span id="21" class="l"><a class="l" href="#21"> 21: </a><span class="php-comment"> */</span>
 </span><span id="22" class="l"><a class="l" href="#22"> 22: </a><span class="php-keyword1">class</span> <a id="CampaignTrackingService" href="#CampaignTrackingService">CampaignTrackingService</a> <span class="php-keyword1">extends</span> BaseService
 </span><span id="23" class="l"><a class="l" href="#23"> 23: </a>{
@@ -255,7 +255,7 @@
 </span></span><span id="147" class="l"><a class="l" href="#147">147: </a><span class="php-comment">     * @param string $accessToken - Constant Contact OAuth2 access token
 </span></span><span id="148" class="l"><a class="l" href="#148">148: </a><span class="php-comment">     * @param string $campaign_id - Campaign id
 </span></span><span id="149" class="l"><a class="l" href="#149">149: </a><span class="php-comment">     * @param array $param - query params to be appended to request
-</span></span><span id="150" class="l"><a class="l" href="#150">150: </a><span class="php-comment">     * @return ResultSet - Containing a results array of {@link OptOutActivity}
+</span></span><span id="150" class="l"><a class="l" href="#150">150: </a><span class="php-comment">     * @return ResultSet - Containing a results array of {@link UnsubscribeActivity}
 </span></span><span id="151" class="l"><a class="l" href="#151">151: </a><span class="php-comment">     */</span>
 </span><span id="152" class="l"><a class="l" href="#152">152: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> <a id="_getUnsubscribes" href="#_getUnsubscribes">getUnsubscribes</a>(<span class="php-var">$accessToken</span>, <span class="php-var">$campaign_id</span>, <span class="php-keyword1">Array</span> <span class="php-var">$params</span> = <span class="php-keyword1">null</span>)
 </span><span id="153" class="l"><a class="l" href="#153">153: </a>    {
@@ -266,12 +266,12 @@
 </span><span id="158" class="l"><a class="l" href="#158">158: </a>
 </span><span id="159" class="l"><a class="l" href="#159">159: </a>        <span class="php-var">$response</span> = parent::getRestClient()-&gt;get(<span class="php-var">$url</span>, parent::getHeaders(<span class="php-var">$accessToken</span>));
 </span><span id="160" class="l"><a class="l" href="#160">160: </a>        <span class="php-var">$body</span> = <span class="php-keyword2">json_decode</span>(<span class="php-var">$response</span>-&gt;body, <span class="php-keyword1">true</span>);
-</span><span id="161" class="l"><a class="l" href="#161">161: </a>        <span class="php-var">$opt_outs</span> = <span class="php-keyword1">array</span>();
+</span><span id="161" class="l"><a class="l" href="#161">161: </a>        <span class="php-var">$optOuts</span> = <span class="php-keyword1">array</span>();
 </span><span id="162" class="l"><a class="l" href="#162">162: </a>        <span class="php-keyword1">foreach</span> (<span class="php-var">$body</span>[<span class="php-quote">'results'</span>] <span class="php-keyword1">as</span> <span class="php-var">$opt_out_activity</span>) {
-</span><span id="163" class="l"><a class="l" href="#163">163: </a>            <span class="php-var">$opt_outs</span>[] = OptOutActivity::create(<span class="php-var">$opt_out_activity</span>);
+</span><span id="163" class="l"><a class="l" href="#163">163: </a>            <span class="php-var">$optOuts</span>[] = UnsubscribeActivity::create(<span class="php-var">$opt_out_activity</span>);
 </span><span id="164" class="l"><a class="l" href="#164">164: </a>        }
 </span><span id="165" class="l"><a class="l" href="#165">165: </a>
-</span><span id="166" class="l"><a class="l" href="#166">166: </a>        <span class="php-keyword1">return</span> <span class="php-keyword1">new</span> ResultSet(<span class="php-var">$opt_outs</span>, <span class="php-var">$body</span>[<span class="php-quote">'meta'</span>]);
+</span><span id="166" class="l"><a class="l" href="#166">166: </a>        <span class="php-keyword1">return</span> <span class="php-keyword1">new</span> ResultSet(<span class="php-var">$optOuts</span>, <span class="php-var">$body</span>[<span class="php-quote">'meta'</span>]);
 </span><span id="167" class="l"><a class="l" href="#167">167: </a>    }
 </span><span id="168" class="l"><a class="l" href="#168">168: </a>
 </span><span id="169" class="l"><a class="l" href="#169">169: </a>    <span class="php-comment">/**
@@ -282,13 +282,14 @@
 </span></span><span id="174" class="l"><a class="l" href="#174">174: </a><span class="php-comment">     */</span>
 </span><span id="175" class="l"><a class="l" href="#175">175: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> <a id="_getSummary" href="#_getSummary">getSummary</a>(<span class="php-var">$accessToken</span>, <span class="php-var">$campaign_id</span>)
 </span><span id="176" class="l"><a class="l" href="#176">176: </a>    {
-</span><span id="177" class="l"><a class="l" href="#177">177: </a>        <span class="php-var">$url</span> = Config::get(<span class="php-quote">'endpoints.base_url'</span>) .
+</span><span id="177" class="l"><a class="l" href="#177">177: </a>        <span class="php-var">$baseUrl</span> = Config::get(<span class="php-quote">'endpoints.base_url'</span>) .
 </span><span id="178" class="l"><a class="l" href="#178">178: </a>            <span class="php-keyword2">sprintf</span>(Config::get(<span class="php-quote">'endpoints.campaign_tracking_summary'</span>), <span class="php-var">$campaign_id</span>);
-</span><span id="179" class="l"><a class="l" href="#179">179: </a>        <span class="php-var">$response</span> = parent::getRestClient()-&gt;get(<span class="php-var">$url</span>, parent::getHeaders(<span class="php-var">$accessToken</span>));
-</span><span id="180" class="l"><a class="l" href="#180">180: </a>        <span class="php-keyword1">return</span> TrackingSummary::create(<span class="php-keyword2">json_decode</span>(<span class="php-var">$response</span>-&gt;body, <span class="php-keyword1">true</span>));
-</span><span id="181" class="l"><a class="l" href="#181">181: </a>    }
-</span><span id="182" class="l"><a class="l" href="#182">182: </a>}
-</span><span id="183" class="l"><a class="l" href="#183">183: </a></span></code></pre>
+</span><span id="179" class="l"><a class="l" href="#179">179: </a>        <span class="php-var">$url</span> = <span class="php-var">$this</span>-&gt;buildUrl(<span class="php-var">$baseUrl</span>);
+</span><span id="180" class="l"><a class="l" href="#180">180: </a>        <span class="php-var">$response</span> = parent::getRestClient()-&gt;get(<span class="php-var">$url</span>, parent::getHeaders(<span class="php-var">$accessToken</span>));
+</span><span id="181" class="l"><a class="l" href="#181">181: </a>        <span class="php-keyword1">return</span> TrackingSummary::create(<span class="php-keyword2">json_decode</span>(<span class="php-var">$response</span>-&gt;body, <span class="php-keyword1">true</span>));
+</span><span id="182" class="l"><a class="l" href="#182">182: </a>    }
+</span><span id="183" class="l"><a class="l" href="#183">183: </a>}
+</span><span id="184" class="l"><a class="l" href="#184">184: </a></span></code></pre>
 
 	<div id="footer">
 		Appconnect PHP SDK API documentation generated by <a href="http://apigen.org">ApiGen 2.8.0</a>

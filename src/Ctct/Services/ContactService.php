@@ -2,15 +2,14 @@
 namespace Ctct\Services;
 
 use Ctct\Util\Config;
-use Ctct\Util\RestClient;
 use Ctct\Components\Contacts\Contact;
 use Ctct\Components\ResultSet;
 
 /**
  * Performs all actions pertaining to Constant Contact Contacts
  *
- * @package     Services
- * @author         Constant Contact
+ * @package Services
+ * @author ContactContact
  */
 class ContactService extends BaseService
 {
@@ -21,7 +20,7 @@ class ContactService extends BaseService
      * @param array $params - array of query parameters to be appended to the url
      * @return ResultSet
      */
-    public function getContacts($accessToken, Array $params = null)
+    public function getContacts($accessToken, array $params = array())
     {
         $baseUrl = Config::get('endpoints.base_url') . Config::get('endpoints.contacts');
         $url = $this->buildUrl($baseUrl, $params);
@@ -34,100 +33,90 @@ class ContactService extends BaseService
         }
         return new ResultSet($contacts, $body['meta']);
     }
-    
+
     /**
      * Get contact details for a specific contact
      * @param string $accessToken - Constant Contact OAuth2 access token
-     * @param int $contact_id - Unique contact id
+     * @param int $contactId - Unique contact id
      * @return Contact
      */
-    public function getContact($accessToken, $contact_id)
+    public function getContact($accessToken, $contactId)
     {
-        $baseUrl = Config::get('endpoints.base_url') . sprintf(Config::get('endpoints.contact'), $contact_id);
+        $baseUrl = Config::get('endpoints.base_url') . sprintf(Config::get('endpoints.contact'), $contactId);
         $url = $this->buildUrl($baseUrl);
         $response = parent::getRestClient()->get($url, parent::getHeaders($accessToken));
         return Contact::create(json_decode($response->body, true));
     }
-    
+
     /**
      * Add a new contact to the Constant Contact account
      * @param string $accessToken - Constant Contact OAuth2 access token
      * @param Contact $contact - Contact to add
-     * @param boolean $actionByVisitor - is the action being taken by the visitor
+     * @param array $params - query params to be appended to the request
      * @return Contact
      */
-    public function addContact($accessToken, Contact $contact, $actionByVisitor = false)
+    public function addContact($accessToken, Contact $contact, array $params = array())
     {
         $baseUrl = Config::get('endpoints.base_url') . Config::get('endpoints.contacts');
-        $params = array();
-
-        if ($actionByVisitor == true) {
-            $params['action_by'] = "ACTION_BY_VISITOR";
-        }
-        
         $url = $this->buildUrl($baseUrl, $params);
         $response = parent::getRestClient()->post($url, parent::getHeaders($accessToken), $contact->toJson());
         return Contact::create(json_decode($response->body, true));
     }
-    
+
     /**
      * Delete contact details for a specific contact
      * @param string $accessToken - Constant Contact OAuth2 access token
-     * @param int $contact_id - Unique contact id
+     * @param int $contactId - Unique contact id
      * @return boolean
      */
-    public function deleteContact($accessToken, $contact_id)
+    public function deleteContact($accessToken, $contactId)
     {
-        $baseUrl = Config::get('endpoints.base_url') . sprintf(Config::get('endpoints.contact'), $contact_id);
+        $baseUrl = Config::get('endpoints.base_url') . sprintf(Config::get('endpoints.contact'), $contactId);
         $url = $this->buildUrl($baseUrl);
         $response = parent::getRestClient()->delete($url, parent::getHeaders($accessToken));
         return ($response->info['http_code'] == 204) ? true : false;
     }
-    
+
     /**
      * Delete a contact from all contact lists
      * @param string $accessToken - Constant Contact OAuth2 access token
-     * @param int $contact_id - Contact id to be removed from lists
+     * @param int $contactId - Contact id to be removed from lists
      * @return boolean
      */
-    public function deleteContactFromLists($accessToken, $contact_id)
+    public function deleteContactFromLists($accessToken, $contactId)
     {
-        $baseUrl = Config::get('endpoints.base_url') . sprintf(Config::get('endpoints.contact_lists'), $contact_id);
+        $baseUrl = Config::get('endpoints.base_url') . sprintf(Config::get('endpoints.contact_lists'), $contactId);
         $url = $this->buildUrl($baseUrl);
         $response = parent::getRestClient()->delete($url, parent::getHeaders($accessToken));
         return ($response->info['http_code'] == 204) ? true : false;
     }
-    
+
     /**
      * Delete a contact from a specific contact list
      * @param string $accessToken - Constant Contact OAuth2 access token
-     * @param int $contact_id - Contact id to be removed
-     * @param int $list_id - ContactList to remove the contact from
+     * @param int $contactId - Contact id to be removed
+     * @param int $listId - ContactList to remove the contact from
      * @return boolean
      */
-    public function deleteContactFromList($accessToken, $contact_id, $list_id)
+    public function deleteContactFromList($accessToken, $contactId, $listId)
     {
         $baseUrl = Config::get('endpoints.base_url') .
-            sprintf(Config::get('endpoints.contact_list'), $contact_id, $list_id);
+            sprintf(Config::get('endpoints.contact_list'), $contactId, $listId);
         $url = $this->buildUrl($baseUrl);
         $response = parent::getRestClient()->delete($url, parent::getHeaders($accessToken));
         return ($response->info['http_code'] == 204) ? true : false;
     }
-    
+
     /**
      * Update contact details for a specific contact
      * @param string $accessToken - Constant Contact OAuth2 access token
      * @param Contact $contact - Contact to be updated
-     * @param boolean $actionByVisitor - is the action being taken by the visitor 
+     * @param array $params - query params to be appended to the request
      * @return Contact
      */
-    public function updateContact($accessToken, Contact $contact, $actionByVisitor = false)
+    public function updateContact($accessToken, Contact $contact, array $params = array())
     {
         $baseUrl = Config::get('endpoints.base_url') . sprintf(Config::get('endpoints.contact'), $contact->id);
-        $params = array();
-        if ($actionByVisitor == true) {
-            $params['action_by'] = "ACTION_BY_VISITOR";
-        }
         $url = $this->buildUrl($baseUrl, $params);
         $response = parent::getRestClient()->put($url, parent::getHeaders($accessToken), $contact->toJson());
         return Contact::create(json_decode($response->body, true));

@@ -2,7 +2,7 @@
 
 class JsonLoader
 {
-    
+
     const CONTACTS_FOLDER = "/Contacts";
     const LISTS_FOLDER = "/Lists";
     const CAMPAIGNS_FOLDER = "/Campaigns";
@@ -10,6 +10,16 @@ class JsonLoader
     const ACTIVITES_FOLDER = "/Activities";
     const ACCCOUNT_FOLDER = "/Account";
     const AUTH_FOLDER = "/Auth";
+
+    public static function getContactsTextContents()
+    {
+        return file_get_contents(__DIR__. self::ACTIVITES_FOLDER . "/add_contacts.txt");
+    }
+
+    public static function getRemoveContactsTextContents()
+    {
+        return file_get_contents(__DIR__. self::ACTIVITES_FOLDER . "/remove_contacts.txt");
+    }
 
     public static function getTokenInfoJson()
     {
@@ -25,37 +35,47 @@ class JsonLoader
     {
         return file_get_contents(__DIR__ . self::ACCCOUNT_FOLDER . "/get_verified_email_addresses.json");
     }
-    
+
     public static function getContactJson()
     {
         return file_get_contents(__DIR__ . self::CONTACTS_FOLDER . "/get_contact.json");
     }
-    
+
     public static function getContactsJson()
     {
         return file_get_contents(__DIR__ . self::CONTACTS_FOLDER . "/get_contacts.json");
+    }
+
+    public static function getContactsModifiedSinceJson()
+    {
+        return file_get_contents(__DIR__ . self::CONTACTS_FOLDER . "/get_contacts_modified_since.json");
     }
 
     public static function getContactsNoNextJson()
     {
         return file_get_contents(__DIR__ . self::CONTACTS_FOLDER . "/get_contacts_no_next.json");
     }
-    
+
     public static function getListsJson()
     {
         return file_get_contents(__DIR__ . self::LISTS_FOLDER . "/get_lists.json");
     }
-    
+
     public static function getListJson()
     {
         return file_get_contents(__DIR__ . self::LISTS_FOLDER . "/get_list.json");
     }
-    
+
     public static function getCampaignJson()
     {
         return file_get_contents(__DIR__ . self::CAMPAIGNS_FOLDER . "/get_campaign.json");
     }
-    
+
+    public static function getCampaignModifiedSinceJson($page = 1)
+    {
+        return file_get_contents(__DIR__ . self::CAMPAIGNS_FOLDER . "/get_campaigns_modified_since{$page}.json");
+    }
+
     public static function getCampaignsJson()
     {
         return file_get_contents(__DIR__ . self::CAMPAIGNS_FOLDER . "/get_campaigns.json");

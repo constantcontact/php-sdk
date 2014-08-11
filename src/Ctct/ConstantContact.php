@@ -16,6 +16,7 @@ use Ctct\Components\Contacts\ContactList;
 use Ctct\Components\EmailMarketing\Campaign;
 use Ctct\Components\EmailMarketing\Schedule;
 use Ctct\Components\EmailMarketing\TestSend;
+use Ctct\Components\ResultSet;
 use Ctct\Components\Tracking\TrackingSummary;
 use Ctct\Components\Tracking\TrackingActivity;
 use Ctct\Components\Activities\AddContacts;
@@ -131,7 +132,7 @@ class ConstantContact
      * Get contacts with a specified email eaddress
      * @param string $accessToken - Constant Contact OAuth2 access token
      * @param string $email - contact email address to search for
-     * @return array
+     * @return ResultSet
      */
     public function getContactByEmail($accessToken, $email)
     {
@@ -254,7 +255,7 @@ class ConstantContact
      * @param mixed $list - Id of the list or a ContactList object
      * @param mixed $param - denotes the number of results per set, limited to 50, or a next parameter provided
      * from a previous getContactsFromList call
-     * @return array
+     * @return ResultSet
      * @throws IllegalArgumentException - if a ContactList object or id is not passed
      */
     public function getContactsFromList($accessToken, $list, $param = null)
@@ -356,7 +357,7 @@ class ConstantContact
      * @param mixed $campaign - Campaign id or Campaign object itself
      * @param mixed $schedule - Schedule id or Schedule object itself
      * @throws IllegalArgumentException
-     * @return array
+     * @return Schedule
      */
     public function getEmailCampaignSchedule($accessToken, $campaign, $schedule)
     {
@@ -380,7 +381,7 @@ class ConstantContact
      * @param string $accessToken - Constant Contact OAuth2 access token
      * @param mixed $campaign - Campaign id or Campaign object itself
      * @param Schedule $schedule - Schedule to be updated
-     * @return array
+     * @return Schedule
      */
     public function updateEmailCampaignSchedule($accessToken, $campaign, Schedule $schedule)
     {
@@ -394,7 +395,7 @@ class ConstantContact
      * @param mixed $campaign - Campaign id or Campaign object itself
      * @param mixed $schedule - Schedule id or Schedule object itself
      * @throws IllegalArgumentException
-     * @return array
+     * @return boolean
      */
     public function deleteEmailCampaignSchedule($accessToken, $campaign, $schedule)
     {
@@ -662,7 +663,7 @@ class ConstantContact
      * Get a single activity by id
      * @param string $accessToken - Constant Contact OAuth2 access token
      * @param string $activityId - Activity id
-     * @return array 
+     * @return Activity 
      */
     public function getActivity($accessToken, $activityId)
     {
@@ -705,7 +706,7 @@ class ConstantContact
      * Create an Export Contacts Activity
      * @param string $accessToken - Constant Contact OAuth2 access token
      * @param ExportContacts $exportContacts
-     * @return array - Array of all ActivitySummaryReports
+     * @return Activity
      */
     public function addExportContactsActivity($accessToken, ExportContacts $exportContacts)
     {

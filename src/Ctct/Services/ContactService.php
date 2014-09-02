@@ -130,6 +130,11 @@ class ContactService extends BaseService
         }
         $url = $this->buildUrl($baseUrl, $params);
         $response = parent::getRestClient()->put($url, parent::getHeaders($accessToken), $contact->toJson());
+
+        if (empty($response->body)) {
+          return null;
+        }
+
         return Contact::create(json_decode($response->body, true));
     }
 }

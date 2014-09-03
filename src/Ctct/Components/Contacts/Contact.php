@@ -58,7 +58,7 @@ class Contact extends Component
 
     /**
      * Array of email addresses associated with this contact
-     * @var array
+     * @var EmailAddress[]
      */
     public $email_addresses = array();
 
@@ -76,13 +76,13 @@ class Contact extends Component
 
     /**
      * Array of addresses associated with this contact
-     * @var array
+     * @var Address[]
      */
     public $addresses = array();
 
     /**
      * Array of notes associated with this contact
-     * @var array
+     * @var Note[]
      */
     public $notes = array();
 
@@ -118,13 +118,13 @@ class Contact extends Component
 
     /**
      * Array of custom fields associated with this contact
-     * @var array
+     * @var CustomField[]
      */
     public $custom_fields = array();
 
     /**
      * Array of contact lists this contact belongs to
-     * @var array
+     * @var ContactList[]
      */
     public $lists = array();
 

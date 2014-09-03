@@ -4,10 +4,10 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta name="generator" content="ApiGen 2.8.0" />
 
-	<title>Class Ctct\Services\BaseService | Appconnect PHP SDK</title>
+	<title>Class Ctct\Services\BaseService</title>
 
-	<script type="text/javascript" src="resources/combined.js?554516056"></script>
-	<script type="text/javascript" src="elementlist.js?1423846706"></script>
+	<script type="text/javascript" src="resources/combined.js?1521732112"></script>
+	<script type="text/javascript" src="elementlist.js?4101533401"></script>
 	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?3505392360" />
 
 </head>
@@ -41,6 +41,10 @@
 				<li><a href="namespace-Ctct.Exceptions.html">Exceptions</a>
 						</li>
 				<li class="active"><a href="namespace-Ctct.Services.html">Services</a>
+						</li>
+				<li><a href="namespace-Ctct.Util.html">Util</a>
+						</li>
+				<li><a href="namespace-Ctct.WebHooks.html">WebHooks</a>
 						</li>
 							</ul></li>
 				<li><a href="namespace-PHP.html">PHP</a>
@@ -141,7 +145,7 @@
 
 				<b>Author:</b>
 				Constant Contact<br />
-		<b>Located at</b> <a href="source-class-Ctct.Services.BaseService.html#7-86" title="Go to source code">Ctct/Services/BaseService.php</a><br />
+		<b>Located at</b> <a href="source-class-Ctct.Services.BaseService.html#7-90" title="Go to source code">Services/BaseService.php</a><br />
 	</div>
 
 
@@ -159,7 +163,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#___construct">#</a>
-		<code><a href="source-class-Ctct.Services.BaseService.html#27-40" title="Go to source code">__construct</a>( <span>Ctct\Util\RestClientInterface <var>$apiKey</var></span>, <span>mixed <var>$restClient</var> = <span class="php-keyword1">null</span></span> )</code>
+		<code><a href="source-class-Ctct.Services.BaseService.html#27-41" title="Go to source code">__construct</a>( <span>string <var>$apiKey</var></span>, <span><code><a href="class-Ctct.Util.RestClientInterface.html">Ctct\Util\RestClientInterface</a></code> <var>$restClient</var> = <span class="php-keyword1">null</span></span> )</code>
 
 		<div class="description short">
 			
@@ -178,9 +182,9 @@ used</p>
 				<h4>Parameters</h4>
 				<div class="list"><dl>
 					<dt><var>$apiKey</var></dt>
-					<dd><code>Ctct\Util\RestClientInterface</code><br>- RestClientInterface implementation to be used in the service</dd>
+					<dd><code>string</code><br>$apiKey - Constant Contact API Key</dd>
 					<dt><var>$restClient</var></dt>
-					<dd></dd>
+					<dd><code><code><a href="class-Ctct.Util.RestClientInterface.html">Ctct\Util\RestClientInterface</a></code></code><br>$restClient - RestClientInterface implementation to be used in the service</dd>
 				</dl></div>
 
 
@@ -201,20 +205,31 @@ used</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_buildUrl">#</a>
-		<code><a href="source-class-Ctct.Services.BaseService.html#42-56" title="Go to source code">buildUrl</a>( <span>mixed <var>$url</var></span>, <span>mixed <var>$queryParams</var> = <span class="php-keyword1">null</span></span> )</code>
+		<code><a href="source-class-Ctct.Services.BaseService.html#43-60" title="Go to source code">buildUrl</a>( <span>mixed <var>$url</var></span>, <span>array <var>$queryParams</var> = <span class="php-keyword1">null</span></span> )</code>
 
 		<div class="description short">
 			
-<p>Build a url from the base url and query parameters array</p>
+<p>Build a URL from a base url and optional array of query parameters to append
+to the url. URL query parameters should not be URL encoded and this method will
+handle that.</p>
 
 		</div>
 
 		<div class="description detailed hidden">
 			
-<p>Build a url from the base url and query parameters array</p>
+<p>Build a URL from a base url and optional array of query parameters to append
+to the url. URL query parameters should not be URL encoded and this method will
+handle that.</p>
 
 
 
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$url</var></dt>
+					<dd><code>mixed</code><br>$url</dd>
+					<dt><var>$queryParams</var></dt>
+					<dd><code>array</code><br>$queryParams</dd>
+				</dl></div>
 
 				<h4>Returns</h4>
 				<div class="list">
@@ -231,14 +246,14 @@ used</p>
 
 		<td class="attributes"><code>
 			 public 
-			Ctct\Util\RestClientInterface
+			<code><a href="class-Ctct.Util.RestClientInterface.html">Ctct\Util\RestClientInterface</a></code>
 			
 			</code>
 		</td>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getRestClient">#</a>
-		<code><a href="source-class-Ctct.Services.BaseService.html#58-65" title="Go to source code">getRestClient</a>( )</code>
+		<code><a href="source-class-Ctct.Services.BaseService.html#62-69" title="Go to source code">getRestClient</a>( )</code>
 
 		<div class="description short">
 			
@@ -255,7 +270,7 @@ used</p>
 
 				<h4>Returns</h4>
 				<div class="list">
-					<code>Ctct\Util\RestClientInterface</code><br>- RestClientInterface implementation being used<br />
+					<code><code><a href="class-Ctct.Util.RestClientInterface.html">Ctct\Util\RestClientInterface</a></code></code><br>- RestClientInterface implementation being used<br />
 				</div>
 
 
@@ -275,7 +290,7 @@ used</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_setRestClient">#</a>
-		<code><a href="source-class-Ctct.Services.BaseService.html#67-70" title="Go to source code">setRestClient</a>( <span>Ctct\Util\RestClientInterface <var>$restClient</var></span> )</code>
+		<code><a href="source-class-Ctct.Services.BaseService.html#71-74" title="Go to source code">setRestClient</a>( <span><code><a href="class-Ctct.Util.RestClientInterface.html">Ctct\Util\RestClientInterface</a></code> <var>$restClient</var></span> )</code>
 
 		<div class="description short">
 			
@@ -304,7 +319,7 @@ used</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getHeaders">#</a>
-		<code><a href="source-class-Ctct.Services.BaseService.html#73-85" title="Go to source code">getHeaders</a>( <span>mixed <var>$accessToken</var></span> )</code>
+		<code><a href="source-class-Ctct.Services.BaseService.html#77-89" title="Go to source code">getHeaders</a>( <span>mixed <var>$accessToken</var></span> )</code>
 
 		<div class="description short">
 			
@@ -355,7 +370,7 @@ constant contact</p>
 	<tr data-order="restClient" id="$restClient">
 		<td class="attributes"><code>
 			protected  
-			mixed
+			<code><a href="class-Ctct.Util.RestClientInterface.html">Ctct\Util\RestClientInterface</a></code>
 		</code></td>
 
 		<td class="name">
@@ -416,7 +431,7 @@ constant contact</p>
 </div>
 
 	<div id="footer">
-		Appconnect PHP SDK API documentation generated by <a href="http://apigen.org">ApiGen 2.8.0</a>
+		 API documentation generated by <a href="http://apigen.org">ApiGen 2.8.0</a>
 	</div>
 </div>
 </div>

@@ -4,10 +4,10 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta name="generator" content="ApiGen 2.8.0" />
 
-	<title>Class Ctct\SplClassLoader | Appconnect PHP SDK</title>
+	<title>Class Ctct\SplClassLoader</title>
 
-	<script type="text/javascript" src="resources/combined.js?554516056"></script>
-	<script type="text/javascript" src="elementlist.js?1423846706"></script>
+	<script type="text/javascript" src="resources/combined.js?1521732112"></script>
+	<script type="text/javascript" src="elementlist.js?4101533401"></script>
 	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?3505392360" />
 
 </head>
@@ -41,6 +41,10 @@
 				<li><a href="namespace-Ctct.Exceptions.html">Exceptions</a>
 						</li>
 				<li><a href="namespace-Ctct.Services.html">Services</a>
+						</li>
+				<li><a href="namespace-Ctct.Util.html">Util</a>
+						</li>
+				<li><a href="namespace-Ctct.WebHooks.html">WebHooks</a>
 						</li>
 							</ul></li>
 				<li><a href="namespace-PHP.html">PHP</a>
@@ -144,7 +148,7 @@ href="mailto:kris.wallsmith&#64;gmail.com">kris.wallsmith&#64;<!---->gmail.com</
 				<b>Author:</b>
 				Fabien Potencier &lt;<a
 href="mailto:fabien.potencier&#64;symfony-project.org">fabien.potencier&#64;<!---->symfony-project.org</a>&gt;<br />
-		<b>Located at</b> <a href="source-class-Ctct.SplClassLoader.html#5-140" title="Go to source code">Ctct/SplClassLoader.php</a><br />
+		<b>Located at</b> <a href="source-class-Ctct.SplClassLoader.html#5-141" title="Go to source code">SplClassLoader.php</a><br />
 	</div>
 
 
@@ -162,7 +166,7 @@ href="mailto:fabien.potencier&#64;symfony-project.org">fabien.potencier&#64;<!--
 
 		<td class="name"><div>
 		<a class="anchor" href="#___construct">#</a>
-		<code><a href="source-class-Ctct.SplClassLoader.html#29-39" title="Go to source code">__construct</a>( <span>string <var>$ns</var> = <span class="php-keyword1">null</span></span>, <span>mixed <var>$includePath</var> = <span class="php-keyword1">null</span></span> )</code>
+		<code><a href="source-class-Ctct.SplClassLoader.html#29-40" title="Go to source code">__construct</a>( <span>string <var>$ns</var> = <span class="php-keyword1">null</span></span>, <span>string <var>$includePath</var> = <span class="php-keyword1">null</span></span> )</code>
 
 		<div class="description short">
 			
@@ -183,7 +187,7 @@ namespace.</p>
 					<dt><var>$ns</var></dt>
 					<dd><code>string</code><br>$ns The namespace to use.</dd>
 					<dt><var>$includePath</var></dt>
-					<dd></dd>
+					<dd><code>string</code><br>$includePath The include path to use.</dd>
 				</dl></div>
 
 
@@ -204,7 +208,7 @@ namespace.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_setNamespaceSeparator">#</a>
-		<code><a href="source-class-Ctct.SplClassLoader.html#41-49" title="Go to source code">setNamespaceSeparator</a>( <span>string <var>$sep</var></span> )</code>
+		<code><a href="source-class-Ctct.SplClassLoader.html#42-50" title="Go to source code">setNamespaceSeparator</a>( <span>string <var>$sep</var></span> )</code>
 
 		<div class="description short">
 			
@@ -237,30 +241,34 @@ loader.</p>
 
 		<td class="attributes"><code>
 			 public 
-			
+			string
 			
 			</code>
 		</td>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getNamespaceSeparator">#</a>
-		<code><a href="source-class-Ctct.SplClassLoader.html#51-59" title="Go to source code">getNamespaceSeparator</a>( )</code>
+		<code><a href="source-class-Ctct.SplClassLoader.html#52-60" title="Go to source code">getNamespaceSeparator</a>( )</code>
 
 		<div class="description short">
 			
-<p>Gets the namespace seperator used by classes in the namespace of this class
+<p>Gets the namespace separator used by classes in the namespace of this class
 loader.</p>
 
 		</div>
 
 		<div class="description detailed hidden">
 			
-<p>Gets the namespace seperator used by classes in the namespace of this class
+<p>Gets the namespace separator used by classes in the namespace of this class
 loader.</p>
 
 
 
 
+				<h4>Returns</h4>
+				<div class="list">
+					<code>string</code><br>$namespaceSeparator<br />
+				</div>
 
 
 
@@ -279,7 +287,7 @@ loader.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_setIncludePath">#</a>
-		<code><a href="source-class-Ctct.SplClassLoader.html#61-69" title="Go to source code">setIncludePath</a>( <span>string <var>$includePath</var></span> )</code>
+		<code><a href="source-class-Ctct.SplClassLoader.html#62-70" title="Go to source code">setIncludePath</a>( <span>string <var>$includePath</var></span> )</code>
 
 		<div class="description short">
 			
@@ -319,7 +327,7 @@ loader.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getIncludePath">#</a>
-		<code><a href="source-class-Ctct.SplClassLoader.html#71-79" title="Go to source code">getIncludePath</a>( )</code>
+		<code><a href="source-class-Ctct.SplClassLoader.html#72-80" title="Go to source code">getIncludePath</a>( )</code>
 
 		<div class="description short">
 			
@@ -358,7 +366,7 @@ loader.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_setFileExtension">#</a>
-		<code><a href="source-class-Ctct.SplClassLoader.html#81-89" title="Go to source code">setFileExtension</a>( <span>string <var>$fileExtension</var></span> )</code>
+		<code><a href="source-class-Ctct.SplClassLoader.html#82-90" title="Go to source code">setFileExtension</a>( <span>string <var>$fileExtension</var></span> )</code>
 
 		<div class="description short">
 			
@@ -398,7 +406,7 @@ loader.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getFileExtension">#</a>
-		<code><a href="source-class-Ctct.SplClassLoader.html#91-99" title="Go to source code">getFileExtension</a>( )</code>
+		<code><a href="source-class-Ctct.SplClassLoader.html#92-100" title="Go to source code">getFileExtension</a>( )</code>
 
 		<div class="description short">
 			
@@ -437,7 +445,7 @@ loader.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_register">#</a>
-		<code><a href="source-class-Ctct.SplClassLoader.html#101-107" title="Go to source code">register</a>( )</code>
+		<code><a href="source-class-Ctct.SplClassLoader.html#102-108" title="Go to source code">register</a>( )</code>
 
 		<div class="description short">
 			
@@ -470,7 +478,7 @@ loader.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_unregister">#</a>
-		<code><a href="source-class-Ctct.SplClassLoader.html#109-115" title="Go to source code">unregister</a>( )</code>
+		<code><a href="source-class-Ctct.SplClassLoader.html#110-116" title="Go to source code">unregister</a>( )</code>
 
 		<div class="description short">
 			
@@ -503,7 +511,7 @@ loader.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_loadClass">#</a>
-		<code><a href="source-class-Ctct.SplClassLoader.html#117-139" title="Go to source code">loadClass</a>( <span>string <var>$className</var></span> )</code>
+		<code><a href="source-class-Ctct.SplClassLoader.html#118-140" title="Go to source code">loadClass</a>( <span>string <var>$className</var></span> )</code>
 
 		<div class="description short">
 			
@@ -552,7 +560,7 @@ loader.</p>
 </div>
 
 	<div id="footer">
-		Appconnect PHP SDK API documentation generated by <a href="http://apigen.org">ApiGen 2.8.0</a>
+		 API documentation generated by <a href="http://apigen.org">ApiGen 2.8.0</a>
 	</div>
 </div>
 </div>

@@ -6,7 +6,7 @@ namespace Ctct\Util;
  * A CurlResponse object to be returned from a RestClientInterface implementation
  *
  * @package     Util
- * @author         Constant Contact
+ * @author      Constant Contact
  */
 class CurlResponse
 {

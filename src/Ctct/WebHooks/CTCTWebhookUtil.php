@@ -14,7 +14,7 @@ class CTCTWebhookUtil
 {
 
     /**
-     * The secret key provided by ConstantContact along with the API KEY
+     * The client secret associated with the api key
      */
     private $clientSecret = '';
 
@@ -22,7 +22,7 @@ class CTCTWebhookUtil
     /**
      * Constructor that creates a validation Object for WebHooks.
      * 
-     * @param string $clientSecret - The secret key provided by ConstantContact along with the API KEY
+     * @param string $clientSecret - The client secret associated with the api key
      * @return  CTCTWebhookUtil
      */
     function __construct($clientSecret='')
@@ -46,7 +46,7 @@ class CTCTWebhookUtil
      * CTCTWebhookUtil::setClientSecret()
      * Set the clientSecret
      * 
-     * @param string $clientSecret - The secret key provided by ConstantContact along with the API KEY
+     * @param string $clientSecret - The client secret associated with the api key
      * @return void
      */
     public function setClientSecret($clientSecret)

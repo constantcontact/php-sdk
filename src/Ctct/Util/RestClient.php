@@ -2,8 +2,6 @@
 namespace Ctct\Util;
 
 use Ctct\Exceptions\CtctException;
-use Ctct\Util\RestClientInterface;
-use Ctct\Util\CurlResponse;
 
 /**
  * Wrapper for curl HTTP request
@@ -17,7 +15,7 @@ class RestClient implements RestClientInterface
      * Make an Http GET request
      * @param $url - request url
      * @param array $headers - array of all http headers to send
-     * @return array - array of the response body, http info, and error (if one exists)
+     * @return CurlResponse - The response body, http info, and error (if one exists)
      */
     public function get($url, array $headers)
     {
@@ -29,7 +27,7 @@ class RestClient implements RestClientInterface
      * @param $url - request url
      * @param array $headers - array of all http headers to send
      * @param $data - data to send with request
-     * @return array - array of the response body, http info, and error (if one exists)
+     * @return CurlResponse - The response body, http info, and error (if one exists)
      */
     public function post($url, array $headers = array(), $data = null)
     {
@@ -41,7 +39,7 @@ class RestClient implements RestClientInterface
      * @param $url - request url
      * @param array $headers - array of all http headers to send
      * @param $data - data to send with request
-     * @return array - array of the response body, http info, and error (if one exists)
+     * @return CurlResponse - The response body, http info, and error (if one exists)
      */
     public function put($url, array $headers = array(), $data = null)
     {
@@ -52,7 +50,7 @@ class RestClient implements RestClientInterface
      * Make an Http DELETE request
      * @param $url - request url
      * @param array $headers - array of all http headers to send
-     * @return array - array of the response body, http info, and error (if one exists)
+     * @return CurlResponse - The response body, http info, and error (if one exists)
      */
     public function delete($url, array $headers = array())
     {
@@ -89,10 +87,10 @@ class RestClient implements RestClientInterface
 
         // check if any errors were returned
         $body = json_decode($response->body, true);
-        if (isset($body[0]) && array_key_exists('error_key', $body[0])) {
+        if ((isset($body[0]) && array_key_exists('error_key', $body[0])) || ($response->error !== false)) {
             $ex = new CtctException($response->body);
             $ex->setCurlInfo($response->info);
-            $ex->setErrors($body);
+            $ex->setErrors($body . "\r\n" . $response->error);
             throw $ex;
         }
 

@@ -2,7 +2,6 @@
 namespace Ctct\Components\Activities;
 
 use Ctct\Components\Component;
-use Ctct\Components\Contacts\Contact;
 use Ctct\Components\Contacts\Address;
 use Ctct\Components\Contacts\CustomField;
 
@@ -30,7 +29,6 @@ class AddContactsImportData extends Component
     /**
      * Factory method to create an Activity object from an array
      * @param array $props - associative array of initial properties to set
-     * @return Campaign
      */
     public function __construct(array $props = array())
     {
@@ -46,8 +44,10 @@ class AddContactsImportData extends Component
 
     public function addAddress(Address $address)
     {
-        $address->state_code = $address->state;
-        unset($address->state);
+        if (isset($address->state)) {
+            $address->state_code = $address->state;
+            unset($address->state);
+        }
 
         foreach ($address as $key => $value) {
             if ($value == null) {

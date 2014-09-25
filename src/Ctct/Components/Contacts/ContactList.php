@@ -57,6 +57,8 @@ class ContactList extends Component
         $contact_list->name = parent::getValue($props, "name");
         $contact_list->status = parent::getValue($props, "status");
         $contact_list->contact_count = parent::getValue($props, "contact_count");
+        $contact_list->created_date = parent::getValue($props, "created_date");
+        $contact_list->modified_date = parent::getValue($props, "modified_date");
         return $contact_list;
     }
 

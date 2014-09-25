@@ -19,7 +19,7 @@ class ActivityError extends Component
     /**
      * Factory method to create an  object from an array
      * @param array $props - associative array of initial properties to set
-     * @return Campaign
+     * @return ActivityError
      */
     public static function create(array $props)
     {

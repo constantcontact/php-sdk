@@ -4,10 +4,10 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta name="generator" content="ApiGen 2.8.0" />
 
-	<title>Class Ctct\ConstantContact | Appconnect PHP SDK</title>
+	<title>Class Ctct\ConstantContact</title>
 
-	<script type="text/javascript" src="resources/combined.js?554516056"></script>
-	<script type="text/javascript" src="elementlist.js?1423846706"></script>
+	<script type="text/javascript" src="resources/combined.js?1521732112"></script>
+	<script type="text/javascript" src="elementlist.js?4101533401"></script>
 	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?3505392360" />
 
 </head>
@@ -41,6 +41,10 @@
 				<li><a href="namespace-Ctct.Exceptions.html">Exceptions</a>
 						</li>
 				<li><a href="namespace-Ctct.Services.html">Services</a>
+						</li>
+				<li><a href="namespace-Ctct.Util.html">Util</a>
+						</li>
+				<li><a href="namespace-Ctct.WebHooks.html">WebHooks</a>
 						</li>
 							</ul></li>
 				<li><a href="namespace-PHP.html">PHP</a>
@@ -125,7 +129,9 @@
 				Constant Contact<br />
 				<b>Version:</b>
 				1.1.0<br />
-		<b>Located at</b> <a href="source-class-Ctct.ConstantContact.html#28-788" title="Go to source code">Ctct/ConstantContact.php</a><br />
+				<b>Link:</b>
+				<a href="https://developer.constantcontact.com">https://developer.constantcontact.com</a><br />
+		<b>Located at</b> <a href="source-class-Ctct.ConstantContact.html#25-839" title="Go to source code">ConstantContact.php</a><br />
 	</div>
 
 
@@ -143,7 +149,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#___construct">#</a>
-		<code><a href="source-class-Ctct.ConstantContact.html#91-107" title="Go to source code">__construct</a>( <span>string <var>$apiKey</var></span> )</code>
+		<code><a href="source-class-Ctct.ConstantContact.html#89-105" title="Go to source code">__construct</a>( <span>string <var>$apiKey</var></span> )</code>
 
 		<div class="description short">
 			
@@ -183,7 +189,7 @@ will be used for all API calls.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getContacts">#</a>
-		<code><a href="source-class-Ctct.ConstantContact.html#109-123" title="Go to source code">getContacts</a>( <span>string <var>$accessToken</var></span>, <span>array <var>$params</var> = <span class="php-keyword1">array</span>()</span> )</code>
+		<code><a href="source-class-Ctct.ConstantContact.html#107-122" title="Go to source code">getContacts</a>( <span>string <var>$accessToken</var></span>, <span>array <var>$params</var> = <span class="php-keyword1">array</span>()</span> )</code>
 
 		<div class="description short">
 			
@@ -203,11 +209,12 @@ will be used for all API calls.</p>
 					<dd><code>string</code><br>$accessToken - Constant Contact OAuth2 access token</dd>
 					<dt><var>$params</var></dt>
 					<dd><code>mixed</code><br>$params - associative array of query parameters and values to append to the
-request. Allow parameters include: limit - Specifies the number of results
+request. Allowed parameters include: limit - Specifies the number of results
 displayed per page of output, from 1 - 500, default = 50. modified_since -
 ISO-8601 formatted timestamp. next - the next link returned from a previous
 paginated call. May only be used by itself. email - the contact by email address
-to retrieve information for</dd>
+to retrieve information for. status - a contact status to filter results by.
+Must be one of ACTIVE, OPTOUT, REMOVED, UNCONFIRMED.</dd>
 				</dl></div>
 
 				<h4>Returns</h4>
@@ -232,7 +239,7 @@ to retrieve information for</dd>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getContact">#</a>
-		<code><a href="source-class-Ctct.ConstantContact.html#125-134" title="Go to source code">getContact</a>( <span>string <var>$accessToken</var></span>, <span>integer <var>$contactId</var></span> )</code>
+		<code><a href="source-class-Ctct.ConstantContact.html#124-133" title="Go to source code">getContact</a>( <span>string <var>$accessToken</var></span>, <span>integer <var>$contactId</var></span> )</code>
 
 		<div class="description short">
 			
@@ -276,17 +283,17 @@ to retrieve information for</dd>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getContactByEmail">#</a>
-		<code><a href="source-class-Ctct.ConstantContact.html#136-145" title="Go to source code">getContactByEmail</a>( <span>string <var>$accessToken</var></span>, <span>string <var>$email</var></span> )</code>
+		<code><a href="source-class-Ctct.ConstantContact.html#135-144" title="Go to source code">getContactByEmail</a>( <span>string <var>$accessToken</var></span>, <span>string <var>$email</var></span> )</code>
 
 		<div class="description short">
 			
-<p>Get contacts with a specified email eaddress</p>
+<p>Get contacts with a specified email address</p>
 
 		</div>
 
 		<div class="description detailed hidden">
 			
-<p>Get contacts with a specified email eaddress</p>
+<p>Get contacts with a specified email address</p>
 
 
 
@@ -320,7 +327,7 @@ to retrieve information for</dd>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_addContact">#</a>
-		<code><a href="source-class-Ctct.ConstantContact.html#147-161" title="Go to source code">addContact</a>( <span>string <var>$accessToken</var></span>, <span><code><a href="class-Ctct.Components.Contacts.Contact.html">Ctct\Components\Contacts\Contact</a></code> <var>$contact</var></span>, <span>boolean <var>$actionByVisitor</var> = <span class="php-keyword1">false</span></span> )</code>
+		<code><a href="source-class-Ctct.ConstantContact.html#146-160" title="Go to source code">addContact</a>( <span>string <var>$accessToken</var></span>, <span><code><a href="class-Ctct.Components.Contacts.Contact.html">Ctct\Components\Contacts\Contact</a></code> <var>$contact</var></span>, <span>boolean <var>$actionByVisitor</var> = <span class="php-keyword1">false</span></span> )</code>
 
 		<div class="description short">
 			
@@ -366,7 +373,7 @@ to retrieve information for</dd>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_deleteContact">#</a>
-		<code><a href="source-class-Ctct.ConstantContact.html#163-174" title="Go to source code">deleteContact</a>( <span>string <var>$accessToken</var></span>, <span>mixed <var>$contact</var></span> )</code>
+		<code><a href="source-class-Ctct.ConstantContact.html#162-173" title="Go to source code">deleteContact</a>( <span>string <var>$accessToken</var></span>, <span>mixed <var>$contact</var></span> )</code>
 
 		<div class="description short">
 			
@@ -414,7 +421,7 @@ to retrieve information for</dd>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_deleteContactFromLists">#</a>
-		<code><a href="source-class-Ctct.ConstantContact.html#176-187" title="Go to source code">deleteContactFromLists</a>( <span>string <var>$accessToken</var></span>, <span>mixed <var>$contact</var></span> )</code>
+		<code><a href="source-class-Ctct.ConstantContact.html#175-186" title="Go to source code">deleteContactFromLists</a>( <span>string <var>$accessToken</var></span>, <span>mixed <var>$contact</var></span> )</code>
 
 		<div class="description short">
 			
@@ -462,7 +469,7 @@ to retrieve information for</dd>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_deleteContactFromList">#</a>
-		<code><a href="source-class-Ctct.ConstantContact.html#189-204" title="Go to source code">deleteContactFromList</a>( <span>string <var>$accessToken</var></span>, <span>mixed <var>$contact</var></span>, <span>mixed <var>$list</var></span> )</code>
+		<code><a href="source-class-Ctct.ConstantContact.html#188-203" title="Go to source code">deleteContactFromList</a>( <span>string <var>$accessToken</var></span>, <span>mixed <var>$contact</var></span>, <span>mixed <var>$list</var></span> )</code>
 
 		<div class="description short">
 			
@@ -513,7 +520,7 @@ object<br />
 
 		<td class="name"><div>
 		<a class="anchor" href="#_updateContact">#</a>
-		<code><a href="source-class-Ctct.ConstantContact.html#206-220" title="Go to source code">updateContact</a>( <span>string <var>$accessToken</var></span>, <span><code><a href="class-Ctct.Components.Contacts.Contact.html">Ctct\Components\Contacts\Contact</a></code> <var>$contact</var></span>, <span>boolean <var>$actionByVisitor</var> = <span class="php-keyword1">false</span></span> )</code>
+		<code><a href="source-class-Ctct.ConstantContact.html#205-219" title="Go to source code">updateContact</a>( <span>string <var>$accessToken</var></span>, <span><code><a href="class-Ctct.Components.Contacts.Contact.html">Ctct\Components\Contacts\Contact</a></code> <var>$contact</var></span>, <span>boolean <var>$actionByVisitor</var> = <span class="php-keyword1">false</span></span> )</code>
 
 		<div class="description short">
 			
@@ -559,7 +566,7 @@ object<br />
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getLists">#</a>
-		<code><a href="source-class-Ctct.ConstantContact.html#222-231" title="Go to source code">getLists</a>( <span>string <var>$accessToken</var></span>, <span>array <var>$params</var> = <span class="php-keyword1">array</span>()</span> )</code>
+		<code><a href="source-class-Ctct.ConstantContact.html#221-232" title="Go to source code">getLists</a>( <span>string <var>$accessToken</var></span>, <span>array <var>$params</var> = <span class="php-keyword1">array</span>()</span> )</code>
 
 		<div class="description short">
 			
@@ -578,12 +585,14 @@ object<br />
 					<dt><var>$accessToken</var></dt>
 					<dd><code>string</code><br>$accessToken - Valid access token</dd>
 					<dt><var>$params</var></dt>
-					<dd><code>string</code><br>$date - ISO-8601 date to query by</dd>
+					<dd><code>array</code><br>$params - associative array of query parameters and values to append to the
+request. Allowed parameters include: modified_since - ISO-8601 formatted
+timestamp.</dd>
 				</dl></div>
 
 				<h4>Returns</h4>
 				<div class="list">
-					<code>array</code><br />
+					<code>array</code><br>of ContactList<br />
 				</div>
 
 
@@ -603,7 +612,7 @@ object<br />
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getList">#</a>
-		<code><a href="source-class-Ctct.ConstantContact.html#233-242" title="Go to source code">getList</a>( <span>string <var>$accessToken</var></span>, <span>integer <var>$listId</var></span> )</code>
+		<code><a href="source-class-Ctct.ConstantContact.html#234-243" title="Go to source code">getList</a>( <span>string <var>$accessToken</var></span>, <span>integer <var>$listId</var></span> )</code>
 
 		<div class="description short">
 			
@@ -647,7 +656,7 @@ object<br />
 
 		<td class="name"><div>
 		<a class="anchor" href="#_addList">#</a>
-		<code><a href="source-class-Ctct.ConstantContact.html#244-253" title="Go to source code">addList</a>( <span>string <var>$accessToken</var></span>, <span><code><a href="class-Ctct.Components.Contacts.ContactList.html">Ctct\Components\Contacts\ContactList</a></code> <var>$list</var></span> )</code>
+		<code><a href="source-class-Ctct.ConstantContact.html#245-254" title="Go to source code">addList</a>( <span>string <var>$accessToken</var></span>, <span><code><a href="class-Ctct.Components.Contacts.ContactList.html">Ctct\Components\Contacts\ContactList</a></code> <var>$list</var></span> )</code>
 
 		<div class="description short">
 			
@@ -691,7 +700,7 @@ object<br />
 
 		<td class="name"><div>
 		<a class="anchor" href="#_updateList">#</a>
-		<code><a href="source-class-Ctct.ConstantContact.html#255-264" title="Go to source code">updateList</a>( <span>string <var>$accessToken</var></span>, <span><code><a href="class-Ctct.Components.Contacts.ContactList.html">Ctct\Components\Contacts\ContactList</a></code> <var>$list</var></span> )</code>
+		<code><a href="source-class-Ctct.ConstantContact.html#256-265" title="Go to source code">updateList</a>( <span>string <var>$accessToken</var></span>, <span><code><a href="class-Ctct.Components.Contacts.ContactList.html">Ctct\Components\Contacts\ContactList</a></code> <var>$list</var></span> )</code>
 
 		<div class="description short">
 			
@@ -724,6 +733,50 @@ object<br />
 		</div>
 		</div></td>
 	</tr>
+	<tr data-order="deleteList" id="_deleteList">
+
+		<td class="attributes"><code>
+			 public 
+			boolean
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_deleteList">#</a>
+		<code><a href="source-class-Ctct.ConstantContact.html#267-276" title="Go to source code">deleteList</a>( <span>string <var>$accessToken</var></span>, <span>integer <var>$listId</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Delete a contact list from an account</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Delete a contact list from an account</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$accessToken</var></dt>
+					<dd><code>string</code><br>$accessToken - Valid access token</dd>
+					<dt><var>$listId</var></dt>
+					<dd><code>integer</code><br>$listId - Id of the list to delete</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>boolean</code><br />
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
 	<tr data-order="getContactsFromList" id="_getContactsFromList">
 
 		<td class="attributes"><code>
@@ -735,7 +788,7 @@ object<br />
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getContactsFromList">#</a>
-		<code><a href="source-class-Ctct.ConstantContact.html#266-280" title="Go to source code">getContactsFromList</a>( <span>string <var>$accessToken</var></span>, <span>mixed <var>$list</var></span>, <span>mixed <var>$param</var> = <span class="php-keyword1">null</span></span> )</code>
+		<code><a href="source-class-Ctct.ConstantContact.html#278-292" title="Go to source code">getContactsFromList</a>( <span>string <var>$accessToken</var></span>, <span>mixed <var>$list</var></span>, <span>mixed <var>$param</var> = <span class="php-keyword1">null</span></span> )</code>
 
 		<div class="description short">
 			
@@ -786,7 +839,7 @@ parameter provided from a previous getContactsFromList call</dd>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getEmailCampaigns">#</a>
-		<code><a href="source-class-Ctct.ConstantContact.html#282-296" title="Go to source code">getEmailCampaigns</a>( <span>string <var>$accessToken</var></span>, <span>array <var>$params</var> = <span class="php-keyword1">array</span>()</span> )</code>
+		<code><a href="source-class-Ctct.ConstantContact.html#294-308" title="Go to source code">getEmailCampaigns</a>( <span>string <var>$accessToken</var></span>, <span>array <var>$params</var> = <span class="php-keyword1">array</span>()</span> )</code>
 
 		<div class="description short">
 			
@@ -806,7 +859,7 @@ parameter provided from a previous getContactsFromList call</dd>
 					<dd><code>string</code><br>$accessToken - Constant Contact OAuth2 access token</dd>
 					<dt><var>$params</var></dt>
 					<dd><code>mixed</code><br>$params - associative array of query parameters and values to append to the
-request. Allow parameters include: limit - Specifies the number of results
+request. Allowed parameters include: limit - Specifies the number of results
 displayed per page of output, from 1 - 500, default = 50. modified_since -
 ISO-8601 formatted timestamp. next - the next link returned from a previous
 paginated call. May only be used by itself. email - the contact by email address
@@ -828,14 +881,14 @@ to retrieve information for</dd>
 
 		<td class="attributes"><code>
 			 public 
-			
+			<code><a href="class-Ctct.Components.EmailMarketing.Campaign.html">Ctct\Components\EmailMarketing\Campaign</a></code>
 			
 			</code>
 		</td>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getEmailCampaign">#</a>
-		<code><a href="source-class-Ctct.ConstantContact.html#298-306" title="Go to source code">getEmailCampaign</a>( <span>string <var>$accessToken</var></span>, <span>integer <var>$campaignId</var></span> )</code>
+		<code><a href="source-class-Ctct.ConstantContact.html#310-319" title="Go to source code">getEmailCampaign</a>( <span>string <var>$accessToken</var></span>, <span>integer <var>$campaignId</var></span> )</code>
 
 		<div class="description short">
 			
@@ -857,6 +910,10 @@ to retrieve information for</dd>
 					<dd><code>integer</code><br>$campaignId - Valid campaign id</dd>
 				</dl></div>
 
+				<h4>Returns</h4>
+				<div class="list">
+					<code><code><a href="class-Ctct.Components.EmailMarketing.Campaign.html">Ctct\Components\EmailMarketing\Campaign</a></code></code><br />
+				</div>
 
 
 
@@ -875,7 +932,7 @@ to retrieve information for</dd>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_deleteEmailCampaign">#</a>
-		<code><a href="source-class-Ctct.ConstantContact.html#308-319" title="Go to source code">deleteEmailCampaign</a>( <span>string <var>$accessToken</var></span>, <span>mixed <var>$campaign</var></span> )</code>
+		<code><a href="source-class-Ctct.ConstantContact.html#321-332" title="Go to source code">deleteEmailCampaign</a>( <span>string <var>$accessToken</var></span>, <span>mixed <var>$campaign</var></span> )</code>
 
 		<div class="description short">
 			
@@ -923,7 +980,7 @@ to retrieve information for</dd>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_addEmailCampaign">#</a>
-		<code><a href="source-class-Ctct.ConstantContact.html#321-330" title="Go to source code">addEmailCampaign</a>( <span>string <var>$accessToken</var></span>, <span><code><a href="class-Ctct.Components.EmailMarketing.Campaign.html">Ctct\Components\EmailMarketing\Campaign</a></code> <var>$campaign</var></span> )</code>
+		<code><a href="source-class-Ctct.ConstantContact.html#334-343" title="Go to source code">addEmailCampaign</a>( <span>string <var>$accessToken</var></span>, <span><code><a href="class-Ctct.Components.EmailMarketing.Campaign.html">Ctct\Components\EmailMarketing\Campaign</a></code> <var>$campaign</var></span> )</code>
 
 		<div class="description short">
 			
@@ -967,7 +1024,7 @@ to retrieve information for</dd>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_updateEmailCampaign">#</a>
-		<code><a href="source-class-Ctct.ConstantContact.html#332-341" title="Go to source code">updateEmailCampaign</a>( <span>string <var>$accessToken</var></span>, <span><code><a href="class-Ctct.Components.EmailMarketing.Campaign.html">Ctct\Components\EmailMarketing\Campaign</a></code> <var>$campaign</var></span> )</code>
+		<code><a href="source-class-Ctct.ConstantContact.html#345-354" title="Go to source code">updateEmailCampaign</a>( <span>string <var>$accessToken</var></span>, <span><code><a href="class-Ctct.Components.EmailMarketing.Campaign.html">Ctct\Components\EmailMarketing\Campaign</a></code> <var>$campaign</var></span> )</code>
 
 		<div class="description short">
 			
@@ -1011,7 +1068,7 @@ to retrieve information for</dd>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_addEmailCampaignSchedule">#</a>
-		<code><a href="source-class-Ctct.ConstantContact.html#343-354" title="Go to source code">addEmailCampaignSchedule</a>( <span>string <var>$accessToken</var></span>, <span>mixed <var>$campaign</var></span>, <span><code><a href="class-Ctct.Components.EmailMarketing.Schedule.html">Ctct\Components\EmailMarketing\Schedule</a></code> <var>$schedule</var></span> )</code>
+		<code><a href="source-class-Ctct.ConstantContact.html#356-367" title="Go to source code">addEmailCampaignSchedule</a>( <span>string <var>$accessToken</var></span>, <span>mixed <var>$campaign</var></span>, <span><code><a href="class-Ctct.Components.EmailMarketing.Schedule.html">Ctct\Components\EmailMarketing\Schedule</a></code> <var>$schedule</var></span> )</code>
 
 		<div class="description short">
 			
@@ -1057,7 +1114,7 @@ to retrieve information for</dd>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getEmailCampaignSchedules">#</a>
-		<code><a href="source-class-Ctct.ConstantContact.html#356-366" title="Go to source code">getEmailCampaignSchedules</a>( <span>string <var>$accessToken</var></span>, <span>mixed <var>$campaign</var></span> )</code>
+		<code><a href="source-class-Ctct.ConstantContact.html#369-379" title="Go to source code">getEmailCampaignSchedules</a>( <span>string <var>$accessToken</var></span>, <span>mixed <var>$campaign</var></span> )</code>
 
 		<div class="description short">
 			
@@ -1101,7 +1158,7 @@ to retrieve information for</dd>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getEmailCampaignSchedule">#</a>
-		<code><a href="source-class-Ctct.ConstantContact.html#368-390" title="Go to source code">getEmailCampaignSchedule</a>( <span>string <var>$accessToken</var></span>, <span>mixed <var>$campaign</var></span>, <span>mixed <var>$schedule</var></span> )</code>
+		<code><a href="source-class-Ctct.ConstantContact.html#381-403" title="Go to source code">getEmailCampaignSchedule</a>( <span>string <var>$accessToken</var></span>, <span>mixed <var>$campaign</var></span>, <span>mixed <var>$schedule</var></span> )</code>
 
 		<div class="description short">
 			
@@ -1151,7 +1208,7 @@ to retrieve information for</dd>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_updateEmailCampaignSchedule">#</a>
-		<code><a href="source-class-Ctct.ConstantContact.html#392-403" title="Go to source code">updateEmailCampaignSchedule</a>( <span>string <var>$accessToken</var></span>, <span>mixed <var>$campaign</var></span>, <span><code><a href="class-Ctct.Components.EmailMarketing.Schedule.html">Ctct\Components\EmailMarketing\Schedule</a></code> <var>$schedule</var></span> )</code>
+		<code><a href="source-class-Ctct.ConstantContact.html#405-416" title="Go to source code">updateEmailCampaignSchedule</a>( <span>string <var>$accessToken</var></span>, <span>mixed <var>$campaign</var></span>, <span><code><a href="class-Ctct.Components.EmailMarketing.Schedule.html">Ctct\Components\EmailMarketing\Schedule</a></code> <var>$schedule</var></span> )</code>
 
 		<div class="description short">
 			
@@ -1197,7 +1254,7 @@ to retrieve information for</dd>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_deleteEmailCampaignSchedule">#</a>
-		<code><a href="source-class-Ctct.ConstantContact.html#405-427" title="Go to source code">deleteEmailCampaignSchedule</a>( <span>string <var>$accessToken</var></span>, <span>mixed <var>$campaign</var></span>, <span>mixed <var>$schedule</var></span> )</code>
+		<code><a href="source-class-Ctct.ConstantContact.html#418-440" title="Go to source code">deleteEmailCampaignSchedule</a>( <span>string <var>$accessToken</var></span>, <span>mixed <var>$campaign</var></span>, <span>mixed <var>$schedule</var></span> )</code>
 
 		<div class="description short">
 			
@@ -1247,7 +1304,7 @@ to retrieve information for</dd>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_sendEmailCampaignTest">#</a>
-		<code><a href="source-class-Ctct.ConstantContact.html#429-440" title="Go to source code">sendEmailCampaignTest</a>( <span>string <var>$accessToken</var></span>, <span>mixed <var>$campaign</var></span>, <span><code><a href="class-Ctct.Components.EmailMarketing.TestSend.html">Ctct\Components\EmailMarketing\TestSend</a></code> <var>$test_send</var></span> )</code>
+		<code><a href="source-class-Ctct.ConstantContact.html#442-453" title="Go to source code">sendEmailCampaignTest</a>( <span>string <var>$accessToken</var></span>, <span>mixed <var>$campaign</var></span>, <span><code><a href="class-Ctct.Components.EmailMarketing.TestSend.html">Ctct\Components\EmailMarketing\TestSend</a></code> <var>$testSend</var></span> )</code>
 
 		<div class="description short">
 			
@@ -1266,9 +1323,9 @@ to retrieve information for</dd>
 					<dt><var>$accessToken</var></dt>
 					<dd><code>string</code><br>$accessToken - Constant Contact OAuth2 access token</dd>
 					<dt><var>$campaign</var></dt>
-					<dd><code>mixed</code><br>$emailCampaign - Campaign id or Campaign object itself</dd>
-					<dt><var>$test_send</var></dt>
-					<dd><code><code><a href="class-Ctct.Components.EmailMarketing.TestSend.html">Ctct\Components\EmailMarketing\TestSend</a></code></code><br>$test_send - test send details</dd>
+					<dd><code>mixed</code><br>$campaign - Campaign id or Campaign object itself</dd>
+					<dt><var>$testSend</var></dt>
+					<dd><code><code><a href="class-Ctct.Components.EmailMarketing.TestSend.html">Ctct\Components\EmailMarketing\TestSend</a></code></code><br>$testSend - test send details</dd>
 				</dl></div>
 
 				<h4>Returns</h4>
@@ -1293,7 +1350,7 @@ to retrieve information for</dd>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getEmailCampaignSends">#</a>
-		<code><a href="source-class-Ctct.ConstantContact.html#442-457" title="Go to source code">getEmailCampaignSends</a>( <span>string <var>$accessToken</var></span>, <span>mixed <var>$campaign</var></span>, <span>array <var>$params</var> = <span class="php-keyword1">array</span>()</span> )</code>
+		<code><a href="source-class-Ctct.ConstantContact.html#455-470" title="Go to source code">getEmailCampaignSends</a>( <span>string <var>$accessToken</var></span>, <span>mixed <var>$campaign</var></span>, <span>array <var>$params</var> = <span class="php-keyword1">array</span>()</span> )</code>
 
 		<div class="description short">
 			
@@ -1315,7 +1372,7 @@ to retrieve information for</dd>
 					<dd><code>mixed</code><br>$campaign - Campaign id or Campaign object itself</dd>
 					<dt><var>$params</var></dt>
 					<dd><code>mixed</code><br>$params - associative array of query parameters and values to append to the
-request. Allow parameters include: limit - Specifies the number of results
+request. Allowed parameters include: limit - Specifies the number of results
 displayed per page of output, from 1 - 500, default = 50. created_since - Used
 to retrieve a list of events since the date and time specified (in ISO-8601
 format). next - the next link returned from a previous paginated call. May only
@@ -1324,7 +1381,7 @@ be used by itself.</dd>
 
 				<h4>Returns</h4>
 				<div class="list">
-					<code><code><a href="class-Ctct.Components.ResultSet.html">Ctct\Components\ResultSet</a></code></code><br>- Containing a results array of Ctct\Components\CampaignTracking\SendActivity<br />
+					<code><code><a href="class-Ctct.Components.ResultSet.html">Ctct\Components\ResultSet</a></code></code><br>- Containing a results array of <code><a href="class-Ctct.Components.Tracking.SendActivity.html">Ctct\Components\Tracking\SendActivity</a></code><br />
 				</div>
 
 
@@ -1344,7 +1401,7 @@ be used by itself.</dd>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getEmailCampaignBounces">#</a>
-		<code><a href="source-class-Ctct.ConstantContact.html#459-474" title="Go to source code">getEmailCampaignBounces</a>( <span>string <var>$accessToken</var></span>, <span>mixed <var>$campaign</var></span>, <span>array <var>$params</var> = <span class="php-keyword1">array</span>()</span> )</code>
+		<code><a href="source-class-Ctct.ConstantContact.html#472-487" title="Go to source code">getEmailCampaignBounces</a>( <span>string <var>$accessToken</var></span>, <span>mixed <var>$campaign</var></span>, <span>array <var>$params</var> = <span class="php-keyword1">array</span>()</span> )</code>
 
 		<div class="description short">
 			
@@ -1366,7 +1423,7 @@ be used by itself.</dd>
 					<dd><code>mixed</code><br>$campaign - Campaign id or Campaign object itself</dd>
 					<dt><var>$params</var></dt>
 					<dd><code>mixed</code><br>$params - associative array of query parameters and values to append to the
-request. Allow parameters include: limit - Specifies the number of results
+request. Allowed parameters include: limit - Specifies the number of results
 displayed per page of output, from 1 - 500, default = 50. created_since - Used
 to retrieve a list of events since the date and time specified (in ISO-8601
 format). next - the next link returned from a previous paginated call. May only
@@ -1375,7 +1432,7 @@ be used by itself.</dd>
 
 				<h4>Returns</h4>
 				<div class="list">
-					<code><code><a href="class-Ctct.Components.ResultSet.html">Ctct\Components\ResultSet</a></code></code><br>- Containing a results array of Ctct\Components\CampaignTracking\BounceActivity<br />
+					<code><code><a href="class-Ctct.Components.ResultSet.html">Ctct\Components\ResultSet</a></code></code><br>- Containing a results array of <code><a href="class-Ctct.Components.Tracking.BounceActivity.html">Ctct\Components\Tracking\BounceActivity</a></code><br />
 				</div>
 
 
@@ -1395,7 +1452,7 @@ be used by itself.</dd>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getEmailCampaignClicks">#</a>
-		<code><a href="source-class-Ctct.ConstantContact.html#476-491" title="Go to source code">getEmailCampaignClicks</a>( <span>string <var>$accessToken</var></span>, <span>mixed <var>$campaign</var></span>, <span>array <var>$params</var> = <span class="php-keyword1">array</span>()</span> )</code>
+		<code><a href="source-class-Ctct.ConstantContact.html#489-504" title="Go to source code">getEmailCampaignClicks</a>( <span>string <var>$accessToken</var></span>, <span>mixed <var>$campaign</var></span>, <span>array <var>$params</var> = <span class="php-keyword1">array</span>()</span> )</code>
 
 		<div class="description short">
 			
@@ -1414,10 +1471,10 @@ be used by itself.</dd>
 					<dt><var>$accessToken</var></dt>
 					<dd><code>string</code><br>$accessToken - Constant Contact OAuth2 access token</dd>
 					<dt><var>$campaign</var></dt>
-					<dd><code>mixed</code><br>$emailCampaign - Campaign id or Campaign object itself</dd>
+					<dd><code>mixed</code><br>$campaign - Campaign id or Campaign object itself</dd>
 					<dt><var>$params</var></dt>
-					<dd><code>mixed</code><br>$params - associative array of query parameters and values to append to the
-request. Allow parameters include: limit - Specifies the number of results
+					<dd><code>array</code><br>$params - associative array of query parameters and values to append to the
+request. Allowed parameters include: limit - Specifies the number of results
 displayed per page of output, from 1 - 500, default = 50. created_since - Used
 to retrieve a list of events since the date and time specified (in ISO-8601
 format). next - the next link returned from a previous paginated call. May only
@@ -1426,7 +1483,7 @@ be used by itself.</dd>
 
 				<h4>Returns</h4>
 				<div class="list">
-					<code><code><a href="class-Ctct.Components.ResultSet.html">Ctct\Components\ResultSet</a></code></code><br>- Containing a results array of Ctct\Components\CampaignTracking\ClickActivity<br />
+					<code><code><a href="class-Ctct.Components.ResultSet.html">Ctct\Components\ResultSet</a></code></code><br>- Containing a results array of <code><a href="class-Ctct.Components.Tracking.ClickActivity.html">Ctct\Components\Tracking\ClickActivity</a></code><br />
 				</div>
 
 
@@ -1446,7 +1503,7 @@ be used by itself.</dd>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getEmailCampaignOpens">#</a>
-		<code><a href="source-class-Ctct.ConstantContact.html#493-508" title="Go to source code">getEmailCampaignOpens</a>( <span>string <var>$accessToken</var></span>, <span>mixed <var>$campaign</var></span>, <span>array <var>$params</var> = <span class="php-keyword1">array</span>()</span> )</code>
+		<code><a href="source-class-Ctct.ConstantContact.html#506-521" title="Go to source code">getEmailCampaignOpens</a>( <span>string <var>$accessToken</var></span>, <span>mixed <var>$campaign</var></span>, <span>array <var>$params</var> = <span class="php-keyword1">array</span>()</span> )</code>
 
 		<div class="description short">
 			
@@ -1468,7 +1525,7 @@ be used by itself.</dd>
 					<dd><code>mixed</code><br>$campaign - Campaign id or Campaign object itself</dd>
 					<dt><var>$params</var></dt>
 					<dd><code>mixed</code><br>$params - associative array of query parameters and values to append to the
-request. Allow parameters include: limit - Specifies the number of results
+request. Allowed parameters include: limit - Specifies the number of results
 displayed per page of output, from 1 - 500, default = 50. created_since - Used
 to retrieve a list of events since the date and time specified (in ISO-8601
 format). next - the next link returned from a previous paginated call. May only
@@ -1477,7 +1534,7 @@ be used by itself.</dd>
 
 				<h4>Returns</h4>
 				<div class="list">
-					<code><code><a href="class-Ctct.Components.ResultSet.html">Ctct\Components\ResultSet</a></code></code><br>- Containing a results array of Ctct\Components\CampaignTracking\OpenActivity<br />
+					<code><code><a href="class-Ctct.Components.ResultSet.html">Ctct\Components\ResultSet</a></code></code><br>- Containing a results array of <code><a href="class-Ctct.Components.Tracking.OpenActivity.html">Ctct\Components\Tracking\OpenActivity</a></code><br />
 				</div>
 
 
@@ -1497,7 +1554,7 @@ be used by itself.</dd>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getEmailCampaignForwards">#</a>
-		<code><a href="source-class-Ctct.ConstantContact.html#510-525" title="Go to source code">getEmailCampaignForwards</a>( <span>string <var>$accessToken</var></span>, <span>mixed <var>$campaign</var></span>, <span>array <var>$params</var> = <span class="php-keyword1">array</span>()</span> )</code>
+		<code><a href="source-class-Ctct.ConstantContact.html#523-538" title="Go to source code">getEmailCampaignForwards</a>( <span>string <var>$accessToken</var></span>, <span>mixed <var>$campaign</var></span>, <span>array <var>$params</var> = <span class="php-keyword1">array</span>()</span> )</code>
 
 		<div class="description short">
 			
@@ -1519,7 +1576,7 @@ be used by itself.</dd>
 					<dd><code>mixed</code><br>$campaign - Campaign id or Campaign object itself</dd>
 					<dt><var>$params</var></dt>
 					<dd><code>mixed</code><br>$params - associative array of query parameters and values to append to the
-request. Allow parameters include: limit - Specifies the number of results
+request. Allowed parameters include: limit - Specifies the number of results
 displayed per page of output, from 1 - 500, default = 50. created_since - Used
 to retrieve a list of events since the date and time specified (in ISO-8601
 format). next - the next link returned from a previous paginated call. May only
@@ -1528,7 +1585,7 @@ be used by itself.</dd>
 
 				<h4>Returns</h4>
 				<div class="list">
-					<code><code><a href="class-Ctct.Components.ResultSet.html">Ctct\Components\ResultSet</a></code></code><br>- Containing a results array of Ctct\Components\CampaignTracking\ForwardActivity<br />
+					<code><code><a href="class-Ctct.Components.ResultSet.html">Ctct\Components\ResultSet</a></code></code><br>- Containing a results array of <code><a href="class-Ctct.Components.Tracking.ForwardActivity.html">Ctct\Components\Tracking\ForwardActivity</a></code><br />
 				</div>
 
 
@@ -1548,7 +1605,7 @@ be used by itself.</dd>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getEmailCampaignUnsubscribes">#</a>
-		<code><a href="source-class-Ctct.ConstantContact.html#527-542" title="Go to source code">getEmailCampaignUnsubscribes</a>( <span>string <var>$accessToken</var></span>, <span>mixed <var>$campaign</var></span>, <span>array <var>$params</var> = <span class="php-keyword1">array</span>()</span> )</code>
+		<code><a href="source-class-Ctct.ConstantContact.html#540-555" title="Go to source code">getEmailCampaignUnsubscribes</a>( <span>string <var>$accessToken</var></span>, <span>mixed <var>$campaign</var></span>, <span>array <var>$params</var> = <span class="php-keyword1">array</span>()</span> )</code>
 
 		<div class="description short">
 			
@@ -1570,7 +1627,7 @@ be used by itself.</dd>
 					<dd><code>mixed</code><br>$campaign - Campaign id or Campaign object itself</dd>
 					<dt><var>$params</var></dt>
 					<dd><code>mixed</code><br>$params - associative array of query parameters and values to append to the
-request. Allow parameters include: limit - Specifies the number of results
+request. Allowed parameters include: limit - Specifies the number of results
 displayed per page of output, from 1 - 500, default = 50. created_since - Used
 to retrieve a list of events since the date and time specified (in ISO-8601
 format). next - the next link returned from a previous paginated call. May only
@@ -1579,7 +1636,7 @@ be used by itself.</dd>
 
 				<h4>Returns</h4>
 				<div class="list">
-					<code><code><a href="class-Ctct.Components.ResultSet.html">Ctct\Components\ResultSet</a></code></code><br>- Containing a results array of Ctct\Components\CampaignTracking\UnsubscribeActivity<br />
+					<code><code><a href="class-Ctct.Components.ResultSet.html">Ctct\Components\ResultSet</a></code></code><br>- Containing a results array of <code><a href="class-Ctct.Components.Tracking.UnsubscribeActivity.html">Ctct\Components\Tracking\UnsubscribeActivity</a></code><br />
 				</div>
 
 
@@ -1599,7 +1656,7 @@ be used by itself.</dd>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getEmailCampaignSummaryReport">#</a>
-		<code><a href="source-class-Ctct.ConstantContact.html#544-554" title="Go to source code">getEmailCampaignSummaryReport</a>( <span>string <var>$accessToken</var></span>, <span>mixed <var>$campaign</var></span> )</code>
+		<code><a href="source-class-Ctct.ConstantContact.html#557-567" title="Go to source code">getEmailCampaignSummaryReport</a>( <span>string <var>$accessToken</var></span>, <span>mixed <var>$campaign</var></span> )</code>
 
 		<div class="description short">
 			
@@ -1643,7 +1700,7 @@ be used by itself.</dd>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getContactSends">#</a>
-		<code><a href="source-class-Ctct.ConstantContact.html#556-571" title="Go to source code">getContactSends</a>( <span>string <var>$accessToken</var></span>, <span>mixed <var>$contact</var></span>, <span>array <var>$params</var> = <span class="php-keyword1">array</span>()</span> )</code>
+		<code><a href="source-class-Ctct.ConstantContact.html#569-584" title="Go to source code">getContactSends</a>( <span>string <var>$accessToken</var></span>, <span>mixed <var>$contact</var></span>, <span>array <var>$params</var> = <span class="php-keyword1">array</span>()</span> )</code>
 
 		<div class="description short">
 			
@@ -1665,7 +1722,7 @@ be used by itself.</dd>
 					<dd><code>mixed</code><br>$contact - Contact id or Contact object itself</dd>
 					<dt><var>$params</var></dt>
 					<dd><code>mixed</code><br>$params - associative array of query parameters and values to append to the
-request. Allow parameters include: limit - Specifies the number of results
+request. Allowed parameters include: limit - Specifies the number of results
 displayed per page of output, from 1 - 500, default = 50. created_since - Used
 to retrieve a list of events since the date and time specified (in ISO-8601
 format). next - the next link returned from a previous paginated call. May only
@@ -1694,7 +1751,7 @@ be used by itself.</dd>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getContactBounces">#</a>
-		<code><a href="source-class-Ctct.ConstantContact.html#573-588" title="Go to source code">getContactBounces</a>( <span>string <var>$accessToken</var></span>, <span>mixed <var>$contact</var></span>, <span>array <var>$params</var> = <span class="php-keyword1">array</span>()</span> )</code>
+		<code><a href="source-class-Ctct.ConstantContact.html#586-601" title="Go to source code">getContactBounces</a>( <span>string <var>$accessToken</var></span>, <span>mixed <var>$contact</var></span>, <span>array <var>$params</var> = <span class="php-keyword1">array</span>()</span> )</code>
 
 		<div class="description short">
 			
@@ -1716,7 +1773,7 @@ be used by itself.</dd>
 					<dd><code>mixed</code><br>$contact - Contact id or Contact object itself</dd>
 					<dt><var>$params</var></dt>
 					<dd><code>mixed</code><br>$params - associative array of query parameters and values to append to the
-request. Allow parameters include: limit - Specifies the number of results
+request. Allowed parameters include: limit - Specifies the number of results
 displayed per page of output, from 1 - 500, default = 50. created_since - Used
 to retrieve a list of events since the date and time specified (in ISO-8601
 format). next - the next link returned from a previous paginated call. May only
@@ -1745,7 +1802,7 @@ be used by itself.</dd>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getContactClicks">#</a>
-		<code><a href="source-class-Ctct.ConstantContact.html#590-605" title="Go to source code">getContactClicks</a>( <span>string <var>$accessToken</var></span>, <span>mixed <var>$contact</var></span>, <span>array <var>$params</var> = <span class="php-keyword1">array</span>()</span> )</code>
+		<code><a href="source-class-Ctct.ConstantContact.html#603-618" title="Go to source code">getContactClicks</a>( <span>string <var>$accessToken</var></span>, <span>mixed <var>$contact</var></span>, <span>array <var>$params</var> = <span class="php-keyword1">array</span>()</span> )</code>
 
 		<div class="description short">
 			
@@ -1767,7 +1824,7 @@ be used by itself.</dd>
 					<dd><code>mixed</code><br>$contact - Contact id or Contact object itself</dd>
 					<dt><var>$params</var></dt>
 					<dd><code>mixed</code><br>$params - associative array of query parameters and values to append to the
-request. Allow parameters include: limit - Specifies the number of results
+request. Allowed parameters include: limit - Specifies the number of results
 displayed per page of output, from 1 - 500, default = 50. created_since - Used
 to retrieve a list of events since the date and time specified (in ISO-8601
 format). next - the next link returned from a previous paginated call. May only
@@ -1796,7 +1853,7 @@ be used by itself.</dd>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getContactOpens">#</a>
-		<code><a href="source-class-Ctct.ConstantContact.html#607-622" title="Go to source code">getContactOpens</a>( <span>string <var>$accessToken</var></span>, <span>mixed <var>$contact</var></span>, <span>array <var>$params</var> = <span class="php-keyword1">array</span>()</span> )</code>
+		<code><a href="source-class-Ctct.ConstantContact.html#620-635" title="Go to source code">getContactOpens</a>( <span>string <var>$accessToken</var></span>, <span>mixed <var>$contact</var></span>, <span>array <var>$params</var> = <span class="php-keyword1">array</span>()</span> )</code>
 
 		<div class="description short">
 			
@@ -1818,7 +1875,7 @@ be used by itself.</dd>
 					<dd><code>mixed</code><br>$contact - Contact id or Contact object itself</dd>
 					<dt><var>$params</var></dt>
 					<dd><code>mixed</code><br>$params - associative array of query parameters and values to append to the
-request. Allow parameters include: limit - Specifies the number of results
+request. Allowed parameters include: limit - Specifies the number of results
 displayed per page of output, from 1 - 500, default = 50. created_since - Used
 to retrieve a list of events since the date and time specified (in ISO-8601
 format). next - the next link returned from a previous paginated call. May only
@@ -1847,7 +1904,7 @@ be used by itself.</dd>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getContactForwards">#</a>
-		<code><a href="source-class-Ctct.ConstantContact.html#624-639" title="Go to source code">getContactForwards</a>( <span>string <var>$accessToken</var></span>, <span>mixed <var>$contact</var></span>, <span>array <var>$params</var> = <span class="php-keyword1">array</span>()</span> )</code>
+		<code><a href="source-class-Ctct.ConstantContact.html#637-652" title="Go to source code">getContactForwards</a>( <span>string <var>$accessToken</var></span>, <span>mixed <var>$contact</var></span>, <span>array <var>$params</var> = <span class="php-keyword1">array</span>()</span> )</code>
 
 		<div class="description short">
 			
@@ -1869,7 +1926,7 @@ be used by itself.</dd>
 					<dd><code>mixed</code><br>$contact - Contact id or Contact object itself</dd>
 					<dt><var>$params</var></dt>
 					<dd><code>mixed</code><br>$params - associative array of query parameters and values to append to the
-request. Allow parameters include: limit - Specifies the number of results
+request. Allowed parameters include: limit - Specifies the number of results
 displayed per page of output, from 1 - 500, default = 50. created_since - Used
 to retrieve a list of events since the date and time specified (in ISO-8601
 format). next - the next link returned from a previous paginated call. May only
@@ -1898,7 +1955,7 @@ be used by itself.</dd>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getContactUnsubscribes">#</a>
-		<code><a href="source-class-Ctct.ConstantContact.html#641-656" title="Go to source code">getContactUnsubscribes</a>( <span>string <var>$accessToken</var></span>, <span>mixed <var>$contact</var></span>, <span>array <var>$params</var> = <span class="php-keyword1">array</span>()</span> )</code>
+		<code><a href="source-class-Ctct.ConstantContact.html#654-669" title="Go to source code">getContactUnsubscribes</a>( <span>string <var>$accessToken</var></span>, <span>mixed <var>$contact</var></span>, <span>array <var>$params</var> = <span class="php-keyword1">array</span>()</span> )</code>
 
 		<div class="description short">
 			
@@ -1920,7 +1977,7 @@ be used by itself.</dd>
 					<dd><code>mixed</code><br>$contact - Contact id or Contact object itself</dd>
 					<dt><var>$params</var></dt>
 					<dd><code>mixed</code><br>$params - associative array of query parameters and values to append to the
-request. Allow parameters include: limit - Specifies the number of results
+request. Allowed parameters include: limit - Specifies the number of results
 displayed per page of output, from 1 - 500, default = 50. created_since - Used
 to retrieve a list of events since the date and time specified (in ISO-8601
 format). next - the next link returned from a previous paginated call. May only
@@ -1949,7 +2006,7 @@ be used by itself.</dd>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getVerifiedEmailAddresses">#</a>
-		<code><a href="source-class-Ctct.ConstantContact.html#658-671" title="Go to source code">getVerifiedEmailAddresses</a>( <span>string <var>$accessToken</var></span>, <span>string <var>$status</var> = <span class="php-keyword1">null</span></span> )</code>
+		<code><a href="source-class-Ctct.ConstantContact.html#671-684" title="Go to source code">getVerifiedEmailAddresses</a>( <span>string <var>$accessToken</var></span>, <span>string <var>$status</var> = <span class="php-keyword1">null</span></span> )</code>
 
 		<div class="description short">
 			
@@ -1993,7 +2050,7 @@ be used by itself.</dd>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getContactSummaryReport">#</a>
-		<code><a href="source-class-Ctct.ConstantContact.html#673-683" title="Go to source code">getContactSummaryReport</a>( <span>string <var>$accessToken</var></span>, <span>mixed <var>$contact</var></span> )</code>
+		<code><a href="source-class-Ctct.ConstantContact.html#686-696" title="Go to source code">getContactSummaryReport</a>( <span>string <var>$accessToken</var></span>, <span>mixed <var>$contact</var></span> )</code>
 
 		<div class="description short">
 			
@@ -2030,14 +2087,14 @@ be used by itself.</dd>
 
 		<td class="attributes"><code>
 			 public 
-			array
+			<code><a href="class-Ctct.Components.Activities.Activity.html">Ctct\Components\Activities\Activity</a></code>
 			
 			</code>
 		</td>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getActivities">#</a>
-		<code><a href="source-class-Ctct.ConstantContact.html#685-693" title="Go to source code">getActivities</a>( <span>string <var>$accessToken</var></span> )</code>
+		<code><a href="source-class-Ctct.ConstantContact.html#698-711" title="Go to source code">getActivities</a>( <span>string <var>$accessToken</var></span>, <span>array <var>$params</var> = <span class="php-keyword1">array</span>()</span> )</code>
 
 		<div class="description short">
 			
@@ -2055,11 +2112,17 @@ be used by itself.</dd>
 				<div class="list"><dl>
 					<dt><var>$accessToken</var></dt>
 					<dd><code>string</code><br>$accessToken - Constant Contact OAuth2 access token</dd>
+					<dt><var>$params</var></dt>
+					<dd><code>array</code><br>$params - associative array of query parameters and values to append to the
+request. Allowed parameters include: status - Status of the activity, must be
+one of UNCONFIRMED, PENDING, QUEUED, RUNNING, COMPLETE, ERROR type - Type of
+activity, must be one of ADD_CONTACTS, REMOVE_CONTACTS_FROM_LISTS,
+CLEAR_CONTACTS_FROM_LISTS, EXPORT_CONTACTS</dd>
 				</dl></div>
 
 				<h4>Returns</h4>
 				<div class="list">
-					<code>array</code><br>of <code><a href="class-Ctct.Components.Activities.Activity.html">Ctct\Components\Activities\Activity</a></code><br />
+					<code><code><a href="class-Ctct.Components.Activities.Activity.html">Ctct\Components\Activities\Activity</a></code></code><br />
 				</div>
 
 
@@ -2072,14 +2135,14 @@ be used by itself.</dd>
 
 		<td class="attributes"><code>
 			 public 
-			{@link
+			<code><a href="class-Ctct.Components.Activities.Activity.html">Ctct\Components\Activities\Activity</a></code>
 			
 			</code>
 		</td>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getActivity">#</a>
-		<code><a href="source-class-Ctct.ConstantContact.html#695-704" title="Go to source code">getActivity</a>( <span>string <var>$accessToken</var></span>, <span>string <var>$activityId</var></span> )</code>
+		<code><a href="source-class-Ctct.ConstantContact.html#713-722" title="Go to source code">getActivity</a>( <span>string <var>$accessToken</var></span>, <span>string <var>$activityId</var></span> )</code>
 
 		<div class="description short">
 			
@@ -2103,7 +2166,7 @@ be used by itself.</dd>
 
 				<h4>Returns</h4>
 				<div class="list">
-					<code>{@link</code><br>Ctct\Components\Activities\Activity}<br />
+					<code><code><a href="class-Ctct.Components.Activities.Activity.html">Ctct\Components\Activities\Activity</a></code></code><br />
 				</div>
 
 
@@ -2116,14 +2179,14 @@ be used by itself.</dd>
 
 		<td class="attributes"><code>
 			 public 
-			
+			<code><a href="class-Ctct.Components.Activities.Activity.html">Ctct\Components\Activities\Activity</a></code>
 			
 			</code>
 		</td>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_addCreateContactsActivity">#</a>
-		<code><a href="source-class-Ctct.ConstantContact.html#706-714" title="Go to source code">addCreateContactsActivity</a>( <span>string <var>$accessToken</var></span>, <span><code><a href="class-Ctct.Components.Activities.AddContacts.html">Ctct\Components\Activities\AddContacts</a></code> <var>$addContactsActivity</var></span> )</code>
+		<code><a href="source-class-Ctct.ConstantContact.html#724-733" title="Go to source code">addCreateContactsActivity</a>( <span>string <var>$accessToken</var></span>, <span><code><a href="class-Ctct.Components.Activities.AddContacts.html">Ctct\Components\Activities\AddContacts</a></code> <var>$addContactsActivity</var></span> )</code>
 
 		<div class="description short">
 			
@@ -2142,9 +2205,63 @@ be used by itself.</dd>
 					<dt><var>$accessToken</var></dt>
 					<dd><code>string</code><br>$accessToken - Constant Contact OAuth2 access token</dd>
 					<dt><var>$addContactsActivity</var></dt>
-					<dd><code><code><a href="class-Ctct.Components.Activities.AddContacts.html">Ctct\Components\Activities\AddContacts</a></code></code><br>- Add Contacts Activity</dd>
+					<dd><code><code><a href="class-Ctct.Components.Activities.AddContacts.html">Ctct\Components\Activities\AddContacts</a></code></code><br>$addContactsActivity - Add Contacts Activity</dd>
 				</dl></div>
 
+				<h4>Returns</h4>
+				<div class="list">
+					<code><code><a href="class-Ctct.Components.Activities.Activity.html">Ctct\Components\Activities\Activity</a></code></code><br />
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="addCreateContactsActivityFromFile" id="_addCreateContactsActivityFromFile">
+
+		<td class="attributes"><code>
+			 public 
+			<code><a href="class-Ctct.Components.Activities.Activity.html">Ctct\Components\Activities\Activity</a></code>
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_addCreateContactsActivityFromFile">#</a>
+		<code><a href="source-class-Ctct.ConstantContact.html#735-746" title="Go to source code">addCreateContactsActivityFromFile</a>( <span>string <var>$accessToken</var></span>, <span>string <var>$fileName</var></span>, <span>string <var>$contents</var></span>, <span>string <var>$lists</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Create an Add Contacts Activity from a file. Valid file types are txt, csv,
+xls, xlsx</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Create an Add Contacts Activity from a file. Valid file types are txt, csv,
+xls, xlsx</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$accessToken</var></dt>
+					<dd><code>string</code><br>$accessToken - Constant Contact OAuth2 access token</dd>
+					<dt><var>$fileName</var></dt>
+					<dd><code>string</code><br>$fileName - The name of the file (ie: contacts.csv)</dd>
+					<dt><var>$contents</var></dt>
+					<dd><code>string</code><br>$contents - The contents of the file</dd>
+					<dt><var>$lists</var></dt>
+					<dd><code>string</code><br>$lists - Comma separated list of ContactList id's to add the contacts to</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code><code><a href="class-Ctct.Components.Activities.Activity.html">Ctct\Components\Activities\Activity</a></code></code><br />
+				</div>
 
 
 
@@ -2156,14 +2273,14 @@ be used by itself.</dd>
 
 		<td class="attributes"><code>
 			 public 
-			
+			<code><a href="class-Ctct.Components.Activities.Activity.html">Ctct\Components\Activities\Activity</a></code>
 			
 			</code>
 		</td>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_addClearListsActivity">#</a>
-		<code><a href="source-class-Ctct.ConstantContact.html#716-724" title="Go to source code">addClearListsActivity</a>( <span>string <var>$accessToken</var></span>, <span>array <var>$lists</var></span> )</code>
+		<code><a href="source-class-Ctct.ConstantContact.html#748-757" title="Go to source code">addClearListsActivity</a>( <span>string <var>$accessToken</var></span>, <span>array <var>$lists</var></span> )</code>
 
 		<div class="description short">
 			
@@ -2182,9 +2299,13 @@ be used by itself.</dd>
 					<dt><var>$accessToken</var></dt>
 					<dd><code>string</code><br>$accessToken - Constant Contact OAuth2 access token</dd>
 					<dt><var>$lists</var></dt>
-					<dd><code><code><a href="class-Ctct.Components.Activities.AddContacts.html">Ctct\Components\Activities\AddContacts</a></code></code><br>- Add Contacts Activity</dd>
+					<dd><code>array</code><br>$lists - Array of list id's to be cleared</dd>
 				</dl></div>
 
+				<h4>Returns</h4>
+				<div class="list">
+					<code><code><a href="class-Ctct.Components.Activities.Activity.html">Ctct\Components\Activities\Activity</a></code></code><br />
+				</div>
 
 
 
@@ -2196,14 +2317,14 @@ be used by itself.</dd>
 
 		<td class="attributes"><code>
 			 public 
-			
+			<code><a href="class-Ctct.Components.Activities.Activity.html">Ctct\Components\Activities\Activity</a></code>
 			
 			</code>
 		</td>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_addRemoveContactsFromListsActivity">#</a>
-		<code><a href="source-class-Ctct.ConstantContact.html#726-736" title="Go to source code">addRemoveContactsFromListsActivity</a>( <span>string <var>$accessToken</var></span>, <span>array <var>$emailAddresses</var></span>, <span>array <var>$lists</var></span> )</code>
+		<code><a href="source-class-Ctct.ConstantContact.html#759-769" title="Go to source code">addRemoveContactsFromListsActivity</a>( <span>string <var>$accessToken</var></span>, <span>array <var>$emailAddresses</var></span>, <span>array <var>$lists</var></span> )</code>
 
 		<div class="description short">
 			
@@ -2227,6 +2348,60 @@ be used by itself.</dd>
 					<dd><code>array</code><br>$lists - lists to remove the provided email addresses from</dd>
 				</dl></div>
 
+				<h4>Returns</h4>
+				<div class="list">
+					<code><code><a href="class-Ctct.Components.Activities.Activity.html">Ctct\Components\Activities\Activity</a></code></code><br />
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="addRemoveContactsFromListsActivityFromFile" id="_addRemoveContactsFromListsActivityFromFile">
+
+		<td class="attributes"><code>
+			 public 
+			<code><a href="class-Ctct.Components.Activities.Activity.html">Ctct\Components\Activities\Activity</a></code>
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_addRemoveContactsFromListsActivityFromFile">#</a>
+		<code><a href="source-class-Ctct.ConstantContact.html#771-787" title="Go to source code">addRemoveContactsFromListsActivityFromFile</a>( <span>string <var>$accessToken</var></span>, <span>string <var>$fileName</var></span>, <span>string <var>$contents</var></span>, <span>string <var>$lists</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Add a Remove Contacts From Lists Activity from a file. Valid file types are
+txt, csv, xls, xlsx</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Add a Remove Contacts From Lists Activity from a file. Valid file types are
+txt, csv, xls, xlsx</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$accessToken</var></dt>
+					<dd><code>string</code><br>$accessToken - Constant Contact OAuth2 access token</dd>
+					<dt><var>$fileName</var></dt>
+					<dd><code>string</code><br>$fileName - The name of the file (ie: contacts.csv)</dd>
+					<dt><var>$contents</var></dt>
+					<dd><code>string</code><br>$contents - The contents of the file</dd>
+					<dt><var>$lists</var></dt>
+					<dd><code>string</code><br>$lists - Comma separated list of ContactList id' to add the contacts too</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code><code><a href="class-Ctct.Components.Activities.Activity.html">Ctct\Components\Activities\Activity</a></code></code><br />
+				</div>
 
 
 
@@ -2245,7 +2420,7 @@ be used by itself.</dd>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_addExportContactsActivity">#</a>
-		<code><a href="source-class-Ctct.ConstantContact.html#738-747" title="Go to source code">addExportContactsActivity</a>( <span>string <var>$accessToken</var></span>, <span><code><a href="class-Ctct.Components.Activities.ExportContacts.html">Ctct\Components\Activities\ExportContacts</a></code> <var>$exportContacts</var></span> )</code>
+		<code><a href="source-class-Ctct.ConstantContact.html#789-798" title="Go to source code">addExportContactsActivity</a>( <span>string <var>$accessToken</var></span>, <span><code><a href="class-Ctct.Components.Activities.ExportContacts.html">Ctct\Components\Activities\ExportContacts</a></code> <var>$exportContacts</var></span> )</code>
 
 		<div class="description short">
 			
@@ -2300,7 +2475,7 @@ be used by itself.</dd>
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-Ctct.ConstantContact.html#43-47" title="Go to source code"><var>$contactService</var></a>
+				<a href="source-class-Ctct.ConstantContact.html#41-45" title="Go to source code"><var>$contactService</var></a>
 		</td>
 		<td class="value"><code></code></td>
 		<td class="description"><div>
@@ -2308,13 +2483,13 @@ be used by itself.</dd>
 
 			<div class="description short">
 				
-<p>ContactService for handling interaction with contact management</p>
+<p>Handles handling interaction with contact management</p>
 
 			</div>
 
 			<div class="description detailed hidden">
 				
-<p>ContactService for handling interaction with contact management</p>
+<p>Handles handling interaction with contact management</p>
 
 
 			</div>
@@ -2323,11 +2498,11 @@ be used by itself.</dd>
 	<tr data-order="emailMarketingService" id="$emailMarketingService">
 		<td class="attributes"><code>
 			protected  
-			CampaignService
+			<code><a href="class-Ctct.Services.EmailMarketingService.html">Ctct\Services\EmailMarketingService</a></code>
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-Ctct.ConstantContact.html#49-53" title="Go to source code"><var>$emailMarketingService</var></a>
+				<a href="source-class-Ctct.ConstantContact.html#47-51" title="Go to source code"><var>$emailMarketingService</var></a>
 		</td>
 		<td class="value"><code></code></td>
 		<td class="description"><div>
@@ -2335,13 +2510,13 @@ be used by itself.</dd>
 
 			<div class="description short">
 				
-<p>EmailMarketingService for handling interaction with email marketing</p>
+<p>Handles interaction with email marketing</p>
 
 			</div>
 
 			<div class="description detailed hidden">
 				
-<p>EmailMarketingService for handling interaction with email marketing</p>
+<p>Handles interaction with email marketing</p>
 
 
 			</div>
@@ -2354,7 +2529,7 @@ be used by itself.</dd>
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-Ctct.ConstantContact.html#55-59" title="Go to source code"><var>$listService</var></a>
+				<a href="source-class-Ctct.ConstantContact.html#53-57" title="Go to source code"><var>$listService</var></a>
 		</td>
 		<td class="value"><code></code></td>
 		<td class="description"><div>
@@ -2362,13 +2537,13 @@ be used by itself.</dd>
 
 			<div class="description short">
 				
-<p>ListService for handling interaction with contact list management</p>
+<p>Handles interaction with contact list management</p>
 
 			</div>
 
 			<div class="description detailed hidden">
 				
-<p>ListService for handling interaction with contact list management</p>
+<p>Handles interaction with contact list management</p>
 
 
 			</div>
@@ -2381,7 +2556,7 @@ be used by itself.</dd>
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-Ctct.ConstantContact.html#61-65" title="Go to source code"><var>$activityService</var></a>
+				<a href="source-class-Ctct.ConstantContact.html#59-63" title="Go to source code"><var>$activityService</var></a>
 		</td>
 		<td class="value"><code></code></td>
 		<td class="description"><div>
@@ -2408,7 +2583,7 @@ be used by itself.</dd>
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-Ctct.ConstantContact.html#67-71" title="Go to source code"><var>$campaignTrackingService</var></a>
+				<a href="source-class-Ctct.ConstantContact.html#65-69" title="Go to source code"><var>$campaignTrackingService</var></a>
 		</td>
 		<td class="value"><code></code></td>
 		<td class="description"><div>
@@ -2416,15 +2591,13 @@ be used by itself.</dd>
 
 			<div class="description short">
 				
-<p>CampaignTrackingService for handling interaction with email marketing
-tracking</p>
+<p>Handles interaction with email marketing tracking</p>
 
 			</div>
 
 			<div class="description detailed hidden">
 				
-<p>CampaignTrackingService for handling interaction with email marketing
-tracking</p>
+<p>Handles interaction with email marketing tracking</p>
 
 
 			</div>
@@ -2437,7 +2610,7 @@ tracking</p>
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-Ctct.ConstantContact.html#73-77" title="Go to source code"><var>$contactTrackingService</var></a>
+				<a href="source-class-Ctct.ConstantContact.html#71-75" title="Go to source code"><var>$contactTrackingService</var></a>
 		</td>
 		<td class="value"><code></code></td>
 		<td class="description"><div>
@@ -2445,13 +2618,13 @@ tracking</p>
 
 			<div class="description short">
 				
-<p>ContactTrackingService for handling interaction with contact tracking</p>
+<p>Handles interaction with contact tracking</p>
 
 			</div>
 
 			<div class="description detailed hidden">
 				
-<p>ContactTrackingService for handling interaction with contact tracking</p>
+<p>Handles interaction with contact tracking</p>
 
 
 			</div>
@@ -2464,7 +2637,7 @@ tracking</p>
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-Ctct.ConstantContact.html#79-83" title="Go to source code"><var>$campaignScheduleService</var></a>
+				<a href="source-class-Ctct.ConstantContact.html#77-81" title="Go to source code"><var>$campaignScheduleService</var></a>
 		</td>
 		<td class="value"><code></code></td>
 		<td class="description"><div>
@@ -2472,15 +2645,13 @@ tracking</p>
 
 			<div class="description short">
 				
-<p>CampaignScheduleService for handling interaction with email marketing
-campaign scheduling</p>
+<p>Handles interaction with email marketing campaign scheduling</p>
 
 			</div>
 
 			<div class="description detailed hidden">
 				
-<p>CampaignScheduleService for handling interaction with email marketing
-campaign scheduling</p>
+<p>Handles interaction with email marketing campaign scheduling</p>
 
 
 			</div>
@@ -2493,7 +2664,7 @@ campaign scheduling</p>
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-Ctct.ConstantContact.html#85-89" title="Go to source code"><var>$accountService</var></a>
+				<a href="source-class-Ctct.ConstantContact.html#83-87" title="Go to source code"><var>$accountService</var></a>
 		</td>
 		<td class="value"><code></code></td>
 		<td class="description"><div>
@@ -2501,13 +2672,13 @@ campaign scheduling</p>
 
 			<div class="description short">
 				
-<p>AccountService for handling interaction with account management</p>
+<p>Handles interaction with account management</p>
 
 			</div>
 
 			<div class="description detailed hidden">
 				
-<p>AccountService for handling interaction with account management</p>
+<p>Handles interaction with account management</p>
 
 
 			</div>
@@ -2523,7 +2694,7 @@ campaign scheduling</p>
 </div>
 
 	<div id="footer">
-		Appconnect PHP SDK API documentation generated by <a href="http://apigen.org">ApiGen 2.8.0</a>
+		 API documentation generated by <a href="http://apigen.org">ApiGen 2.8.0</a>
 	</div>
 </div>
 </div>

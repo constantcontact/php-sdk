@@ -2,7 +2,6 @@
 namespace Ctct\Components\Contacts;
 
 use Ctct\Components\Component;
-use Ctct\Util\Config;
 
 /**
  * Represents a single Contact in Constant Contact

@@ -5,10 +5,10 @@
 	<meta name="generator" content="ApiGen 2.8.0" />
 	<meta name="robots" content="noindex" />
 
-	<title>File Ctct/Components/Tracking/TrackingSummary.php | Appconnect PHP SDK</title>
+	<title>File Components/Tracking/TrackingSummary.php</title>
 
-	<script type="text/javascript" src="resources/combined.js?554516056"></script>
-	<script type="text/javascript" src="elementlist.js?1423846706"></script>
+	<script type="text/javascript" src="resources/combined.js?1521732112"></script>
+	<script type="text/javascript" src="elementlist.js?4101533401"></script>
 	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?3505392360" />
 
 </head>
@@ -42,6 +42,10 @@
 				<li><a href="namespace-Ctct.Exceptions.html">Exceptions</a>
 						</li>
 				<li><a href="namespace-Ctct.Services.html">Services</a>
+						</li>
+				<li><a href="namespace-Ctct.Util.html">Util</a>
+						</li>
+				<li><a href="namespace-Ctct.WebHooks.html">WebHooks</a>
 						</li>
 							</ul></li>
 				<li><a href="namespace-PHP.html">PHP</a>
@@ -106,26 +110,26 @@
 	</div>
 
 <pre><code><span id="1" class="l"><a class="l" href="#1"> 1: </a><span class="xlang">&lt;?php</span>
-</span><span id="2" class="l"><a class="l" href="#2"> 2: </a>
-</span><span id="3" class="l"><a class="l" href="#3"> 3: </a><span class="php-keyword1">namespace</span> Ctct\Components\Tracking;
-</span><span id="4" class="l"><a class="l" href="#4"> 4: </a>
-</span><span id="5" class="l"><a class="l" href="#5"> 5: </a><span class="php-keyword1">use</span> Ctct\Components\Component;
-</span><span id="6" class="l"><a class="l" href="#6"> 6: </a>
-</span><span id="7" class="l"><a class="l" href="#7"> 7: </a><span class="php-comment">/**
-</span></span><span id="8" class="l"><a class="l" href="#8"> 8: </a><span class="php-comment"> * Represents a Tracking Summary
-</span></span><span id="9" class="l"><a class="l" href="#9"> 9: </a><span class="php-comment"> *
-</span></span><span id="10" class="l"><a class="l" href="#10">10: </a><span class="php-comment"> * @package     Components
-</span></span><span id="11" class="l"><a class="l" href="#11">11: </a><span class="php-comment"> * @subpackage     Campaigns
-</span></span><span id="12" class="l"><a class="l" href="#12">12: </a><span class="php-comment"> * @author         Constant Contact
-</span></span><span id="13" class="l"><a class="l" href="#13">13: </a><span class="php-comment"> */</span>
-</span><span id="14" class="l"><a class="l" href="#14">14: </a><span class="php-keyword1">class</span> <a id="TrackingSummary" href="#TrackingSummary">TrackingSummary</a> <span class="php-keyword1">extends</span> Component
-</span><span id="15" class="l"><a class="l" href="#15">15: </a>{
-</span><span id="16" class="l"><a class="l" href="#16">16: </a>    <span class="php-keyword1">public</span> <span class="php-var"><a id="$sends" href="#$sends">$sends</a></span>;
-</span><span id="17" class="l"><a class="l" href="#17">17: </a>    <span class="php-keyword1">public</span> <span class="php-var"><a id="$opens" href="#$opens">$opens</a></span>;
-</span><span id="18" class="l"><a class="l" href="#18">18: </a>    <span class="php-keyword1">public</span> <span class="php-var"><a id="$clicks" href="#$clicks">$clicks</a></span>;
-</span><span id="19" class="l"><a class="l" href="#19">19: </a>    <span class="php-keyword1">public</span> <span class="php-var"><a id="$forwards" href="#$forwards">$forwards</a></span>;
-</span><span id="20" class="l"><a class="l" href="#20">20: </a>    <span class="php-keyword1">public</span> <span class="php-var"><a id="$unsubscribes" href="#$unsubscribes">$unsubscribes</a></span>;
-</span><span id="21" class="l"><a class="l" href="#21">21: </a>    <span class="php-keyword1">public</span> <span class="php-var"><a id="$bounces" href="#$bounces">$bounces</a></span>;
+</span><span id="2" class="l"><a class="l" href="#2"> 2: </a><span class="php-keyword1">namespace</span> Ctct\Components\Tracking;
+</span><span id="3" class="l"><a class="l" href="#3"> 3: </a>
+</span><span id="4" class="l"><a class="l" href="#4"> 4: </a><span class="php-keyword1">use</span> Ctct\Components\Component;
+</span><span id="5" class="l"><a class="l" href="#5"> 5: </a>
+</span><span id="6" class="l"><a class="l" href="#6"> 6: </a><span class="php-comment">/**
+</span></span><span id="7" class="l"><a class="l" href="#7"> 7: </a><span class="php-comment"> * Represents a Tracking Summary
+</span></span><span id="8" class="l"><a class="l" href="#8"> 8: </a><span class="php-comment"> *
+</span></span><span id="9" class="l"><a class="l" href="#9"> 9: </a><span class="php-comment"> * @package     Components
+</span></span><span id="10" class="l"><a class="l" href="#10">10: </a><span class="php-comment"> * @subpackage     Campaigns
+</span></span><span id="11" class="l"><a class="l" href="#11">11: </a><span class="php-comment"> * @author         Constant Contact
+</span></span><span id="12" class="l"><a class="l" href="#12">12: </a><span class="php-comment"> */</span>
+</span><span id="13" class="l"><a class="l" href="#13">13: </a><span class="php-keyword1">class</span> <a id="TrackingSummary" href="#TrackingSummary">TrackingSummary</a> <span class="php-keyword1">extends</span> Component
+</span><span id="14" class="l"><a class="l" href="#14">14: </a>{
+</span><span id="15" class="l"><a class="l" href="#15">15: </a>    <span class="php-keyword1">public</span> <span class="php-var"><a id="$sends" href="#$sends">$sends</a></span>;
+</span><span id="16" class="l"><a class="l" href="#16">16: </a>    <span class="php-keyword1">public</span> <span class="php-var"><a id="$opens" href="#$opens">$opens</a></span>;
+</span><span id="17" class="l"><a class="l" href="#17">17: </a>    <span class="php-keyword1">public</span> <span class="php-var"><a id="$clicks" href="#$clicks">$clicks</a></span>;
+</span><span id="18" class="l"><a class="l" href="#18">18: </a>    <span class="php-keyword1">public</span> <span class="php-var"><a id="$forwards" href="#$forwards">$forwards</a></span>;
+</span><span id="19" class="l"><a class="l" href="#19">19: </a>    <span class="php-keyword1">public</span> <span class="php-var"><a id="$unsubscribes" href="#$unsubscribes">$unsubscribes</a></span>;
+</span><span id="20" class="l"><a class="l" href="#20">20: </a>    <span class="php-keyword1">public</span> <span class="php-var"><a id="$bounces" href="#$bounces">$bounces</a></span>;
+</span><span id="21" class="l"><a class="l" href="#21">21: </a>    <span class="php-keyword1">public</span> <span class="php-var"><a id="$spam_count" href="#$spam_count">$spam_count</a></span>;
 </span><span id="22" class="l"><a class="l" href="#22">22: </a>
 </span><span id="23" class="l"><a class="l" href="#23">23: </a>    <span class="php-comment">/**
 </span></span><span id="24" class="l"><a class="l" href="#24">24: </a><span class="php-comment">     * Factory method to create a TrackingSummary object from an array
@@ -141,13 +145,20 @@
 </span><span id="34" class="l"><a class="l" href="#34">34: </a>        <span class="php-var">$tracking_summary</span>-&gt;forwards = parent::getValue(<span class="php-var">$props</span>, <span class="php-quote">&quot;forwards&quot;</span>);
 </span><span id="35" class="l"><a class="l" href="#35">35: </a>        <span class="php-var">$tracking_summary</span>-&gt;unsubscribes = parent::getValue(<span class="php-var">$props</span>, <span class="php-quote">&quot;unsubscribes&quot;</span>);
 </span><span id="36" class="l"><a class="l" href="#36">36: </a>        <span class="php-var">$tracking_summary</span>-&gt;bounces = parent::getValue(<span class="php-var">$props</span>, <span class="php-quote">&quot;bounces&quot;</span>);
-</span><span id="37" class="l"><a class="l" href="#37">37: </a>        <span class="php-keyword1">return</span> <span class="php-var">$tracking_summary</span>;
-</span><span id="38" class="l"><a class="l" href="#38">38: </a>    }
-</span><span id="39" class="l"><a class="l" href="#39">39: </a>}
-</span><span id="40" class="l"><a class="l" href="#40">40: </a></span></code></pre>
+</span><span id="37" class="l"><a class="l" href="#37">37: </a>        <span class="php-var">$tracking_summary</span>-&gt;spam_count = parent::getValue(<span class="php-var">$props</span>, <span class="php-quote">&quot;spam_count&quot;</span>);
+</span><span id="38" class="l"><a class="l" href="#38">38: </a>
+</span><span id="39" class="l"><a class="l" href="#39">39: </a>        <span class="php-comment">// Contacts don't have spam_count, only Campaigns</span>
+</span><span id="40" class="l"><a class="l" href="#40">40: </a>        <span class="php-keyword1">if</span>(<span class="php-keyword2">is_null</span>(<span class="php-var">$tracking_summary</span>-&gt;spam_count)) {
+</span><span id="41" class="l"><a class="l" href="#41">41: </a>            <span class="php-keyword1">unset</span>(<span class="php-var">$tracking_summary</span>-&gt;spam_count);
+</span><span id="42" class="l"><a class="l" href="#42">42: </a>        }
+</span><span id="43" class="l"><a class="l" href="#43">43: </a>        
+</span><span id="44" class="l"><a class="l" href="#44">44: </a>        <span class="php-keyword1">return</span> <span class="php-var">$tracking_summary</span>;
+</span><span id="45" class="l"><a class="l" href="#45">45: </a>    }
+</span><span id="46" class="l"><a class="l" href="#46">46: </a>}
+</span><span id="47" class="l"><a class="l" href="#47">47: </a></span></code></pre>
 
 	<div id="footer">
-		Appconnect PHP SDK API documentation generated by <a href="http://apigen.org">ApiGen 2.8.0</a>
+		 API documentation generated by <a href="http://apigen.org">ApiGen 2.8.0</a>
 	</div>
 </div>
 </div>

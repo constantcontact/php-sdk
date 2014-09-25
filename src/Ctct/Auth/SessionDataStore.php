@@ -1,8 +1,6 @@
 <?php
 namespace Ctct\Auth;
 
-use Ctct\Auth\CtctDataStore;
-
 /**
  * Example implementation of the CTCTDataStore interface that uses session for access token storage
  *

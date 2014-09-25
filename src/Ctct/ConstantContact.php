@@ -266,6 +266,17 @@ class ConstantContact
     }
 
     /**
+     * Delete a contact list from an account
+     * @param string $accessToken - Valid access token
+     * @param int $listId - Id of the list to delete
+     * @return boolean
+     */
+    public function deleteList($accessToken, $listId)
+    {
+        return $this->listService->deleteList($accessToken, $listId);
+    }
+
+    /**
      * Get contact that belong to a specific list
      * @param string $accessToken - Constant Contact OAuth2 access token
      * @param mixed $list - Id of the list or a ContactList object

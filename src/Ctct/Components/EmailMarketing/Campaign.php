@@ -116,7 +116,7 @@ class Campaign extends Component
     public $view_as_web_page_text;
 
     /**
-     * Text that will be dispalyed as the link if is_view_as_webpage_enabled is true
+     * Text that will be displayed as the link if is_view_as_webpage_enabled is true
      * @var string
      */
     public $view_as_web_page_link_text;

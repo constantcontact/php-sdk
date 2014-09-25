@@ -53,7 +53,7 @@ class CTCTWebhookUtil
     {
         $this->clientSecret = $clientSecret;
     }
-    
+
     /**
      * Get Billing Change Notification.<br/>
      *
@@ -79,6 +79,7 @@ class CTCTWebhookUtil
             throw new CtctException("Invalid WebHook");
         }
     }
+
     /**
      * Check if a Webhook message is valid or not.<br/>
      *

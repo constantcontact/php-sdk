@@ -21,8 +21,8 @@ class SessionDataStore implements CtctDataStore
 
     /**
      * Add a new user to the data store
-     * @params string $username - Constant Contact username
-     * @params array $params - additional parameters
+     * @param string $username - Constant Contact username
+     * @param array $params - additional parameters
      */
     public function addUser($username, array $params)
     {
@@ -31,7 +31,7 @@ class SessionDataStore implements CtctDataStore
 
     /**
      * Get an existing user from the data store
-     * @params string $username - Constant Contact username
+     * @param string $username - Constant Contact username
      */
     public function getUser($username)
     {
@@ -44,8 +44,8 @@ class SessionDataStore implements CtctDataStore
 
     /**
      * Update an existing user in the data store
-     * @params string $username - Constant Contact username
-     * @params array $params - additional parameters
+     * @param string $username - Constant Contact username
+     * @param array $params - additional parameters
      */
     public function updateUser($username, array $params)
     {
@@ -56,7 +56,7 @@ class SessionDataStore implements CtctDataStore
 
     /**
      * Delete an existing user from the data store
-     * @params string $username - Constant Contact username
+     * @param string $username - Constant Contact username
      */
     public function deleteUser($username)
     {

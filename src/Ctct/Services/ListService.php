@@ -17,7 +17,7 @@ class ListService extends BaseService
     /**
      * Get lists within an account
      * @param $accessToken - Constant Contact OAuth2 access token
-     * @param array $params - array of query parameters to be appened to the request
+     * @param array $params - array of query parameters to be appended to the request
      * @return Array - ContactLists
      */
     public function getLists($accessToken, array $params = array())

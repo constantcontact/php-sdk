@@ -69,13 +69,13 @@ class CtctOAuth2
         $url = Config::get('auth.base_url') . Config::get('auth.token_endpoint') . '?' . http_build_query($params);
 
         $response = $this->restClient->post($url);
-        $resposeBody = json_decode($response->body, true);
+        $responseBody = json_decode($response->body, true);
 
-        if (array_key_exists('error', $resposeBody)) {
-            throw new OAuth2Exception($resposeBody['error'] . ': ' . $resposeBody['error_description']);
+        if (array_key_exists('error', $responseBody)) {
+            throw new OAuth2Exception($responseBody['error'] . ': ' . $responseBody['error_description']);
         }
 
-        return $resposeBody;
+        return $responseBody;
     }
 
     /**

@@ -63,10 +63,10 @@ class TestSend extends Component
      */
     public function toJson()
     {
-        $testsend = clone $this;
-        if ($testsend->personal_message == null) {
-            unset($testsend->personal_message);
+        $testSend = clone $this;
+        if ($testSend->personal_message == null) {
+            unset($testSend->personal_message);
         }
-        return json_encode($testsend);
+        return json_encode($testSend);
     }
 }

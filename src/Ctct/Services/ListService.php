@@ -1,7 +1,6 @@
 <?php
 namespace Ctct\Services;
 
-use Ctct\Util\RestClient;
 use Ctct\Util\Config;
 use Ctct\Components\Contacts\ContactList;
 use Ctct\Components\Contacts\Contact;
@@ -9,7 +8,7 @@ use Ctct\Components\ResultSet;
 
 /**
  * Performs all actions pertaining to Constant Contact Lists
- * 
+ *
  * @package     Services
  * @author         Constant Contact
  */
@@ -18,14 +17,15 @@ class ListService extends BaseService
     /**
      * Get lists within an account
      * @param $accessToken - Constant Contact OAuth2 access token
+     * @param array $params - array of query parameters to be appended to the request
      * @return Array - ContactLists
      */
-    public function getLists($accessToken)
+    public function getLists($accessToken, array $params = array())
     {
         $baseUrl = Config::get('endpoints.base_url') . Config::get('endpoints.lists');
-        $url = $this->buildUrl($baseUrl);
+        $url = $this->buildUrl($baseUrl, $params);
         $response = parent::getRestClient()->get($url, parent::getHeaders($accessToken));
-        
+
         $lists = array();
         foreach (json_decode($response->body, true) as $contact) {
             $lists[] = ContactList::create($contact);
@@ -46,7 +46,7 @@ class ListService extends BaseService
         $response = parent::getRestClient()->post($url, parent::getHeaders($accessToken), $list->toJson());
         return ContactList::create(json_decode($response->body, true));
     }
-    
+
     /**
      * Update a Contact List
      * @param string $accessToken - Constant Contact OAuth2 access token
@@ -59,6 +59,20 @@ class ListService extends BaseService
         $url = $this->buildUrl($baseUrl);
         $response = parent::getRestClient()->put($url, parent::getHeaders($accessToken), $list->toJson());
         return ContactList::create(json_decode($response->body, true));
+    }
+
+    /**
+     * Delete a Contact List
+     * @param string $accessToken - Constant Contact OAuth2 access token
+     * @param $list_id - list id
+     * @return ContactList
+     */
+    public function deleteList($accessToken, $list_id)
+    {
+        $baseUrl = Config::get('endpoints.base_url') . sprintf(Config::get('endpoints.list'), $list_id);
+        $url = $this->buildUrl($baseUrl);
+        $response = parent::getRestClient()->delete($url, parent::getHeaders($accessToken));
+        return ($response->info['http_code'] == 204) ? true : false;
     }
 
     /**
@@ -86,7 +100,7 @@ class ListService extends BaseService
     {
         $baseUrl = Config::get('endpoints.base_url') . sprintf(Config::get('endpoints.list_contacts'), $list_id);
         $url = $this->buildUrl($baseUrl, $params);
-        
+
         $response = parent::getRestClient()->get($url, parent::getHeaders($accessToken));
         $body = json_decode($response->body, true);
         $contacts = array();

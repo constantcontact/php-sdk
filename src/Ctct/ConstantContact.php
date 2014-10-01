@@ -9,7 +9,6 @@ use Ctct\Services\CampaignScheduleService;
 use Ctct\Services\CampaignTrackingService;
 use Ctct\Services\ContactTrackingService;
 use Ctct\Services\ActivityService;
-use Ctct\Components\ResultSet;
 use Ctct\Components\Activities\Activity;
 use Ctct\Components\Contacts\Contact;
 use Ctct\Components\Contacts\ContactList;

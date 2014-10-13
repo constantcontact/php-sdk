@@ -61,7 +61,7 @@ class CTCTWebhookUtil
      *
      * @param xCtctHmacSHA256 The value in the x-ctct-hmac-sha256 header.
      * @param bodyMessage The body message from the POST received from ConstantContact in Webhook callback.
-     * @return The object corresponding to bodyMessage in case of success; an exception is thrown otherwise.
+     * @return Object corresponding to bodyMessage in case of success; an exception is thrown otherwise.
      * @throws CtctException Thrown when :
      * <ul>
      * <li>message encryption does not correspond with x-ctct-hmac-sha256 header value;</li>

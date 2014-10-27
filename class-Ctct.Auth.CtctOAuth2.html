@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="generator" content="ApiGen 2.8.0" />
+
+	<title>Class Ctct\Auth\CtctOAuth2</title>
+
+	<script type="text/javascript" src="resources/combined.js?1521732112"></script>
+	<script type="text/javascript" src="elementlist.js?4101533401"></script>
+	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?3505392360" />
+
+</head>
+
+<body>
+<div id="left">
+	<div id="menu">
+		<a href="index.html" title="Overview"><span>Overview</span></a>
+
+
+		<div id="groups">
+			<h3>Namespaces</h3>
+			<ul>
+				<li class="active"><a href="namespace-Ctct.html">Ctct<span></span></a>
+						<ul>
+				<li class="active"><a href="namespace-Ctct.Auth.html">Auth</a>
+						</li>
+				<li><a href="namespace-Ctct.Components.html">Components<span></span></a>
+						<ul>
+				<li><a href="namespace-Ctct.Components.Account.html">Account</a>
+						</li>
+				<li><a href="namespace-Ctct.Components.Activities.html">Activities</a>
+						</li>
+				<li><a href="namespace-Ctct.Components.Contacts.html">Contacts</a>
+						</li>
+				<li><a href="namespace-Ctct.Components.EmailMarketing.html">EmailMarketing</a>
+						</li>
+				<li><a href="namespace-Ctct.Components.Tracking.html">Tracking</a>
+						</li>
+							</ul></li>
+				<li><a href="namespace-Ctct.Exceptions.html">Exceptions</a>
+						</li>
+				<li><a href="namespace-Ctct.Services.html">Services</a>
+						</li>
+				<li><a href="namespace-Ctct.Util.html">Util</a>
+						</li>
+				<li><a href="namespace-Ctct.WebHooks.html">WebHooks</a>
+						</li>
+							</ul></li>
+				<li><a href="namespace-PHP.html">PHP</a>
+						</li>
+			</ul>
+		</div>
+
+		<hr />
+
+
+		<div id="elements">
+			<h3>Classes</h3>
+			<ul>
+				<li class="active"><a href="class-Ctct.Auth.CtctOAuth2.html">CtctOAuth2</a></li>
+				<li><a href="class-Ctct.Auth.SessionDataStore.html">SessionDataStore</a></li>
+			</ul>
+
+			<h3>Interfaces</h3>
+			<ul>
+				<li><a href="class-Ctct.Auth.CtctDataStore.html">CtctDataStore</a></li>
+			</ul>
+
+
+
+
+		</div>
+	</div>
+</div>
+
+<div id="splitter"></div>
+
+<div id="right">
+<div id="rightInner">
+	<form id="search">
+		<input type="hidden" name="cx" value="" />
+		<input type="hidden" name="ie" value="UTF-8" />
+		<input type="text" name="q" class="text" />
+		<input type="submit" value="Search" />
+	</form>
+
+	<div id="navigation">
+		<ul>
+			<li>
+				<a href="index.html" title="Overview"><span>Overview</span></a>
+			</li>
+			<li>
+				<a href="namespace-Ctct.Auth.html" title="Summary of Ctct\Auth"><span>Namespace</span></a>
+			</li>
+			<li class="active">
+<span>Class</span>			</li>
+		</ul>
+		<ul>
+			<li>
+				<a href="tree.html" title="Tree view of classes, interfaces, traits and exceptions"><span>Tree</span></a>
+			</li>
+		</ul>
+		<ul>
+		</ul>
+	</div>
+
+<div id="content" class="class">
+	<h1>Class CtctOAuth2</h1>
+
+
+	<div class="description">
+	
+<p>Class that implements necessary functionality to obtain an access token from
+a user</p>
+
+	</div>
+
+
+
+
+
+
+
+
+
+	<div class="info">
+		
+		
+		<b>Namespace:</b> <a href="namespace-Ctct.html">Ctct</a>\<a href="namespace-Ctct.Auth.html">Auth</a><br />
+		<b>Package:</b> Auth<br />
+
+				<b>Author:</b>
+				Constant Contact<br />
+		<b>Located at</b> <a href="source-class-Ctct.Auth.CtctOAuth2.html#8-93" title="Go to source code">Auth/CtctOAuth2.php</a><br />
+	</div>
+
+
+
+	<table class="summary" id="methods">
+	<caption>Methods summary</caption>
+	<tr data-order="__construct" id="___construct">
+
+		<td class="attributes"><code>
+			 public 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#___construct">#</a>
+		<code><a href="source-class-Ctct.Auth.CtctOAuth2.html#21-27" title="Go to source code">__construct</a>( <span>mixed <var>$clientId</var></span>, <span>mixed <var>$clientSecret</var></span>, <span>mixed <var>$redirectUri</var></span>, <span>mixed <var>$restClient</var> = <span class="php-keyword1">null</span></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getAuthorizationUrl" id="_getAuthorizationUrl">
+
+		<td class="attributes"><code>
+			 public 
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getAuthorizationUrl">#</a>
+		<code><a href="source-class-Ctct.Auth.CtctOAuth2.html#29-51" title="Go to source code">getAuthorizationUrl</a>( <span>boolean <var>$server</var> = <span class="php-keyword1">true</span></span>, <span>string <var>$state</var> = <span class="php-keyword1">null</span></span> )</code>
+
+		<div class="description short">
+			
+<p>Get the URL at which the user can authenticate and authorize the requesting
+application</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Get the URL at which the user can authenticate and authorize the requesting
+application</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$server</var></dt>
+					<dd><code>boolean</code><br>$server - Whether or not to use OAuth2 server flow, alternative is client flow</dd>
+					<dt><var>$state</var></dt>
+					<dd><code>string</code><br>$state - An optional value used by the client to maintain state between the
+request and callback.</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>string</code><br>$url - The url to send a user to, to grant access to their account<br />
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getAccessToken" id="_getAccessToken">
+
+		<td class="attributes"><code>
+			 public 
+			array
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getAccessToken">#</a>
+		<code><a href="source-class-Ctct.Auth.CtctOAuth2.html#53-79" title="Go to source code">getAccessToken</a>( <span>string <var>$code</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Obtain an access token</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Obtain an access token</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$code</var></dt>
+					<dd><code>string</code><br>$code - code returned from Constant Contact after a user has granted access to
+their account</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>array</code><br />
+				</div>
+
+				<h4>Throws</h4>
+				<div class="list">
+					<code><code><a href="class-Ctct.Exceptions.OAuth2Exception.html">Ctct\Exceptions\OAuth2Exception</a></code></code><br />
+				</div>
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getTokenInfo" id="_getTokenInfo">
+
+		<td class="attributes"><code>
+			 public 
+			array
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getTokenInfo">#</a>
+		<code><a href="source-class-Ctct.Auth.CtctOAuth2.html#81-92" title="Go to source code">getTokenInfo</a>( <span>string <var>$accessToken</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Get an information about an access token</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Get an information about an access token</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$accessToken</var></dt>
+					<dd><code>string</code><br>$accessToken - Constant Contact OAuth2 access token</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>array</code><br />
+				</div>
+
+				<h4>Throws</h4>
+				<div class="list">
+					<code><code><a href="class-Ctct.Exceptions.CtctException.html">Ctct\Exceptions\CtctException</a></code></code><br />
+				</div>
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	</table>
+
+
+
+
+
+
+
+
+
+
+
+
+	<table class="summary" id="properties">
+	<caption>Properties summary</caption>
+	<tr data-order="clientId" id="$clientId">
+		<td class="attributes"><code>
+			public  
+			mixed
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-Ctct.Auth.CtctOAuth2.html#16" title="Go to source code"><var>$clientId</var></a>
+		</td>
+		<td class="value"><code></code></td>
+		<td class="description"><div>
+			<a href="#$clientId" class="anchor">#</a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</div></td>
+	</tr>
+	<tr data-order="clientSecret" id="$clientSecret">
+		<td class="attributes"><code>
+			public  
+			mixed
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-Ctct.Auth.CtctOAuth2.html#17" title="Go to source code"><var>$clientSecret</var></a>
+		</td>
+		<td class="value"><code></code></td>
+		<td class="description"><div>
+			<a href="#$clientSecret" class="anchor">#</a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</div></td>
+	</tr>
+	<tr data-order="redirectUri" id="$redirectUri">
+		<td class="attributes"><code>
+			public  
+			mixed
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-Ctct.Auth.CtctOAuth2.html#18" title="Go to source code"><var>$redirectUri</var></a>
+		</td>
+		<td class="value"><code></code></td>
+		<td class="description"><div>
+			<a href="#$redirectUri" class="anchor">#</a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</div></td>
+	</tr>
+	<tr data-order="props" id="$props">
+		<td class="attributes"><code>
+			public  
+			mixed
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-Ctct.Auth.CtctOAuth2.html#19" title="Go to source code"><var>$props</var></a>
+		</td>
+		<td class="value"><code></code></td>
+		<td class="description"><div>
+			<a href="#$props" class="anchor">#</a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</div></td>
+	</tr>
+	</table>
+
+
+
+
+
+
+</div>
+
+	<div id="footer">
+		 API documentation generated by <a href="http://apigen.org">ApiGen 2.8.0</a>
+	</div>
+</div>
+</div>
+</body>
+</html>

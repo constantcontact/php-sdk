@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="generator" content="ApiGen 2.8.0" />
+
+	<title>Interface Ctct\Auth\CtctDataStore</title>
+
+	<script type="text/javascript" src="resources/combined.js?1521732112"></script>
+	<script type="text/javascript" src="elementlist.js?4101533401"></script>
+	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?3505392360" />
+
+</head>
+
+<body>
+<div id="left">
+	<div id="menu">
+		<a href="index.html" title="Overview"><span>Overview</span></a>
+
+
+		<div id="groups">
+			<h3>Namespaces</h3>
+			<ul>
+				<li class="active"><a href="namespace-Ctct.html">Ctct<span></span></a>
+						<ul>
+				<li class="active"><a href="namespace-Ctct.Auth.html">Auth</a>
+						</li>
+				<li><a href="namespace-Ctct.Components.html">Components<span></span></a>
+						<ul>
+				<li><a href="namespace-Ctct.Components.Account.html">Account</a>
+						</li>
+				<li><a href="namespace-Ctct.Components.Activities.html">Activities</a>
+						</li>
+				<li><a href="namespace-Ctct.Components.Contacts.html">Contacts</a>
+						</li>
+				<li><a href="namespace-Ctct.Components.EmailMarketing.html">EmailMarketing</a>
+						</li>
+				<li><a href="namespace-Ctct.Components.Tracking.html">Tracking</a>
+						</li>
+							</ul></li>
+				<li><a href="namespace-Ctct.Exceptions.html">Exceptions</a>
+						</li>
+				<li><a href="namespace-Ctct.Services.html">Services</a>
+						</li>
+				<li><a href="namespace-Ctct.Util.html">Util</a>
+						</li>
+				<li><a href="namespace-Ctct.WebHooks.html">WebHooks</a>
+						</li>
+							</ul></li>
+				<li><a href="namespace-PHP.html">PHP</a>
+						</li>
+			</ul>
+		</div>
+
+		<hr />
+
+
+		<div id="elements">
+			<h3>Classes</h3>
+			<ul>
+				<li><a href="class-Ctct.Auth.CtctOAuth2.html">CtctOAuth2</a></li>
+				<li><a href="class-Ctct.Auth.SessionDataStore.html">SessionDataStore</a></li>
+			</ul>
+
+			<h3>Interfaces</h3>
+			<ul>
+				<li class="active"><a href="class-Ctct.Auth.CtctDataStore.html">CtctDataStore</a></li>
+			</ul>
+
+
+
+
+		</div>
+	</div>
+</div>
+
+<div id="splitter"></div>
+
+<div id="right">
+<div id="rightInner">
+	<form id="search">
+		<input type="hidden" name="cx" value="" />
+		<input type="hidden" name="ie" value="UTF-8" />
+		<input type="text" name="q" class="text" />
+		<input type="submit" value="Search" />
+	</form>
+
+	<div id="navigation">
+		<ul>
+			<li>
+				<a href="index.html" title="Overview"><span>Overview</span></a>
+			</li>
+			<li>
+				<a href="namespace-Ctct.Auth.html" title="Summary of Ctct\Auth"><span>Namespace</span></a>
+			</li>
+			<li class="active">
+<span>Class</span>			</li>
+		</ul>
+		<ul>
+			<li>
+				<a href="tree.html" title="Tree view of classes, interfaces, traits and exceptions"><span>Tree</span></a>
+			</li>
+		</ul>
+		<ul>
+		</ul>
+	</div>
+
+<div id="content" class="class">
+	<h1>Interface CtctDataStore</h1>
+
+
+	<div class="description">
+	
+<p>Interface containing the necessary functionality to manage an OAuth2 data
+store</p>
+
+	</div>
+
+
+
+
+
+	<div>
+		<h4>Direct known implementers</h4>
+			<a href="class-Ctct.Auth.SessionDataStore.html">Ctct\Auth\SessionDataStore</a>
+	</div>
+
+
+
+
+	<div class="info">
+		
+		
+		<b>Namespace:</b> <a href="namespace-Ctct.html">Ctct</a>\<a href="namespace-Ctct.Auth.html">Auth</a><br />
+		<b>Package:</b> Auth<br />
+
+				<b>Author:</b>
+				Constant Contact<br />
+		<b>Located at</b> <a href="source-class-Ctct.Auth.CtctDataStore.html#5-39" title="Go to source code">Auth/CtctDataStore.php</a><br />
+	</div>
+
+
+
+	<table class="summary" id="methods">
+	<caption>Methods summary</caption>
+	<tr data-order="addUser" id="_addUser">
+
+		<td class="attributes"><code>
+			 public 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_addUser">#</a>
+		<code><a href="source-class-Ctct.Auth.CtctDataStore.html#14-19" title="Go to source code">addUser</a>( <span>mixed <var>$id</var></span>, <span>array <var>$params</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Add a new user to the data store</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Add a new user to the data store</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$id</var></dt>
+					<dd><code>mixed</code><br>$id - unique identifier</dd>
+					<dt><var>$params</var></dt>
+					<dd><code>array</code><br>$params - additional parameters</dd>
+				</dl></div>
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getUser" id="_getUser">
+
+		<td class="attributes"><code>
+			 public 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getUser">#</a>
+		<code><a href="source-class-Ctct.Auth.CtctDataStore.html#21-25" title="Go to source code">getUser</a>( <span>mixed <var>$id</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Get an existing user from the data store</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Get an existing user from the data store</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$id</var></dt>
+					<dd><code>mixed</code><br>$id - unique identifier</dd>
+				</dl></div>
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="updateUser" id="_updateUser">
+
+		<td class="attributes"><code>
+			 public 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_updateUser">#</a>
+		<code><a href="source-class-Ctct.Auth.CtctDataStore.html#27-32" title="Go to source code">updateUser</a>( <span>mixed <var>$id</var></span>, <span>array <var>$params</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Update an existing user in the data store</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Update an existing user in the data store</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$id</var></dt>
+					<dd><code>mixed</code><br>$id - unique identifier</dd>
+					<dt><var>$params</var></dt>
+					<dd><code>array</code><br>$params - additional parameters</dd>
+				</dl></div>
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="deleteUser" id="_deleteUser">
+
+		<td class="attributes"><code>
+			 public 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_deleteUser">#</a>
+		<code><a href="source-class-Ctct.Auth.CtctDataStore.html#34-38" title="Go to source code">deleteUser</a>( <span>mixed <var>$id</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Delete an existing user from the data store</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Delete an existing user from the data store</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$id</var></dt>
+					<dd><code>mixed</code><br>$id - unique identifier</dd>
+				</dl></div>
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+	<div id="footer">
+		 API documentation generated by <a href="http://apigen.org">ApiGen 2.8.0</a>
+	</div>
+</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="generator" content="ApiGen 2.8.0" />
+
+	<title>Class Ctct\Services\ActivityService</title>
+
+	<script type="text/javascript" src="resources/combined.js?1521732112"></script>
+	<script type="text/javascript" src="elementlist.js?4101533401"></script>
+	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?3505392360" />
+
+</head>
+
+<body>
+<div id="left">
+	<div id="menu">
+		<a href="index.html" title="Overview"><span>Overview</span></a>
+
+
+		<div id="groups">
+			<h3>Namespaces</h3>
+			<ul>
+				<li class="active"><a href="namespace-Ctct.html">Ctct<span></span></a>
+						<ul>
+				<li><a href="namespace-Ctct.Auth.html">Auth</a>
+						</li>
+				<li><a href="namespace-Ctct.Components.html">Components<span></span></a>
+						<ul>
+				<li><a href="namespace-Ctct.Components.Account.html">Account</a>
+						</li>
+				<li><a href="namespace-Ctct.Components.Activities.html">Activities</a>
+						</li>
+				<li><a href="namespace-Ctct.Components.Contacts.html">Contacts</a>
+						</li>
+				<li><a href="namespace-Ctct.Components.EmailMarketing.html">EmailMarketing</a>
+						</li>
+				<li><a href="namespace-Ctct.Components.Tracking.html">Tracking</a>
+						</li>
+							</ul></li>
+				<li><a href="namespace-Ctct.Exceptions.html">Exceptions</a>
+						</li>
+				<li class="active"><a href="namespace-Ctct.Services.html">Services</a>
+						</li>
+				<li><a href="namespace-Ctct.Util.html">Util</a>
+						</li>
+				<li><a href="namespace-Ctct.WebHooks.html">WebHooks</a>
+						</li>
+							</ul></li>
+				<li><a href="namespace-PHP.html">PHP</a>
+						</li>
+			</ul>
+		</div>
+
+		<hr />
+
+
+		<div id="elements">
+			<h3>Classes</h3>
+			<ul>
+				<li><a href="class-Ctct.Services.AccountService.html">AccountService</a></li>
+				<li class="active"><a href="class-Ctct.Services.ActivityService.html">ActivityService</a></li>
+				<li><a href="class-Ctct.Services.BaseService.html">BaseService</a></li>
+				<li><a href="class-Ctct.Services.CampaignScheduleService.html">CampaignScheduleService</a></li>
+				<li><a href="class-Ctct.Services.CampaignTrackingService.html">CampaignTrackingService</a></li>
+				<li><a href="class-Ctct.Services.ContactService.html">ContactService</a></li>
+				<li><a href="class-Ctct.Services.ContactTrackingService.html">ContactTrackingService</a></li>
+				<li><a href="class-Ctct.Services.EmailMarketingService.html">EmailMarketingService</a></li>
+				<li><a href="class-Ctct.Services.ListService.html">ListService</a></li>
+			</ul>
+
+
+
+
+
+		</div>
+	</div>
+</div>
+
+<div id="splitter"></div>
+
+<div id="right">
+<div id="rightInner">
+	<form id="search">
+		<input type="hidden" name="cx" value="" />
+		<input type="hidden" name="ie" value="UTF-8" />
+		<input type="text" name="q" class="text" />
+		<input type="submit" value="Search" />
+	</form>
+
+	<div id="navigation">
+		<ul>
+			<li>
+				<a href="index.html" title="Overview"><span>Overview</span></a>
+			</li>
+			<li>
+				<a href="namespace-Ctct.Services.html" title="Summary of Ctct\Services"><span>Namespace</span></a>
+			</li>
+			<li class="active">
+<span>Class</span>			</li>
+		</ul>
+		<ul>
+			<li>
+				<a href="tree.html" title="Tree view of classes, interfaces, traits and exceptions"><span>Tree</span></a>
+			</li>
+		</ul>
+		<ul>
+		</ul>
+	</div>
+
+<div id="content" class="class">
+	<h1>Class ActivityService</h1>
+
+
+	<div class="description">
+	
+<p>Performs all actions pertaining to scheduling Constant Contact Activities</p>
+
+	</div>
+
+	<dl class="tree">
+		<dd style="padding-left:0px">
+			<a href="class-Ctct.Services.BaseService.html"><span>Ctct\Services\BaseService</span></a>
+			
+			
+			
+		</dd>
+		<dd style="padding-left:30px">
+			<img src="resources/inherit.png" alt="Extended by" />
+<b><span>Ctct\Services\ActivityService</span></b>			
+			
+			
+		</dd>
+	</dl>
+
+
+
+
+
+
+
+
+	<div class="info">
+		
+		
+		<b>Namespace:</b> <a href="namespace-Ctct.html">Ctct</a>\<a href="namespace-Ctct.Services.html">Services</a><br />
+		<b>Package:</b> Services<br />
+
+				<b>Author:</b>
+				ConstantContact<br />
+		<b>Located at</b> <a href="source-class-Ctct.Services.ActivityService.html#9-199" title="Go to source code">Services/ActivityService.php</a><br />
+	</div>
+
+
+
+	<table class="summary" id="methods">
+	<caption>Methods summary</caption>
+	<tr data-order="getActivities" id="_getActivities">
+
+		<td class="attributes"><code>
+			 public 
+			array
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getActivities">#</a>
+		<code><a href="source-class-Ctct.Services.ActivityService.html#17-35" title="Go to source code">getActivities</a>( <span>string <var>$accessToken</var></span>, <span>array <var>$params</var> = <span class="php-keyword1">array</span>()</span> )</code>
+
+		<div class="description short">
+			
+<p>Get an array of activities</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Get an array of activities</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$accessToken</var></dt>
+					<dd><code>string</code><br>$accessToken - Constant Contact OAuth2 access token</dd>
+					<dt><var>$params</var></dt>
+					<dd><code>array</code><br>$params - array of query parameters to be appended to the url</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>array</code><br>- Array of all ActivitySummaryReports<br />
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getActivity" id="_getActivity">
+
+		<td class="attributes"><code>
+			 public 
+			array
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getActivity">#</a>
+		<code><a href="source-class-Ctct.Services.ActivityService.html#37-49" title="Go to source code">getActivity</a>( <span>string <var>$accessToken</var></span>, <span>string <var>$activityId</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Get an array of activities</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Get an array of activities</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$accessToken</var></dt>
+					<dd><code>string</code><br>$accessToken - Constant Contact OAuth2 access token</dd>
+					<dt><var>$activityId</var></dt>
+					<dd><code>string</code><br>$activityId - Activity id</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>array</code><br>- Array of all ActivitySummaryReports<br />
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="createAddContactsActivity" id="_createAddContactsActivity">
+
+		<td class="attributes"><code>
+			 public 
+			array
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_createAddContactsActivity">#</a>
+		<code><a href="source-class-Ctct.Services.ActivityService.html#51-63" title="Go to source code">createAddContactsActivity</a>( <span>string <var>$accessToken</var></span>, <span><code><a href="class-Ctct.Components.Activities.AddContacts.html">Ctct\Components\Activities\AddContacts</a></code> <var>$addContacts</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Create an Add Contacts Activity</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Create an Add Contacts Activity</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$accessToken</var></dt>
+					<dd><code>string</code><br>$accessToken - Constant Contact OAuth2 access token</dd>
+					<dt><var>$addContacts</var></dt>
+					<dd><code><code><a href="class-Ctct.Components.Activities.AddContacts.html">Ctct\Components\Activities\AddContacts</a></code></code><br>$addContacts</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>array</code><br>- Array of all ActivitySummaryReports<br />
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="createAddContactsActivityFromFile" id="_createAddContactsActivityFromFile">
+
+		<td class="attributes"><code>
+			 public 
+			<code><a href="class-Ctct.Components.Activities.Activity.html">Ctct\Components\Activities\Activity</a></code>
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_createAddContactsActivityFromFile">#</a>
+		<code><a href="source-class-Ctct.Services.ActivityService.html#65-104" title="Go to source code">createAddContactsActivityFromFile</a>( <span>string <var>$accessToken</var></span>, <span>string <var>$fileName</var></span>, <span>string <var>$contents</var></span>, <span>string <var>$lists</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Create an Add Contacts Activity from a file. Valid file types are txt, csv,
+xls, xlsx</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Create an Add Contacts Activity from a file. Valid file types are txt, csv,
+xls, xlsx</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$accessToken</var></dt>
+					<dd><code>string</code><br>$accessToken - Constant Contact OAuth2 access token</dd>
+					<dt><var>$fileName</var></dt>
+					<dd><code>string</code><br>$fileName - The name of the file (ie: contacts.csv)</dd>
+					<dt><var>$contents</var></dt>
+					<dd><code>string</code><br>$contents - The contents of the file</dd>
+					<dt><var>$lists</var></dt>
+					<dd><code>string</code><br>$lists - Comma separated list of ContactList id's to add the contacts to</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code><code><a href="class-Ctct.Components.Activities.Activity.html">Ctct\Components\Activities\Activity</a></code></code><br />
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="addClearListsActivity" id="_addClearListsActivity">
+
+		<td class="attributes"><code>
+			 public 
+			array
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_addClearListsActivity">#</a>
+		<code><a href="source-class-Ctct.Services.ActivityService.html#106-119" title="Go to source code">addClearListsActivity</a>( <span>string <var>$accessToken</var></span>, <span>array <var>$lists</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Create a Clear Lists Activity</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Create a Clear Lists Activity</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$accessToken</var></dt>
+					<dd><code>string</code><br>$accessToken - Constant Contact OAuth2 access token</dd>
+					<dt><var>$lists</var></dt>
+					<dd><code>array</code><br>$lists - Array of list id's to be cleared</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>array</code><br>- Array of all Activity<br />
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="addExportContactsActivity" id="_addExportContactsActivity">
+
+		<td class="attributes"><code>
+			 public 
+			array
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_addExportContactsActivity">#</a>
+		<code><a href="source-class-Ctct.Services.ActivityService.html#121-133" title="Go to source code">addExportContactsActivity</a>( <span>string <var>$accessToken</var></span>, <span><code><a href="class-Ctct.Components.Activities.ExportContacts.html">Ctct\Components\Activities\ExportContacts</a></code> <var>$exportContacts</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Create an Export Contacts Activity</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Create an Export Contacts Activity</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$accessToken</var></dt>
+					<dd><code>string</code><br>$accessToken - Constant Contact OAuth2 access token</dd>
+					<dt><var>$exportContacts</var></dt>
+					<dd><code><code><a href="class-Ctct.Components.Activities.ExportContacts.html">Ctct\Components\Activities\ExportContacts</a></code></code><br>$exportContacts</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>array</code><br>- Array of all ActivitySummaryReports<br />
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="addRemoveContactsFromListsActivity" id="_addRemoveContactsFromListsActivity">
+
+		<td class="attributes"><code>
+			 public 
+			array
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_addRemoveContactsFromListsActivity">#</a>
+		<code><a href="source-class-Ctct.Services.ActivityService.html#135-157" title="Go to source code">addRemoveContactsFromListsActivity</a>( <span>string <var>$accessToken</var></span>, <span>array <var>$emailAddresses</var></span>, <span>array <var>$lists</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Create a Remove Contacts From Lists Activity</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Create a Remove Contacts From Lists Activity</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$accessToken</var></dt>
+					<dd><code>string</code><br>$accessToken - Constant Contact OAuth2 access token</dd>
+					<dt><var>$emailAddresses</var></dt>
+					<dd><code>array</code><br>$emailAddresses - array of email addresses to remove</dd>
+					<dt><var>$lists</var></dt>
+					<dd><code>array</code><br>$lists - array of lists to remove the provided email addresses from</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>array</code><br>- Array of all ActivitySummaryReports<br />
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="addRemoveContactsFromListsActivityFromFile" id="_addRemoveContactsFromListsActivityFromFile">
+
+		<td class="attributes"><code>
+			 public 
+			<code><a href="class-Ctct.Components.Activities.Activity.html">Ctct\Components\Activities\Activity</a></code>
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_addRemoveContactsFromListsActivityFromFile">#</a>
+		<code><a href="source-class-Ctct.Services.ActivityService.html#159-198" title="Go to source code">addRemoveContactsFromListsActivityFromFile</a>( <span>string <var>$accessToken</var></span>, <span>string <var>$fileName</var></span>, <span>string <var>$contents</var></span>, <span>string <var>$lists</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Create an Remove Contacts Activity from a file. Valid file types are txt,
+csv, xls, xlsx</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Create an Remove Contacts Activity from a file. Valid file types are txt,
+csv, xls, xlsx</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$accessToken</var></dt>
+					<dd><code>string</code><br>$accessToken - Constant Contact OAuth2 access token</dd>
+					<dt><var>$fileName</var></dt>
+					<dd><code>string</code><br>$fileName - The name of the file (ie: contacts.csv)</dd>
+					<dt><var>$contents</var></dt>
+					<dd><code>string</code><br>$contents - The contents of the file</dd>
+					<dt><var>$lists</var></dt>
+					<dd><code>string</code><br>$lists - Comma separated list of ContactList id' to add the contacts too</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code><code><a href="class-Ctct.Components.Activities.Activity.html">Ctct\Components\Activities\Activity</a></code></code><br />
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	</table>
+
+	<table class="summary inherited">
+	<caption>Methods inherited from <a href="class-Ctct.Services.BaseService.html#methods">Ctct\Services\BaseService</a></caption>
+	<tr>
+		<td><code>
+			<a href="class-Ctct.Services.BaseService.html#___construct">__construct()</a>, 
+			<a href="class-Ctct.Services.BaseService.html#_buildUrl">buildUrl()</a>, 
+			<a href="class-Ctct.Services.BaseService.html#_getHeaders">getHeaders()</a>, 
+			<a href="class-Ctct.Services.BaseService.html#_getRestClient">getRestClient()</a>, 
+			<a href="class-Ctct.Services.BaseService.html#_setRestClient">setRestClient()</a>
+		</code></td>
+	</tr>
+	</table>
+
+
+
+
+
+
+
+
+
+
+
+
+	<table class="summary inherited">
+	<caption>Properties inherited from <a href="class-Ctct.Services.BaseService.html#properties">Ctct\Services\BaseService</a></caption>
+	<tr>
+		<td><code>
+			<a href="class-Ctct.Services.BaseService.html#$apiKey"><var>$apiKey</var></a>, 
+			<a href="class-Ctct.Services.BaseService.html#$restClient"><var>$restClient</var></a>
+		</code></td>
+	</tr>
+	</table>
+
+
+
+
+
+</div>
+
+	<div id="footer">
+		 API documentation generated by <a href="http://apigen.org">ApiGen 2.8.0</a>
+	</div>
+</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="generator" content="ApiGen 2.8.0" />
+
+	<title>Class Ctct\Components\Tracking\TrackingActivity</title>
+
+	<script type="text/javascript" src="resources/combined.js?1521732112"></script>
+	<script type="text/javascript" src="elementlist.js?4101533401"></script>
+	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?3505392360" />
+
+</head>
+
+<body>
+<div id="left">
+	<div id="menu">
+		<a href="index.html" title="Overview"><span>Overview</span></a>
+
+
+		<div id="groups">
+			<h3>Namespaces</h3>
+			<ul>
+				<li class="active"><a href="namespace-Ctct.html">Ctct<span></span></a>
+						<ul>
+				<li><a href="namespace-Ctct.Auth.html">Auth</a>
+						</li>
+				<li class="active"><a href="namespace-Ctct.Components.html">Components<span></span></a>
+						<ul>
+				<li><a href="namespace-Ctct.Components.Account.html">Account</a>
+						</li>
+				<li><a href="namespace-Ctct.Components.Activities.html">Activities</a>
+						</li>
+				<li><a href="namespace-Ctct.Components.Contacts.html">Contacts</a>
+						</li>
+				<li><a href="namespace-Ctct.Components.EmailMarketing.html">EmailMarketing</a>
+						</li>
+				<li class="active"><a href="namespace-Ctct.Components.Tracking.html">Tracking</a>
+						</li>
+							</ul></li>
+				<li><a href="namespace-Ctct.Exceptions.html">Exceptions</a>
+						</li>
+				<li><a href="namespace-Ctct.Services.html">Services</a>
+						</li>
+				<li><a href="namespace-Ctct.Util.html">Util</a>
+						</li>
+				<li><a href="namespace-Ctct.WebHooks.html">WebHooks</a>
+						</li>
+							</ul></li>
+				<li><a href="namespace-PHP.html">PHP</a>
+						</li>
+			</ul>
+		</div>
+
+		<hr />
+
+
+		<div id="elements">
+			<h3>Classes</h3>
+			<ul>
+				<li><a href="class-Ctct.Components.Tracking.BounceActivity.html">BounceActivity</a></li>
+				<li><a href="class-Ctct.Components.Tracking.ClickActivity.html">ClickActivity</a></li>
+				<li><a href="class-Ctct.Components.Tracking.ForwardActivity.html">ForwardActivity</a></li>
+				<li><a href="class-Ctct.Components.Tracking.OpenActivity.html">OpenActivity</a></li>
+				<li><a href="class-Ctct.Components.Tracking.SendActivity.html">SendActivity</a></li>
+				<li class="active"><a href="class-Ctct.Components.Tracking.TrackingActivity.html">TrackingActivity</a></li>
+				<li><a href="class-Ctct.Components.Tracking.TrackingSummary.html">TrackingSummary</a></li>
+				<li><a href="class-Ctct.Components.Tracking.UnsubscribeActivity.html">UnsubscribeActivity</a></li>
+			</ul>
+
+
+
+
+
+		</div>
+	</div>
+</div>
+
+<div id="splitter"></div>
+
+<div id="right">
+<div id="rightInner">
+	<form id="search">
+		<input type="hidden" name="cx" value="" />
+		<input type="hidden" name="ie" value="UTF-8" />
+		<input type="text" name="q" class="text" />
+		<input type="submit" value="Search" />
+	</form>
+
+	<div id="navigation">
+		<ul>
+			<li>
+				<a href="index.html" title="Overview"><span>Overview</span></a>
+			</li>
+			<li>
+				<a href="namespace-Ctct.Components.Tracking.html" title="Summary of Ctct\Components\Tracking"><span>Namespace</span></a>
+			</li>
+			<li class="active">
+<span>Class</span>			</li>
+		</ul>
+		<ul>
+			<li>
+				<a href="tree.html" title="Tree view of classes, interfaces, traits and exceptions"><span>Tree</span></a>
+			</li>
+		</ul>
+		<ul>
+		</ul>
+	</div>
+
+<div id="content" class="class">
+	<h1>Class TrackingActivity</h1>
+
+
+	<div class="description">
+	
+<p>Class to wrap a result set of individual activities (ie: OpensActivity,
+SendActivity)</p>
+
+	</div>
+
+
+
+
+
+
+
+
+
+	<div class="info">
+		
+		
+		<b>Namespace:</b> <a href="namespace-Ctct.html">Ctct</a>\<a href="namespace-Ctct.Components.html">Components</a>\<a href="namespace-Ctct.Components.Tracking.html">Tracking</a><br />
+		<b>Package:</b> Components\CampaignTracking<br />
+
+				<b>Author:</b>
+				Constant Contact<br />
+		<b>Located at</b> <a href="source-class-Ctct.Components.Tracking.TrackingActivity.html#4-29" title="Go to source code">Components/Tracking/TrackingActivity.php</a><br />
+	</div>
+
+
+
+	<table class="summary" id="methods">
+	<caption>Methods summary</caption>
+	<tr data-order="__construct" id="___construct">
+
+		<td class="attributes"><code>
+			 public 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#___construct">#</a>
+		<code><a href="source-class-Ctct.Components.Tracking.TrackingActivity.html#16-28" title="Go to source code">__construct</a>( <span>array <var>$results</var></span>, <span>array <var>$pagination</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Constructor to create a TrackingActivity from the results/pagination response
+from getting a set of activities</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Constructor to create a TrackingActivity from the results/pagination response
+from getting a set of activities</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$results</var></dt>
+					<dd><code>array</code><br>$results - results array from a tracking endpoint</dd>
+					<dt><var>$pagination</var></dt>
+					<dd><code>array</code><br>$pagination - pagination array returned from a tracking endpoint</dd>
+				</dl></div>
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	</table>
+
+
+
+
+
+
+
+
+
+
+
+
+	<table class="summary" id="properties">
+	<caption>Properties summary</caption>
+	<tr data-order="results" id="$results">
+		<td class="attributes"><code>
+			public  
+			array
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-Ctct.Components.Tracking.TrackingActivity.html#13" title="Go to source code"><var>$results</var></a>
+		</td>
+		<td class="value"><code><span class="php-keyword1">array</span>()</code></td>
+		<td class="description"><div>
+			<a href="#$results" class="anchor">#</a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</div></td>
+	</tr>
+	<tr data-order="next" id="$next">
+		<td class="attributes"><code>
+			public  
+			mixed
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-Ctct.Components.Tracking.TrackingActivity.html#14" title="Go to source code"><var>$next</var></a>
+		</td>
+		<td class="value"><code></code></td>
+		<td class="description"><div>
+			<a href="#$next" class="anchor">#</a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</div></td>
+	</tr>
+	</table>
+
+
+
+
+
+
+</div>
+
+	<div id="footer">
+		 API documentation generated by <a href="http://apigen.org">ApiGen 2.8.0</a>
+	</div>
+</div>
+</div>
+</body>
+</html>

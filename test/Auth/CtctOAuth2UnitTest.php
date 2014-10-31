@@ -9,11 +9,14 @@ class CtctOAuth2UnitTest extends PHPUnit_Framework_TestCase
 
     private $restClient;
     private $ctctOAuth2;
+    private $apiKey = "apiKey";
+    private $clientSecret = "clientSecret";
+    private $redirectUri = "redirectUri";
 
     public function setUp()
     {
         $this->restClient = $this->getMock('Ctct\Util\RestClientInterface');
-        $this->ctctOAuth2 = new CtctOAuth2("apiKey", "clientSecret", "redirectUri", $this->restClient);
+        $this->ctctOAuth2 = new CtctOAuth2($this->apiKey, $this->clientSecret, $this->redirectUri, $this->restClient);
     }
 
     public function testGetTokenInfo()
@@ -52,6 +55,62 @@ class CtctOAuth2UnitTest extends PHPUnit_Framework_TestCase
     public function testGetAuthorizationUrl($server, $expectedResponse)
     {
         $this->assertEquals($expectedResponse, $this->ctctOAuth2->getAuthorizationUrl($server));
+    }
+
+    public function testGetAuthorizationUrlServer()
+    {
+        $authUrl = $this->ctctOAuth2->getAuthorizationUrl();
+        $baseUrl = Config::get('auth.base_url') . Config::get('auth.authorization_endpoint');
+        $params = array(
+            'response_type' => 'code',
+            'client_id' => $this->apiKey,
+            'redirect_uri' => $this->redirectUri
+        );
+        $expectedUrl = $baseUrl . '?' . http_build_query($params);
+        $this->assertEquals($expectedUrl, $authUrl);
+    }
+
+    public function testGetAuthorizationUrlClient()
+    {
+        $authUrl = $this->ctctOAuth2->getAuthorizationUrl(false);
+        $baseUrl = Config::get('auth.base_url') . Config::get('auth.authorization_endpoint');
+        $params = array(
+            'response_type' => 'token',
+            'client_id' => $this->apiKey,
+            'redirect_uri' => $this->redirectUri
+        );
+        $expectedUrl = $baseUrl . '?' . http_build_query($params);
+        $this->assertEquals($expectedUrl, $authUrl);
+    }
+
+    public function testGetAuthorizationUrlServerWithState()
+    {
+        $state = 'this is my state';
+        $authUrl = $this->ctctOAuth2->getAuthorizationUrl(true, $state);
+        $baseUrl = Config::get('auth.base_url') . Config::get('auth.authorization_endpoint');
+        $params = array(
+            'response_type' => 'code',
+            'client_id' => $this->apiKey,
+            'redirect_uri' => $this->redirectUri,
+            'state' => $state
+        );
+        $expectedUrl = $baseUrl . '?' . http_build_query($params);
+        $this->assertEquals($expectedUrl, $authUrl);
+    }
+
+    public function testGetAuthorizationUrlClientWithState()
+    {
+        $state = 'this is my state';
+        $authUrl = $this->ctctOAuth2->getAuthorizationUrl(false, $state);
+        $baseUrl = Config::get('auth.base_url') . Config::get('auth.authorization_endpoint');
+        $params = array(
+            'response_type' => 'token',
+            'client_id' => $this->apiKey,
+            'redirect_uri' => $this->redirectUri,
+            'state' => $state
+        );
+        $expectedUrl = $baseUrl . '?' . http_build_query($params);
+        $this->assertEquals($expectedUrl, $authUrl);
     }
 
     public function authorizationUrlProvider()

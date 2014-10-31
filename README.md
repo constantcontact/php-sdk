@@ -10,19 +10,19 @@
 require '/src/Ctct/autoload.php'
 ```
 
-### Composer
+### Installing via Composer
 Composer is a dependency management tool for PHP that allows you to declare the dependencies your project needs and installs them into your project. In order to use the Constant Contact PHP SDK through composer, you must do the following 
 
 1. Add "constantcontact/constantcontact" as a dependency in your project's composer.json file.
 ```javascript
  {
         "require": {
-            "constantcontact/constantcontact": "1.0.*"
+            "constantcontact/constantcontact": "1.1.*"
         }
     }
 ```
 
-2. Downoad and Install Composer.
+2. Download and Install Composer.
 ```
 curl -s "http://getcomposer.org/installer" | php
 ```
@@ -41,7 +41,7 @@ require 'vendor/autoload.php';
 ## Usage
 Once either the composer or built in autoloader has been required, you can begin using the SDK.
 ```php
-use Ctct/ConstantContact;
+use Ctct\ConstantContact;
 $cc = new ConstantContact('your api key');
 
 $contacts = $cc->getContacts('your access token')

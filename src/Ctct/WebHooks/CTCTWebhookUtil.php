@@ -55,13 +55,17 @@ class CTCTWebhookUtil
     }
 
     /**
-     * @param $xCtctHmacSHA256 - The value in the x-ctct-hmac-sha256 header.
-     * @param $bodyMessage - The body message from the POST received from ConstantContact in Webhook callback.
-     * @return object corresponding to bodyMessage in case of success; an exception is thrown otherwise.
-     * @throws CtctException Thrown when:
+     * Get Billing Change Notification.<br/>
+     *
+     * Validates and parses the bodyMessage into 
+     *
+     * @param xCtctHmacSHA256 The value in the x-ctct-hmac-sha256 header.
+     * @param bodyMessage The body message from the POST received from ConstantContact in Webhook callback.
+     * @return The object corresponding to bodyMessage in case of success; an exception is thrown otherwise.
+     * @throws CtctException Thrown when :
      * <ul>
-     * <li>message encryption does not correspond with x-ctct-hmac-sha256 header value</li>
-     * <li>or an error is raised when parsing the bodyMessage</li>
+     * <li>message encryption does not correspond with x-ctct-hmac-sha256 header value;</li>
+     * <li>or an error is raised when parsing the bodyMessage.</li>
      * </ul>
      * <p/>
      */
@@ -77,10 +81,12 @@ class CTCTWebhookUtil
     }
 
     /**
-     * @param $xCtctHmacSHA256 - The value in the x-ctct-hmac-sha256 header.
-     * @param $bodyMessage - The body message from the POST received from ConstantContact in Webhook callback.
-     * @return bool
-     * @throws CtctException
+     * Check if a Webhook message is valid or not.<br/>
+     *
+     * @param xCtctHmacSHA256 The value in the x-ctct-hmac-sha256 header.
+     * @param bodyMessage The body message from the POST received from ConstantContact in Webhook callback.
+     * @return true if in case of success; false if the Webhook is invalid.
+     * 
      */
     public function isValidWebhook($xCtctHmacSHA256, $bodyMessage)
     {    

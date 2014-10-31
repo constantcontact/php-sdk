@@ -4,16 +4,40 @@ namespace Ctct\Components\Library;
 use Ctct\Components\Component;
 
 class Folder extends Component {
+    /**
+     * ID of the Folder
+     * @var String
+     */
     public $id;
 
+    /**
+     * Name of the Folder
+     * @var String
+     */
     public $name;
 
+    /**
+     * Array of Folders that are children of this folder
+     * @var Folder[]
+     */
     public $children;
 
+    /**
+     * Number of items in this folder
+     * @var int
+     */
     public $itemCount;
 
+    /**
+     * ID of this folder's parent, if there is one
+     * @var String
+     */
     public $parentId;
 
+    /**
+     * Depth that this folder is in the hierarchy, must be 1, 2, or 3
+     * @var int
+     */
     public $level;
 
     public static function create(array $props) {

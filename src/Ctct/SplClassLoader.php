@@ -31,6 +31,7 @@ class SplClassLoader
      * specified namespace.
      *
      * @param string $ns The namespace to use.
+     * @param string $includePath The include path to use.
      */
     public function __construct($ns = null, $includePath = null)
     {
@@ -49,9 +50,9 @@ class SplClassLoader
     }
 
     /**
-     * Gets the namespace seperator used by classes in the namespace of this class loader.
+     * Gets the namespace separator used by classes in the namespace of this class loader.
      *
-     * @return void
+     * @return string $namespaceSeparator
      */
     public function getNamespaceSeparator()
     {
@@ -122,10 +123,10 @@ class SplClassLoader
      */
     public function loadClass($className)
     {
-        if (null === $this->namespace || $this->namespace.$this->namespaceSeparator ===
-            substr($className, 0, strlen($this->namespace.$this->namespaceSeparator))) {
+        if (null === $this->namespace || $this->namespace . $this->namespaceSeparator ===
+            substr($className, 0, strlen($this->namespace . $this->namespaceSeparator))
+        ) {
             $fileName = '';
-            $namespace = '';
             if (false !== ($lastNsPos = strripos($className, $this->namespaceSeparator))) {
                 $namespace = substr($className, 0, $lastNsPos);
                 $className = substr($className, $lastNsPos + 1);

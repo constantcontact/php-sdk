@@ -1,8 +1,8 @@
 <?php
 namespace Ctct\Components\Contacts;
- 
+
 use Ctct\Components\Component;
- 
+
 /**
  * Represents a single EmailAddress of a Contact
  *
@@ -20,7 +20,7 @@ class EmailAddress extends Component
     public $id;
 
     /**
-     * Status of the email address, must be one of "ACTIVE", "UNCONFIRMED", "OPTOUT", "REMOVED", 
+     * Status of the email address, must be one of "ACTIVE", "UNCONFIRMED", "OPTOUT", "REMOVED",
      * "NON_SUBSCRIBER", "VISITOR"
      * @var string
      */
@@ -55,13 +55,13 @@ class EmailAddress extends Component
      * @var string
      */
     public $email_address;
-    
+
     public function __construct($email_address = null)
     {
         if (!is_null($email_address)) {
             $this->email_address = $email_address;
         }
-        
+
         return $this;
     }
 

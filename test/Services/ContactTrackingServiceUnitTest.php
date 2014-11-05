@@ -28,7 +28,7 @@ class ContactTrackingServiceUnitTest extends PHPUnit_Framework_TestCase
 
         $this->assertInstanceOf("Ctct\Components\ResultSet", $resultSet);
         $this->assertInstanceOf("Ctct\Components\Tracking\BounceActivity", $resultSet->results[0]);
-        $this->assertEquals("?next=bGltaXQ9MyZuZXh0PTEzNTQ4MTcyMTA0MzA", $resultSet->next);
+        $this->assertEquals("bGltaXQ9MyZuZXh0PTEzNTQ4MTcyMTA0MzA", $resultSet->next);
         $this->assertEquals("EMAIL_BOUNCE", $resultSet->results[0]->activity_type);
         $this->assertEquals(1100394165290, $resultSet->results[0]->campaign_id);
         $this->assertEquals("2", $resultSet->results[0]->contact_id);
@@ -55,7 +55,7 @@ class ContactTrackingServiceUnitTest extends PHPUnit_Framework_TestCase
 
         $this->assertInstanceOf("Ctct\Components\ResultSet", $resultSet);
         $this->assertInstanceOf("Ctct\Components\Tracking\ClickActivity", $resultSet->results[0]);
-        $this->assertEquals("?next=bGltaXQ9MyZuZXh0PTEzNTQ4MTcyMTA0MzA", $resultSet->next);
+        $this->assertEquals("bGltaXQ9MyZuZXh0PTEzNTQ4MTcyMTA0MzA", $resultSet->next);
         $this->assertEquals("EMAIL_CLICK", $resultSet->results[0]->activity_type);
         $this->assertEquals(1100394165290, $resultSet->results[0]->campaign_id);
         $this->assertEquals("69", $resultSet->results[0]->contact_id);
@@ -80,7 +80,7 @@ class ContactTrackingServiceUnitTest extends PHPUnit_Framework_TestCase
 
         $this->assertInstanceOf("Ctct\Components\ResultSet", $resultSet);
         $this->assertInstanceOf("Ctct\Components\Tracking\ForwardActivity", $resultSet->results[0]);
-        $this->assertEquals("?next=bGltaXQ9MyZuZXh0PTEzNTQ4MTcyMTA0MzA", $resultSet->next);
+        $this->assertEquals("bGltaXQ9MyZuZXh0PTEzNTQ4MTcyMTA0MzA", $resultSet->next);
         $this->assertEquals("EMAIL_FORWARD", $resultSet->results[0]->activity_type);
         $this->assertEquals(1100394165290, $resultSet->results[0]->campaign_id);
         $this->assertEquals("74", $resultSet->results[0]->contact_id);
@@ -104,7 +104,7 @@ class ContactTrackingServiceUnitTest extends PHPUnit_Framework_TestCase
 
         $this->assertInstanceOf("Ctct\Components\ResultSet", $resultSet);
         $this->assertInstanceOf("Ctct\Components\Tracking\UnsubscribeActivity", $resultSet->results[0]);
-        $this->assertEquals("?next=bGltaXQ9MyZuZXh0PTEzNTQ4MTcyMTA0MzA", $resultSet->next);
+        $this->assertEquals("bGltaXQ9MyZuZXh0PTEzNTQ4MTcyMTA0MzA", $resultSet->next);
         $this->assertEquals("EMAIL_UNSUBSCRIBE", $resultSet->results[0]->activity_type);
         $this->assertEquals(1100394165290, $resultSet->results[0]->campaign_id);
         $this->assertEquals("58", $resultSet->results[0]->contact_id);
@@ -130,7 +130,7 @@ class ContactTrackingServiceUnitTest extends PHPUnit_Framework_TestCase
 
         $this->assertInstanceOf("Ctct\Components\ResultSet", $resultSet);
         $this->assertInstanceOf("Ctct\Components\Tracking\SendActivity", $resultSet->results[0]);
-        $this->assertEquals("?next=bGltaXQ9MyZuZXh0PTEzNTQ4MTcyMTA0MzA", $resultSet->next);
+        $this->assertEquals("bGltaXQ9MyZuZXh0PTEzNTQ4MTcyMTA0MzA", $resultSet->next);
         $this->assertEquals("EMAIL_SEND", $resultSet->results[0]->activity_type);
         $this->assertEquals(1100394165290, $resultSet->results[0]->campaign_id);
         $this->assertEquals("55", $resultSet->results[0]->contact_id);
@@ -154,7 +154,7 @@ class ContactTrackingServiceUnitTest extends PHPUnit_Framework_TestCase
 
         $this->assertInstanceOf("Ctct\Components\ResultSet", $resultSet);
         $this->assertInstanceOf("Ctct\Components\Tracking\OpenActivity", $resultSet->results[0]);
-        $this->assertEquals("?next=bGltaXQ9MyZuZXh0PTEzNTQ4MTcyMTA0MzA", $resultSet->next);
+        $this->assertEquals("bGltaXQ9MyZuZXh0PTEzNTQ4MTcyMTA0MzA", $resultSet->next);
         $this->assertEquals("EMAIL_OPEN", $resultSet->results[0]->activity_type);
         $this->assertEquals(1100394165290, $resultSet->results[0]->campaign_id);
         $this->assertEquals("86", $resultSet->results[0]->contact_id);

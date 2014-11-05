@@ -1,7 +1,6 @@
 <?php
 namespace Ctct\Services;
 
-use Ctct\Util\RestClient;
 use Ctct\Util\Config;
 use Ctct\Components\EmailMarketing\Schedule;
 use Ctct\Components\EmailMarketing\TestSend;
@@ -9,8 +8,8 @@ use Ctct\Components\EmailMarketing\TestSend;
 /**
  * Performs all actions pertaining to scheduling Constant Contact Campaigns
  *
- * @package     Services
- * @author         Constant Contact
+ * @package Services
+ * @author Constant Contact
  */
 class CampaignScheduleService extends BaseService
 {
@@ -19,7 +18,7 @@ class CampaignScheduleService extends BaseService
      * @param string $accessToken - Constant Contact OAuth2 access token
      * @param int $campaignId - Campaign id to be scheduled
      * @param Schedule $schedule - Schedule to be created
-     * @return Campaign
+     * @return Schedule
      */
     public function addSchedule($accessToken, $campaignId, Schedule $schedule)
     {
@@ -29,12 +28,12 @@ class CampaignScheduleService extends BaseService
         $response = parent::getRestClient()->post($url, parent::getHeaders($accessToken), $schedule->toJson());
         return Schedule::create(json_decode($response->body, true));
     }
-     
-     /**
+
+    /**
      * Get a list of schedules for a campaign
      * @param string $accessToken - Constant Contact OAuth2 access token
      * @param int $campaignId - Campaign id to be scheduled
-     * @return array 
+     * @return array
      */
     public function getSchedules($accessToken, $campaignId)
     {
@@ -42,22 +41,22 @@ class CampaignScheduleService extends BaseService
             sprintf(Config::get('endpoints.campaign_schedules'), $campaignId);
         $url = $this->buildUrl($baseUrl);
         $response = parent::getRestClient()->get($url, parent::getHeaders($accessToken));
-        
+
         $schedules = array();
-        
+
         foreach (json_decode($response->body, true) as $schedule) {
             $schedules[] = Schedule::create($schedule);
         }
-        
+
         return $schedules;
     }
-     
-     /**
+
+    /**
      * Get a specific schedule for a campaign
      * @param string $accessToken - Constant Contact OAuth2 access token
      * @param int $campaignId - Campaign id to be get a schedule for
-     * @param int $scheudle_id - Schedule id to retrieve 
-     * @return Schedule 
+     * @param int $scheduleId - Schedule id to retrieve
+     * @return Schedule
      */
     public function getSchedule($accessToken, $campaignId, $scheduleId)
     {
@@ -67,13 +66,13 @@ class CampaignScheduleService extends BaseService
         $response = parent::getRestClient()->get($url, parent::getHeaders($accessToken));
         return Schedule::create(json_decode($response->body, true));
     }
-     
+
     /**
      * Update a specific schedule for a campaign
      * @param string $accessToken - Constant Contact OAuth2 access token
      * @param int $campaignId - Campaign id to be scheduled
-     * @param Schedule $schedule - Schedule to retrieve 
-     * @return Schedule 
+     * @param Schedule $schedule - Schedule to retrieve
+     * @return Schedule
      */
     public function updateSchedule($accessToken, $campaignId, Schedule $schedule)
     {
@@ -83,13 +82,13 @@ class CampaignScheduleService extends BaseService
         $response = parent::getRestClient()->put($url, parent::getHeaders($accessToken), $schedule->toJson());
         return Schedule::create(json_decode($response->body, true));
     }
-     
-     /**
+
+    /**
      * Get a specific schedule for a campaign
      * @param string $accessToken - Constant Contact OAuth2 access token
      * @param int $campaignId - Campaign id
      * @param int $scheduleId - Schedule id to delete
-     * @return Schedule 
+     * @return Schedule
      */
     public function deleteSchedule($accessToken, $campaignId, $scheduleId)
     {

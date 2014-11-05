@@ -3,8 +3,6 @@ namespace Ctct\Components\Activities;
 
 use Ctct\Components\Component;
 use Ctct\Util\Config;
-use Ctct\Components\Activities\ActivityError;
-use Ctct\Components\Activities\AddContactsImportData;
 use Ctct\Exceptions\IllegalArgumentException;
 
 /**
@@ -32,7 +30,7 @@ class AddContacts extends Component
         }
 
         $this->lists = $lists;
-        
+
         if (empty($columnNames)) {
             $usedColumns[] = Config::get('activities_columns.email');
             $contact = $contacts[0];

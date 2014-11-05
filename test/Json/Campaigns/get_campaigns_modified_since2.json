@@ -1,0 +1,21 @@
+{
+    "meta": {
+        "pagination": {
+            "next_link": "/v2/emailmarketing/campaigns?next=ABcGFnZU51bT0zJnBhZ2VTaXplPTImbW9kaWZpZWRfc2luY2U9MTM1OTUxNjYzMDU5MA"
+        }
+    },
+    "results": [
+        {
+            "id": "9112449567999",
+            "name": "Copy of running deal",
+            "status": "DRAFT",
+            "modified_date": "2013-02-12T20:04:59.436Z"
+        },
+        {
+            "id": "9111772694630",
+            "name": "aaapi test campaign3",
+            "status": "SENT",
+            "modified_date": "2013-02-01T18:30:06.294Z"
+        }
+    ]
+}

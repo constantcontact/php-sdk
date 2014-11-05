@@ -1,5 +1,4 @@
 <?php
-
 namespace Ctct\Components\Tracking;
 
 use Ctct\Components\Component;
@@ -29,7 +28,7 @@ class ClickActivity extends Component
     {
         $click_activity = new ClickActivity();
         $click_activity->activity_type = parent::getValue($props, "activity_type");
-        $click_activity->campaign_id= parent::getValue($props, "campaign_id");
+        $click_activity->campaign_id = parent::getValue($props, "campaign_id");
         $click_activity->contact_id = parent::getValue($props, "contact_id");
         $click_activity->email_address = parent::getValue($props, "email_address");
         $click_activity->link_id = parent::getValue($props, "link_id");

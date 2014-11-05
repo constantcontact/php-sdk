@@ -1,6 +1,6 @@
 <?php
 namespace Ctct\Components\EmailMarketing;
- 
+
 use Ctct\Components\Component;
 
 /**
@@ -17,7 +17,7 @@ class Schedule extends Component
      * @var string
      */
     public $id;
-    
+
     /**
      * The scheduled start date/time in ISO 8601 format
      * @var string
@@ -37,10 +37,10 @@ class Schedule extends Component
         $schedule->scheduled_date = parent::getValue($props, "scheduled_date");
         return $schedule;
     }
-    
+
     /**
-     * Create json used for a POST/PUT request, also handles removing attributes that will cause errors if sent 
-     * @return string 
+     * Create json used for a POST/PUT request, also handles removing attributes that will cause errors if sent
+     * @return string
      */
     public function toJson()
     {

@@ -70,11 +70,14 @@ class RestClient implements RestClientInterface
      */
     private static function httpRequest($url, $method, array $headers = array(), $data = null)
     {
+		//adding the version header to the existing headers
+		$headers[] = self::getVersionHeader();
+		
         $curl = curl_init();
         curl_setopt($curl, CURLOPT_URL, $url);
         curl_setopt($curl, CURLOPT_HEADER, 0);
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($curl, CURLOPT_USERAGENT, "ConstantContact Appconnect PHP Library v1.0");
+        curl_setopt($curl, CURLOPT_USERAGENT, "ConstantContact AppConnect PHP Library v" . Config::get('settings.version'));
         curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, 0);
         curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
         curl_setopt($curl, CURLOPT_CUSTOMREQUEST, $method);
@@ -89,7 +92,7 @@ class RestClient implements RestClientInterface
         
         // check if any errors were returned
         $body = json_decode($response->body, true);
-        if (isset($body[0]) && array_key_exists('error_key', $body[0])) {
+        if ((isset($body[0]) && array_key_exists('error_key', $body[0])) || ($response->error !== false)) {
             $ex = new CtctException($response->body);
             $ex->setCurlInfo($response->info);
             $ex->setErrors($body);
@@ -98,4 +101,12 @@ class RestClient implements RestClientInterface
         
         return $response;
     }
+	
+	/**
+	 * Returns the version header for the rest calls	 
+	 * @return string
+	 */
+	public static function getVersionHeader(){
+		return 'x-ctct-request-source: sdk.php.' . Config::get('settings.version');
+	}
 }

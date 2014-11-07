@@ -110,10 +110,16 @@ class Config
         /**
          * Errors to be returned for various exceptions
          */
-        'errors' => array(
-            'id_or_object' => 'Only an id or %s object are allowed for this method.'
-        )
-
+        'errors'    => array(
+            'id_or_object'        => 'Only an id or %s object are allowed for this method.'
+        ),
+        
+        /**
+         * Setting the version fo the application used in Rest Calls when setting the version header
+         */
+        'settings'    => array(
+            'version'        => '1.2.0'
+        ),
     );
 
     /**

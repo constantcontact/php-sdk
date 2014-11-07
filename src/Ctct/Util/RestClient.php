@@ -70,8 +70,8 @@ class RestClient implements RestClientInterface
      */
     private static function httpRequest($url, $method, array $headers = array(), $data = null)
     {
-    	//adding the version header to the existing headers
-    	$headers[] = self::getVersionHeader();
+        //adding the version header to the existing headers
+        $headers[] = self::getVersionHeader();
     	
     	$curl = curl_init();
         curl_setopt($curl, CURLOPT_URL, $url);
@@ -107,6 +107,6 @@ class RestClient implements RestClientInterface
      * @return string
      */
     public static function getVersionHeader(){
-    	return 'x-ctct-request-source: sdk.php.' . Config::get('settings.version');
+        return 'x-ctct-request-source: sdk.php.' . Config::get('settings.version');
     }
 }

@@ -21,6 +21,7 @@ class Config
 
             'base_url' => 'https://api.constantcontact.com/v2/',
             'account_verified_addresses' => 'account/verifiedemailaddresses',
+            'account_info' => 'account/info',
             'activity' => 'activities/%s',
             'activities' => 'activities',
             'export_contacts_activity' => 'activities/exportcontacts',
@@ -109,10 +110,16 @@ class Config
         /**
          * Errors to be returned for various exceptions
          */
-        'errors' => array(
-            'id_or_object' => 'Only an id or %s object are allowed for this method.'
-        )
-
+        'errors'    => array(
+            'id_or_object'        => 'Only an id or %s object are allowed for this method.'
+        ),
+        
+        /**
+         * Setting the version fo the application used in Rest Calls when setting the version header
+         */
+        'settings'    => array(
+            'version'        => '1.2.0'
+        ),
     );
 
     /**

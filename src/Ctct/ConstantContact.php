@@ -684,6 +684,16 @@ class ConstantContact
     }
 
     /**
+     * Get details for account associated with an access token
+     * @param string $accessToken - Constant Contact OAuth2 access token
+     * @return AccountInfo object
+     */
+    public function getAccountInfo($accessToken, array $params = array())
+    {
+        return $this->accountService->getAccountInfo($accessToken, $params);
+    }
+
+    /**
      * Get a reporting summary for a Contact
      * @param string $accessToken - Constant Contact OAuth2 access token
      * @param mixed $contact  - Contact id or Contact object itself

@@ -72,8 +72,8 @@ class RestClient implements RestClientInterface
     {
         //adding the version header to the existing headers
         $headers[] = self::getVersionHeader();
-    	
-    	$curl = curl_init();
+        
+        $curl = curl_init();
         curl_setopt($curl, CURLOPT_URL, $url);
         curl_setopt($curl, CURLOPT_HEADER, 0);
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
@@ -103,7 +103,7 @@ class RestClient implements RestClientInterface
     }
     
     /**
-     * Returns the version header for the rest calls	 
+     * Returns the version header for the rest calls
      * @return string
      */
     public static function getVersionHeader(){

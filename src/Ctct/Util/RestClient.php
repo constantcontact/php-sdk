@@ -90,7 +90,7 @@ class RestClient implements RestClientInterface
 
         // check if any errors were returned
         $body = json_decode($response->body, true);
-        if ((isset($body[0]) && array_key_exists('error_key', $body[0])) || ($response->error !== false)) {
+        if (isset($body[0]) && array_key_exists('error_key', $body[0])) {
             $ex = new CtctException($response->body);
             $ex->setCurlInfo($response->info);
             $ex->setErrors($body);

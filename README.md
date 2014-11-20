@@ -17,7 +17,7 @@ Composer is a dependency management tool for PHP that allows you to declare the 
 ```javascript
  {
         "require": {
-            "constantcontact/constantcontact": "1.1.*"
+            "constantcontact/constantcontact": "1.2.*"
         }
     }
 ```

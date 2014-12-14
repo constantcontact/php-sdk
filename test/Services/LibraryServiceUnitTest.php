@@ -35,7 +35,6 @@ class LibraryServiceUnitTest extends PHPUnit_Framework_TestCase
         $this->assertEquals("https://origin.ih.l1.constantcontact.com/fs115/1100310339939/img/4.jpg", $response->url);
         $this->assertEquals("MyComputer", $response->source);
         $this->assertInstanceOf('Ctct\Components\Library\Thumbnail', $response->thumbnail);
-        $this->assertEquals(true, $response->is_image);
         $this->assertEquals("JPG", $response->file_type);
     }
 }

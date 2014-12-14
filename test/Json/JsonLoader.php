@@ -10,6 +10,7 @@ class JsonLoader
     const ACTIVITES_FOLDER = "/Activities";
     const ACCCOUNT_FOLDER = "/Account";
     const AUTH_FOLDER = "/Auth";
+    const LIBRARY_FOLDER = "/Library";
 
     public static function getContactsTextContents()
     {
@@ -34,6 +35,16 @@ class JsonLoader
     public static function getVerifiedAddressesJson()
     {
         return file_get_contents(__DIR__ . self::ACCCOUNT_FOLDER . "/get_verified_email_addresses.json");
+    }
+
+    public static function getAccountInfoJson()
+    {
+        return file_get_contents(__DIR__ . self::ACCCOUNT_FOLDER . "/get_account_info.json");
+    }
+
+    public static function getLibraryFileJson()
+    {
+        return file_get_contents(__DIR__ . self::LIBRARY_FOLDER . "/get_library_file.json");
     }
 
     public static function getContactJson()

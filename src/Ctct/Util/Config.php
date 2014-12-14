@@ -55,7 +55,12 @@ class Config
             'contact_tracking_opens' => 'contacts/%s/tracking/opens',
             'contact_tracking_sends' => 'contacts/%s/tracking/sends',
             'contact_tracking_unsubscribes' => 'contacts/%s/tracking/unsubscribes',
-            'contact_tracking_link' => 'contacts/%s/tracking/clicks/%s'
+            'contact_tracking_link' => 'contacts/%s/tracking/clicks/%s',
+            'library_files' => 'library/files',
+            'library_file' => 'library/files/%s',
+            'library_folders' => 'library/folders',
+            'library_folder' => 'library/folders/%s',
+            'library_files_by_folder' => 'library/folders/%s/files'
 
         ),
         /**

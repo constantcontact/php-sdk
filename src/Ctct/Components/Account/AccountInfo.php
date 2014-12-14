@@ -56,6 +56,12 @@ class AccountInfo extends Component
     public $phone;
 
     /**
+     * URL of the company logo associated with the account
+     * @var string
+     */
+    public $company_logo;
+
+    /**
      * Country code associated with the account
      * @var string
      */
@@ -88,6 +94,7 @@ class AccountInfo extends Component
         $accountInfo->last_name = parent::getValue($props, "last_name");
         $accountInfo->email_address = parent::getValue($props, "email");
         $accountInfo->phone = parent::getValue($props, "phone");
+        $accountInfo->company_logo = parent::getValue($props, "company_logo");
         $accountInfo->country_code = parent::getValue($props, "country_code");
         $accountInfo->state_code = parent::getValue($props, "state_code");
         $accountInfo->organization_addresses = parent::getValue($props, "organization_addresses");

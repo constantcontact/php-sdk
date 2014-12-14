@@ -36,6 +36,29 @@ class AccountService extends BaseService
     }
 
     /**
+     * Create new verified email addresses. This will also prompt the account to send
+     * a verification email to the address.
+     * @param string $accessToken - Constant Contact OAuth2 Access Token
+     * @param array $emailAddresses - array of VerifiedEmailAddress to create
+     * @return array - array of VerifiedEmailAddress created
+     */
+    public function createVerifiedEmailAddresses($accessToken, Array $emailAddresses)
+    {
+        $baseUrl = Config::get('endpoints.base_url')
+            . sprintf(Config::get('endpoints.account_verified_addresses'));
+
+        $url = $this->buildUrl($baseUrl);
+        $response = parent::getRestClient()->post($url, parent::getHeaders($accessToken), $emailAddresses);
+        $verifiedAddresses = array();
+
+        foreach (json_decode($response->body, true) as $verifiedAddress) {
+            $verifiedAddresses[] = VerifiedEmailAddress::create($verifiedAddress);
+        }
+
+        return $verifiedAddresses;
+    }
+
+    /**
      * Get account info associated with an access token
      * @param string $accessToken - Constant Contact OAuth2 Access Token
      * @param array $params - array of query parameters/values to append to the request
@@ -48,6 +71,22 @@ class AccountService extends BaseService
 
         $url = $this->buildUrl($baseUrl, $params);
         $response = parent::getRestClient()->get($url, parent::getHeaders($accessToken));
+        return AccountInfo::create(json_decode($response->body, true));
+    }
+
+    /**
+     * Update information of the account.
+     * @param string $accessToken - Constant Contact OAuth2 Access Token
+     * @param AccountInfo $accountInfo - Updated AccountInfo
+     * @return AccountInfo
+     */
+    public function updateAccountInfo($accessToken, AccountInfo $accountInfo)
+    {
+        $baseUrl = Config::get('endpoints.base_url')
+            . sprintf(Config::get('endpoints.account_info'));
+
+        $url = $this->buildUrl($baseUrl);
+        $response = parent::getRestClient()->put($url, parent::getHeaders($accessToken), $accountInfo);
         return AccountInfo::create(json_decode($response->body, true));
     }
 }

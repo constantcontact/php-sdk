@@ -3,6 +3,7 @@ namespace Ctct;
 
 use Ctct\Services\AccountService;
 use Ctct\Services\ContactService;
+use Ctct\Services\LibraryService;
 use Ctct\Services\ListService;
 use Ctct\Services\EmailMarketingService;
 use Ctct\Services\CampaignScheduleService;
@@ -87,6 +88,12 @@ class ConstantContact
     protected $accountService;
 
     /**
+     * Handles interaction with Library management
+     * @var LibraryService
+     */
+    protected $libraryService;
+
+    /**
      * Class constructor
      * Registers the API key with the ConstantContact class that will be used for all API calls.
      * @param string $apiKey - Constant Contact API Key
@@ -102,6 +109,7 @@ class ConstantContact
         $this->campaignScheduleService = new CampaignScheduleService($apiKey);
         $this->listService = new ListService($apiKey);
         $this->accountService = new AccountService($apiKey);
+        $this->libraryService = new LibraryService($apiKey);
     }
 
     /**
@@ -691,6 +699,51 @@ class ConstantContact
     public function getAccountInfo($accessToken, array $params = array())
     {
         return $this->accountService->getAccountInfo($accessToken, $params);
+    }
+
+    /**
+     * @param string $accessToken - Constant Contact OAuth2 access token
+     * @param string $folderId - Optionally search for files in a specified folder
+     * @param mixed $params - associative array of query parameters and values to append to the request.
+     *      Allowed parameters include:
+     *      limit - Specifies the number of results displayed per page of output, from 1 - 1000, default = 50.
+     *      sort_by - Specifies how the list of files is sorted; valid sort options are:
+     *          CREATED_DATE, CREATED_DATE_DESC, MODIFIED_DATE, MODIFIED_DATE_DESC, NAME, NAME_DESC, SIZE, SIZE_DESC DIMENSION, DIMENSION_DESC
+     *      source - Specifies to retrieve files from a particular source:
+     *          ALL, MyComputer, Facebook, Instagram, Shutterstock, Mobile
+     *      next - the next link returned from a previous paginated call. May only be used by itself.
+     * @return ResultSet - Containing a results array of {@link Ctct\Components\Library\File}
+     */
+    public function getLibraryFiles($accessToken, $folderId = null, array $params = array())
+    {
+        if ($folderId != null) {
+            return $this->libraryService->getLibraryFilesByFolder($accessToken, $folderId, $params);
+        }
+        return $this->libraryService->getLibraryFiles($accessToken, $params);
+    }
+
+    /**
+     * @param string $accessToken - Constant Contact OAuth2 access token
+     * @param string $fileId - File Id
+     * @return File
+     */
+    public function getLibraryFile($accessToken, $fileId)
+    {
+        return $this->libraryService->getLibraryFile($accessToken, $fileId);
+    }
+
+    /**
+     * @param string $accessToken - Constant Contact OAuth2 access token
+     * @param mixed $params - associative array of query parameters and values to append to the request.
+     *      Allowed parameters include:
+     *      limit - Specifies the number of results displayed per page of output, from 1 - 1000, default = 50.
+     *      sort_by - Specifies how the list of files is sorted; valid sort options are:
+     *          CREATED_DATE, CREATED_DATE_DESC, MODIFIED_DATE, MODIFIED_DATE_DESC, NAME, NAME_DESC
+     * @return ResultSet
+     */
+    public function getLibraryFolders($accessToken, array $params = array())
+    {
+        return $this->libraryService->getLibraryFolders($accessToken, $params);
     }
 
     /**

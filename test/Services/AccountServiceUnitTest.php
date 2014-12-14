@@ -47,7 +47,7 @@ class AccountServiceUnitTest extends PHPUnit_Framework_TestCase
         $this->assertEquals("US/Eastern", $response->time_zone);
         $this->assertEquals("Mary Jane", $response->first_name);
         $this->assertEquals("Doe", $response->last_name);
-        $this->assertEquals("mjdoe@example.com", $response->email);
+        $this->assertEquals("mjdoe@example.com", $response->email_address);
         $this->assertEquals("5555555555", $response->phone);
         $this->assertEquals("https://ih.constantcontact.com/fs137/1100371573368/img/90.jpg", $response->company_logo);
         $this->assertEquals("US", $response->country_code);

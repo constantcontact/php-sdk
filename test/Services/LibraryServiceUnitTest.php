@@ -20,7 +20,7 @@ class LibraryServiceUnitTest extends PHPUnit_Framework_TestCase
         $this->restClient->expects($this->once())
             ->method('get')
             ->with()
-            ->will($this->lireturnValue($curlResponse));
+            ->will($this->returnValue($curlResponse));
 
         $response = $this->libraryService->getLibraryFile("accessToken", array());
 

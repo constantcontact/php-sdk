@@ -45,6 +45,6 @@ class LibraryServiceUnitTest extends PHPUnit_Framework_TestCase
         $this->assertEquals("2013-08-23T12:54:17.000-04:00", $response->modifiedDate);
         $this->assertEquals(null, $response->folderId);
         $this->assertEquals(true, $response->isImage);
-        $this->assertEquals("JPG", $response->fileType);
+        $this->assertEquals("JPG", $response->type);
     }
 }

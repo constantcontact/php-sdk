@@ -24,10 +24,14 @@ use Ctct\Components\Contacts\EmailAddress;
 use Ctct\Exceptions\CtctException;
 
 // Enter your Constant Contact APIKEY and ACCESS_TOKEN
-define("APIKEY", "ENTER YOUR API KEY");
-define("ACCESS_TOKEN", "ENTER YOUR ACCESS TOKEN");
+define("APIKEY", "74zt3gs2jtwjqzdsthpr59r6");
+define("ACCESS_TOKEN", "4c8e15c1-03e8-417a-8b5e-0899b809101d");
 
 $cc = new ConstantContact(APIKEY);
+
+$file = $cc->getLibraryFile(ACCESS_TOKEN, "137");
+var_dump($file);
+die();
 
 // attempt to fetch lists in the account, catching any exceptions and printing the errors to screen
 try {

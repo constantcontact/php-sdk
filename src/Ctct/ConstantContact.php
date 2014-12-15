@@ -696,9 +696,19 @@ class ConstantContact
      * @param string $accessToken - Constant Contact OAuth2 access token
      * @return AccountInfo object
      */
-    public function getAccountInfo($accessToken, array $params = array())
+    public function getAccountInfo($accessToken)
     {
-        return $this->accountService->getAccountInfo($accessToken, $params);
+        return $this->accountService->getAccountInfo($accessToken);
+    }
+
+    /**
+     * @param string $accessToken - Constant Contact OAuth2 access token
+     * @param string $fileId - File Id
+     * @return File
+     */
+    public function getLibraryFile($accessToken, $fileId)
+    {
+        return $this->libraryService->getLibraryFile($accessToken, $fileId);
     }
 
     /**
@@ -716,20 +726,10 @@ class ConstantContact
      */
     public function getLibraryFiles($accessToken, $folderId = null, array $params = array())
     {
-        if ($folderId != null) {
+        if ($folderId) {
             return $this->libraryService->getLibraryFilesByFolder($accessToken, $folderId, $params);
         }
         return $this->libraryService->getLibraryFiles($accessToken, $params);
-    }
-
-    /**
-     * @param string $accessToken - Constant Contact OAuth2 access token
-     * @param string $fileId - File Id
-     * @return File
-     */
-    public function getLibraryFile($accessToken, $fileId)
-    {
-        return $this->libraryService->getLibraryFile($accessToken, $fileId);
     }
 
     /**

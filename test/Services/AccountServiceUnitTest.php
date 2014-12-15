@@ -30,14 +30,15 @@ class AccountServiceUnitTest extends PHPUnit_Framework_TestCase
         $this->assertEquals("CONFIRMED", $response[0]->status);
     }
 
-    public function testGetAccountInfo() {
+    public function testGetAccountInfo()
+    {
         $curlResponse = CurlResponse::create(JsonLoader::getAccountInfoJson(), array('http_code' => 200));
         $this->restClient->expects($this->once())
             ->method('get')
             ->with()
             ->will($this->returnValue($curlResponse));
 
-        $response = $this->accountService->getAccountInfo("accessToken", array());
+        $response = $this->accountService->getAccountInfo("accessToken");
 
         $this->assertInstanceOf('Ctct\Components\Account\AccountInfo', $response);
         $this->assertEquals("http://www.example.com", $response->website);

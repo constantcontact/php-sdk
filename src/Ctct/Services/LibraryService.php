@@ -15,8 +15,7 @@ class LibraryService extends BaseService
      */
     public function getLibraryFiles($accessToken, Array $params)
     {
-        $baseUrl = Config::get('endpoints.base_url')
-            . sprintf('endpoints.library_files');
+        $baseUrl = Config::get('endpoints.base_url') . Config::get('endpoints.library_files');
         $url = $this->buildUrl($baseUrl, $params);
         $response = parent::getRestClient()->get($url, parent::getHeaders($accessToken));
         $body = json_decode($response->body, true);
@@ -38,7 +37,7 @@ class LibraryService extends BaseService
     public function getLibraryFilesByFolder($accessToken, $folderId, Array $params)
     {
         $baseUrl = Config::get('endpoints.base_url')
-            . sprintf('endpoints.library_files_by_folder', $folderId);
+            . sprintf(Config::get('endpoints.library_files_by_folder'), $folderId);
         $url = $this->buildUrl($baseUrl, $params);
         $response = parent::getRestClient()->get($url, parent::getHeaders($accessToken));
         $body = json_decode($response->body, true);
@@ -59,7 +58,7 @@ class LibraryService extends BaseService
     public function getLibraryFile($accessToken, $fileId)
     {
         $baseUrl = Config::get('endpoints.base_url')
-            . sprintf('endpoints.library_file', $fileId);
+            . sprintf(Config::get('endpoints.library_file'), $fileId);
         $url = $this->buildUrl($baseUrl);
         $response = parent::getRestClient()->get($url, parent::getHeaders($accessToken));
         return File::create(json_decode($response->body, true));
@@ -73,8 +72,7 @@ class LibraryService extends BaseService
      */
     public function getLibraryFolders($accessToken, Array $params)
     {
-        $baseUrl = Config::get('endpoints.base_url')
-            . sprintf('endpoints.library_folders');
+        $baseUrl = Config::get('endpoints.base_url') . Config::get('endpoints.library_folders');
         $url = $this->buildUrl($baseUrl, $params);
         $response = parent::getRestClient()->get($url, parent::getHeaders($accessToken));
         $body = json_decode($response->body, true);

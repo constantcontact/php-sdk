@@ -21,8 +21,7 @@ class AccountService extends BaseService
      */
     public function getVerifiedEmailAddresses($accessToken, Array $params)
     {
-        $baseUrl = Config::get('endpoints.base_url')
-            . sprintf(Config::get('endpoints.account_verified_addresses'));
+        $baseUrl = Config::get('endpoints.base_url') . Config::get('endpoints.account_verified_addresses');
 
         $url = $this->buildUrl($baseUrl, $params);
         $response = parent::getRestClient()->get($url, parent::getHeaders($accessToken));
@@ -44,8 +43,7 @@ class AccountService extends BaseService
      */
     public function createVerifiedEmailAddresses($accessToken, Array $emailAddresses)
     {
-        $baseUrl = Config::get('endpoints.base_url')
-            . sprintf(Config::get('endpoints.account_verified_addresses'));
+        $baseUrl = Config::get('endpoints.base_url') . Config::get('endpoints.account_verified_addresses');
 
         $url = $this->buildUrl($baseUrl);
         $response = parent::getRestClient()->post($url, parent::getHeaders($accessToken), $emailAddresses);
@@ -61,15 +59,13 @@ class AccountService extends BaseService
     /**
      * Get account info associated with an access token
      * @param string $accessToken - Constant Contact OAuth2 Access Token
-     * @param array $params - array of query parameters/values to append to the request
      * @return AccountInfo
      */
-    public function getAccountInfo($accessToken, Array $params)
+    public function getAccountInfo($accessToken)
     {
-        $baseUrl = Config::get('endpoints.base_url')
-            . sprintf(Config::get('endpoints.account_info'));
+        $baseUrl = Config::get('endpoints.base_url') . Config::get('endpoints.account_info');
 
-        $url = $this->buildUrl($baseUrl, $params);
+        $url = $this->buildUrl($baseUrl);
         $response = parent::getRestClient()->get($url, parent::getHeaders($accessToken));
         return AccountInfo::create(json_decode($response->body, true));
     }
@@ -82,8 +78,7 @@ class AccountService extends BaseService
      */
     public function updateAccountInfo($accessToken, AccountInfo $accountInfo)
     {
-        $baseUrl = Config::get('endpoints.base_url')
-            . sprintf(Config::get('endpoints.account_info'));
+        $baseUrl = Config::get('endpoints.base_url') . Config::get('endpoints.account_info');
 
         $url = $this->buildUrl($baseUrl);
         $response = parent::getRestClient()->put($url, parent::getHeaders($accessToken), $accountInfo);

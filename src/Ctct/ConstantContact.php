@@ -692,13 +692,36 @@ class ConstantContact
     }
 
     /**
+     * Create new verified email addresses. This will also prompt the account to send
+     * a verification email to the address.
+     * @param string $accessToken - Constant Contact OAuth2 Access Token
+     * @param array $emailAddresses - array of VerifiedEmailAddress to create
+     * @return array - array of VerifiedEmailAddress created
+     */
+    public function createVerifiedEmailAddresses($accessToken, $emailAddresses)
+    {
+        return $this->accountService->createVerifiedEmailAddresses($accessToken, $emailAddresses);
+    }
+
+    /**
      * Get details for account associated with an access token
      * @param string $accessToken - Constant Contact OAuth2 access token
-     * @return AccountInfo object
+     * @return AccountInfo
      */
     public function getAccountInfo($accessToken)
     {
         return $this->accountService->getAccountInfo($accessToken);
+    }
+
+    /**
+     * Update information of the account.
+     * @param string $accessToken - Constant Contact OAuth2 Access Token
+     * @param AccountInfo $accountInfo - Updated AccountInfo
+     * @return AccountInfo
+     */
+    public function updateAccountInfo($accessToken, $accountInfo)
+    {
+        return $this->accountService->updateAccountInfo($accessToken, $accountInfo);
     }
 
     /**

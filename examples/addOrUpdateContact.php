@@ -62,7 +62,7 @@ if (isset($_POST['email']) && strlen($_POST['email']) > 1) {
              *
              * See: http://developer.constantcontact.com/docs/contacts-api/contacts-index.html#opt_in
              */
-            $returnContact = $cc->addContact(ACCESS_TOKEN, $contact, false);
+            $returnContact = $cc->addContact(ACCESS_TOKEN, $contact, true);
 
             // update the existing contact if address already existed
         } else {
@@ -80,7 +80,7 @@ if (isset($_POST['email']) && strlen($_POST['email']) > 1) {
              *
              * See: http://developer.constantcontact.com/docs/contacts-api/contacts-index.html#opt_in
              */
-            $returnContact = $cc->updateContact(ACCESS_TOKEN, $contact, false);
+            $returnContact = $cc->updateContact(ACCESS_TOKEN, $contact, true);
         }
 
         // catch any exceptions thrown during the process and print the errors to screen

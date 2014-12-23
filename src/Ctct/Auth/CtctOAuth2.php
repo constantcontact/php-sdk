@@ -47,7 +47,7 @@ class CtctOAuth2
         }
 
         $url = Config::get('auth.base_url') . Config::get('auth.authorization_endpoint');
-        return $url . '?' . http_build_query($params);
+        return $url . '?' . http_build_query($params, '', '&');
     }
 
     /**
@@ -66,7 +66,7 @@ class CtctOAuth2
             'redirect_uri' => $this->redirectUri
         );
 
-        $url = Config::get('auth.base_url') . Config::get('auth.token_endpoint') . '?' . http_build_query($params);
+        $url = Config::get('auth.base_url') . Config::get('auth.token_endpoint') . '?' . http_build_query($params, '', '&');
 
         $response = $this->restClient->post($url);
         $responseBody = json_decode($response->body, true);

@@ -2,6 +2,7 @@
 namespace Ctct\Services;
 
 use Ctct\Components\Library\File;
+use Ctct\Components\Library\Folder;
 use Ctct\Components\ResultSet;
 use Ctct\Util\Config;
 
@@ -16,14 +17,22 @@ class LibraryService extends BaseService
     public function getLibraryFiles($accessToken, Array $params)
     {
         $baseUrl = Config::get('endpoints.base_url') . Config::get('endpoints.library_files');
-        $url = $this->buildUrl($baseUrl, $params);
-        $response = parent::getRestClient()->get($url, parent::getHeaders($accessToken));
-        $body = json_decode($response->body, true);
-        $libraryFiles = array();
 
+        $request = parent::createBaseRequest($accessToken, 'GET', $baseUrl);
+        if ($params) {
+            $query = $request->getQuery();
+            foreach ($params as $name => $value) {
+                $query->add($name, $value);
+            }
+        }
+        $response = parent::getClient()->send($request);
+
+        $body = $response->json();
+        $libraryFiles = array();
         foreach ($body['results'] as $file) {
             $libraryFiles[] = File::create($file);
         }
+
         return new ResultSet($libraryFiles, $body['meta']);
     }
 
@@ -36,16 +45,23 @@ class LibraryService extends BaseService
      */
     public function getLibraryFilesByFolder($accessToken, $folderId, Array $params)
     {
-        $baseUrl = Config::get('endpoints.base_url')
-            . sprintf(Config::get('endpoints.library_files_by_folder'), $folderId);
-        $url = $this->buildUrl($baseUrl, $params);
-        $response = parent::getRestClient()->get($url, parent::getHeaders($accessToken));
-        $body = json_decode($response->body, true);
-        $libraryFiles = array();
+        $baseUrl = Config::get('endpoints.base_url') . sprintf(Config::get('endpoints.library_files_by_folder'), $folderId);
 
+        $request = parent::createBaseRequest($accessToken, 'GET', $baseUrl);
+        if ($params) {
+            $query = $request->getQuery();
+            foreach ($params as $name => $value) {
+                $query->add($name, $value);
+            }
+        }
+        $response = parent::getClient()->send($request);
+
+        $body = $response->json();
+        $libraryFiles = array();
         foreach ($body['results'] as $file) {
             $libraryFiles[] = File::create($file);
         }
+
         return new ResultSet($libraryFiles, $body['meta']);
     }
 
@@ -57,11 +73,12 @@ class LibraryService extends BaseService
      */
     public function getLibraryFile($accessToken, $fileId)
     {
-        $baseUrl = Config::get('endpoints.base_url')
-            . sprintf(Config::get('endpoints.library_file'), $fileId);
-        $url = $this->buildUrl($baseUrl);
-        $response = parent::getRestClient()->get($url, parent::getHeaders($accessToken));
-        return File::create(json_decode($response->body, true));
+        $baseUrl = Config::get('endpoints.base_url') . sprintf(Config::get('endpoints.library_file'), $fileId);
+
+        $request = parent::createBaseRequest($accessToken, 'GET', $baseUrl);
+        $response = parent::getClient()->send($request);
+
+        return File::create($response->json());
     }
 
     /**
@@ -73,14 +90,22 @@ class LibraryService extends BaseService
     public function getLibraryFolders($accessToken, Array $params)
     {
         $baseUrl = Config::get('endpoints.base_url') . Config::get('endpoints.library_folders');
-        $url = $this->buildUrl($baseUrl, $params);
-        $response = parent::getRestClient()->get($url, parent::getHeaders($accessToken));
-        $body = json_decode($response->body, true);
-        $libraryFolders = array();
 
-        foreach ($body['results'] as $folder) {
-            $libraryFolders[] = File::create($folder);
+        $request = parent::createBaseRequest($accessToken, 'GET', $baseUrl);
+        if ($params) {
+            $query = $request->getQuery();
+            foreach ($params as $name => $value) {
+                $query->add($name, $value);
+            }
         }
+        $response = parent::getClient()->send($request);
+
+        $body = $response->json();
+        $libraryFolders = array();
+        foreach ($body['results'] as $folder) {
+            $libraryFolders[] = Folder::create($folder);
+        }
+
         return new ResultSet($libraryFolders, $body['meta']);
     }
 }

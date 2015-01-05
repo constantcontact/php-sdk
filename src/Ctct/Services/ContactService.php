@@ -4,6 +4,7 @@ namespace Ctct\Services;
 use Ctct\Util\Config;
 use Ctct\Components\Contacts\Contact;
 use Ctct\Components\ResultSet;
+use GuzzleHttp\Stream\Stream;
 
 /**
  * Performs all actions pertaining to Constant Contact Contacts
@@ -13,20 +14,26 @@ use Ctct\Components\ResultSet;
  */
 class ContactService extends BaseService
 {
-
     /**
      * Get a ResultSet of contacts
      * @param string $accessToken - Constant Contact OAuth2 access token
      * @param array $params - array of query parameters to be appended to the url
      * @return ResultSet
      */
-    public function getContacts($accessToken, array $params = array())
+    public function getContacts($accessToken, Array $params)
     {
         $baseUrl = Config::get('endpoints.base_url') . Config::get('endpoints.contacts');
-        $url = $this->buildUrl($baseUrl, $params);
 
-        $response = parent::getRestClient()->get($url, parent::getHeaders($accessToken));
-        $body = json_decode($response->body, true);
+        $request = parent::createBaseRequest($accessToken, 'GET', $baseUrl);
+        if ($params) {
+            $query = $request->getQuery();
+            foreach ($params as $name => $value) {
+                $query->add($name, $value);
+            }
+        }
+        $response = parent::getClient()->send($request);
+
+        $body = $response->json();
         $contacts = array();
         foreach ($body['results'] as $contact) {
             $contacts[] = Contact::create($contact);
@@ -43,9 +50,11 @@ class ContactService extends BaseService
     public function getContact($accessToken, $contactId)
     {
         $baseUrl = Config::get('endpoints.base_url') . sprintf(Config::get('endpoints.contact'), $contactId);
-        $url = $this->buildUrl($baseUrl);
-        $response = parent::getRestClient()->get($url, parent::getHeaders($accessToken));
-        return Contact::create(json_decode($response->body, true));
+
+        $request = parent::createBaseRequest($accessToken, 'GET', $baseUrl);
+        $response = parent::getClient()->send($request);
+
+        return Contact::create($response->json());
     }
 
     /**
@@ -55,56 +64,37 @@ class ContactService extends BaseService
      * @param array $params - query params to be appended to the request
      * @return Contact
      */
-    public function addContact($accessToken, Contact $contact, array $params = array())
+    public function addContact($accessToken, Contact $contact, Array $params)
     {
         $baseUrl = Config::get('endpoints.base_url') . Config::get('endpoints.contacts');
-        $url = $this->buildUrl($baseUrl, $params);
-        $response = parent::getRestClient()->post($url, parent::getHeaders($accessToken), $contact->toJson());
-        return Contact::create(json_decode($response->body, true));
+
+        $request = parent::createBaseRequest($accessToken, 'GET', $baseUrl);
+        if ($params) {
+            $query = $request->getQuery();
+            foreach ($params as $name => $value) {
+                $query->add($name, $value);
+            }
+        }
+        $stream = Stream::factory(json_encode($contact));
+        $request->setBody($stream);
+        $response = parent::getClient()->send($request);
+
+        return Contact::create($response->json());
     }
 
     /**
-     * Delete contact details for a specific contact
+     * Opt out a contact
      * @param string $accessToken - Constant Contact OAuth2 access token
      * @param int $contactId - Unique contact id
      * @return boolean
      */
-    public function deleteContact($accessToken, $contactId)
-    {
+    public function unsubscribeContact($accessToken, $contactId) {
         $baseUrl = Config::get('endpoints.base_url') . sprintf(Config::get('endpoints.contact'), $contactId);
-        $url = $this->buildUrl($baseUrl);
-        $response = parent::getRestClient()->delete($url, parent::getHeaders($accessToken));
-        return ($response->info['http_code'] == 204) ? true : false;
-    }
 
-    /**
-     * Delete a contact from all contact lists
-     * @param string $accessToken - Constant Contact OAuth2 access token
-     * @param int $contactId - Contact id to be removed from lists
-     * @return boolean
-     */
-    public function deleteContactFromLists($accessToken, $contactId)
-    {
-        $baseUrl = Config::get('endpoints.base_url') . sprintf(Config::get('endpoints.contact_lists'), $contactId);
-        $url = $this->buildUrl($baseUrl);
-        $response = parent::getRestClient()->delete($url, parent::getHeaders($accessToken));
-        return ($response->info['http_code'] == 204) ? true : false;
-    }
+        $request = parent::createBaseRequest($accessToken, 'DELETE', $baseUrl);
+        $response = parent::getClient()->send($request);
 
-    /**
-     * Delete a contact from a specific contact list
-     * @param string $accessToken - Constant Contact OAuth2 access token
-     * @param int $contactId - Contact id to be removed
-     * @param int $listId - ContactList to remove the contact from
-     * @return boolean
-     */
-    public function deleteContactFromList($accessToken, $contactId, $listId)
-    {
-        $baseUrl = Config::get('endpoints.base_url') .
-            sprintf(Config::get('endpoints.contact_list'), $contactId, $listId);
-        $url = $this->buildUrl($baseUrl);
-        $response = parent::getRestClient()->delete($url, parent::getHeaders($accessToken));
-        return ($response->info['http_code'] == 204) ? true : false;
+        return ($response->getStatusCode() == 204) ? true : false;
     }
 
     /**
@@ -114,11 +104,19 @@ class ContactService extends BaseService
      * @param array $params - query params to be appended to the request
      * @return Contact
      */
-    public function updateContact($accessToken, Contact $contact, array $params = array())
+    public function updateContact($accessToken, Contact $contact, Array $params)
     {
         $baseUrl = Config::get('endpoints.base_url') . sprintf(Config::get('endpoints.contact'), $contact->id);
-        $url = $this->buildUrl($baseUrl, $params);
-        $response = parent::getRestClient()->put($url, parent::getHeaders($accessToken), $contact->toJson());
-        return Contact::create(json_decode($response->body, true));
+
+        $request = parent::createBaseRequest($accessToken, 'PUT', $baseUrl);
+        if ($params) {
+            $query = $request->getQuery();
+            foreach ($params as $name => $value) {
+                $query->add($name, $value);
+            }
+        }
+        $response = parent::getClient()->send($request);
+
+        return Contact::create($response->json());
     }
 }

@@ -10,12 +10,14 @@ use Ctct\Services\CampaignScheduleService;
 use Ctct\Services\CampaignTrackingService;
 use Ctct\Services\ContactTrackingService;
 use Ctct\Services\ActivityService;
+use Ctct\Components\Account\AccountInfo;
 use Ctct\Components\Activities\Activity;
 use Ctct\Components\Contacts\Contact;
 use Ctct\Components\Contacts\ContactList;
 use Ctct\Components\EmailMarketing\Campaign;
 use Ctct\Components\EmailMarketing\Schedule;
 use Ctct\Components\EmailMarketing\TestSend;
+use Ctct\Components\Library\File;
 use Ctct\Components\ResultSet;
 use Ctct\Components\Tracking\TrackingSummary;
 use Ctct\Components\Activities\AddContacts;
@@ -27,7 +29,7 @@ use Ctct\Util\Config;
  * Exposes all implemented Constant Contact API functionality
  *
  * @package Ctct
- * @version 1.1.0
+ * @version 2.0.0
  * @author Constant Contact
  * @link https://developer.constantcontact.com
  */
@@ -168,46 +170,29 @@ class ConstantContact
     }
 
     /**
-     * Sets an individual contact to 'REMOVED' status
+     * Opts out an individual contact
      * @param string $accessToken - Valid access token
      * @param mixed $contact - Either a Contact id or the Contact itself
      * @throws IllegalArgumentException - if an int or Contact object is not provided
      * @return boolean
      */
+    public function unsubscribeContact($accessToken, $contact)
+    {
+        $contactId = $this->getArgumentId($contact, 'Contact');
+        return $this->contactService->unsubscribeContact($accessToken, $contactId);
+    }
+
+    /**
+     * Delete a contact from all contact lists
+     * @param string $accessToken - Constant Contact OAuth2 access token
+     * @param Contact $contact - Contact object
+     * @throws IllegalArgumentException - if an int or Contact object is not provided
+     * @return Contact
+     */
     public function deleteContact($accessToken, $contact)
     {
-        $contactId = $this->getArgumentId($contact, 'Contact');
-        return $this->contactService->deleteContact($accessToken, $contactId);
-    }
-
-    /**
-     * Delete a contact from all contact lists
-     * @param string $accessToken - Constant Contact OAuth2 access token
-     * @param mixed $contact - Contact id or the Contact object itself
-     * @throws IllegalArgumentException - if an int or Contact object is not provided
-     * @return boolean
-     */
-    public function deleteContactFromLists($accessToken, $contact)
-    {
-        $contactId = $this->getArgumentId($contact, 'Contact');
-        return $this->contactService->deleteContactFromLists($accessToken, $contactId);
-    }
-
-    /**
-     * Delete a contact from all contact lists
-     * @param string $accessToken - Constant Contact OAuth2 access token
-     * @param mixed $contact - Contact id or a Contact object
-     * @param mixed $list - ContactList id or a ContactList object
-     * @throws IllegalArgumentException - if an int or Contact object is not provided,
-     * as well as an int or ContactList object
-     * @return boolean
-     */
-    public function deleteContactFromList($accessToken, $contact, $list)
-    {
-        $contactId = $this->getArgumentId($contact, 'Contact');
-        $listId = $this->getArgumentId($list, 'ContactList');
-
-        return $this->contactService->deleteContactFromList($accessToken, $contactId, $listId);
+        $contact->lists = array();
+        return $this->contactService->updateContact($accessToken, $contact, null);
     }
 
     /**

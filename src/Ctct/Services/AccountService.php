@@ -4,6 +4,7 @@ namespace Ctct\Services;
 use Ctct\Util\Config;
 use Ctct\Components\Account\VerifiedEmailAddress;
 use Ctct\Components\Account\AccountInfo;
+use GuzzleHttp\Stream\Stream;
 
 /**
  * Performs all actions pertaining to scheduling Constant Contact Account's
@@ -23,11 +24,17 @@ class AccountService extends BaseService
     {
         $baseUrl = Config::get('endpoints.base_url') . Config::get('endpoints.account_verified_addresses');
 
-        $url = $this->buildUrl($baseUrl, $params);
-        $response = parent::getRestClient()->get($url, parent::getHeaders($accessToken));
-        $verifiedAddresses = array();
+        $request = parent::createBaseRequest($accessToken, 'GET', $baseUrl);
+        if ($params) {
+            $query = $request->getQuery();
+            foreach ($params as $name => $value) {
+                $query->add($name, $value);
+            }
+        }
+        $response = parent::getClient()->send($request);
 
-        foreach (json_decode($response->body, true) as $verifiedAddress) {
+        $verifiedAddresses = array();
+        foreach ($response->json() as $verifiedAddress) {
             $verifiedAddresses[] = VerifiedEmailAddress::create($verifiedAddress);
         }
 
@@ -45,11 +52,13 @@ class AccountService extends BaseService
     {
         $baseUrl = Config::get('endpoints.base_url') . Config::get('endpoints.account_verified_addresses');
 
-        $url = $this->buildUrl($baseUrl);
-        $response = parent::getRestClient()->post($url, parent::getHeaders($accessToken), $emailAddresses);
-        $verifiedAddresses = array();
+        $request = parent::createBaseRequest($accessToken, 'POST', $baseUrl);
+        $stream = Stream::factory(json_encode($emailAddresses));
+        $request->setBody($stream);
+        $response = parent::getClient()->send($request);
 
-        foreach (json_decode($response->body, true) as $verifiedAddress) {
+        $verifiedAddresses = array();
+        foreach ($response->json() as $verifiedAddress) {
             $verifiedAddresses[] = VerifiedEmailAddress::create($verifiedAddress);
         }
 
@@ -65,9 +74,10 @@ class AccountService extends BaseService
     {
         $baseUrl = Config::get('endpoints.base_url') . Config::get('endpoints.account_info');
 
-        $url = $this->buildUrl($baseUrl);
-        $response = parent::getRestClient()->get($url, parent::getHeaders($accessToken));
-        return AccountInfo::create(json_decode($response->body, true));
+        $request = parent::createBaseRequest($accessToken, 'GET', $baseUrl);
+        $response = parent::getClient()->send($request);
+
+        return AccountInfo::create($response->json());
     }
 
     /**
@@ -80,8 +90,11 @@ class AccountService extends BaseService
     {
         $baseUrl = Config::get('endpoints.base_url') . Config::get('endpoints.account_info');
 
-        $url = $this->buildUrl($baseUrl);
-        $response = parent::getRestClient()->put($url, parent::getHeaders($accessToken), $accountInfo);
-        return AccountInfo::create(json_decode($response->body, true));
+        $request = parent::createBaseRequest($accessToken, 'PUT', $baseUrl);
+        $stream = Stream::factory(json_encode($accountInfo));
+        $request->setBody($stream);
+        $response = parent::getClient()->send($request);
+
+        return AccountInfo::create($response->json());
     }
 }

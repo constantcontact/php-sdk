@@ -123,7 +123,7 @@ class Config
          * Setting the version fo the application used in Rest Calls when setting the version header
          */
         'settings'    => array(
-            'version'        => '1.2.0'
+            'version'        => '1.3.0'
         ),
     );
 

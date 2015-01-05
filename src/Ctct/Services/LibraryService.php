@@ -2,6 +2,7 @@
 namespace Ctct\Services;
 
 use Ctct\Components\Library\File;
+use Ctct\Components\Library\Folder;
 use Ctct\Components\ResultSet;
 use Ctct\Util\Config;
 
@@ -79,7 +80,7 @@ class LibraryService extends BaseService
         $libraryFolders = array();
 
         foreach ($body['results'] as $folder) {
-            $libraryFolders[] = File::create($folder);
+            $libraryFolders[] = Folder::create($folder);
         }
         return new ResultSet($libraryFolders, $body['meta']);
     }

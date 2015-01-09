@@ -18,6 +18,7 @@ use Ctct\Components\EmailMarketing\Campaign;
 use Ctct\Components\EmailMarketing\Schedule;
 use Ctct\Components\EmailMarketing\TestSend;
 use Ctct\Components\Library\File;
+use Ctct\Components\Library\FileUploadStatus;
 use Ctct\Components\ResultSet;
 use Ctct\Components\Tracking\TrackingSummary;
 use Ctct\Components\Activities\AddContacts;
@@ -164,7 +165,7 @@ class ConstantContact
     {
         $params = array();
         if ($actionByVisitor == true) {
-            $params['action_by'] = "ACTION_BY_VISITOR";
+            $params['action_by'] = "ACTION_BY_CONTACT";
         }
         return $this->contactService->addContact($accessToken, $contact, $params);
     }
@@ -710,6 +711,7 @@ class ConstantContact
     }
 
     /**
+     * Get a file from the Library.
      * @param string $accessToken - Constant Contact OAuth2 access token
      * @param string $fileId - File Id
      * @return File
@@ -720,6 +722,7 @@ class ConstantContact
     }
 
     /**
+     * Get a collection of files from the library.
      * @param string $accessToken - Constant Contact OAuth2 access token
      * @param string $folderId - Optionally search for files in a specified folder
      * @param mixed $params - associative array of query parameters and values to append to the request.
@@ -741,6 +744,7 @@ class ConstantContact
     }
 
     /**
+     * Get a collection of folders in the Library
      * @param string $accessToken - Constant Contact OAuth2 access token
      * @param mixed $params - associative array of query parameters and values to append to the request.
      *      Allowed parameters include:
@@ -752,6 +756,37 @@ class ConstantContact
     public function getLibraryFolders($accessToken, array $params = array())
     {
         return $this->libraryService->getLibraryFolders($accessToken, $params);
+    }
+
+    /**
+     * Upload a file to the Library.
+     * The server scans files for viruses, so this returns an ID for a FileUploadStatus.
+     * @param string $accessToken - Constant Contact OAuth2 access token
+     * @param string $fileName - The name of the file
+     * @param string $fileLocation - Location of the file on the server
+     * @param string $fileType - PNG, JPG, JPEG, GIF, or PDF
+     * @param string $description - Description of the file
+     * @param string $folderId - Optional. The folder ID to upload the file to.
+     * @return string The ID of the FileUploadStatus
+     * @throws IllegalArgumentException if fileType is not PNG, JPG, JPEG, GIF, or PDF
+     */
+    public function uploadFile($accessToken, $fileName, $fileLocation, $fileType, $description, $folderId = null)
+    {
+        if ($folderId == null) {
+            $folderId = 0;
+        }
+        return $this->libraryService->uploadFile($accessToken, $fileName, $fileLocation, $fileType, $description, "MyComputer", $folderId);
+    }
+
+    /**
+     * Get the upload stats of a File
+     * @param string $accessToken - Constant Contact OAuth2 access token
+     * @param string $fileUploadStatusIds - Single ID or ID's of statuses to check, separated by commas (no spaces)
+     * @return FileUploadStatus[]
+     */
+    public function getFileUploadStatus($accessToken, $fileUploadStatusIds)
+    {
+        return $this->libraryService->getFileUploadStatus($accessToken, $fileUploadStatusIds);
     }
 
     /**
@@ -807,13 +842,13 @@ class ConstantContact
      * Create an Add Contacts Activity from a file. Valid file types are txt, csv, xls, xlsx
      * @param string $accessToken - Constant Contact OAuth2 access token
      * @param string $fileName - The name of the file (ie: contacts.csv)
-     * @param string $contents - The contents of the file
+     * @param string $path - Location of the file on the server
      * @param string $lists - Comma separated list of ContactList id's to add the contacts to
      * @return Activity
      */
-    public function addCreateContactsActivityFromFile($accessToken, $fileName, $contents, $lists)
+    public function addCreateContactsActivityFromFile($accessToken, $fileName, $path, $lists)
     {
-        return $this->activityService->createAddContactsActivityFromFile($accessToken, $fileName, $contents, $lists);
+        return $this->activityService->createAddContactsActivityFromFile($accessToken, $fileName, $path, $lists);
     }
 
     /**
@@ -843,16 +878,16 @@ class ConstantContact
      * Add a Remove Contacts From Lists Activity from a file. Valid file types are txt, csv, xls, xlsx
      * @param string $accessToken - Constant Contact OAuth2 access token
      * @param string $fileName - The name of the file (ie: contacts.csv)
-     * @param string $contents - The contents of the file
+     * @param string $path - The location of the file on the server
      * @param string $lists - Comma separated list of ContactList id' to add the contacts too
      * @return Activity
      */
-    public function addRemoveContactsFromListsActivityFromFile($accessToken, $fileName, $contents, $lists)
+    public function addRemoveContactsFromListsActivityFromFile($accessToken, $fileName, $path, $lists)
     {
         return $this->activityService->addRemoveContactsFromListsActivityFromFile(
             $accessToken,
             $fileName,
-            $contents,
+            $path,
             $lists
         );
     }

@@ -60,7 +60,8 @@ class Config
             'library_file' => 'library/files/%s',
             'library_folders' => 'library/folders',
             'library_folder' => 'library/folders/%s',
-            'library_files_by_folder' => 'library/folders/%s/files'
+            'library_files_by_folder' => 'library/folders/%s/files',
+            'library_file_upload_status' => 'library/files/uploadstatus/%s'
 
         ),
         /**
@@ -116,7 +117,8 @@ class Config
          * Errors to be returned for various exceptions
          */
         'errors'    => array(
-            'id_or_object'        => 'Only an id or %s object are allowed for this method.'
+            'id_or_object'        => 'Only an id or %s object are allowed for this method.',
+            'file_extension'      => 'Only file extensions of the following are allowed: %s'
         ),
         
         /**

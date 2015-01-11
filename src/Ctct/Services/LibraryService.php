@@ -86,6 +86,21 @@ class LibraryService extends BaseService
     }
 
     /**
+     * Delete a File
+     * @param string $accessToken - Constant Contact OAuth2 Access Token
+     * @param string $fileId - Specified File Id
+     * @return boolean
+     */
+    public function deleteLibraryFile($accessToken, $fileId)
+    {
+        $baseUrl = Config::get('endpoints.base_url') . sprintf(Config::get('endpoints.library_file'), $fileId);
+
+        $request = parent::createBaseRequest($accessToken, 'DELETE', $baseUrl);
+        $response = parent::getClient()->send($request);
+        return ($response->getStatusCode() == 204) ? true : false;
+    }
+
+    /**
      * Get folders from the Library
      * @param string $accessToken - Constant Contact OAuth2 Access Token
      * @param array $params - array of query parameters/values to append to the request
@@ -111,6 +126,39 @@ class LibraryService extends BaseService
         }
 
         return new ResultSet($libraryFolders, $body['meta']);
+    }
+
+    /**
+     * Get a specific Folder
+     * @param string $accessToken - Constant Contact OAuth2 Access Token
+     * @param string $folderId - ID of the Folder
+     * @return Folder
+     */
+    public function getLibraryFolder($accessToken, $folderId)
+    {
+        $baseUrl = Config::get('endpoints.base_url') . Config::get(sprintf('endpoints.library_folder', $folderId));
+
+        $request = parent::createBaseRequest($accessToken, 'GET', $baseUrl);
+        $response = parent::getClient()->send($request);
+
+        $body = $response->json();
+        return Folder::create($body);
+    }
+
+    /**
+     * Delete a Library Folder
+     * @param string $accessToken - Constant Contact OAuth2 Access Token
+     * @param string $folderId - ID of the Folder
+     * @return boolean
+     */
+    public function deleteLibraryFolder($accessToken, $folderId)
+    {
+        $baseUrl = Config::get('endpoints.base_url') . Config::get(sprintf('endpoints.library_folder', $folderId));
+
+        $request = parent::createBaseRequest($accessToken, 'DELETE', $baseUrl);
+        $response = parent::getClient()->send($request);
+
+        return ($response->getStatusCode() == 204) ? true : false;
     }
 
     /**

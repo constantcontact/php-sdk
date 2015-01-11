@@ -107,6 +107,12 @@ class File extends Component {
      */
     public $modifiedDate;
 
+    /**
+     * The file's type. (PNG, JPEG, PDF, etc.)
+     * @var String
+     */
+    public $fileType;
+
     public static function create(array $props) {
         $file = new File();
 
@@ -128,6 +134,7 @@ class File extends Component {
         }
         $file->createdDate = parent::getValue($props, "created_date");
         $file->modifiedDate = parent::getValue($props, "modified_date");
+        $file->fileType = parent::getValue($props, "file_type");
 
         return $file;
     }

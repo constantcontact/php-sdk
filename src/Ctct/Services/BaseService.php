@@ -1,8 +1,8 @@
 <?php
 namespace Ctct\Services;
 
-use Ctct\Util\RestClient;
-use Ctct\Util\RestClientInterface;
+use Ctct\Util\Config;
+use GuzzleHttp\Client;
 
 /**
  * Super class for all services
@@ -13,10 +13,10 @@ use Ctct\Util\RestClientInterface;
 abstract class BaseService
 {
     /**
-     * RestClient Implementation to use for HTTP requests
-     * @var RestClientInterface
+     * GuzzleHTTP Client Implementation to use for HTTP requests
+     * @var Client
      */
-    protected $restClient;
+    protected $client;
 
     /**
      * ApiKey for the application
@@ -27,16 +27,16 @@ abstract class BaseService
     /**
      * Constructor with the option to to supply an alternative rest client to be used
      * @param string $apiKey - Constant Contact API Key
-     * @param RestClientInterface $restClient - RestClientInterface implementation to be used in the service
+     * @param Client $client - GuzzleHTTP Client implementation to be used in the service
      */
-    public function __construct($apiKey, $restClient = null)
+    public function __construct($apiKey, $client = null)
     {
         $this->apiKey = $apiKey;
 
-        if (is_null($restClient)) {
-            $this->restClient = new RestClient();
+        if (is_null($client)) {
+            $this->client = new Client();
         } else {
-            $this->restClient = $restClient;
+            $this->client = $client;
         }
     }
 
@@ -61,18 +61,24 @@ abstract class BaseService
 
     /**
      * Get the rest client being used by the service
-     * @return RestClientInterface - RestClientInterface implementation being used
+     * @return Client - GuzzleHTTP Client implementation being used
      */
-    public function getRestClient()
+    public function getClient()
     {
-        return $this->restClient;
+        return $this->client;
     }
 
-    public function setRestClient(RestClientInterface $restClient)
+    public function setClient(Client $client)
     {
-        $this->restClient = $restClient;
+        $this->client = $client;
     }
 
+    public function createBaseRequest($accessToken, $method, $baseUrl) {
+        $request = $this->client->createRequest($method, $baseUrl);
+        $request->getQuery()->set("api_key", $this->apiKey);
+        $request->setHeaders($this->getHeaders($accessToken));
+        return $request;
+    }
 
     /**
      * Helper function to return required headers for making an http request with constant contact
@@ -82,9 +88,10 @@ abstract class BaseService
     protected static function getHeaders($accessToken)
     {
         return array(
-            'Content-Type: application/json',
-            'Accept: application/json',
-            'Authorization: Bearer ' . $accessToken
+            'User-Agent' => 'ConstantContact AppConnect PHP Library v' . Config::get('settings.version'),
+            'Content-Type' => 'application/json',
+            'Accept' => 'application/json',
+            'Authorization' => 'Bearer ' . $accessToken
         );
     }
 }

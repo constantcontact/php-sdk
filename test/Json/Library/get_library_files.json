@@ -1,0 +1,29 @@
+{
+  "meta": {
+    "pagination": {
+      "next_link": "/v2/library/files?next=c023cmNlPUFsbCUiUmZzZXQ9MTgyIcV5cGU9QWxsJmxpbWl0PTE"
+    }
+  },
+  "results": [{
+    "name": "Test_card.png",
+    "id": "182",
+    "description": "descriptionssss",
+    "folder": "Images",
+    "height": 360,
+    "width": 640,
+    "size": 26271,
+    "url": "https://mlsvc01-prod.s3.amazonaws.com/489270ef001/d738eefc-8e8e-4a69-8e7d-8e7217d22a0a.png",
+    "source": "MyComputer",
+    "status": "Active",
+    "thumbnail": {
+      "url": "https://mlsvc01-prod.s3.amazonaws.com/489270ef001/d738eefc-8e8e-4a69-8e7d-8e7217d22a0a.png",
+      "height": 112,
+      "width": 200
+    },
+    "created_date": "2015-01-09T00:14:08.000-05:00",
+    "modified_date": "2015-01-09T00:14:08.000-05:00",
+    "folder_id": null,
+    "is_image": true,
+    "file_type": "PNG"
+  }]
+}

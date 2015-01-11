@@ -3,18 +3,22 @@ namespace Ctct;
 
 use Ctct\Services\AccountService;
 use Ctct\Services\ContactService;
+use Ctct\Services\LibraryService;
 use Ctct\Services\ListService;
 use Ctct\Services\EmailMarketingService;
 use Ctct\Services\CampaignScheduleService;
 use Ctct\Services\CampaignTrackingService;
 use Ctct\Services\ContactTrackingService;
 use Ctct\Services\ActivityService;
+use Ctct\Components\Account\AccountInfo;
 use Ctct\Components\Activities\Activity;
 use Ctct\Components\Contacts\Contact;
 use Ctct\Components\Contacts\ContactList;
 use Ctct\Components\EmailMarketing\Campaign;
 use Ctct\Components\EmailMarketing\Schedule;
 use Ctct\Components\EmailMarketing\TestSend;
+use Ctct\Components\Library\File;
+use Ctct\Components\Library\FileUploadStatus;
 use Ctct\Components\ResultSet;
 use Ctct\Components\Tracking\TrackingSummary;
 use Ctct\Components\Activities\AddContacts;
@@ -26,7 +30,7 @@ use Ctct\Util\Config;
  * Exposes all implemented Constant Contact API functionality
  *
  * @package Ctct
- * @version 1.1.0
+ * @version 2.0.0
  * @author Constant Contact
  * @link https://developer.constantcontact.com
  */
@@ -87,6 +91,12 @@ class ConstantContact
     protected $accountService;
 
     /**
+     * Handles interaction with Library management
+     * @var LibraryService
+     */
+    protected $libraryService;
+
+    /**
      * Class constructor
      * Registers the API key with the ConstantContact class that will be used for all API calls.
      * @param string $apiKey - Constant Contact API Key
@@ -102,6 +112,7 @@ class ConstantContact
         $this->campaignScheduleService = new CampaignScheduleService($apiKey);
         $this->listService = new ListService($apiKey);
         $this->accountService = new AccountService($apiKey);
+        $this->libraryService = new LibraryService($apiKey);
     }
 
     /**
@@ -154,52 +165,35 @@ class ConstantContact
     {
         $params = array();
         if ($actionByVisitor == true) {
-            $params['action_by'] = "ACTION_BY_VISITOR";
+            $params['action_by'] = "ACTION_BY_CONTACT";
         }
         return $this->contactService->addContact($accessToken, $contact, $params);
     }
 
     /**
-     * Sets an individual contact to 'REMOVED' status
+     * Opts out an individual contact
      * @param string $accessToken - Valid access token
      * @param mixed $contact - Either a Contact id or the Contact itself
      * @throws IllegalArgumentException - if an int or Contact object is not provided
      * @return boolean
      */
+    public function unsubscribeContact($accessToken, $contact)
+    {
+        $contactId = $this->getArgumentId($contact, 'Contact');
+        return $this->contactService->unsubscribeContact($accessToken, $contactId);
+    }
+
+    /**
+     * Delete a contact from all contact lists
+     * @param string $accessToken - Constant Contact OAuth2 access token
+     * @param Contact $contact - Contact object
+     * @throws IllegalArgumentException - if an int or Contact object is not provided
+     * @return Contact
+     */
     public function deleteContact($accessToken, $contact)
     {
-        $contactId = $this->getArgumentId($contact, 'Contact');
-        return $this->contactService->deleteContact($accessToken, $contactId);
-    }
-
-    /**
-     * Delete a contact from all contact lists
-     * @param string $accessToken - Constant Contact OAuth2 access token
-     * @param mixed $contact - Contact id or the Contact object itself
-     * @throws IllegalArgumentException - if an int or Contact object is not provided
-     * @return boolean
-     */
-    public function deleteContactFromLists($accessToken, $contact)
-    {
-        $contactId = $this->getArgumentId($contact, 'Contact');
-        return $this->contactService->deleteContactFromLists($accessToken, $contactId);
-    }
-
-    /**
-     * Delete a contact from all contact lists
-     * @param string $accessToken - Constant Contact OAuth2 access token
-     * @param mixed $contact - Contact id or a Contact object
-     * @param mixed $list - ContactList id or a ContactList object
-     * @throws IllegalArgumentException - if an int or Contact object is not provided,
-     * as well as an int or ContactList object
-     * @return boolean
-     */
-    public function deleteContactFromList($accessToken, $contact, $list)
-    {
-        $contactId = $this->getArgumentId($contact, 'Contact');
-        $listId = $this->getArgumentId($list, 'ContactList');
-
-        return $this->contactService->deleteContactFromList($accessToken, $contactId, $listId);
+        $contact->lists = array();
+        return $this->contactService->updateContact($accessToken, $contact, null);
     }
 
     /**
@@ -684,13 +678,115 @@ class ConstantContact
     }
 
     /**
+     * Create new verified email addresses. This will also prompt the account to send
+     * a verification email to the address.
+     * @param string $accessToken - Constant Contact OAuth2 Access Token
+     * @param array $emailAddresses - array of VerifiedEmailAddress to create
+     * @return array - array of VerifiedEmailAddress created
+     */
+    public function createVerifiedEmailAddresses($accessToken, $emailAddresses)
+    {
+        return $this->accountService->createVerifiedEmailAddresses($accessToken, $emailAddresses);
+    }
+
+    /**
      * Get details for account associated with an access token
      * @param string $accessToken - Constant Contact OAuth2 access token
-     * @return AccountInfo object
+     * @return AccountInfo
      */
-    public function getAccountInfo($accessToken, array $params = array())
+    public function getAccountInfo($accessToken)
     {
-        return $this->accountService->getAccountInfo($accessToken, $params);
+        return $this->accountService->getAccountInfo($accessToken);
+    }
+
+    /**
+     * Update information of the account.
+     * @param string $accessToken - Constant Contact OAuth2 Access Token
+     * @param AccountInfo $accountInfo - Updated AccountInfo
+     * @return AccountInfo
+     */
+    public function updateAccountInfo($accessToken, $accountInfo)
+    {
+        return $this->accountService->updateAccountInfo($accessToken, $accountInfo);
+    }
+
+    /**
+     * Get a file from the Library.
+     * @param string $accessToken - Constant Contact OAuth2 access token
+     * @param string $fileId - File Id
+     * @return File
+     */
+    public function getLibraryFile($accessToken, $fileId)
+    {
+        return $this->libraryService->getLibraryFile($accessToken, $fileId);
+    }
+
+    /**
+     * Get a collection of files from the library.
+     * @param string $accessToken - Constant Contact OAuth2 access token
+     * @param string $folderId - Optionally search for files in a specified folder
+     * @param mixed $params - associative array of query parameters and values to append to the request.
+     *      Allowed parameters include:
+     *      limit - Specifies the number of results displayed per page of output, from 1 - 1000, default = 50.
+     *      sort_by - Specifies how the list of files is sorted; valid sort options are:
+     *          CREATED_DATE, CREATED_DATE_DESC, MODIFIED_DATE, MODIFIED_DATE_DESC, NAME, NAME_DESC, SIZE, SIZE_DESC DIMENSION, DIMENSION_DESC
+     *      source - Specifies to retrieve files from a particular source:
+     *          ALL, MyComputer, Facebook, Instagram, Shutterstock, Mobile
+     *      next - the next link returned from a previous paginated call. May only be used by itself.
+     * @return ResultSet - Containing a results array of {@link Ctct\Components\Library\File}
+     */
+    public function getLibraryFiles($accessToken, $folderId = null, array $params = array())
+    {
+        if ($folderId) {
+            return $this->libraryService->getLibraryFilesByFolder($accessToken, $folderId, $params);
+        }
+        return $this->libraryService->getLibraryFiles($accessToken, $params);
+    }
+
+    /**
+     * Get a collection of folders in the Library
+     * @param string $accessToken - Constant Contact OAuth2 access token
+     * @param mixed $params - associative array of query parameters and values to append to the request.
+     *      Allowed parameters include:
+     *      limit - Specifies the number of results displayed per page of output, from 1 - 1000, default = 50.
+     *      sort_by - Specifies how the list of files is sorted; valid sort options are:
+     *          CREATED_DATE, CREATED_DATE_DESC, MODIFIED_DATE, MODIFIED_DATE_DESC, NAME, NAME_DESC
+     * @return ResultSet
+     */
+    public function getLibraryFolders($accessToken, array $params = array())
+    {
+        return $this->libraryService->getLibraryFolders($accessToken, $params);
+    }
+
+    /**
+     * Upload a file to the Library.
+     * The server scans files for viruses, so this returns an ID for a FileUploadStatus.
+     * @param string $accessToken - Constant Contact OAuth2 access token
+     * @param string $fileName - The name of the file
+     * @param string $fileLocation - Location of the file on the server
+     * @param string $fileType - PNG, JPG, JPEG, GIF, or PDF
+     * @param string $description - Description of the file
+     * @param string $folderId - Optional. The folder ID to upload the file to.
+     * @return string The ID of the FileUploadStatus
+     * @throws IllegalArgumentException if fileType is not PNG, JPG, JPEG, GIF, or PDF
+     */
+    public function uploadFile($accessToken, $fileName, $fileLocation, $fileType, $description, $folderId = null)
+    {
+        if ($folderId == null) {
+            $folderId = 0;
+        }
+        return $this->libraryService->uploadFile($accessToken, $fileName, $fileLocation, $fileType, $description, "MyComputer", $folderId);
+    }
+
+    /**
+     * Get the upload stats of a File
+     * @param string $accessToken - Constant Contact OAuth2 access token
+     * @param string $fileUploadStatusIds - Single ID or ID's of statuses to check, separated by commas (no spaces)
+     * @return FileUploadStatus[]
+     */
+    public function getFileUploadStatus($accessToken, $fileUploadStatusIds)
+    {
+        return $this->libraryService->getFileUploadStatus($accessToken, $fileUploadStatusIds);
     }
 
     /**
@@ -746,13 +842,13 @@ class ConstantContact
      * Create an Add Contacts Activity from a file. Valid file types are txt, csv, xls, xlsx
      * @param string $accessToken - Constant Contact OAuth2 access token
      * @param string $fileName - The name of the file (ie: contacts.csv)
-     * @param string $contents - The contents of the file
+     * @param string $path - Location of the file on the server
      * @param string $lists - Comma separated list of ContactList id's to add the contacts to
      * @return Activity
      */
-    public function addCreateContactsActivityFromFile($accessToken, $fileName, $contents, $lists)
+    public function addCreateContactsActivityFromFile($accessToken, $fileName, $path, $lists)
     {
-        return $this->activityService->createAddContactsActivityFromFile($accessToken, $fileName, $contents, $lists);
+        return $this->activityService->createAddContactsActivityFromFile($accessToken, $fileName, $path, $lists);
     }
 
     /**
@@ -782,16 +878,16 @@ class ConstantContact
      * Add a Remove Contacts From Lists Activity from a file. Valid file types are txt, csv, xls, xlsx
      * @param string $accessToken - Constant Contact OAuth2 access token
      * @param string $fileName - The name of the file (ie: contacts.csv)
-     * @param string $contents - The contents of the file
+     * @param string $path - The location of the file on the server
      * @param string $lists - Comma separated list of ContactList id' to add the contacts too
      * @return Activity
      */
-    public function addRemoveContactsFromListsActivityFromFile($accessToken, $fileName, $contents, $lists)
+    public function addRemoveContactsFromListsActivityFromFile($accessToken, $fileName, $path, $lists)
     {
         return $this->activityService->addRemoveContactsFromListsActivityFromFile(
             $accessToken,
             $fileName,
-            $contents,
+            $path,
             $lists
         );
     }

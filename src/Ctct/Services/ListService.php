@@ -5,6 +5,7 @@ use Ctct\Util\Config;
 use Ctct\Components\Contacts\ContactList;
 use Ctct\Components\Contacts\Contact;
 use Ctct\Components\ResultSet;
+use GuzzleHttp\Stream\Stream;
 
 /**
  * Performs all actions pertaining to Constant Contact Lists
@@ -20,16 +21,24 @@ class ListService extends BaseService
      * @param array $params - array of query parameters to be appended to the request
      * @return Array - ContactLists
      */
-    public function getLists($accessToken, array $params = array())
+    public function getLists($accessToken, Array $params)
     {
         $baseUrl = Config::get('endpoints.base_url') . Config::get('endpoints.lists');
-        $url = $this->buildUrl($baseUrl, $params);
-        $response = parent::getRestClient()->get($url, parent::getHeaders($accessToken));
+
+        $request = parent::createBaseRequest($accessToken, 'GET', $baseUrl);
+        if ($params) {
+            $query = $request->getQuery();
+            foreach ($params as $name => $value) {
+                $query->add($name, $value);
+            }
+        }
+        $response = parent::getClient()->send($request);
 
         $lists = array();
-        foreach (json_decode($response->body, true) as $contact) {
+        foreach ($response->json() as $contact) {
             $lists[] = ContactList::create($contact);
         }
+
         return $lists;
     }
 
@@ -42,9 +51,13 @@ class ListService extends BaseService
     public function addList($accessToken, ContactList $list)
     {
         $baseUrl = Config::get('endpoints.base_url') . Config::get('endpoints.lists');
-        $url = $this->buildUrl($baseUrl);
-        $response = parent::getRestClient()->post($url, parent::getHeaders($accessToken), $list->toJson());
-        return ContactList::create(json_decode($response->body, true));
+
+        $request = parent::createBaseRequest($accessToken, 'POST', $baseUrl);
+        $stream = Stream::factory(json_encode($list));
+        $request->setBody($stream);
+        $response = parent::getClient()->send($request);
+
+        return ContactList::create($response->json());
     }
 
     /**
@@ -56,53 +69,68 @@ class ListService extends BaseService
     public function updateList($accessToken, ContactList $list)
     {
         $baseUrl = Config::get('endpoints.base_url') . sprintf(Config::get('endpoints.list'), $list->id);
-        $url = $this->buildUrl($baseUrl);
-        $response = parent::getRestClient()->put($url, parent::getHeaders($accessToken), $list->toJson());
-        return ContactList::create(json_decode($response->body, true));
+
+        $request = parent::createBaseRequest($accessToken, 'PUT', $baseUrl);
+        $stream = Stream::factory(json_encode($list));
+        $request->setBody($stream);
+        $response = parent::getClient()->send($request);
+
+        return ContactList::create($response->json());
     }
 
     /**
      * Delete a Contact List
      * @param string $accessToken - Constant Contact OAuth2 access token
-     * @param $list_id - list id
+     * @param $listId - list id
      * @return ContactList
      */
-    public function deleteList($accessToken, $list_id)
+    public function deleteList($accessToken, $listId)
     {
-        $baseUrl = Config::get('endpoints.base_url') . sprintf(Config::get('endpoints.list'), $list_id);
-        $url = $this->buildUrl($baseUrl);
-        $response = parent::getRestClient()->delete($url, parent::getHeaders($accessToken));
-        return ($response->info['http_code'] == 204) ? true : false;
+        $baseUrl = Config::get('endpoints.base_url') . sprintf(Config::get('endpoints.list'), $listId);
+
+        $request = parent::createBaseRequest($accessToken, 'DELETE', $baseUrl);
+        $response = parent::getClient()->send($request);
+
+        return ($response->getStatusCode() == 204) ? true : false;
     }
 
     /**
      * Get an individual contact list
      * @param $accessToken - Constant Contact OAuth2 access token
-     * @param $list_id - list id
+     * @param $listId - list id
      * @return ContactList
      */
-    public function getList($accessToken, $list_id)
+    public function getList($accessToken, $listId)
     {
-        $baseUrl = Config::get('endpoints.base_url') . sprintf(Config::get('endpoints.list'), $list_id);
-        $url = $this->buildUrl($baseUrl);
-        $response = parent::getRestClient()->get($url, parent::getHeaders($accessToken));
-        return ContactList::create(json_decode($response->body, true));
+        $baseUrl = Config::get('endpoints.base_url') . sprintf(Config::get('endpoints.list'), $listId);
+
+        $request = parent::createBaseRequest($accessToken, 'GET', $baseUrl);
+        $response = parent::getClient()->send($request);
+
+        return ContactList::create($response->json());
     }
 
     /**
      * Get all contacts from an individual list
      * @param string $accessToken - Constant Contact OAuth2 access token
-     * @param string $list_id - list id to retrieve contacts for
+     * @param string $listId - list id to retrieve contacts for
      * @param array $params - query params to attach to request
      * @return ResultSet
      */
-    public function getContactsFromList($accessToken, $list_id, $params = null)
+    public function getContactsFromList($accessToken, $listId, Array $params)
     {
-        $baseUrl = Config::get('endpoints.base_url') . sprintf(Config::get('endpoints.list_contacts'), $list_id);
-        $url = $this->buildUrl($baseUrl, $params);
+        $baseUrl = Config::get('endpoints.base_url') . sprintf(Config::get('endpoints.list_contacts'), $listId);
 
-        $response = parent::getRestClient()->get($url, parent::getHeaders($accessToken));
-        $body = json_decode($response->body, true);
+        $request = parent::createBaseRequest($accessToken, 'GET', $baseUrl);
+        if ($params) {
+            $query = $request->getQuery();
+            foreach ($params as $name => $value) {
+                $query->add($name, $value);
+            }
+        }
+        $response = parent::getClient()->send($request);
+
+        $body = $response->json();
         $contacts = array();
         foreach ($body['results'] as $contact) {
             $contacts[] = Contact::create($contact);

@@ -2,7 +2,6 @@
 
 class JsonLoader
 {
-
     const CONTACTS_FOLDER = "/Contacts";
     const LISTS_FOLDER = "/Lists";
     const CAMPAIGNS_FOLDER = "/Campaigns";
@@ -10,16 +9,7 @@ class JsonLoader
     const ACTIVITES_FOLDER = "/Activities";
     const ACCCOUNT_FOLDER = "/Account";
     const AUTH_FOLDER = "/Auth";
-
-    public static function getContactsTextContents()
-    {
-        return file_get_contents(__DIR__. self::ACTIVITES_FOLDER . "/add_contacts.txt");
-    }
-
-    public static function getRemoveContactsTextContents()
-    {
-        return file_get_contents(__DIR__. self::ACTIVITES_FOLDER . "/remove_contacts.txt");
-    }
+    const LIBRARY_FOLDER = "/Library";
 
     public static function getTokenInfoJson()
     {
@@ -36,6 +26,36 @@ class JsonLoader
         return file_get_contents(__DIR__ . self::ACCCOUNT_FOLDER . "/get_verified_email_addresses.json");
     }
 
+    public static function getAccountInfoJson()
+    {
+        return file_get_contents(__DIR__ . self::ACCCOUNT_FOLDER . "/get_account_info.json");
+    }
+
+    public static function getLibraryFileJson()
+    {
+        return file_get_contents(__DIR__ . self::LIBRARY_FOLDER . "/get_library_file.json");
+    }
+
+    public static function getLibraryFilesJson()
+    {
+        return file_get_contents(__DIR__ . self::LIBRARY_FOLDER . "/get_library_files.json");
+    }
+
+    public static function getLibraryFolderJson()
+    {
+        return file_get_contents(__DIR__ . self::LIBRARY_FOLDER . "/get_library_folder.json");
+    }
+
+    public static function getLibraryFoldersJson()
+    {
+        return file_get_contents(__DIR__ . self::LIBRARY_FOLDER . "/get_library_folders.json");
+    }
+
+    public static function getFileUploadStatusJson()
+    {
+        return file_get_contents(__DIR__ . self::LIBRARY_FOLDER . "/get_file_upload_status.json");
+    }
+
     public static function getContactJson()
     {
         return file_get_contents(__DIR__ . self::CONTACTS_FOLDER . "/get_contact.json");
@@ -44,11 +64,6 @@ class JsonLoader
     public static function getContactsJson()
     {
         return file_get_contents(__DIR__ . self::CONTACTS_FOLDER . "/get_contacts.json");
-    }
-
-    public static function getContactsModifiedSinceJson()
-    {
-        return file_get_contents(__DIR__ . self::CONTACTS_FOLDER . "/get_contacts_modified_since.json");
     }
 
     public static function getContactsNoNextJson()
@@ -69,11 +84,6 @@ class JsonLoader
     public static function getCampaignJson()
     {
         return file_get_contents(__DIR__ . self::CAMPAIGNS_FOLDER . "/get_campaign.json");
-    }
-
-    public static function getCampaignModifiedSinceJson($page = 1)
-    {
-        return file_get_contents(__DIR__ . self::CAMPAIGNS_FOLDER . "/get_campaigns_modified_since{$page}.json");
     }
 
     public static function getCampaignsJson()

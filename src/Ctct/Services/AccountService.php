@@ -4,6 +4,7 @@ namespace Ctct\Services;
 use Ctct\Util\Config;
 use Ctct\Components\Account\VerifiedEmailAddress;
 use Ctct\Components\Account\AccountInfo;
+use GuzzleHttp\Stream\Stream;
 
 /**
  * Performs all actions pertaining to scheduling Constant Contact Account's
@@ -21,14 +22,43 @@ class AccountService extends BaseService
      */
     public function getVerifiedEmailAddresses($accessToken, Array $params)
     {
-        $baseUrl = Config::get('endpoints.base_url')
-            . sprintf(Config::get('endpoints.account_verified_addresses'));
+        $baseUrl = Config::get('endpoints.base_url') . Config::get('endpoints.account_verified_addresses');
 
-        $url = $this->buildUrl($baseUrl, $params);
-        $response = parent::getRestClient()->get($url, parent::getHeaders($accessToken));
+        $request = parent::createBaseRequest($accessToken, 'GET', $baseUrl);
+        if ($params) {
+            $query = $request->getQuery();
+            foreach ($params as $name => $value) {
+                $query->add($name, $value);
+            }
+        }
+        $response = parent::getClient()->send($request);
+
         $verifiedAddresses = array();
+        foreach ($response->json() as $verifiedAddress) {
+            $verifiedAddresses[] = VerifiedEmailAddress::create($verifiedAddress);
+        }
 
-        foreach (json_decode($response->body, true) as $verifiedAddress) {
+        return $verifiedAddresses;
+    }
+
+    /**
+     * Create new verified email addresses. This will also prompt the account to send
+     * a verification email to the address.
+     * @param string $accessToken - Constant Contact OAuth2 Access Token
+     * @param array $emailAddresses - array of VerifiedEmailAddress to create
+     * @return array - array of VerifiedEmailAddress created
+     */
+    public function createVerifiedEmailAddresses($accessToken, Array $emailAddresses)
+    {
+        $baseUrl = Config::get('endpoints.base_url') . Config::get('endpoints.account_verified_addresses');
+
+        $request = parent::createBaseRequest($accessToken, 'POST', $baseUrl);
+        $stream = Stream::factory(json_encode($emailAddresses));
+        $request->setBody($stream);
+        $response = parent::getClient()->send($request);
+
+        $verifiedAddresses = array();
+        foreach ($response->json() as $verifiedAddress) {
             $verifiedAddresses[] = VerifiedEmailAddress::create($verifiedAddress);
         }
 
@@ -38,16 +68,33 @@ class AccountService extends BaseService
     /**
      * Get account info associated with an access token
      * @param string $accessToken - Constant Contact OAuth2 Access Token
-     * @param array $params - array of query parameters/values to append to the request
      * @return AccountInfo
      */
-    public function getAccountInfo($accessToken, Array $params)
+    public function getAccountInfo($accessToken)
     {
-        $baseUrl = Config::get('endpoints.base_url')
-            . sprintf(Config::get('endpoints.account_info'));
+        $baseUrl = Config::get('endpoints.base_url') . Config::get('endpoints.account_info');
 
-        $url = $this->buildUrl($baseUrl, $params);
-        $response = parent::getRestClient()->get($url, parent::getHeaders($accessToken));
-        return AccountInfo::create(json_decode($response->body, true));
+        $request = parent::createBaseRequest($accessToken, 'GET', $baseUrl);
+        $response = parent::getClient()->send($request);
+
+        return AccountInfo::create($response->json());
+    }
+
+    /**
+     * Update information of the account.
+     * @param string $accessToken - Constant Contact OAuth2 Access Token
+     * @param AccountInfo $accountInfo - Updated AccountInfo
+     * @return AccountInfo
+     */
+    public function updateAccountInfo($accessToken, AccountInfo $accountInfo)
+    {
+        $baseUrl = Config::get('endpoints.base_url') . Config::get('endpoints.account_info');
+
+        $request = parent::createBaseRequest($accessToken, 'PUT', $baseUrl);
+        $stream = Stream::factory(json_encode($accountInfo));
+        $request->setBody($stream);
+        $response = parent::getClient()->send($request);
+
+        return AccountInfo::create($response->json());
     }
 }

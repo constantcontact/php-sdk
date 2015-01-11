@@ -55,7 +55,13 @@ class Config
             'contact_tracking_opens' => 'contacts/%s/tracking/opens',
             'contact_tracking_sends' => 'contacts/%s/tracking/sends',
             'contact_tracking_unsubscribes' => 'contacts/%s/tracking/unsubscribes',
-            'contact_tracking_link' => 'contacts/%s/tracking/clicks/%s'
+            'contact_tracking_link' => 'contacts/%s/tracking/clicks/%s',
+            'library_files' => 'library/files',
+            'library_file' => 'library/files/%s',
+            'library_folders' => 'library/folders',
+            'library_folder' => 'library/folders/%s',
+            'library_files_by_folder' => 'library/folders/%s/files',
+            'library_file_upload_status' => 'library/files/uploadstatus/%s'
 
         ),
         /**
@@ -111,14 +117,15 @@ class Config
          * Errors to be returned for various exceptions
          */
         'errors'    => array(
-            'id_or_object'        => 'Only an id or %s object are allowed for this method.'
+            'id_or_object'        => 'Only an id or %s object are allowed for this method.',
+            'file_extension'      => 'Only file extensions of the following are allowed: %s'
         ),
         
         /**
          * Setting the version fo the application used in Rest Calls when setting the version header
          */
         'settings'    => array(
-            'version'        => '1.2.0'
+            'version'        => '2.0.0'
         ),
     );
 

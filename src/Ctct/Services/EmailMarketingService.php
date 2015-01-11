@@ -4,6 +4,7 @@ namespace Ctct\Services;
 use Ctct\Util\Config;
 use Ctct\Components\EmailMarketing\Campaign;
 use Ctct\Components\ResultSet;
+use GuzzleHttp\Stream\Stream;
 
 /**
  * Performs all actions pertaining to Constant Contact Campaigns
@@ -22,9 +23,13 @@ class EmailMarketingService extends BaseService
     public function addCampaign($accessToken, Campaign $campaign)
     {
         $baseUrl = Config::get('endpoints.base_url') . Config::get('endpoints.campaigns');
-        $url = $this->buildUrl($baseUrl);
-        $response = parent::getRestClient()->post($url, parent::getHeaders($accessToken), $campaign->toJson());
-        return Campaign::create(json_decode($response->body, true));
+
+        $request = parent::createBaseRequest($accessToken, 'POST', $baseUrl);
+        $stream = Stream::factory(json_encode($campaign));
+        $request->setBody($stream);
+        $response = parent::getClient()->send($request);
+
+        return Campaign::create($response->json());
     }
 
     /**
@@ -33,16 +38,25 @@ class EmailMarketingService extends BaseService
      * @param array $params - query params to be appended to the request
      * @return ResultSet
      */
-    public function getCampaigns($accessToken, Array $params = null)
+    public function getCampaigns($accessToken, Array $params)
     {
         $baseUrl = Config::get('endpoints.base_url') . Config::get('endpoints.campaigns');
-        $url = $this->buildUrl($baseUrl, $params);
-        $response = parent::getRestClient()->get($url, parent::getHeaders($accessToken));
-        $body = json_decode($response->body, true);
+
+        $request = parent::createBaseRequest($accessToken, 'GET', $baseUrl);
+        if ($params) {
+            $query = $request->getQuery();
+            foreach ($params as $name => $value) {
+                $query->add($name, $value);
+            }
+        }
+        $response = parent::getClient()->send($request);
+
+        $body = $response->json();
         $campaigns = array();
         foreach ($body['results'] as $contact) {
             $campaigns[] = Campaign::createSummary($contact);
         }
+
         return new ResultSet($campaigns, $body['meta']);
     }
 
@@ -55,9 +69,11 @@ class EmailMarketingService extends BaseService
     public function getCampaign($accessToken, $campaign_id)
     {
         $baseUrl = Config::get('endpoints.base_url') . sprintf(Config::get('endpoints.campaign'), $campaign_id);
-        $url = $this->buildUrl($baseUrl);
-        $response = parent::getRestClient()->get($url, parent::getHeaders($accessToken));
-        return Campaign::create(json_decode($response->body, true));
+
+        $request = parent::createBaseRequest($accessToken, 'GET', $baseUrl);
+        $response = parent::getClient()->send($request);
+
+        return Campaign::create($response->json());
     }
 
     /**
@@ -69,9 +85,11 @@ class EmailMarketingService extends BaseService
     public function deleteCampaign($accessToken, $campaign_id)
     {
         $baseUrl = Config::get('endpoints.base_url') . sprintf(Config::get('endpoints.campaign'), $campaign_id);
-        $url = $this->buildUrl($baseUrl);
-        $response = parent::getRestClient()->delete($url, parent::getHeaders($accessToken));
-        return ($response->info['http_code'] == 204) ? true : false;
+
+        $request = parent::createBaseRequest($accessToken, 'DELETE', $baseUrl);
+        $response = parent::getClient()->send($request);
+
+        return ($response->getStatusCode() == 204) ? true : false;
     }
 
     /**
@@ -83,8 +101,12 @@ class EmailMarketingService extends BaseService
     public function updateCampaign($accessToken, Campaign $campaign)
     {
         $baseUrl = Config::get('endpoints.base_url') . sprintf(Config::get('endpoints.campaign'), $campaign->id);
-        $url = $this->buildUrl($baseUrl);
-        $response = parent::getRestClient()->put($url, parent::getHeaders($accessToken), $campaign->toJson());
-        return Campaign::create(json_decode($response->body, true));
+
+        $request = parent::createBaseRequest($accessToken, 'PUT', $baseUrl);
+        $stream = Stream::factory(json_encode($campaign));
+        $request->setBody($stream);
+        $response = parent::getClient()->send($request);
+
+        return Campaign::create($response->json());
     }
 }

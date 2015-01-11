@@ -1,4 +1,8 @@
 language: php
+env:
+  - GUZZLE_VERSION="5.1.0"
+install:
+  - composer require guzzlehttp/guzzle:${GUZZLE_VERSION}
 php:
   - "5.4"
   - "5.3"

@@ -14,13 +14,12 @@ http://constantcontact.mashery.com.
 -->
 
 <?php
-// require the autoloader
+// require the autoloaders
 require_once '../src/Ctct/autoload.php';
+require_once '../vendor/autoload.php';
 
 use Ctct\ConstantContact;
 use Ctct\Components\Contacts\Contact;
-use Ctct\Components\Contacts\ContactList;
-use Ctct\Components\Contacts\EmailAddress;
 use Ctct\Exceptions\CtctException;
 
 // Enter your Constant Contact APIKEY and ACCESS_TOKEN

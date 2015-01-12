@@ -764,18 +764,17 @@ class ConstantContact
      * @param string $accessToken - Constant Contact OAuth2 access token
      * @param string $fileName - The name of the file
      * @param string $fileLocation - Location of the file on the server
-     * @param string $fileType - PNG, JPG, JPEG, GIF, or PDF
      * @param string $description - Description of the file
      * @param string $folderId - Optional. The folder ID to upload the file to.
      * @return string The ID of the FileUploadStatus
      * @throws IllegalArgumentException if fileType is not PNG, JPG, JPEG, GIF, or PDF
      */
-    public function uploadFile($accessToken, $fileName, $fileLocation, $fileType, $description, $folderId = null)
+    public function uploadFile($accessToken, $fileName, $fileLocation, $description, $folderId = null)
     {
         if ($folderId == null) {
             $folderId = 0;
         }
-        return $this->libraryService->uploadFile($accessToken, $fileName, $fileLocation, $fileType, $description, "MyComputer", $folderId);
+        return $this->libraryService->uploadFile($accessToken, $fileName, $fileLocation, $description, "MyComputer", $folderId);
     }
 
     /**

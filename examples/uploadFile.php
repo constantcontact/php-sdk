@@ -26,4 +26,91 @@ define("ACCESS_TOKEN", "ENTER YOUR ACCESS TOKEN");
 
 $cc = new ConstantContact(APIKEY);
 
-$folders = $cc->getLibraryFolders(ACCESS_TOKEN);
+if ($_FILES) {
+    $fileName = $_POST['file_name'];
+    $description = $_POST['description'];
+    $folderId = $_POST['folder'];
+    $fileLocation = $_FILES['file']['tmp_name'];
+
+    $uploadStatusId = $cc->uploadFile(ACCESS_TOKEN, $fileName, $fileLocation, $description, $folderId);
+    $fileUploadStatus = $cc->getFileUploadStatus(ACCESS_TOKEN, $uploadStatusId);
+}
+
+$folders = array();
+$params = array();
+$next = null;
+do {
+    if ($next) {
+        $params = array("next" => $next);
+    }
+    $foldersResult = $cc->getLibraryFolders(ACCESS_TOKEN, $params);
+    foreach ($foldersResult->results as $folder) {
+        array_push($folders, $folder);
+    }
+    $next = $foldersResult->next;
+} while ($next);
+?>
+
+<body>
+<div class="well">
+    <h3>Upload a New Image or PDF</h3>
+
+    <form class="form-horizontal" name="submitFile" id="submitFile" method="POST" action="uploadFile.php" enctype="multipart/form-data">
+        <div class="control-group">
+            <label class="control-label" for="file_name">File Name</label>
+
+            <div class="controls">
+                <input type="text" id="file_name" name="file_name" placeholder="File Name">
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="file">File</label>
+
+            <div class="controls">
+                <input type="file" id="file" name="file" placeholder="Choose File">
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="description">Description</label>
+
+            <div class="controls">
+                <input type="text" id="description" name="description" placeholder="Description">
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="folder">Folder</label>
+
+            <div class="controls">
+                <select name="folder">
+                    <option value="0">Images</option>
+                    <?php
+                    foreach ($folders as $folder) {
+                        echo '<option value="' . $folder->id . '">' . $folder->name . '</option>';
+                    }
+                    ?>
+                </select>
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label">
+                <div class="controls">
+                    <input type="submit" value="Submit" class="btn btn-primary"/>
+                </div>
+        </div>
+    </form>
+</div>
+
+<?php
+// print the contents of the file upload status to screen
+if (isset($fileUploadStatus)) {
+echo '<span class="label label-success">File Uploaded!</span>';
+echo '<div class="container alert-success"><pre class="success-pre">';
+    foreach ($fileUploadStatus as $status) {
+        print_r($status);
+    }
+    echo '</pre></div>';
+}
+?>
+
+</body>
+</html>

@@ -14,8 +14,9 @@ http://constantcontact.mashery.com.
 -->
 
 <?php
-// require the autloader
+// require the autoloaders
 require_once '../src/Ctct/autoload.php';
+require_once '../vendor/autoload.php';
 
 use Ctct\Auth\CtctOAuth2;
 use Ctct\Exceptions\OAuth2Exception;

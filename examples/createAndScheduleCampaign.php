@@ -17,13 +17,12 @@ For more information on this, please visit: http://support2.constantcontact.com/
 -->
 
 <?php
-// require the autoloader
+// require the autoloaders
 require_once '../src/Ctct/autoload.php';
+require_once '../vendor/autoload.php';
 
 use Ctct\ConstantContact;
-use Ctct\Components\Contacts\ContactList;
 use Ctct\Components\EmailMarketing\Campaign;
-use Ctct\Components\EmailMarketing\MessageFooter;
 use Ctct\Components\EmailMarketing\Schedule;
 use Ctct\Exceptions\CtctException;
 

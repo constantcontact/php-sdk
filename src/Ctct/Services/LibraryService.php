@@ -167,17 +167,28 @@ class LibraryService extends BaseService
      * @param string $accessToken - Constant Contact Oauth2 Access Token
      * @param string $fileName - Name of the file
      * @param string $fileLocation - Path to the location of the file on the server
-     * @param string $fileType - PNG, JPG, JPEG, GIF, or PDF
      * @param string $description - Description of the file
      * @param string $source - Source
      * @param string $folderId - Folder ID to upload file to. Set as 0 for no folder.
      * @return string File upload status ID
      * @throws IllegalArgumentException if file type is not one listed in the description
      */
-    public function uploadFile($accessToken, $fileName, $fileLocation, $fileType, $description, $source, $folderId)
+    public function uploadFile($accessToken, $fileName, $fileLocation, $description, $source, $folderId)
     {
-        if ($fileType != "PNG" && $fileType != "JPG" && $fileType != "JPEG" && $fileType != "GIF" && $fileType != "PDF") {
-            throw new IllegalArgumentException(sprintf(Config::get('errors.file_extension'), "PNG, JPG, JPEG, GIF, PDF was " . $fileType));
+        $finfo = finfo_open(FILEINFO_MIME_TYPE);
+        $mime =  finfo_file($finfo, $fileLocation);
+        finfo_close($finfo);
+
+        if ($mime == "image/png") {
+            $fileType = "PNG";
+        } elseif ($mime = "image/jpeg") {
+            $fileType = "JPG";
+        } elseif ($mime = "image/gif") {
+            $fileType = "GIF";
+        } elseif ($mime ="application/pdf") {
+            $fileType = "PDF";
+        } else {
+            throw new IllegalArgumentException(sprintf(Config::get('errors.file_extension'), "PNG, JPG, JPEG, GIF, PDF was " . $mime));
         }
 
         $baseUrl = Config::get('endpoints.base_url') . Config::get('endpoints.library_files');
@@ -205,7 +216,7 @@ class LibraryService extends BaseService
      */
     public function getFileUploadStatus($accessToken, $uploadStatusIds)
     {
-        $baseUrl = Config::get('endpoints.base_url') . Config::get(sprintf('endpoints.library_file_upload_status', $uploadStatusIds));
+        $baseUrl = Config::get('endpoints.base_url') . sprintf(Config::get('endpoints.library_file_upload_status'), $uploadStatusIds);
         $request = parent::createBaseRequest($accessToken, "GET", $baseUrl);
         $response = parent::getClient()->send($request);
         $fileUploadStatuses = array();

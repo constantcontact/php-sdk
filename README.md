@@ -1,9 +1,9 @@
 # Constant Contact PHP SDK
 [![Build Status](https://secure.travis-ci.org/constantcontact/php-sdk.png?branch=master)](http://travis-ci.org/constantcontact/php-sdk)
 
-## Installation
+### This library utilizes [GuzzlePHP](https://guzzlephp.org)
 
-### Installing via Composer (recommended)
+## Installing via Composer (recommended)
 Composer is a dependency management tool for PHP that allows you to declare the dependencies your project needs and installs them into your project. In order to use the Constant Contact PHP SDK through composer, you must do the following 
 
 1. Add "constantcontact/constantcontact" as a dependency in your project's composer.json file.

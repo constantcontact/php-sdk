@@ -1,19 +1,20 @@
 language: php
 
 php:
-  - "5.4"
-  - "5.5"
-  - "5.6"
+  - 5.4
+  - 5.5
+  - 5.6
   - hhvm
 
 env:
   - GUZZLE_VERSION="5.1.0"
+
 before_script: composer install
 
 install:
   - composer require guzzlehttp/guzzle:${GUZZLE_VERSION}
 
-  matrix:
-    allow_failures:
-      - php: hhvm
-    fast_finish: true
+matrix:
+  allow_failures:
+    - php: hhvm
+  fast_finish: true

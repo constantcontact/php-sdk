@@ -42,18 +42,18 @@ class AccountService extends BaseService
     }
 
     /**
-     * Create new verified email addresses. This will also prompt the account to send
+     * Create a new verified email address. This will also prompt the account to send
      * a verification email to the address.
      * @param string $accessToken - Constant Contact OAuth2 Access Token
-     * @param array $emailAddresses - array of VerifiedEmailAddress to create
+     * @param string $emailAddress - email address to create
      * @return array - array of VerifiedEmailAddress created
      */
-    public function createVerifiedEmailAddresses($accessToken, Array $emailAddresses)
+    public function createVerifiedEmailAddresses($accessToken, $emailAddress)
     {
         $baseUrl = Config::get('endpoints.base_url') . Config::get('endpoints.account_verified_addresses');
 
         $request = parent::createBaseRequest($accessToken, 'POST', $baseUrl);
-        $stream = Stream::factory(json_encode($emailAddresses));
+        $stream = Stream::factory(json_encode(array(array("email_address" => $emailAddress))));
         $request->setBody($stream);
         $response = parent::getClient()->send($request);
 

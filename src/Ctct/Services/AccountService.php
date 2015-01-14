@@ -44,7 +44,7 @@ class AccountService extends BaseService
     public function createVerifiedEmailAddress($accessToken, $emailAddress)
     {
         $baseUrl = Config::get('endpoints.base_url') . Config::get('endpoints.account_verified_addresses');
-        $request = array(VerifiedEmailAddress::create($emailAddress));
+        $request = array(array("email_address" => $emailAddress));
 
         $url = $this->buildUrl($baseUrl);
         $response = parent::getRestClient()->post($url, parent::getHeaders($accessToken), json_encode($request));

@@ -35,18 +35,19 @@ class AccountService extends BaseService
     }
 
     /**
-     * Create new verified email addresses. This will also prompt the account to send
+     * Create a new verified email address. This will also prompt the account to send
      * a verification email to the address.
      * @param string $accessToken - Constant Contact OAuth2 Access Token
-     * @param array $emailAddresses - array of VerifiedEmailAddress to create
+     * @param string $emailAddress - email address to create
      * @return array - array of VerifiedEmailAddress created
      */
-    public function createVerifiedEmailAddresses($accessToken, Array $emailAddresses)
+    public function createVerifiedEmailAddress($accessToken, $emailAddress)
     {
         $baseUrl = Config::get('endpoints.base_url') . Config::get('endpoints.account_verified_addresses');
+        $request = array(VerifiedEmailAddress::create($emailAddress));
 
         $url = $this->buildUrl($baseUrl);
-        $response = parent::getRestClient()->post($url, parent::getHeaders($accessToken), $emailAddresses);
+        $response = parent::getRestClient()->post($url, parent::getHeaders($accessToken), json_encode($request));
         $verifiedAddresses = array();
 
         foreach (json_decode($response->body, true) as $verifiedAddress) {
@@ -81,7 +82,7 @@ class AccountService extends BaseService
         $baseUrl = Config::get('endpoints.base_url') . Config::get('endpoints.account_info');
 
         $url = $this->buildUrl($baseUrl);
-        $response = parent::getRestClient()->put($url, parent::getHeaders($accessToken), $accountInfo);
+        $response = parent::getRestClient()->put($url, parent::getHeaders($accessToken), $accountInfo->toJson());
         return AccountInfo::create(json_decode($response->body, true));
     }
 }

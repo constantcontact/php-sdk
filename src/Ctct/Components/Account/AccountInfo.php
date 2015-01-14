@@ -101,4 +101,8 @@ class AccountInfo extends Component
 
         return $accountInfo;
     }
+
+    public function toJson() {
+        return json_encode($this);
+    }
 }

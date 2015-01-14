@@ -3,12 +3,14 @@ namespace Ctct;
 
 use Ctct\Services\AccountService;
 use Ctct\Services\ContactService;
+use Ctct\Services\LibraryService;
 use Ctct\Services\ListService;
 use Ctct\Services\EmailMarketingService;
 use Ctct\Services\CampaignScheduleService;
 use Ctct\Services\CampaignTrackingService;
 use Ctct\Services\ContactTrackingService;
 use Ctct\Services\ActivityService;
+use Ctct\Components\Account\AccountInfo;
 use Ctct\Components\Activities\Activity;
 use Ctct\Components\Contacts\Contact;
 use Ctct\Components\Contacts\ContactList;
@@ -87,6 +89,12 @@ class ConstantContact
     protected $accountService;
 
     /**
+     * Handles interaction with Library management
+     * @var LibraryService
+     */
+    protected $libraryService;
+
+    /**
      * Class constructor
      * Registers the API key with the ConstantContact class that will be used for all API calls.
      * @param string $apiKey - Constant Contact API Key
@@ -102,6 +110,7 @@ class ConstantContact
         $this->campaignScheduleService = new CampaignScheduleService($apiKey);
         $this->listService = new ListService($apiKey);
         $this->accountService = new AccountService($apiKey);
+        $this->libraryService = new LibraryService($apiKey);
     }
 
     /**
@@ -684,13 +693,81 @@ class ConstantContact
     }
 
     /**
+     * Create new verified email addresses. This will also prompt the account to send
+     * a verification email to the address.
+     * @param string $accessToken - Constant Contact OAuth2 Access Token
+     * @param string $emailAddress - email address to create
+     * @return array - array of VerifiedEmailAddress created
+     */
+    public function createVerifiedEmailAddress($accessToken, $emailAddress)
+    {
+        return $this->accountService->createVerifiedEmailAddress($accessToken, $emailAddress);
+    }
+
+    /**
      * Get details for account associated with an access token
      * @param string $accessToken - Constant Contact OAuth2 access token
-     * @return AccountInfo object
+     * @return AccountInfo
      */
-    public function getAccountInfo($accessToken, array $params = array())
+    public function getAccountInfo($accessToken)
     {
-        return $this->accountService->getAccountInfo($accessToken, $params);
+        return $this->accountService->getAccountInfo($accessToken);
+    }
+
+    /**
+     * Update information of the account.
+     * @param string $accessToken - Constant Contact OAuth2 Access Token
+     * @param AccountInfo $accountInfo - Updated AccountInfo
+     * @return AccountInfo
+     */
+    public function updateAccountInfo($accessToken, $accountInfo)
+    {
+        return $this->accountService->updateAccountInfo($accessToken, $accountInfo);
+    }
+
+    /**
+     * @param string $accessToken - Constant Contact OAuth2 access token
+     * @param string $fileId - File Id
+     * @return File
+     */
+    public function getLibraryFile($accessToken, $fileId)
+    {
+        return $this->libraryService->getLibraryFile($accessToken, $fileId);
+    }
+
+    /**
+     * @param string $accessToken - Constant Contact OAuth2 access token
+     * @param string $folderId - Optionally search for files in a specified folder
+     * @param mixed $params - associative array of query parameters and values to append to the request.
+     *      Allowed parameters include:
+     *      limit - Specifies the number of results displayed per page of output, from 1 - 1000, default = 50.
+     *      sort_by - Specifies how the list of files is sorted; valid sort options are:
+     *          CREATED_DATE, CREATED_DATE_DESC, MODIFIED_DATE, MODIFIED_DATE_DESC, NAME, NAME_DESC, SIZE, SIZE_DESC DIMENSION, DIMENSION_DESC
+     *      source - Specifies to retrieve files from a particular source:
+     *          ALL, MyComputer, Facebook, Instagram, Shutterstock, Mobile
+     *      next - the next link returned from a previous paginated call. May only be used by itself.
+     * @return ResultSet - Containing a results array of {@link Ctct\Components\Library\File}
+     */
+    public function getLibraryFiles($accessToken, $folderId = null, array $params = array())
+    {
+        if ($folderId) {
+            return $this->libraryService->getLibraryFilesByFolder($accessToken, $folderId, $params);
+        }
+        return $this->libraryService->getLibraryFiles($accessToken, $params);
+    }
+
+    /**
+     * @param string $accessToken - Constant Contact OAuth2 access token
+     * @param mixed $params - associative array of query parameters and values to append to the request.
+     *      Allowed parameters include:
+     *      limit - Specifies the number of results displayed per page of output, from 1 - 1000, default = 50.
+     *      sort_by - Specifies how the list of files is sorted; valid sort options are:
+     *          CREATED_DATE, CREATED_DATE_DESC, MODIFIED_DATE, MODIFIED_DATE_DESC, NAME, NAME_DESC
+     * @return ResultSet
+     */
+    public function getLibraryFolders($accessToken, array $params = array())
+    {
+        return $this->libraryService->getLibraryFolders($accessToken, $params);
     }
 
     /**

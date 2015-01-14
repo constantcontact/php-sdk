@@ -1,0 +1,22 @@
+{
+  "name": "IMG_0261.JPG",
+  "id": "4",
+  "description": "chocolates",
+  "folder": "Images",
+  "height": 600,
+  "width": 800,
+  "size": 68825,
+  "url": "https://origin.ih.l1.constantcontact.com/fs115/1100310339939/img/4.jpg",
+  "source": "MyComputer",
+  "status": "Active",
+  "thumbnail": {
+    "url": "https://origin.ih.l1.constantcontact.com/fs115/1100310339939/img/4.jpg",
+    "height": 150,
+    "width": 200
+  },
+  "created_date": "2013-06-19T11:36:43.000-04:00",
+  "modified_date": "2013-08-23T12:54:17.000-04:00",
+  "folder_id": null,
+  "is_image": true,
+  "file_type": "JPG"
+}

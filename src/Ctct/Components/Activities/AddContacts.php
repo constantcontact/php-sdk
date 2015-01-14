@@ -99,6 +99,8 @@ class AddContacts extends Component
                 }
             }
             $this->column_names = $usedColumns;
+        } else {
+            $this->column_names = $columnNames;
         }
     }
 

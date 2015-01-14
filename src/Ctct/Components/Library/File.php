@@ -39,13 +39,13 @@ class File extends Component {
      * The ID of the folder that the file is in
      * @var String
      */
-    public $folderId;
+    public $folder_id;
 
     /**
      * Is this file an image?
      * @var Boolean
      */
-    public $isImage;
+    public $is_image;
 
     /**
      * Type of the file, must be one of "JPG", "GIF", "PDF", "PNG", "DOC", "XLS", "PPT", "DOCX", "XLSX", "PPTX"
@@ -99,13 +99,13 @@ class File extends Component {
      * Date the file was created, in ISO-8601 format
      * @var String
      */
-    public $createdDate;
+    public $created_date;
 
     /**
      * Date the file was last modified, in ISO-8601 format
      * @var String
      */
-    public $modifiedDate;
+    public $modified_date;
 
     public static function create(array $props) {
         $file = new File();
@@ -114,8 +114,8 @@ class File extends Component {
         $file->name = parent::getValue($props, "name");
         $file->description = parent::getValue($props, "description");
         $file->folder = parent::getValue($props, "folder");
-        $file->folderId = parent::getValue($props, "folder_id");
-        $file->isImage = parent::getValue($props, "is_image");
+        $file->folder_id = parent::getValue($props, "folder_id");
+        $file->is_image = parent::getValue($props, "is_image");
         $file->type = parent::getValue($props, "file_type");
         $file->height = parent::getValue($props, "height");
         $file->width = parent::getValue($props, "width");
@@ -126,8 +126,8 @@ class File extends Component {
         if (array_key_exists("thumbnail", $props)) {
             $file->thumbnail = Thumbnail::create($props['thumbnail']);
         }
-        $file->createdDate = parent::getValue($props, "created_date");
-        $file->modifiedDate = parent::getValue($props, "modified_date");
+        $file->created_date = parent::getValue($props, "created_date");
+        $file->modified_date = parent::getValue($props, "modified_date");
 
         return $file;
     }
@@ -137,8 +137,8 @@ class File extends Component {
      * @return String
      */
     public function toJson() {
-        unset($this->createdDate);
-        unset($this->modifiedDate);
+        unset($this->created_date);
+        unset($this->modified_date);
         unset($this->status);
         return json_encode($this);
     }

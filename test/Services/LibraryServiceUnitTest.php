@@ -55,10 +55,10 @@ class LibraryServiceUnitTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(200, $file->thumbnail->width);
         $this->assertEquals(150, $file->thumbnail->height);
 
-        $this->assertEquals("2013-06-19T11:36:43.000-04:00", $file->createdDate);
-        $this->assertEquals("2013-08-23T12:54:17.000-04:00", $file->modifiedDate);
+        $this->assertEquals("2013-06-19T11:36:43.000-04:00", $file->created_date);
+        $this->assertEquals("2013-08-23T12:54:17.000-04:00", $file->modified_date);
         $this->assertEquals(null, $file->folderId);
-        $this->assertEquals(true, $file->isImage);
+        $this->assertEquals(true, $file->is_image);
         $this->assertEquals("JPG", $file->type);
     }
 
@@ -91,11 +91,11 @@ class LibraryServiceUnitTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(112, $files[0]->thumbnail->height);
         $this->assertEquals(200, $files[0]->thumbnail->width);
 
-        $this->assertEquals("2015-01-09T00:14:08.000-05:00", $files[0]->createdDate);
-        $this->assertEquals("2015-01-09T00:14:08.000-05:00", $files[0]->modifiedDate);
-        $this->assertEquals(null, $files[0]->folderId);
-        $this->assertEquals(true, $files[0]->isImage);
-        $this->assertEquals("PNG", $files[0]->fileType);
+        $this->assertEquals("2015-01-09T00:14:08.000-05:00", $files[0]->created_date);
+        $this->assertEquals("2015-01-09T00:14:08.000-05:00", $files[0]->modified_date);
+        $this->assertEquals(null, $files[0]->folder_id);
+        $this->assertEquals(true, $files[0]->is_image);
+        $this->assertEquals("PNG", $files[0]->file_type);
     }
 
     public function testGetLibraryFolder()
@@ -118,14 +118,14 @@ class LibraryServiceUnitTest extends PHPUnit_Framework_TestCase
         $this->assertEquals("SubFolder", $folder->children[0]->name);
         $this->assertEquals(2, $folder->children[0]->level);
         $this->assertEquals(null, $folder->children[0]->children);
-        $this->assertEquals(0, $folder->children[0]->itemCount);
-        $this->assertEquals("-5", $folder->children[0]->parentId);
-        $this->assertEquals("2014-08-04T11:40:36.000-04:00", $folder->children[0]->modifiedDate);
-        $this->assertEquals("2014-08-04T11:40:36.000-04:00", $folder->children[0]->createdDate);
+        $this->assertEquals(0, $folder->children[0]->item_count);
+        $this->assertEquals("-5", $folder->children[0]->parent_id);
+        $this->assertEquals("2014-08-04T11:40:36.000-04:00", $folder->children[0]->modified_date);
+        $this->assertEquals("2014-08-04T11:40:36.000-04:00", $folder->children[0]->created_date);
 
-        $this->assertEquals(3, $folder->itemCount);
-        $this->assertEquals("2013-09-09T14:25:44.000-04:00", $folder->modifiedDate);
-        $this->assertEquals("2013-09-09T14:25:44.000-04:00", $folder->createdDate);
+        $this->assertEquals(3, $folder->item_count);
+        $this->assertEquals("2013-09-09T14:25:44.000-04:00", $folder->modified_date);
+        $this->assertEquals("2013-09-09T14:25:44.000-04:00", $folder->created_date);
     }
 
     public function testGetLibraryFolders()
@@ -155,14 +155,14 @@ class LibraryServiceUnitTest extends PHPUnit_Framework_TestCase
         $this->assertEquals("SubFolder", $folders[0]->children[0]->name);
         $this->assertEquals(2, $folders[0]->children[0]->level);
         $this->assertEquals(null, $folders[0]->children[0]->children);
-        $this->assertEquals(0, $folders[0]->children[0]->itemCount);
-        $this->assertEquals("-5", $folders[0]->children[0]->parentId);
-        $this->assertEquals("2014-08-04T11:40:36.000-04:00", $folders[0]->children[0]->modifiedDate);
-        $this->assertEquals("2014-08-04T11:40:36.000-04:00", $folders[0]->children[0]->createdDate);
+        $this->assertEquals(0, $folders[0]->children[0]->item_count);
+        $this->assertEquals("-5", $folders[0]->children[0]->parent_id);
+        $this->assertEquals("2014-08-04T11:40:36.000-04:00", $folders[0]->children[0]->modified_date);
+        $this->assertEquals("2014-08-04T11:40:36.000-04:00", $folders[0]->children[0]->created_date);
 
-        $this->assertEquals(3, $folders[0]->itemCount);
-        $this->assertEquals("2013-09-09T14:25:44.000-04:00", $folders[0]->modifiedDate);
-        $this->assertEquals("2013-09-09T14:25:44.000-04:00", $folders[0]->createdDate);
+        $this->assertEquals(3, $folders[0]->item_count);
+        $this->assertEquals("2013-09-09T14:25:44.000-04:00", $folders[0]->modified_date);
+        $this->assertEquals("2013-09-09T14:25:44.000-04:00", $folders[0]->created_date);
     }
 
     public function testUploadFile()
@@ -185,7 +185,7 @@ class LibraryServiceUnitTest extends PHPUnit_Framework_TestCase
         }
 
         $fileUploadStatus = $statuses[0];
-        $this->assertEquals("9", $fileUploadStatus->fileId);
+        $this->assertEquals("9", $fileUploadStatus->file_id);
         $this->assertEquals("Active", $fileUploadStatus->description);
         $this->assertEquals("Active", $fileUploadStatus->status);
     }

@@ -26,13 +26,13 @@ class Folder extends Component {
      * Number of items in this folder
      * @var int
      */
-    public $itemCount;
+    public $item_count;
 
     /**
      * ID of this folder's parent, if there is one
      * @var String
      */
-    public $parentId;
+    public $parent_id;
 
     /**
      * Depth that this folder is in the hierarchy, must be 1, 2, or 3
@@ -44,13 +44,13 @@ class Folder extends Component {
      * Date and time the folder was created
      * @var String
      */
-    public $createdDate;
+    public $created_date;
 
     /**
      * Date and time the folder was last modified
      * @var String
      */
-    public $modifiedDate;
+    public $modified_date;
 
     public static function create(array $props) {
         $folder = new Folder();
@@ -60,11 +60,11 @@ class Folder extends Component {
         foreach ($props['children'] as $child) {
             $folder->children[] = Folder::create($child);
         }
-        $folder->itemCount = parent::getValue($props, "item_count");
-        $folder->parentId = parent::getValue($props, "parent_id");
+        $folder->item_count = parent::getValue($props, "item_count");
+        $folder->parent_id = parent::getValue($props, "parent_id");
         $folder->level = parent::getValue($props, "level");
-        $folder->createdDate = parent::getValue($props, "created_date");
-        $folder->modifiedDate = parent::getValue($props, "modified_date");
+        $folder->created_date = parent::getValue($props, "created_date");
+        $folder->modified_date = parent::getValue($props, "modified_date");
 
         return $folder;
     }

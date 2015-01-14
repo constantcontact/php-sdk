@@ -22,7 +22,7 @@ class FileUploadStatus extends Component {
      * Unique ID for the File
      * @var String
      */
-    public $fileId;
+    public $file_id;
 
     /**
      * Indicates the file status.
@@ -36,7 +36,7 @@ class FileUploadStatus extends Component {
         $fileUploadStatus = new FileUploadStatus();
 
         $fileUploadStatus->description = parent::getValue($props, "description");
-        $fileUploadStatus->fileId = parent::getValue($props, "file_id");
+        $fileUploadStatus->file_id = parent::getValue($props, "file_id");
         $fileUploadStatus->status = parent::getValue($props, "status");
 
         return $fileUploadStatus;

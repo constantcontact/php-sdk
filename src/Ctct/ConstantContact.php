@@ -681,12 +681,12 @@ class ConstantContact
      * Create new verified email addresses. This will also prompt the account to send
      * a verification email to the address.
      * @param string $accessToken - Constant Contact OAuth2 Access Token
-     * @param array $emailAddresses - array of VerifiedEmailAddress to create
+     * @param string $emailAddress - email address to create
      * @return array - array of VerifiedEmailAddress created
      */
-    public function createVerifiedEmailAddresses($accessToken, $emailAddresses)
+    public function createVerifiedEmailAddress($accessToken, $emailAddress)
     {
-        return $this->accountService->createVerifiedEmailAddresses($accessToken, $emailAddresses);
+        return $this->accountService->createVerifiedEmailAddress($accessToken, $emailAddress);
     }
 
     /**

@@ -36,4 +36,8 @@ class VerifiedEmailAddress extends Component
         $verifiedAddress->status = parent::getValue($props, "status");
         return $verifiedAddress;
     }
+
+    public function toJson() {
+        return json_encode($this);
+    }
 }

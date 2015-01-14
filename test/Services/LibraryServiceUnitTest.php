@@ -41,10 +41,10 @@ class LibraryServiceUnitTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(200, $response->thumbnail->width);
         $this->assertEquals(150, $response->thumbnail->height);
 
-        $this->assertEquals("2013-06-19T11:36:43.000-04:00", $response->createdDate);
-        $this->assertEquals("2013-08-23T12:54:17.000-04:00", $response->modifiedDate);
-        $this->assertEquals(null, $response->folderId);
-        $this->assertEquals(true, $response->isImage);
+        $this->assertEquals("2013-06-19T11:36:43.000-04:00", $response->created_date);
+        $this->assertEquals("2013-08-23T12:54:17.000-04:00", $response->modified_date);
+        $this->assertEquals(null, $response->folder_id);
+        $this->assertEquals(true, $response->is_image);
         $this->assertEquals("JPG", $response->type);
     }
 }

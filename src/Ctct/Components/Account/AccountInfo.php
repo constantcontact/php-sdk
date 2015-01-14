@@ -45,9 +45,8 @@ class AccountInfo extends Component
     /**
      * Email address associated with the account
      * @var string
-     * NOTE: the API returns 'email' field instead of 'email_address', but 'email_address' is used elsewhere
      */
-    public $email_address;
+    public $email;
 
     /**
      * Phone number associated with the account
@@ -92,7 +91,7 @@ class AccountInfo extends Component
         $accountInfo->time_zone = parent::getValue($props, "time_zone");
         $accountInfo->first_name = parent::getValue($props, "first_name");
         $accountInfo->last_name = parent::getValue($props, "last_name");
-        $accountInfo->email_address = parent::getValue($props, "email");
+        $accountInfo->email = parent::getValue($props, "email");
         $accountInfo->phone = parent::getValue($props, "phone");
         $accountInfo->company_logo = parent::getValue($props, "company_logo");
         $accountInfo->country_code = parent::getValue($props, "country_code");

@@ -81,7 +81,7 @@ class Address extends Component
 
     /**
      * Factory method to create an Address object from an array
-     * @array $props - Associative array of initial properties to set
+     * @param array $props - Associative array of initial properties to set
      * @return Address
      */
     public static function create(array $props)

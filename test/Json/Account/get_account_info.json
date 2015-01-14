@@ -1,0 +1,21 @@
+{
+  "website":"http://www.example.com",
+  "organization_name":"My Company",
+  "time_zone":"US/Eastern",
+  "first_name":"Mary Jane",
+  "last_name":"Doe",
+  "email":"mjdoe@example.com",
+  "phone":"5555555555",
+  "company_logo":"https://ih.constantcontact.com/fs137/1100371573368/img/90.jpg",
+  "country_code":"US",
+  "state_code":"MA",
+  "organization_addresses":[
+    {
+      "city": "Anytown",
+      "line1":"123 Maple Street",
+      "postal_code":"11111",
+      "country_code":"US",
+      "state_code":"MA"
+    }
+  ]
+}

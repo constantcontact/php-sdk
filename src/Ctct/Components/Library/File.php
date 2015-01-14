@@ -39,7 +39,7 @@ class File extends Component {
      * The ID of the folder that the file is in
      * @var String
      */
-    public $folderId;
+    public $folder_id;
 
     /**
      * Is this file an image?
@@ -120,7 +120,7 @@ class File extends Component {
         $file->name = parent::getValue($props, "name");
         $file->description = parent::getValue($props, "description");
         $file->folder = parent::getValue($props, "folder");
-        $file->folderId = parent::getValue($props, "folder_id");
+        $file->folder_id = parent::getValue($props, "folder_id");
         $file->is_image = parent::getValue($props, "is_image");
         $file->type = parent::getValue($props, "file_type");
         $file->height = parent::getValue($props, "height");

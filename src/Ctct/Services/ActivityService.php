@@ -1,11 +1,12 @@
 <?php
 namespace Ctct\Services;
 
+use Ctct\Exceptions\CtctException;
 use Ctct\Util\Config;
 use Ctct\Components\Activities\Activity;
 use Ctct\Components\Activities\AddContacts;
 use Ctct\Components\Activities\ExportContacts;
-use GuzzleHttp\Client;
+use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Post\PostBody;
 use GuzzleHttp\Post\PostFile;
 use GuzzleHttp\Stream\Stream;
@@ -23,6 +24,7 @@ class ActivityService extends BaseService
      * @param string $accessToken - Constant Contact OAuth2 access token
      * @param array $params - array of query parameters to be appended to the url
      * @return array - Array of all ActivitySummaryReports
+     * @throws CtctException
      */
     public function getActivities($accessToken, Array $params)
     {
@@ -35,7 +37,12 @@ class ActivityService extends BaseService
                 $query->add($name, $value);
             }
         }
-        $response = parent::getClient()->send($request);
+
+        try {
+            $response = parent::getClient()->send($request);
+        } catch (ClientException $e) {
+            throw parent::convertException($e);
+        }
 
         $activities = array();
         foreach ($response->json() as $activity) {
@@ -49,13 +56,19 @@ class ActivityService extends BaseService
      * @param string $accessToken - Constant Contact OAuth2 access token
      * @param string $activityId - Activity id
      * @return array - Array of all ActivitySummaryReports
+     * @throws CtctException
      */
     public function getActivity($accessToken, $activityId)
     {
         $baseUrl = Config::get('endpoints.base_url') . sprintf(Config::get('endpoints.activity'), $activityId);
 
         $request = parent::createBaseRequest($accessToken, 'GET', $baseUrl);
-        $response = parent::getClient()->send($request);
+
+        try {
+            $response = parent::getClient()->send($request);
+        } catch (ClientException $e) {
+            throw parent::convertException($e);
+        }
 
         return Activity::create($response->json());
     }
@@ -65,6 +78,7 @@ class ActivityService extends BaseService
      * @param string $accessToken - Constant Contact OAuth2 access token
      * @param AddContacts $addContacts
      * @return array - Array of all ActivitySummaryReports
+     * @throws CtctException
      */
     public function createAddContactsActivity($accessToken, AddContacts $addContacts)
     {
@@ -73,7 +87,12 @@ class ActivityService extends BaseService
         $request = parent::createBaseRequest($accessToken, 'POST', $baseUrl);
         $stream = Stream::factory(json_encode($addContacts));
         $request->setBody($stream);
-        $response = parent::getClient()->send($request);
+
+        try {
+            $response = parent::getClient()->send($request);
+        } catch (ClientException $e) {
+            throw parent::convertException($e);
+        }
 
         return Activity::create($response->json());
     }
@@ -85,6 +104,7 @@ class ActivityService extends BaseService
      * @param string $fileLocation - The location of the file on the server, this method uses fopen()
      * @param string $lists - Comma separated list of ContactList id's to add the contacts to
      * @return Activity
+     * @throws CtctException
      */
     public function createAddContactsActivityFromFile($accessToken, $fileName, $fileLocation, $lists)
     {
@@ -98,7 +118,12 @@ class ActivityService extends BaseService
         $body->addFile(new PostFile("data", fopen($fileLocation, 'r'), $fileName));
         $request->setBody($body);
 
-        $response = parent::getClient()->send($request);
+        try {
+            $response = parent::getClient()->send($request);
+        } catch (ClientException $e) {
+            throw parent::convertException($e);
+        }
+
         return Activity::create($response->json());
     }
 
@@ -108,6 +133,7 @@ class ActivityService extends BaseService
      * @param $accessToken - Constant Cotnact OAuth2 access token
      * @param array $lists - Array of list ID's to be cleared
      * @return Activity
+     * @throws CtctException
      */
     public function addClearListsActivity($accessToken, Array $lists)
     {
@@ -115,7 +141,13 @@ class ActivityService extends BaseService
         $request = parent::createBaseRequest($accessToken, "POST", $baseUrl);
         $stream = Stream::factory(json_encode(array("lists" => $lists)));
         $request->setBody($stream);
-        $response = parent::getClient()->send($request);
+
+        try {
+            $response = parent::getClient()->send($request);
+        } catch (ClientException $e) {
+            throw parent::convertException($e);
+        }
+
         return Activity::create($response->json());
     }
 
@@ -124,6 +156,7 @@ class ActivityService extends BaseService
      * @param string $accessToken - Constant Contact OAuth2 access token
      * @param ExportContacts $exportContacts
      * @return array - Array of all ActivitySummaryReports
+     * @throws CtctException
      */
     public function addExportContactsActivity($accessToken, ExportContacts $exportContacts)
     {
@@ -132,7 +165,12 @@ class ActivityService extends BaseService
         $request = parent::createBaseRequest($accessToken, 'POST', $baseUrl);
         $stream = Stream::factory(json_encode($exportContacts));
         $request->setBody($stream);
-        $response = parent::getClient()->send($request);
+
+        try {
+            $response = parent::getClient()->send($request);
+        } catch (ClientException $e) {
+            throw parent::convertException($e);
+        }
 
         return Activity::create($response->json());
     }
@@ -143,6 +181,7 @@ class ActivityService extends BaseService
      * @param array $emailAddresses - array of email addresses to remove
      * @param array $lists - array of list ID's to remove the provided email addresses from
      * @return Activity
+     * @throws CtctException
      */
     public function addRemoveContactsFromListsActivity($accessToken, Array $emailAddresses, Array $lists)
     {
@@ -159,7 +198,13 @@ class ActivityService extends BaseService
 
         $stream = Stream::factory(json_encode($payload));
         $request->setBody($stream);
-        $response = parent::getClient()->send($request);
+
+        try {
+            $response = parent::getClient()->send($request);
+        } catch (ClientException $e) {
+            throw parent::convertException($e);
+        }
+
         return Activity::create($response->json());
     }
 
@@ -170,6 +215,7 @@ class ActivityService extends BaseService
      * @param string $fileLocation - The location of the file on the server, this method uses fopen()
      * @param string $lists - Comma separated list of ContactList id's to add the contacts to
      * @return Activity
+     * @throws CtctException
      */
     public function addRemoveContactsFromListsActivityFromFile($accessToken, $fileName, $fileLocation, $lists)
     {
@@ -183,7 +229,12 @@ class ActivityService extends BaseService
         $body->addFile(new PostFile("data", fopen($fileLocation, 'r'), $fileName));
         $request->setBody($body);
 
-        $response = parent::getClient()->send($request);
+        try {
+            $response = parent::getClient()->send($request);
+        } catch (ClientException $e) {
+            throw parent::convertException($e);
+        }
+
         return Activity::create($response->json());
     }
 }

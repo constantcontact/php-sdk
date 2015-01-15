@@ -1,6 +1,7 @@
 <?php
 namespace Ctct\Services;
 
+use Ctct\Exceptions\CtctException;
 use Ctct\Util\Config;
 use Ctct\Components\Tracking\BounceActivity;
 use Ctct\Components\Tracking\TrackingActivity;
@@ -11,6 +12,7 @@ use Ctct\Components\Tracking\UnsubscribeActivity;
 use Ctct\Components\Tracking\SendActivity;
 use Ctct\Components\Tracking\TrackingSummary;
 use Ctct\Components\ResultSet;
+use GuzzleHttp\Exception\ClientException;
 
 /**
  * Performs all actions pertaining to Constant Contact Campaign Tracking
@@ -27,6 +29,7 @@ class CampaignTrackingService extends BaseService
      * @param string $campaign_id - Campaign id
      * @param array $params - query parameters to be appended to the request
      * @return ResultSet - Containing a results array of {@link BounceActivity}
+     * @throws CtctException
      */
     public function getBounces($accessToken, $campaign_id, Array $params)
     {
@@ -39,7 +42,12 @@ class CampaignTrackingService extends BaseService
                 $query->add($name, $value);
             }
         }
-        $response = parent::getClient()->send($request);
+
+        try {
+            $response = parent::getClient()->send($request);
+        } catch (ClientException $e) {
+            throw parent::convertException($e);
+        }
 
         $body = $response->json();
         $bounces = array();
@@ -55,6 +63,7 @@ class CampaignTrackingService extends BaseService
      * @param string $campaignId - Campaign id
      * @param array $params - query params to be appended to request
      * @return ResultSet - Containing a results array of {@link ClickActivity}
+     * @throws CtctException
      */
     public function getClicks($accessToken, $campaignId, Array $params)
     {
@@ -67,7 +76,12 @@ class CampaignTrackingService extends BaseService
                 $query->add($name, $value);
             }
         }
-        $response = parent::getClient()->send($request);
+
+        try {
+            $response = parent::getClient()->send($request);
+        } catch (ClientException $e) {
+            throw parent::convertException($e);
+        }
 
         $body = $response->json();
         $clicks = array();
@@ -84,6 +98,7 @@ class CampaignTrackingService extends BaseService
      * @param string $campaignId - Campaign id
      * @param array $params - query param to be appended to request
      * @return ResultSet - Containing a results array of {@link ForwardActivity}
+     * @throws CtctException
      */
     public function getForwards($accessToken, $campaignId, Array $params)
     {
@@ -96,7 +111,12 @@ class CampaignTrackingService extends BaseService
                 $query->add($name, $value);
             }
         }
-        $response = parent::getClient()->send($request);
+
+        try {
+            $response = parent::getClient()->send($request);
+        } catch (ClientException $e) {
+            throw parent::convertException($e);
+        }
 
         $body = $response->json();
         $forwards = array();
@@ -113,6 +133,7 @@ class CampaignTrackingService extends BaseService
      * @param string $campaign_id - Campaign id
      * @param array $params - query params to be appended to request
      * @return ResultSet - Containing a results array of {@link OpenActivity}
+     * @throws CtctException
      */
     public function getOpens($accessToken, $campaign_id, Array $params)
     {
@@ -125,7 +146,12 @@ class CampaignTrackingService extends BaseService
                 $query->add($name, $value);
             }
         }
-        $response = parent::getClient()->send($request);
+
+        try {
+            $response = parent::getClient()->send($request);
+        } catch (ClientException $e) {
+            throw parent::convertException($e);
+        }
 
         $body = $response->json();
         $opens = array();
@@ -142,6 +168,7 @@ class CampaignTrackingService extends BaseService
      * @param string $campaignId - Campaign id
      * @param Array $params - query params to be appended to request
      * @return TrackingActivity - Containing a results array of {@link SendActivity}
+     * @throws CtctException
      */
     public function getSends($accessToken, $campaignId, Array $params)
     {
@@ -154,7 +181,12 @@ class CampaignTrackingService extends BaseService
                 $query->add($name, $value);
             }
         }
-        $response = parent::getClient()->send($request);
+
+        try {
+            $response = parent::getClient()->send($request);
+        } catch (ClientException $e) {
+            throw parent::convertException($e);
+        }
 
         $body = $response->json();
         $sends = array();
@@ -171,6 +203,7 @@ class CampaignTrackingService extends BaseService
      * @param string $campaignId - Campaign id
      * @param array $params - query params to be appended to request
      * @return ResultSet - Containing a results array of {@link UnsubscribeActivity}
+     * @throws CtctException
      */
     public function getUnsubscribes($accessToken, $campaignId, Array $params)
     {
@@ -183,7 +216,12 @@ class CampaignTrackingService extends BaseService
                 $query->add($name, $value);
             }
         }
-        $response = parent::getClient()->send($request);
+
+        try {
+            $response = parent::getClient()->send($request);
+        } catch (ClientException $e) {
+            throw parent::convertException($e);
+        }
 
         $body = $response->json();
         $optOuts = array();
@@ -199,13 +237,19 @@ class CampaignTrackingService extends BaseService
      * @param string $accessToken - Constant Contact OAuth2 access token
      * @param int $campaign_id - Campaign id
      * @return TrackingSummary
+     * @throws CtctException
      */
     public function getSummary($accessToken, $campaign_id)
     {
         $baseUrl = Config::get('endpoints.base_url') . sprintf(Config::get('endpoints.campaign_tracking_summary'), $campaign_id);
 
         $request = parent::createBaseRequest($accessToken, 'GET', $baseUrl);
-        $response = parent::getClient()->send($request);
+
+        try {
+            $response = parent::getClient()->send($request);
+        } catch (ClientException $e) {
+            throw parent::convertException($e);
+        }
 
         return TrackingSummary::create($response->json());
     }

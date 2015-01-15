@@ -1,9 +1,11 @@
 <?php
 namespace Ctct\Services;
 
+use Ctct\Exceptions\CtctException;
 use Ctct\Util\Config;
 use Ctct\Components\EmailMarketing\Campaign;
 use Ctct\Components\ResultSet;
+use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Stream\Stream;
 
 /**
@@ -19,6 +21,7 @@ class EmailMarketingService extends BaseService
      * @param string $accessToken - Constant Contact OAuth2 access token
      * @param Campaign $campaign - Campaign to be created
      * @return Campaign
+     * @throws CtctException
      */
     public function addCampaign($accessToken, Campaign $campaign)
     {
@@ -27,7 +30,12 @@ class EmailMarketingService extends BaseService
         $request = parent::createBaseRequest($accessToken, 'POST', $baseUrl);
         $stream = Stream::factory(json_encode($campaign));
         $request->setBody($stream);
-        $response = parent::getClient()->send($request);
+
+        try {
+            $response = parent::getClient()->send($request);
+        } catch (ClientException $e) {
+            throw parent::convertException($e);
+        }
 
         return Campaign::create($response->json());
     }
@@ -37,6 +45,7 @@ class EmailMarketingService extends BaseService
      * @param string $accessToken - Constant Contact OAuth2 access token
      * @param array $params - query params to be appended to the request
      * @return ResultSet
+     * @throws CtctException
      */
     public function getCampaigns($accessToken, Array $params)
     {
@@ -49,7 +58,12 @@ class EmailMarketingService extends BaseService
                 $query->add($name, $value);
             }
         }
-        $response = parent::getClient()->send($request);
+
+        try {
+            $response = parent::getClient()->send($request);
+        } catch (ClientException $e) {
+            throw parent::convertException($e);
+        }
 
         $body = $response->json();
         $campaigns = array();
@@ -65,13 +79,19 @@ class EmailMarketingService extends BaseService
      * @param string $accessToken - Constant Contact OAuth2 access token
      * @param int $campaign_id - Valid campaign id
      * @return Campaign
+     * @throws CtctException
      */
     public function getCampaign($accessToken, $campaign_id)
     {
         $baseUrl = Config::get('endpoints.base_url') . sprintf(Config::get('endpoints.campaign'), $campaign_id);
 
         $request = parent::createBaseRequest($accessToken, 'GET', $baseUrl);
-        $response = parent::getClient()->send($request);
+
+        try {
+            $response = parent::getClient()->send($request);
+        } catch (ClientException $e) {
+            throw parent::convertException($e);
+        }
 
         return Campaign::create($response->json());
     }
@@ -81,13 +101,19 @@ class EmailMarketingService extends BaseService
      * @param string $accessToken - Constant Contact OAuth2 access token
      * @param int $campaign_id - Valid campaign id
      * @return boolean
+     * @throws CtctException
      */
     public function deleteCampaign($accessToken, $campaign_id)
     {
         $baseUrl = Config::get('endpoints.base_url') . sprintf(Config::get('endpoints.campaign'), $campaign_id);
 
         $request = parent::createBaseRequest($accessToken, 'DELETE', $baseUrl);
-        $response = parent::getClient()->send($request);
+
+        try {
+            $response = parent::getClient()->send($request);
+        } catch (ClientException $e) {
+            throw parent::convertException($e);
+        }
 
         return ($response->getStatusCode() == 204) ? true : false;
     }
@@ -97,6 +123,7 @@ class EmailMarketingService extends BaseService
      * @param string $accessToken - Constant Contact OAuth2 access token
      * @param Campaign $campaign - Campaign to be updated
      * @return Campaign
+     * @throws CtctException
      */
     public function updateCampaign($accessToken, Campaign $campaign)
     {
@@ -105,7 +132,12 @@ class EmailMarketingService extends BaseService
         $request = parent::createBaseRequest($accessToken, 'PUT', $baseUrl);
         $stream = Stream::factory(json_encode($campaign));
         $request->setBody($stream);
-        $response = parent::getClient()->send($request);
+
+        try {
+            $response = parent::getClient()->send($request);
+        } catch (ClientException $e) {
+            throw parent::convertException($e);
+        }
 
         return Campaign::create($response->json());
     }

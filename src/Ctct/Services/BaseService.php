@@ -1,8 +1,10 @@
 <?php
 namespace Ctct\Services;
 
+use Ctct\Exceptions\CtctException;
 use Ctct\Util\Config;
 use GuzzleHttp\Client;
+use GuzzleHttp\Exception\ClientException;
 
 /**
  * Super class for all services
@@ -93,5 +95,18 @@ abstract class BaseService
             'Accept' => 'application/json',
             'Authorization' => 'Bearer ' . $accessToken
         );
+    }
+
+    /**
+     * Turns a ClientException into a CtctException - like magic.
+     * @param ClientException $exception - Guzzle ClientException
+     * @return CtctException
+     */
+    protected function convertException($exception)
+    {
+        $ctctException = new CtctException($exception->getResponse()->getReasonPhrase(), $exception->getCode());
+        $ctctException->setUrl($exception->getResponse()->getEffectiveUrl());
+        $ctctException->setErrors(json_decode($exception->getResponse()->getBody()->getContents()));
+        return $ctctException;
     }
 }

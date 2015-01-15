@@ -1,6 +1,7 @@
 <?php
 namespace Ctct\Services;
 
+use Ctct\Exceptions\CtctException;
 use Ctct\Util\Config;
 use Ctct\Components\Tracking\BounceActivity;
 use Ctct\Components\Tracking\ClickActivity;
@@ -10,6 +11,7 @@ use Ctct\Components\Tracking\UnsubscribeActivity;
 use Ctct\Components\Tracking\SendActivity;
 use Ctct\Components\Tracking\TrackingSummary;
 use Ctct\Components\ResultSet;
+use GuzzleHttp\Exception\ClientException;
 
 /**
  * Performs all actions pertaining to Contact Tracking
@@ -25,6 +27,7 @@ class ContactTrackingService extends BaseService
      * @param int $contactId - Contact id
      * @param array $params - query params to be appended to request
      * @return ResultSet - Containing a results array of {@link BounceActivity}
+     * @throws CtctException
      */
     public function getBounces($accessToken, $contactId, Array $params)
     {
@@ -37,7 +40,12 @@ class ContactTrackingService extends BaseService
                 $query->add($name, $value);
             }
         }
-        $response = parent::getClient()->send($request);
+
+        try {
+            $response = parent::getClient()->send($request);
+        } catch (ClientException $e) {
+            throw parent::convertException($e);
+        }
 
         $body = $response->json();
         $bounces = array();
@@ -54,6 +62,7 @@ class ContactTrackingService extends BaseService
      * @param int $contactId - Contact id
      * @param array $params - query params to be appended to request
      * @return ResultSet - Containing a results array of {@link ClickActivity}
+     * @throws CtctException
      */
     public function getClicks($accessToken, $contactId, Array $params)
     {
@@ -66,7 +75,12 @@ class ContactTrackingService extends BaseService
                 $query->add($name, $value);
             }
         }
-        $response = parent::getClient()->send($request);
+
+        try {
+            $response = parent::getClient()->send($request);
+        } catch (ClientException $e) {
+            throw parent::convertException($e);
+        }
 
         $body = $response->json();
         $clicks = array();
@@ -83,6 +97,7 @@ class ContactTrackingService extends BaseService
      * @param int $contactId - Contact id
      * @param array $params - query params to be appended to request
      * @return ResultSet - Containing a results array of {@link ForwardActivity}
+     * @throws CtctException
      */
     public function getForwards($accessToken, $contactId, Array $params)
     {
@@ -95,7 +110,12 @@ class ContactTrackingService extends BaseService
                 $query->add($name, $value);
             }
         }
-        $response = parent::getClient()->send($request);
+
+        try {
+            $response = parent::getClient()->send($request);
+        } catch (ClientException $e) {
+            throw parent::convertException($e);
+        }
 
         $body = $response->json();
         $forwards = array();
@@ -112,6 +132,7 @@ class ContactTrackingService extends BaseService
      * @param int $contactId - Contact id
      * @param array $params - query params to be appended to request
      * @return ResultSet - Containing a results array of {@link OpenActivity}
+     * @throws CtctException
      */
     public function getOpens($accessToken, $contactId, Array $params)
     {
@@ -124,7 +145,12 @@ class ContactTrackingService extends BaseService
                 $query->add($name, $value);
             }
         }
-        $response = parent::getClient()->send($request);
+
+        try {
+            $response = parent::getClient()->send($request);
+        } catch (ClientException $e) {
+            throw parent::convertException($e);
+        }
 
         $body = $response->json();
         $opens = array();
@@ -142,6 +168,7 @@ class ContactTrackingService extends BaseService
      * @param int $contact_id - Contact id
      * @param array $params - query params to be appended to request
      * @return ResultSet - Containing a results array of {@link SendActivity}
+     * @throws CtctException
      */
     public function getSends($accessToken, $contact_id, Array $params)
     {
@@ -154,7 +181,12 @@ class ContactTrackingService extends BaseService
                 $query->add($name, $value);
             }
         }
-        $response = parent::getClient()->send($request);
+
+        try {
+            $response = parent::getClient()->send($request);
+        } catch (ClientException $e) {
+            throw parent::convertException($e);
+        }
 
         $body = $response->json();
         $sends = array();
@@ -171,6 +203,7 @@ class ContactTrackingService extends BaseService
      * @param int $contact_id - Contact id
      * @param array $params - query params to be appended to request
      * @return ResultSet - Containing a results array of {@link UnsubscribeActivity}
+     * @throws CtctException
      */
     public function getUnsubscribes($accessToken, $contact_id, Array $params)
     {
@@ -183,7 +216,12 @@ class ContactTrackingService extends BaseService
                 $query->add($name, $value);
             }
         }
-        $response = parent::getClient()->send($request);
+
+        try {
+            $response = parent::getClient()->send($request);
+        } catch (ClientException $e) {
+            throw parent::convertException($e);
+        }
 
         $body = $response->json();
         $opt_outs = array();
@@ -199,13 +237,19 @@ class ContactTrackingService extends BaseService
      * @param string $accessToken - Constant Contact OAuth2 access token
      * @param int $contact_id - Contact id
      * @return TrackingSummary
+     * @throws CtctException
      */
     public function getSummary($accessToken, $contact_id)
     {
         $baseUrl = Config::get('endpoints.base_url') . sprintf(Config::get('endpoints.contact_tracking_summary'), $contact_id);
 
         $request = parent::createBaseRequest($accessToken, 'GET', $baseUrl);
-        $response = parent::getClient()->send($request);
+
+        try {
+            $response = parent::getClient()->send($request);
+        } catch (ClientException $e) {
+            throw parent::convertException($e);
+        }
 
         return TrackingSummary::create($response->json());
     }

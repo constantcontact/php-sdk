@@ -9,6 +9,6 @@ use Exception;
  * @package     exceptions
  * @author         djellesma
  */
-class OAuth2Exception extends Exception
+class OAuth2Exception extends CtctException
 {
 }

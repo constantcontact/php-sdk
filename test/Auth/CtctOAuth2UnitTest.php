@@ -1,7 +1,6 @@
 <?php
 
 use Ctct\Auth\CtctOAuth2;
-use Ctct\Util\CurlResponse;
 use Ctct\Util\Config;
 use GuzzleHttp\Client;
 use GuzzleHttp\Message\Response;

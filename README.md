@@ -41,11 +41,19 @@ require '/src/Ctct/autoload.php'
 
 ## Usage
 Once either the composer or built in autoloader has been required, you can begin using the SDK.
+
+The ConstantContact class contains the underlying services that hold the methods that use the API.
 ```php
 use Ctct\ConstantContact;
 $cc = new ConstantContact('your api key');
 
-$contacts = $cc->getContacts('your access token')
+$contacts = $cc->contactService->getContacts('your access token')
+```
+
+Many methods will take an array of parameters for use in the calls. Available params are documented in the PHPDoc of the method.
+```php
+$params = array("limit" => 500);
+$contacts = $cc->contactService->getContacts('your access token', $params);
 ```
 ## Minimum Requirements
 Use of this library requires PHP 5.4+, and PHP cURL extension (http://php.net/manual/en/book.curl.php)

@@ -43,11 +43,15 @@ class EmailMarketingService extends BaseService
     /**
      * Get a set of campaigns
      * @param string $accessToken - Constant Contact OAuth2 access token
-     * @param array $params - query params to be appended to the request
+     * @param array $params - associative array of query parameters and values to append to the request.
+     *      Allowed parameters include:
+     *      limit - Specifies the number of results displayed per page of output, from 1 - 500, default = 50.
+     *      modified_since - ISO-8601 formatted timestamp.
+     *      next - the next link returned from a previous paginated call. May only be used by itself.
      * @return ResultSet
      * @throws CtctException
      */
-    public function getCampaigns($accessToken, Array $params)
+    public function getCampaigns($accessToken, Array $params = array())
     {
         $baseUrl = Config::get('endpoints.base_url') . Config::get('endpoints.campaigns');
 

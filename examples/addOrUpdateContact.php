@@ -30,7 +30,7 @@ $cc = new ConstantContact(APIKEY);
 
 // attempt to fetch lists in the account, catching any exceptions and printing the errors to screen
 try {
-    $lists = $cc->getLists(ACCESS_TOKEN);
+    $lists = $cc->listService->getLists(ACCESS_TOKEN);
 } catch (CtctException $ex) {
     foreach ($ex->getErrors() as $error) {
         print_r($error);
@@ -41,8 +41,8 @@ try {
 if (isset($_POST['email']) && strlen($_POST['email']) > 1) {
     $action = "Getting Contact By Email Address";
     try {
-        // check to see if a contact with the email addess already exists in the account
-        $response = $cc->getContactByEmail(ACCESS_TOKEN, $_POST['email']);
+        // check to see if a contact with the email address already exists in the account
+        $response = $cc->contactService->getContacts(ACCESS_TOKEN, array("email" => $_POST['email']));
 
         // create a new contact if one does not exist
         if (empty($response->results)) {
@@ -61,13 +61,13 @@ if (isset($_POST['email']) && strlen($_POST['email']) > 1) {
              *
              * See: http://developer.constantcontact.com/docs/contacts-api/contacts-index.html#opt_in
              */
-            $returnContact = $cc->addContact(ACCESS_TOKEN, $contact, true);
+            $returnContact = $cc->contactService->addContact(ACCESS_TOKEN, $contact);
 
             // update the existing contact if address already existed
         } else {
             $action = "Updating Contact";
 
-            $contact = $response->results[0];
+            $contact = Contact::create($response->results[0]);
             $contact->addList($_POST['list']);
             $contact->first_name = $_POST['first_name'];
             $contact->last_name = $_POST['last_name'];
@@ -79,7 +79,7 @@ if (isset($_POST['email']) && strlen($_POST['email']) > 1) {
              *
              * See: http://developer.constantcontact.com/docs/contacts-api/contacts-index.html#opt_in
              */
-            $returnContact = $cc->updateContact(ACCESS_TOKEN, $contact, true);
+            $returnContact = $cc->contactService->updateContact(ACCESS_TOKEN, $contact);
         }
 
         // catch any exceptions thrown during the process and print the errors to screen

@@ -19,11 +19,13 @@ class AccountService extends BaseService
     /**
      * Get all verified email addresses associated with an account
      * @param string $accessToken - Constant Contact OAuth2 Access Token
-     * @param array $params - array of query parameters/values to append to the request
+     * @param array $params - associative array of query parameters and values to append to the request.
+     *      Allowed parameters include:
+     *      status - Status to filter results by. Must be one of ALL, CONFIRMED, or UNCONFIRMED.
      * @return array of VerifiedEmailAddress
      * @throws CtctException
      */
-    public function getVerifiedEmailAddresses($accessToken, Array $params)
+    public function getVerifiedEmailAddresses($accessToken, Array $params = array())
     {
         $baseUrl = Config::get('endpoints.base_url') . Config::get('endpoints.account_verified_addresses');
 

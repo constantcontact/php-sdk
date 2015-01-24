@@ -20,11 +20,13 @@ class ListService extends BaseService
     /**
      * Get lists within an account
      * @param $accessToken - Constant Contact OAuth2 access token
-     * @param array $params - array of query parameters to be appended to the request
+     * @param array $params - associative array of query parameters and values to append to the request.
+     *      Allowed parameters include:
+     *      modified_since - ISO-8601 formatted timestamp.
      * @return Array - ContactLists
      * @throws CtctException
      */
-    public function getLists($accessToken, Array $params)
+    public function getLists($accessToken, Array $params = array())
     {
         $baseUrl = Config::get('endpoints.base_url') . Config::get('endpoints.lists');
 
@@ -140,39 +142,5 @@ class ListService extends BaseService
         }
 
         return ContactList::create($response->json());
-    }
-
-    /**
-     * Get all contacts from an individual list
-     * @param string $accessToken - Constant Contact OAuth2 access token
-     * @param string $listId - list id to retrieve contacts for
-     * @param array $params - query params to attach to request
-     * @return ResultSet
-     * @throws CtctException
-     */
-    public function getContactsFromList($accessToken, $listId, Array $params)
-    {
-        $baseUrl = Config::get('endpoints.base_url') . sprintf(Config::get('endpoints.list_contacts'), $listId);
-
-        $request = parent::createBaseRequest($accessToken, 'GET', $baseUrl);
-        if ($params) {
-            $query = $request->getQuery();
-            foreach ($params as $name => $value) {
-                $query->add($name, $value);
-            }
-        }
-
-        try {
-            $response = parent::getClient()->send($request);
-        } catch (ClientException $e) {
-            throw parent::convertException($e);
-        }
-
-        $body = $response->json();
-        $contacts = array();
-        foreach ($body['results'] as $contact) {
-            $contacts[] = Contact::create($contact);
-        }
-        return new ResultSet($contacts, $body['meta']);
     }
 }

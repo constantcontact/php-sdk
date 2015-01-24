@@ -24,12 +24,16 @@ class ContactTrackingService extends BaseService
     /**
      * Get bounces for a given contact
      * @param string $accessToken - Constant Contact OAuth2 access token
-     * @param int $contactId - Contact id
-     * @param array $params - query params to be appended to request
+     * @param string $contactId - Contact id
+     * @param array $params - associative array of query parameters and values to append to the request.
+     *      Allowed parameters include:
+     *      limit - Specifies the number of results displayed per page of output, from 1 - 500, default = 50.
+     *      created_since - Used to retrieve a list of events since the date and time specified (in ISO-8601 format).
+     *      next - the next link returned from a previous paginated call. May only be used by itself.
      * @return ResultSet - Containing a results array of {@link BounceActivity}
      * @throws CtctException
      */
-    public function getBounces($accessToken, $contactId, Array $params)
+    public function getBounces($accessToken, $contactId, Array $params = array())
     {
         $baseUrl = Config::get('endpoints.base_url') . sprintf(Config::get('endpoints.contact_tracking_bounces'), $contactId);
 
@@ -59,12 +63,16 @@ class ContactTrackingService extends BaseService
     /**
      * Get clicks for a given contact
      * @param string $accessToken - Constant Contact OAuth2 access token
-     * @param int $contactId - Contact id
-     * @param array $params - query params to be appended to request
+     * @param string $contactId - Contact id
+     * @param array $params - associative array of query parameters and values to append to the request.
+     *      Allowed parameters include:
+     *      limit - Specifies the number of results displayed per page of output, from 1 - 500, default = 50.
+     *      created_since - Used to retrieve a list of events since the date and time specified (in ISO-8601 format).
+     *      next - the next link returned from a previous paginated call. May only be used by itself.
      * @return ResultSet - Containing a results array of {@link ClickActivity}
      * @throws CtctException
      */
-    public function getClicks($accessToken, $contactId, Array $params)
+    public function getClicks($accessToken, $contactId, Array $params = array())
     {
         $baseUrl = Config::get('endpoints.base_url') . sprintf(Config::get('endpoints.contact_tracking_clicks'), $contactId);
 
@@ -94,12 +102,16 @@ class ContactTrackingService extends BaseService
     /**
      * Get forwards for a given contact
      * @param string $accessToken - Constant Contact OAuth2 access token
-     * @param int $contactId - Contact id
-     * @param array $params - query params to be appended to request
+     * @param string $contactId - Contact id
+     * @param array $params - associative array of query parameters and values to append to the request.
+     *      Allowed parameters include:
+     *      limit - Specifies the number of results displayed per page of output, from 1 - 500, default = 50.
+     *      created_since - Used to retrieve a list of events since the date and time specified (in ISO-8601 format).
+     *      next - the next link returned from a previous paginated call. May only be used by itself.
      * @return ResultSet - Containing a results array of {@link ForwardActivity}
      * @throws CtctException
      */
-    public function getForwards($accessToken, $contactId, Array $params)
+    public function getForwards($accessToken, $contactId, Array $params = array())
     {
         $baseUrl = Config::get('endpoints.base_url') . sprintf(Config::get('endpoints.contact_tracking_forwards'), $contactId);
 
@@ -129,12 +141,16 @@ class ContactTrackingService extends BaseService
     /**
      * Get opens for a given contact
      * @param string $accessToken - Constant Contact OAuth2 access token
-     * @param int $contactId - Contact id
-     * @param array $params - query params to be appended to request
+     * @param string $contactId - Contact id
+     * @param array $params - associative array of query parameters and values to append to the request.
+     *      Allowed parameters include:
+     *      limit - Specifies the number of results displayed per page of output, from 1 - 500, default = 50.
+     *      created_since - Used to retrieve a list of events since the date and time specified (in ISO-8601 format).
+     *      next - the next link returned from a previous paginated call. May only be used by itself.
      * @return ResultSet - Containing a results array of {@link OpenActivity}
      * @throws CtctException
      */
-    public function getOpens($accessToken, $contactId, Array $params)
+    public function getOpens($accessToken, $contactId, Array $params = array())
     {
         $baseUrl = Config::get('endpoints.base_url') . sprintf(Config::get('endpoints.contact_tracking_opens'), $contactId);
 
@@ -164,15 +180,18 @@ class ContactTrackingService extends BaseService
     /**
      * Get sends for a given contact
      * @param string $accessToken - Constant Contact OAuth2 access token
-     * @param string $accessToken - Constant Contact OAuth2 access token
-     * @param int $contact_id - Contact id
-     * @param array $params - query params to be appended to request
+     * @param string $contactId - Contact id
+     * @param array $params - associative array of query parameters and values to append to the request.
+     *      Allowed parameters include:
+     *      limit - Specifies the number of results displayed per page of output, from 1 - 500, default = 50.
+     *      created_since - Used to retrieve a list of events since the date and time specified (in ISO-8601 format).
+     *      next - the next link returned from a previous paginated call. May only be used by itself.
      * @return ResultSet - Containing a results array of {@link SendActivity}
      * @throws CtctException
      */
-    public function getSends($accessToken, $contact_id, Array $params)
+    public function getSends($accessToken, $contactId, Array $params = array())
     {
-        $baseUrl = Config::get('endpoints.base_url') . sprintf(Config::get('endpoints.contact_tracking_sends'), $contact_id);
+        $baseUrl = Config::get('endpoints.base_url') . sprintf(Config::get('endpoints.contact_tracking_sends'), $contactId);
 
         $request = parent::createBaseRequest($accessToken, 'GET', $baseUrl);
         if ($params) {
@@ -200,14 +219,18 @@ class ContactTrackingService extends BaseService
     /**
      * Get unsubscribes for a given contact
      * @param string $accessToken - Constant Contact OAuth2 access token
-     * @param int $contact_id - Contact id
-     * @param array $params - query params to be appended to request
+     * @param string $contactId - Contact id
+     * @param array $params - associative array of query parameters and values to append to the request.
+     *      Allowed parameters include:
+     *      limit - Specifies the number of results displayed per page of output, from 1 - 500, default = 50.
+     *      created_since - Used to retrieve a list of events since the date and time specified (in ISO-8601 format).
+     *      next - the next link returned from a previous paginated call. May only be used by itself.
      * @return ResultSet - Containing a results array of {@link UnsubscribeActivity}
      * @throws CtctException
      */
-    public function getUnsubscribes($accessToken, $contact_id, Array $params)
+    public function getUnsubscribes($accessToken, $contactId, Array $params = array())
     {
-        $baseUrl = Config::get('endpoints.base_url') . sprintf(Config::get('endpoints.contact_tracking_unsubscribes'), $contact_id);
+        $baseUrl = Config::get('endpoints.base_url') . sprintf(Config::get('endpoints.contact_tracking_unsubscribes'), $contactId);
 
         $request = parent::createBaseRequest($accessToken, 'GET', $baseUrl);
         if ($params) {
@@ -235,13 +258,13 @@ class ContactTrackingService extends BaseService
     /**
      * Get a summary of reporting data for a given contact
      * @param string $accessToken - Constant Contact OAuth2 access token
-     * @param int $contact_id - Contact id
+     * @param string $contactId - Contact id
      * @return TrackingSummary
      * @throws CtctException
      */
-    public function getSummary($accessToken, $contact_id)
+    public function getSummary($accessToken, $contactId)
     {
-        $baseUrl = Config::get('endpoints.base_url') . sprintf(Config::get('endpoints.contact_tracking_summary'), $contact_id);
+        $baseUrl = Config::get('endpoints.base_url') . sprintf(Config::get('endpoints.contact_tracking_summary'), $contactId);
 
         $request = parent::createBaseRequest($accessToken, 'GET', $baseUrl);
 

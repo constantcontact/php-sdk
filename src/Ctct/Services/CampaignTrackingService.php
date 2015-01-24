@@ -26,14 +26,18 @@ class CampaignTrackingService extends BaseService
     /**
      * Get a result set of bounces for a given campaign
      * @param string $accessToken - Constant Contact OAuth2 access token
-     * @param string $campaign_id - Campaign id
-     * @param array $params - query parameters to be appended to the request
+     * @param string $campaignId - Campaign id
+     * @param array $params - associative array of query parameters and values to append to the request.
+     *      Allowed parameters include:
+     *      limit - Specifies the number of results displayed per page of output, from 1 - 500, default = 50.
+     *      created_since - Used to retrieve a list of events since the date and time specified (in ISO-8601 format).
+     *      next - the next link returned from a previous paginated call. May only be used by itself.
      * @return ResultSet - Containing a results array of {@link BounceActivity}
      * @throws CtctException
      */
-    public function getBounces($accessToken, $campaign_id, Array $params)
+    public function getBounces($accessToken, $campaignId, Array $params = array())
     {
-        $baseUrl = Config::get('endpoints.base_url') . sprintf(Config::get('endpoints.campaign_tracking_bounces'), $campaign_id);
+        $baseUrl = Config::get('endpoints.base_url') . sprintf(Config::get('endpoints.campaign_tracking_bounces'), $campaignId);
 
         $request = parent::createBaseRequest($accessToken, 'GET', $baseUrl);
         if ($params) {
@@ -61,11 +65,15 @@ class CampaignTrackingService extends BaseService
      * Get clicks for a given campaign
      * @param string $accessToken - Constant Contact OAuth2 access token
      * @param string $campaignId - Campaign id
-     * @param array $params - query params to be appended to request
+     * @param array $params - associative array of query parameters and values to append to the request.
+     *      Allowed parameters include:
+     *      limit - Specifies the number of results displayed per page of output, from 1 - 500, default = 50.
+     *      created_since - Used to retrieve a list of events since the date and time specified (in ISO-8601 format).
+     *      next - the next link returned from a previous paginated call. May only be used by itself.
      * @return ResultSet - Containing a results array of {@link ClickActivity}
      * @throws CtctException
      */
-    public function getClicks($accessToken, $campaignId, Array $params)
+    public function getClicks($accessToken, $campaignId, Array $params = array())
     {
         $baseUrl = Config::get('endpoints.base_url') . sprintf(Config::get('endpoints.campaign_tracking_clicks'), $campaignId);
 
@@ -96,11 +104,15 @@ class CampaignTrackingService extends BaseService
      * Get forwards for a given campaign
      * @param string $accessToken - Constant Contact OAuth2 access token
      * @param string $campaignId - Campaign id
-     * @param array $params - query param to be appended to request
+     * @param array $params - associative array of query parameters and values to append to the request.
+     *      Allowed parameters include:
+     *      limit - Specifies the number of results displayed per page of output, from 1 - 500, default = 50.
+     *      created_since - Used to retrieve a list of events since the date and time specified (in ISO-8601 format).
+     *      next - the next link returned from a previous paginated call. May only be used by itself.
      * @return ResultSet - Containing a results array of {@link ForwardActivity}
      * @throws CtctException
      */
-    public function getForwards($accessToken, $campaignId, Array $params)
+    public function getForwards($accessToken, $campaignId, Array $params = array())
     {
         $baseUrl = Config::get('endpoints.base_url') . sprintf(Config::get('endpoints.campaign_tracking_forwards'), $campaignId);
 
@@ -130,14 +142,18 @@ class CampaignTrackingService extends BaseService
     /**
      * Get opens for a given campaign
      * @param string $accessToken - Constant Contact OAuth2 access token
-     * @param string $campaign_id - Campaign id
-     * @param array $params - query params to be appended to request
+     * @param string $campaignId - Campaign id
+     * @param array $params - associative array of query parameters and values to append to the request.
+     *      Allowed parameters include:
+     *      limit - Specifies the number of results displayed per page of output, from 1 - 500, default = 50.
+     *      created_since - Used to retrieve a list of events since the date and time specified (in ISO-8601 format).
+     *      next - the next link returned from a previous paginated call. May only be used by itself.
      * @return ResultSet - Containing a results array of {@link OpenActivity}
      * @throws CtctException
      */
-    public function getOpens($accessToken, $campaign_id, Array $params)
+    public function getOpens($accessToken, $campaignId, Array $params = array())
     {
-        $baseUrl = Config::get('endpoints.base_url') . sprintf(Config::get('endpoints.campaign_tracking_opens'), $campaign_id);
+        $baseUrl = Config::get('endpoints.base_url') . sprintf(Config::get('endpoints.campaign_tracking_opens'), $campaignId);
 
         $request = parent::createBaseRequest($accessToken, 'GET', $baseUrl);
         if ($params) {
@@ -166,11 +182,15 @@ class CampaignTrackingService extends BaseService
      * Get sends for a given campaign
      * @param string $accessToken - Constant Contact OAuth2 access token
      * @param string $campaignId - Campaign id
-     * @param Array $params - query params to be appended to request
+     * @param Array $params = array() - associative array of query parameters and values to append to the request.
+     *      Allowed parameters include:
+     *      limit - Specifies the number of results displayed per page of output, from 1 - 500, default = 50.
+     *      created_since - Used to retrieve a list of events since the date and time specified (in ISO-8601 format).
+     *      next - the next link returned from a previous paginated call. May only be used by itself.
      * @return TrackingActivity - Containing a results array of {@link SendActivity}
      * @throws CtctException
      */
-    public function getSends($accessToken, $campaignId, Array $params)
+    public function getSends($accessToken, $campaignId, Array $params = array())
     {
         $baseUrl = Config::get('endpoints.base_url') . sprintf(Config::get('endpoints.campaign_tracking_sends'), $campaignId);
 
@@ -201,11 +221,15 @@ class CampaignTrackingService extends BaseService
      * Get unsubscribes for a given campaign
      * @param string $accessToken - Constant Contact OAuth2 access token
      * @param string $campaignId - Campaign id
-     * @param array $params - query params to be appended to request
+     * @param array $params - associative array of query parameters and values to append to the request.
+     *      Allowed parameters include:
+     *      limit - Specifies the number of results displayed per page of output, from 1 - 500, default = 50.
+     *      created_since - Used to retrieve a list of events since the date and time specified (in ISO-8601 format).
+     *      next - the next link returned from a previous paginated call. May only be used by itself.
      * @return ResultSet - Containing a results array of {@link UnsubscribeActivity}
      * @throws CtctException
      */
-    public function getUnsubscribes($accessToken, $campaignId, Array $params)
+    public function getUnsubscribes($accessToken, $campaignId, Array $params = array())
     {
         $baseUrl = Config::get('endpoints.base_url') . sprintf(Config::get('endpoints.campaign_tracking_unsubscribes'), $campaignId);
 
@@ -235,13 +259,13 @@ class CampaignTrackingService extends BaseService
     /**
      * Get a summary of reporting data for a given campaign
      * @param string $accessToken - Constant Contact OAuth2 access token
-     * @param int $campaign_id - Campaign id
+     * @param int $campaignId - Campaign id
      * @return TrackingSummary
      * @throws CtctException
      */
-    public function getSummary($accessToken, $campaign_id)
+    public function getSummary($accessToken, $campaignId)
     {
-        $baseUrl = Config::get('endpoints.base_url') . sprintf(Config::get('endpoints.campaign_tracking_summary'), $campaign_id);
+        $baseUrl = Config::get('endpoints.base_url') . sprintf(Config::get('endpoints.campaign_tracking_summary'), $campaignId);
 
         $request = parent::createBaseRequest($accessToken, 'GET', $baseUrl);
 

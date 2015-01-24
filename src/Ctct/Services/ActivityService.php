@@ -22,11 +22,15 @@ class ActivityService extends BaseService
     /**
      * Get an array of activities
      * @param string $accessToken - Constant Contact OAuth2 access token
-     * @param array $params - array of query parameters to be appended to the url
+     * @param array $params - associative array of query parameters and values to append to the request.
+     *      Allowed parameters include:
+     *      status - Status of the activity, must be one of UNCONFIRMED, PENDING, QUEUED, RUNNING, COMPLETE, ERROR
+     *      type - Type of activity, must be one of ADD_CONTACTS, REMOVE_CONTACTS_FROM_LISTS, CLEAR_CONTACTS_FROM_LISTS,
+     *             EXPORT_CONTACTS
      * @return array - Array of all ActivitySummaryReports
      * @throws CtctException
      */
-    public function getActivities($accessToken, Array $params)
+    public function getActivities($accessToken, Array $params = array())
     {
         $baseUrl = Config::get('endpoints.base_url') . Config::get('endpoints.activities');
 
@@ -130,7 +134,7 @@ class ActivityService extends BaseService
     /**
      * Create a clear lists activity. This removes all contacts on the selected lists while keeping
      * the list itself intact.
-     * @param $accessToken - Constant Cotnact OAuth2 access token
+     * @param $accessToken - Constant Contact OAuth2 access token
      * @param array $lists - Array of list ID's to be cleared
      * @return Activity
      * @throws CtctException

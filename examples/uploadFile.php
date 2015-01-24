@@ -32,8 +32,8 @@ if ($_FILES) {
     $folderId = $_POST['folder'];
     $fileLocation = $_FILES['file']['tmp_name'];
 
-    $uploadStatusId = $cc->uploadFile(ACCESS_TOKEN, $fileName, $fileLocation, $description, $folderId);
-    $fileUploadStatus = $cc->getFileUploadStatus(ACCESS_TOKEN, $uploadStatusId);
+    $uploadStatusId = $cc->libraryService->uploadFile(ACCESS_TOKEN, $fileName, $fileLocation, $description, "MyComputer", $folderId);
+    $fileUploadStatus = $cc->libraryService->getFileUploadStatus(ACCESS_TOKEN, $uploadStatusId);
 }
 
 $folders = array();
@@ -43,7 +43,7 @@ do {
     if ($next) {
         $params = array("next" => $next);
     }
-    $foldersResult = $cc->getLibraryFolders(ACCESS_TOKEN, $params);
+    $foldersResult = $cc->libraryService->getLibraryFolders(ACCESS_TOKEN, $params);
     foreach ($foldersResult->results as $folder) {
         array_push($folders, $folder);
     }

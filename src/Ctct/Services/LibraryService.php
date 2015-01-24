@@ -17,11 +17,18 @@ class LibraryService extends BaseService
     /**
      * Get files from the Library
      * @param string $accessToken - Constant Contact OAuth2 Access Token
-     * @param array $params - array of query parameters/values to append to the request
+     * @param array $params - associative array of query parameters and values to append to the request.
+     *      Allowed parameters include:
+     *      limit - Specifies the number of results displayed per page of output, from 1 - 1000, default = 50.
+     *      sort_by - Specifies how the list of files is sorted; valid sort options are:
+     *                CREATED_DATE, CREATED_DATE_DESC, MODIFIED_DATE, MODIFIED_DATE_DESC, NAME, NAME_DESC, SIZE, SIZE_DESC DIMENSION, DIMENSION_DESC
+     *      source - Specifies to retrieve files from a particular source:
+     *               ALL, MyComputer, Facebook, Instagram, Shutterstock, Mobile
+     *      next - the next link returned from a previous paginated call. May only be used by itself.
      * @return ResultSet
      * @throws CtctException
      */
-    public function getLibraryFiles($accessToken, Array $params)
+    public function getLibraryFiles($accessToken, Array $params = array())
     {
         $baseUrl = Config::get('endpoints.base_url') . Config::get('endpoints.library_files');
 
@@ -52,11 +59,18 @@ class LibraryService extends BaseService
      * Get files from the Library in a specific Folder
      * @param string $accessToken - Constant Contact OAuth2 Access Token
      * @param string $folderId - Specified Folder Id
-     * @param array $params - array of query parameters/values to append to the request
+     * @param array $params - associative array of query parameters and values to append to the request.
+     *      Allowed parameters include:
+     *      limit - Specifies the number of results displayed per page of output, from 1 - 1000, default = 50.
+     *      sort_by - Specifies how the list of files is sorted; valid sort options are:
+     *                CREATED_DATE, CREATED_DATE_DESC, MODIFIED_DATE, MODIFIED_DATE_DESC, NAME, NAME_DESC, SIZE, SIZE_DESC DIMENSION, DIMENSION_DESC
+     *      source - Specifies to retrieve files from a particular source:
+     *               ALL, MyComputer, Facebook, Instagram, Shutterstock, Mobile
+     *      next - the next link returned from a previous paginated call. May only be used by itself.
      * @return ResultSet
      * @throws CtctException
      */
-    public function getLibraryFilesByFolder($accessToken, $folderId, Array $params)
+    public function getLibraryFilesByFolder($accessToken, $folderId, Array $params = array())
     {
         $baseUrl = Config::get('endpoints.base_url') . sprintf(Config::get('endpoints.library_files_by_folder'), $folderId);
 
@@ -130,11 +144,15 @@ class LibraryService extends BaseService
     /**
      * Get folders from the Library
      * @param string $accessToken - Constant Contact OAuth2 Access Token
-     * @param array $params - array of query parameters/values to append to the request
+     * @param array $params - associative array of query parameters and values to append to the request.
+     *      Allowed parameters include:
+     *      limit - Specifies the number of results displayed per page of output, from 1 - 1000, default = 50.
+     *      sort_by - Specifies how the list of files is sorted; valid sort options are:
+     *                CREATED_DATE, CREATED_DATE_DESC, MODIFIED_DATE, MODIFIED_DATE_DESC, NAME, NAME_DESC
      * @return ResultSet
      * @throws CtctException
      */
-    public function getLibraryFolders($accessToken, Array $params)
+    public function getLibraryFolders($accessToken, Array $params = array())
     {
         $baseUrl = Config::get('endpoints.base_url') . Config::get('endpoints.library_folders');
 

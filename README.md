@@ -4,7 +4,7 @@
 ### This library utilizes [GuzzlePHP](https://guzzlephp.org)
 
 ## Installing via Composer (recommended)
-Composer is a dependency management tool for PHP that allows you to declare the dependencies your project needs and installs them into your project. In order to use the Constant Contact PHP SDK through composer, you must do the following 
+[Composer](https://getcomposer.org/) is a dependency management tool for PHP that allows you to declare the dependencies your project needs and installs them into your project. In order to use the Constant Contact PHP SDK through composer, you must do the following 
 
 1. Add "constantcontact/constantcontact" as a dependency in your project's composer.json file.
 ```javascript
@@ -32,11 +32,7 @@ require 'vendor/autoload.php';
 ```
 
 ### Manual Installation
-1. Download and extract the project into an appropriate place in your application.
-2. Require the SDK's autoloader. (note: the path to include the autoload may be different depending on the structure of your application)
-```
-require '/src/Ctct/autoload.php'
-```
+Manual installation is not recommended, as this library relies on other Composer libraries to function. Getting started with composer is easy!
 
 
 ## Usage

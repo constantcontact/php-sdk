@@ -33,13 +33,13 @@ abstract class BaseService
      * GuzzleHTTP Client Implementation to use for HTTP requests
      * @var Client
      */
-    protected $client;
+    private $client;
 
     /**
      * ApiKey for the application
      * @var string
      */
-    protected $apiKey;
+    private $apiKey;
 
     /**
      * Constructor with the option to to supply an alternative rest client to be used

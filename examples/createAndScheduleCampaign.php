@@ -212,8 +212,8 @@ try {
                     <label class="control-label" for="format">Email Content Format</label>
 
                     <div class="controls">
-                        <input type="radio" id="name" name="format" value="HTML" checked> HTML </input>
-                        <input type="radio" id="name" name="format" value="XHTML"> XHTML </input>
+                        <input type="radio" id="name" name="format" value="HTML" checked> HTML
+                        <input type="radio" id="name" name="format" value="XHTML"> XHTML
                     </div>
                 </div>
             </fieldset>

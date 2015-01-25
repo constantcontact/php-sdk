@@ -16,6 +16,9 @@ use GuzzleHttp\Message\Response;
 
 class CampaignTrackingServiceUnitTest extends PHPUnit_Framework_TestCase
 {
+    /**
+     * @var Client
+     */
     private static $client;
 
     public static function setUpBeforeClass()

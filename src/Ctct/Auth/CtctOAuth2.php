@@ -104,6 +104,10 @@ class CtctOAuth2
         return $response;
     }
 
+    /**
+     * @param ClientException $exception
+     * @return OAuth2Exception
+     */
     private function convertException($exception) {
         $oauth2Exception = new OAuth2Exception($exception->getResponse()->getReasonPhrase(), $exception->getCode());
         $oauth2Exception->setUrl($exception->getResponse()->getEffectiveUrl());

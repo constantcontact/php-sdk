@@ -12,6 +12,9 @@ use GuzzleHttp\Message\Response;
 
 class LibraryServiceUnitTest extends PHPUnit_Framework_TestCase
 {
+    /**
+     * @var Client
+     */
     private static $client;
 
     public static function setUpBeforeClass()

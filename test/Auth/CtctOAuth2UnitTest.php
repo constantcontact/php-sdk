@@ -9,9 +9,16 @@ use GuzzleHttp\Subscriber\Mock;
 
 class CtctOAuth2UnitTest extends PHPUnit_Framework_TestCase
 {
+    /**
+     * @var Client
+     */
     private static $client;
 
+    /**
+     * @var CtctOAuth2
+     */
     private $ctctOAuth2;
+
     private $apiKey = "apiKey";
     private $clientSecret = "clientSecret";
     private $redirectUri = "redirectUri";

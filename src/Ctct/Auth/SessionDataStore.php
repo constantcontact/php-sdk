@@ -32,6 +32,7 @@ class SessionDataStore implements CtctDataStore
     /**
      * Get an existing user from the data store
      * @param string $username - Constant Contact username
+     * @return Array params of the username in the datastore, or false if the username doesn't exist
      */
     public function getUser($username)
     {

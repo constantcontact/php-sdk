@@ -11,6 +11,9 @@ use GuzzleHttp\Message\Response;
 
 class ListServiceUnitTest extends PHPUnit_Framework_TestCase
 {
+    /**
+     * @var Client
+     */
     private static $client;
 
     public static function setUpBeforeClass()

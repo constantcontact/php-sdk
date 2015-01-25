@@ -4,8 +4,6 @@ namespace Ctct\Services;
 use Ctct\Exceptions\CtctException;
 use Ctct\Util\Config;
 use Ctct\Components\Contacts\ContactList;
-use Ctct\Components\Contacts\Contact;
-use Ctct\Components\ResultSet;
 use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Stream\Stream;
 

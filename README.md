@@ -38,6 +38,12 @@ Composer also prepares an autoload file that's capable of autoloading all of the
 require 'vendor/autoload.php';
 ```
 
+## Documentation
+
+The source documentation is hosted at http://constantcontact.github.io/php-sdk
+
+API Documentation is located at http://developer.constantcontact.com/docs/developer-guides/api-documentation-index.html
+
 ## Usage
 Once either the composer or built in autoloader has been required, you can begin using the SDK.
 ```php

@@ -57,7 +57,7 @@ class AddContacts extends Component
                 $usedColumns[] = Config::get('activities_columns.home_phone');
             }
 			
-			if (isset($contact->birthday_day)) {
+            if (isset($contact->birthday_day)) {
                 $usedColumns[] = Config::get('activities_columns.birthday_day');
             }
             if (isset($contact->birthday_month)) {

@@ -21,6 +21,10 @@ class AddContactsImportData extends Component
     public $company_name;
     public $work_phone;
     public $home_phone;
+	
+	public $birthday_day;
+	public $birthday_month;
+	public $anniversary;
 
     public $email_addresses = array();
     public $addresses = array();

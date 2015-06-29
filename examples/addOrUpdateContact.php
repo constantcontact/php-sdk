@@ -35,6 +35,9 @@ try {
     foreach ($ex->getErrors() as $error) {
         print_r($error);
     }
+    if (!isset($lists)) {
+        $lists = null;
+    }
 }
 
 // check if the form was submitted

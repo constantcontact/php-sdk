@@ -34,6 +34,11 @@ require 'vendor/autoload.php';
 ### Manual Installation
 Manual installation is not recommended, as this library relies on other Composer libraries to function. Getting started with composer is easy!
 
+## Documentation
+
+The source documentation is hosted at http://constantcontact.github.io/php-sdk
+
+API Documentation is located at http://developer.constantcontact.com/docs/developer-guides/api-documentation-index.html
 
 ## Usage
 Once either the composer or built in autoloader has been required, you can begin using the SDK.

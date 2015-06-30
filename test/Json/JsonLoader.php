@@ -2,25 +2,14 @@
 
 class JsonLoader
 {
-
     const CONTACTS_FOLDER = "/Contacts";
     const LISTS_FOLDER = "/Lists";
     const CAMPAIGNS_FOLDER = "/Campaigns";
     const CAMPAIGN_TRACKING_FOLDER = "/Tracking";
-    const ACTIVITES_FOLDER = "/Activities";
-    const ACCCOUNT_FOLDER = "/Account";
+    const ACTIVITIES_FOLDER = "/Activities";
+    const ACCOUNT_FOLDER = "/Account";
     const AUTH_FOLDER = "/Auth";
     const LIBRARY_FOLDER = "/Library";
-
-    public static function getContactsTextContents()
-    {
-        return file_get_contents(__DIR__. self::ACTIVITES_FOLDER . "/add_contacts.txt");
-    }
-
-    public static function getRemoveContactsTextContents()
-    {
-        return file_get_contents(__DIR__. self::ACTIVITES_FOLDER . "/remove_contacts.txt");
-    }
 
     public static function getTokenInfoJson()
     {
@@ -34,17 +23,37 @@ class JsonLoader
 
     public static function getVerifiedAddressesJson()
     {
-        return file_get_contents(__DIR__ . self::ACCCOUNT_FOLDER . "/get_verified_email_addresses.json");
+        return file_get_contents(__DIR__ . self::ACCOUNT_FOLDER . "/get_verified_email_addresses.json");
     }
 
     public static function getAccountInfoJson()
     {
-        return file_get_contents(__DIR__ . self::ACCCOUNT_FOLDER . "/get_account_info.json");
+        return file_get_contents(__DIR__ . self::ACCOUNT_FOLDER . "/get_account_info.json");
     }
 
     public static function getLibraryFileJson()
     {
         return file_get_contents(__DIR__ . self::LIBRARY_FOLDER . "/get_library_file.json");
+    }
+
+    public static function getLibraryFilesJson()
+    {
+        return file_get_contents(__DIR__ . self::LIBRARY_FOLDER . "/get_library_files.json");
+    }
+
+    public static function getLibraryFolderJson()
+    {
+        return file_get_contents(__DIR__ . self::LIBRARY_FOLDER . "/get_library_folder.json");
+    }
+
+    public static function getLibraryFoldersJson()
+    {
+        return file_get_contents(__DIR__ . self::LIBRARY_FOLDER . "/get_library_folders.json");
+    }
+
+    public static function getFileUploadStatusJson()
+    {
+        return file_get_contents(__DIR__ . self::LIBRARY_FOLDER . "/get_file_upload_status.json");
     }
 
     public static function getContactJson()
@@ -55,11 +64,6 @@ class JsonLoader
     public static function getContactsJson()
     {
         return file_get_contents(__DIR__ . self::CONTACTS_FOLDER . "/get_contacts.json");
-    }
-
-    public static function getContactsModifiedSinceJson()
-    {
-        return file_get_contents(__DIR__ . self::CONTACTS_FOLDER . "/get_contacts_modified_since.json");
     }
 
     public static function getContactsNoNextJson()
@@ -80,11 +84,6 @@ class JsonLoader
     public static function getCampaignJson()
     {
         return file_get_contents(__DIR__ . self::CAMPAIGNS_FOLDER . "/get_campaign.json");
-    }
-
-    public static function getCampaignModifiedSinceJson($page = 1)
-    {
-        return file_get_contents(__DIR__ . self::CAMPAIGNS_FOLDER . "/get_campaigns_modified_since{$page}.json");
     }
 
     public static function getCampaignsJson()
@@ -144,31 +143,31 @@ class JsonLoader
 
     public static function getActivities()
     {
-        return file_get_contents(__DIR__ . self::ACTIVITES_FOLDER . "/get_activities.json");
+        return file_get_contents(__DIR__ . self::ACTIVITIES_FOLDER . "/get_activities.json");
     }
 
     public static function getActivity()
     {
-        return file_get_contents(__DIR__ . self::ACTIVITES_FOLDER . "/get_activity.json");
+        return file_get_contents(__DIR__ . self::ACTIVITIES_FOLDER . "/get_activity.json");
     }
 
     public static function getClearListsActivity()
     {
-        return file_get_contents(__DIR__ . self::ACTIVITES_FOLDER . "/post_clear_lists.json");
+        return file_get_contents(__DIR__ . self::ACTIVITIES_FOLDER . "/post_clear_lists.json");
     }
 
     public static function getExportContactsActivity()
     {
-        return file_get_contents(__DIR__ . self::ACTIVITES_FOLDER . "/post_export_contacts.json");
+        return file_get_contents(__DIR__ . self::ACTIVITIES_FOLDER . "/post_export_contacts.json");
     }
 
     public static function getRemoveContactsFromListsActivity()
     {
-        return file_get_contents(__DIR__ . self::ACTIVITES_FOLDER . "/post_remove_contacts_from_lists.json");
+        return file_get_contents(__DIR__ . self::ACTIVITIES_FOLDER . "/post_remove_contacts_from_lists.json");
     }
 
     public static function getAddContactsActivity()
     {
-        return file_get_contents(__DIR__ . self::ACTIVITES_FOLDER . "/post_add_contacts.json");
+        return file_get_contents(__DIR__ . self::ACTIVITIES_FOLDER . "/post_add_contacts.json");
     }
 }

@@ -38,11 +38,17 @@ class AddContacts extends Component
             if (isset($contact->first_name)) {
                 $usedColumns[] = Config::get('activities_columns.first_name');
             }
-            if (isset($contact->middle_name)) {
-                $usedColumns[] = Config::get('activities_columns.middle_name');
-            }
             if (isset($contact->last_name)) {
                 $usedColumns[] = Config::get('activities_columns.last_name');
+            }
+            if (isset($contact->birthday_day)) {
+                $usedColumns[] = Config::get('activities_columns.birthday_day');
+            }
+            if (isset($contact->birthday_month)) {
+                $usedColumns[] = Config::get('activities_columns.birthday_month');
+            }
+            if (isset($contact->anniversary)) {
+                $usedColumns[] = Config::get('activities_columns.anniversary');
             }
             if (isset($contact->job_title)) {
                 $usedColumns[] = Config::get('activities_columns.job_title');

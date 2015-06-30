@@ -1,9 +1,12 @@
 <?php
 namespace Ctct\Services;
 
+use Ctct\Exceptions\CtctException;
 use Ctct\Util\Config;
 use Ctct\Components\EmailMarketing\Campaign;
 use Ctct\Components\ResultSet;
+use GuzzleHttp\Exception\ClientException;
+use GuzzleHttp\Stream\Stream;
 
 /**
  * Performs all actions pertaining to Constant Contact Campaigns
@@ -18,31 +21,64 @@ class EmailMarketingService extends BaseService
      * @param string $accessToken - Constant Contact OAuth2 access token
      * @param Campaign $campaign - Campaign to be created
      * @return Campaign
+     * @throws CtctException
      */
     public function addCampaign($accessToken, Campaign $campaign)
     {
         $baseUrl = Config::get('endpoints.base_url') . Config::get('endpoints.campaigns');
-        $url = $this->buildUrl($baseUrl);
-        $response = parent::getRestClient()->post($url, parent::getHeaders($accessToken), $campaign->toJson());
-        return Campaign::create(json_decode($response->body, true));
+        if ($campaign->message_footer == null) {
+            // API doesn't work well with a null message footer, so omit it entirely.
+            unset($campaign->message_footer);
+        }
+
+        $request = parent::createBaseRequest($accessToken, 'POST', $baseUrl);
+        $stream = Stream::factory(json_encode($campaign));
+        $request->setBody($stream);
+
+        try {
+            $response = parent::getClient()->send($request);
+        } catch (ClientException $e) {
+            throw parent::convertException($e);
+        }
+
+        return Campaign::create($response->json());
     }
 
     /**
      * Get a set of campaigns
      * @param string $accessToken - Constant Contact OAuth2 access token
-     * @param array $params - query params to be appended to the request
+     * @param array $params - associative array of query parameters and values to append to the request.
+     *      Allowed parameters include:
+     *      limit - Specifies the number of results displayed per page of output, from 1 - 500, default = 50.
+     *      modified_since - ISO-8601 formatted timestamp.
+     *      next - the next link returned from a previous paginated call. May only be used by itself.
      * @return ResultSet
+     * @throws CtctException
      */
-    public function getCampaigns($accessToken, Array $params = null)
+    public function getCampaigns($accessToken, Array $params = array())
     {
         $baseUrl = Config::get('endpoints.base_url') . Config::get('endpoints.campaigns');
-        $url = $this->buildUrl($baseUrl, $params);
-        $response = parent::getRestClient()->get($url, parent::getHeaders($accessToken));
-        $body = json_decode($response->body, true);
+
+        $request = parent::createBaseRequest($accessToken, 'GET', $baseUrl);
+        if ($params) {
+            $query = $request->getQuery();
+            foreach ($params as $name => $value) {
+                $query->add($name, $value);
+            }
+        }
+
+        try {
+            $response = parent::getClient()->send($request);
+        } catch (ClientException $e) {
+            throw parent::convertException($e);
+        }
+
+        $body = $response->json();
         $campaigns = array();
         foreach ($body['results'] as $contact) {
             $campaigns[] = Campaign::createSummary($contact);
         }
+
         return new ResultSet($campaigns, $body['meta']);
     }
 
@@ -51,13 +87,21 @@ class EmailMarketingService extends BaseService
      * @param string $accessToken - Constant Contact OAuth2 access token
      * @param int $campaign_id - Valid campaign id
      * @return Campaign
+     * @throws CtctException
      */
     public function getCampaign($accessToken, $campaign_id)
     {
         $baseUrl = Config::get('endpoints.base_url') . sprintf(Config::get('endpoints.campaign'), $campaign_id);
-        $url = $this->buildUrl($baseUrl);
-        $response = parent::getRestClient()->get($url, parent::getHeaders($accessToken));
-        return Campaign::create(json_decode($response->body, true));
+
+        $request = parent::createBaseRequest($accessToken, 'GET', $baseUrl);
+
+        try {
+            $response = parent::getClient()->send($request);
+        } catch (ClientException $e) {
+            throw parent::convertException($e);
+        }
+
+        return Campaign::create($response->json());
     }
 
     /**
@@ -65,13 +109,21 @@ class EmailMarketingService extends BaseService
      * @param string $accessToken - Constant Contact OAuth2 access token
      * @param int $campaign_id - Valid campaign id
      * @return boolean
+     * @throws CtctException
      */
     public function deleteCampaign($accessToken, $campaign_id)
     {
         $baseUrl = Config::get('endpoints.base_url') . sprintf(Config::get('endpoints.campaign'), $campaign_id);
-        $url = $this->buildUrl($baseUrl);
-        $response = parent::getRestClient()->delete($url, parent::getHeaders($accessToken));
-        return ($response->info['http_code'] == 204) ? true : false;
+
+        $request = parent::createBaseRequest($accessToken, 'DELETE', $baseUrl);
+
+        try {
+            $response = parent::getClient()->send($request);
+        } catch (ClientException $e) {
+            throw parent::convertException($e);
+        }
+
+        return ($response->getStatusCode() == 204) ? true : false;
     }
 
     /**
@@ -79,12 +131,22 @@ class EmailMarketingService extends BaseService
      * @param string $accessToken - Constant Contact OAuth2 access token
      * @param Campaign $campaign - Campaign to be updated
      * @return Campaign
+     * @throws CtctException
      */
     public function updateCampaign($accessToken, Campaign $campaign)
     {
         $baseUrl = Config::get('endpoints.base_url') . sprintf(Config::get('endpoints.campaign'), $campaign->id);
-        $url = $this->buildUrl($baseUrl);
-        $response = parent::getRestClient()->put($url, parent::getHeaders($accessToken), $campaign->toJson());
-        return Campaign::create(json_decode($response->body, true));
+
+        $request = parent::createBaseRequest($accessToken, 'PUT', $baseUrl);
+        $stream = Stream::factory(json_encode($campaign));
+        $request->setBody($stream);
+
+        try {
+            $response = parent::getClient()->send($request);
+        } catch (ClientException $e) {
+            throw parent::convertException($e);
+        }
+
+        return Campaign::create($response->json());
     }
 }

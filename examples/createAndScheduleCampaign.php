@@ -17,13 +17,12 @@ For more information on this, please visit: http://support2.constantcontact.com/
 -->
 
 <?php
-// require the autoloader
+// require the autoloaders
 require_once '../src/Ctct/autoload.php';
+require_once '../vendor/autoload.php';
 
 use Ctct\ConstantContact;
-use Ctct\Components\Contacts\ContactList;
 use Ctct\Components\EmailMarketing\Campaign;
-use Ctct\Components\EmailMarketing\MessageFooter;
 use Ctct\Components\EmailMarketing\Schedule;
 use Ctct\Exceptions\CtctException;
 
@@ -37,8 +36,9 @@ $date = date('Y-m-d\TH:i:s\.000\Z', strtotime("+1 month"));
 /**
  * Create an email campaign with the parameters provided
  * @param array $params associative array of parameters to create a campaign from
+ * @return Campaign updated by server
  */
-function createCampaign(array $params)
+function createCampaign(array $params = array())
 {
     $cc = new ConstantContact(APIKEY);
     $campaign = new Campaign();
@@ -63,20 +63,21 @@ function createCampaign(array $params)
         }
     }
 
-    return $cc->addEmailCampaign(ACCESS_TOKEN, $campaign);
+    return $cc->emailMarketingService->addCampaign(ACCESS_TOKEN, $campaign);
 }
 
 /**
  * Create a schedule for a campaign - this is time the campaign will be sent out
  * @param $campaignId - Id of the campaign to be scheduled
  * @param $time - ISO 8601 formatted timestamp of when the campaign should be sent
+ * @return Schedule updated by server
  */
 function createSchedule($campaignId, $time)
 {
     $cc = new ConstantContact(APIKEY);
     $schedule = new Schedule();
     $schedule->scheduled_date = $time;
-    return $cc->addEmailCampaignSchedule(ACCESS_TOKEN, $campaignId, $schedule);
+    return $cc->campaignScheduleService->addSchedule(ACCESS_TOKEN, $campaignId, $schedule);
 }
 
 // check to see if the form was submitted
@@ -108,7 +109,7 @@ if (isset($_POST['name'])) {
 
 // attempt to get the lists in this account, displaying any errors that occur
 try {
-    $lists = $cc->getLists(ACCESS_TOKEN);
+    $lists = $cc->listService->getLists(ACCESS_TOKEN);
 } catch (CtctException $ex) {
     echo '<div class="container alert-error"><pre class="failure-pre">';
     print_r($ex->getErrors());
@@ -211,8 +212,8 @@ try {
                     <label class="control-label" for="format">Email Content Format</label>
 
                     <div class="controls">
-                        <input type="radio" id="name" name="format" value="HTML" checked> HTML </input>
-                        <input type="radio" id="name" name="format" value="XHTML"> XHTML </input>
+                        <input type="radio" id="name" name="format" value="HTML" checked> HTML
+                        <input type="radio" id="name" name="format" value="XHTML"> XHTML
                     </div>
                 </div>
             </fieldset>

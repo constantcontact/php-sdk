@@ -23,7 +23,7 @@ class UnsubscribeActivity extends Component
     /**
      * Factory method to create an OptOutActivity object from an array
      * @param array $props - array of properties to create object from
-     * @return ClickActivity
+     * @return UnsubscribeActivity
      */
     public static function create(array $props)
     {

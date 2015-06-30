@@ -1,42 +1,54 @@
 <?php
 
-use Ctct\Services\ContactService;
-use Ctct\Util\RestClient;
+use Ctct\Components\ResultSet;
 use Ctct\Components\Contacts\Contact;
-use Ctct\Util\CurlResponse;
+
+use GuzzleHttp\Client;
+use GuzzleHttp\Exception\ClientException;
+use GuzzleHttp\Subscriber\Mock;
+use GuzzleHttp\Stream\Stream;
+use GuzzleHttp\Message\Response;
 
 class ContactServiceUnitTest extends PHPUnit_Framework_TestCase
 {
-    private $restClient;
-    private $contactService;
+    /**
+     * @var Client
+     */
+    private static $client;
 
-    public function setUp()
+    public static function setUpBeforeClass()
     {
-        $this->restClient = $this->getMock('Ctct\Util\RestClientInterface');
-        $this->contactService = new ContactService("apikey", $this->restClient);
+        self::$client = new Client();
+        $contactsStream = Stream::factory(JsonLoader::getContactsJson());
+        $contactsNoNextStream = Stream::factory(JsonLoader::getContactsNoNextJson());
+        $contactStream = Stream::factory(JsonLoader::getContactJson());
+        $mock = new Mock([
+            new Response(200, array(), $contactsStream),
+            new Response(200, array(), $contactsNoNextStream),
+            new Response(200, array(), $contactStream),
+            new Response(201, array(), $contactStream),
+            new Response(204, array()),
+            new Response(400, array()),
+            new Response(200, array(), $contactStream)
+        ]);
+        self::$client->getEmitter()->attach($mock);
     }
 
     public function testGetContacts()
     {
-        $curlResponse = CurlResponse::create(JsonLoader::getContactsJson(), array('http_code' => 200));
-        $this->restClient->expects($this->once())
-            ->method('get')
-            ->with()
-            ->will($this->returnValue($curlResponse));
+        $response = self::$client->get('/')->json();
+        $result = new ResultSet($response['results'], $response['meta']);
 
-        $response = $this->contactService->getContacts('access_token', array('limit' => 2));
+        $this->assertInstanceOf('Ctct\Components\ResultSet', $result);
+        $this->assertEquals('c3RhcnRBdD0zJmxpbWl0PTI', $result->next);
 
-        $this->assertInstanceOf("Ctct\Components\ResultSet", $response);
-        $this->assertEquals('c3RhcnRBdD0zJmxpbWl0PTI', $response->next);
-
-        $contact = $response->results[1];
-        $this->assertInstanceOf("Ctct\Components\Contacts\Contact", $contact);
+        $contact = Contact::create($result->results[1]);
+        $this->assertInstanceOf('Ctct\Components\Contacts\Contact', $contact);
         $this->assertEquals(231, $contact->id);
         $this->assertEquals("ACTIVE", $contact->status);
         $this->assertEquals("", $contact->fax);
         $this->assertEquals("", $contact->prefix_name);
         $this->assertEquals("Jimmy", $contact->first_name);
-        $this->assertEquals("", $contact->middle_name);
         $this->assertEquals("Roving", $contact->last_name);
         $this->assertEquals("Bear Tamer", $contact->job_title);
         $this->assertEquals("Animal Trainer Pro", $contact->company_name);
@@ -45,20 +57,23 @@ class ContactServiceUnitTest extends PHPUnit_Framework_TestCase
         $this->assertEquals("", $contact->source);
 
         // custom fields
-        $this->assertEquals("CustomField1", $contact->custom_fields[0]->name);
-        $this->assertInstanceOf("Ctct\Components\Contacts\CustomField", $contact->custom_fields[0]);
-        $this->assertEquals("1", $contact->custom_fields[0]->value);
+        $customField = $contact->custom_fields[0];
+        $this->assertEquals("CustomField1", $customField->name);
+        $this->assertInstanceOf('Ctct\Components\Contacts\CustomField', $customField);
+        $this->assertEquals("1", $customField->value);
 
         //addresses
-        $this->assertEquals("Suite 101", $contact->addresses[0]->line1);
-        $this->assertEquals("line2", $contact->addresses[0]->line2);
-        $this->assertEquals("line3", $contact->addresses[0]->line3);
-        $this->assertEquals("Brookfield", $contact->addresses[0]->city);
-        $this->assertEquals("PERSONAL", $contact->addresses[0]->address_type);
-        $this->assertEquals("WI", $contact->addresses[0]->state_code);
-        $this->assertEquals("us", $contact->addresses[0]->country_code);
-        $this->assertEquals("53027", $contact->addresses[0]->postal_code);
-        $this->assertEquals("", $contact->addresses[0]->sub_postal_code);
+        $address = $contact->addresses[0];
+        $this->assertInstanceOf('Ctct\Components\Contacts\Address', $address);
+        $this->assertEquals("Suite 101", $address->line1);
+        $this->assertEquals("line2", $address->line2);
+        $this->assertEquals("line3", $address->line3);
+        $this->assertEquals("Brookfield", $address->city);
+        $this->assertEquals("PERSONAL", $address->address_type);
+        $this->assertEquals("WI", $address->state_code);
+        $this->assertEquals("us", $address->country_code);
+        $this->assertEquals("53027", $address->postal_code);
+        $this->assertEquals("", $address->sub_postal_code);
 
         //notes
         $this->assertEquals(0, count($contact->notes));
@@ -68,59 +83,31 @@ class ContactServiceUnitTest extends PHPUnit_Framework_TestCase
         $this->assertEquals("ACTIVE", $contact->lists[0]->status);
 
         // EmailAddress
-        $this->assertInstanceOf("Ctct\Components\Contacts\EmailAddress", $contact->email_addresses[0]);
-        $this->assertEquals("ACTIVE", $contact->email_addresses[0]->status);
-        $this->assertEquals("NO_CONFIRMATION_REQUIRED", $contact->email_addresses[0]->confirm_status);
-        $this->assertEquals("ACTION_BY_OWNER", $contact->email_addresses[0]->opt_in_source);
-        $this->assertEquals("2012-06-22T10:29:09.976Z", $contact->email_addresses[0]->opt_in_date);
-        $this->assertEquals("", $contact->email_addresses[0]->opt_out_date);
-        $this->assertEquals("anothertest@roving.com", $contact->email_addresses[0]->email_address);
-    }
-
-    public function testGetContactsModifiedSince()
-    {
-        $curlResponse = CurlResponse::create(
-            JsonLoader::getContactsModifiedSinceJson(),
-            array('modified_since' => '2013-01-12T20:04:59.436Z', 'limit' => 2)
-        );
-        $this->restClient->expects($this->once())
-            ->method('get')
-            ->with()
-            ->will($this->returnValue($curlResponse));
-
-        $response = $this->contactService->getContacts('access_token', array('limit' => 2));
-        $this->assertInstanceOf("Ctct\Components\ResultSet", $response);
-        $contact = $response->results[0];
-
-        $this->assertEquals('c3RhcnRBdD0yMjQmbGltaXQ9Mg', $response->next);
-        $this->assertEquals('1', $contact->id);
-        $this->assertEquals('John', $contact->first_name);
-        $this->assertEquals('Doe', $contact->last_name);
-
-        $this->assertEquals('6', $response->results[1]->id);
-        $this->assertEquals('ACTIVE', $response->results[1]->status);
+        $emailAddress = $contact->email_addresses[0];
+        $this->assertInstanceOf('Ctct\Components\Contacts\EmailAddress', $emailAddress);
+        $this->assertEquals("ACTIVE", $emailAddress->status);
+        $this->assertEquals("NO_CONFIRMATION_REQUIRED", $emailAddress->confirm_status);
+        $this->assertEquals("ACTION_BY_OWNER", $emailAddress->opt_in_source);
+        $this->assertEquals("2012-06-22T10:29:09.976Z", $emailAddress->opt_in_date);
+        $this->assertEquals("", $emailAddress->opt_out_date);
+        $this->assertEquals("anothertest@roving.com", $emailAddress->email_address);
     }
 
     public function testGetContactsNoNextLink()
     {
-        $curlResponse = CurlResponse::create(JsonLoader::getContactsNoNextJson(), array('http_code' => 200));
-        $this->restClient->expects($this->once())
-            ->method('get')
-            ->with()
-            ->will($this->returnValue($curlResponse));
+        $response = self::$client->get('/')->json();
+        $result = new ResultSet($response['results'], $response['meta']);
 
-        $response = $this->contactService->getContacts('access_token', array('limit' => 2));
-        $this->assertInstanceOf("Ctct\Components\ResultSet", $response);
-        $contact = $response->results[1];
+        $this->assertInstanceOf('Ctct\Components\ResultSet', $result);
+        $this->assertEquals(null, $result->next);
 
-        $this->assertInstanceOf("Ctct\Components\Contacts\Contact", $contact);
-        $this->assertEquals($response->next, null);
+        $contact = Contact::create($result->results[1]);
+        $this->assertInstanceOf('Ctct\Components\Contacts\Contact', $contact);
         $this->assertEquals(231, $contact->id);
         $this->assertEquals("ACTIVE", $contact->status);
         $this->assertEquals("", $contact->fax);
         $this->assertEquals("", $contact->prefix_name);
         $this->assertEquals("Jimmy", $contact->first_name);
-        $this->assertEquals("", $contact->middle_name);
         $this->assertEquals("Roving", $contact->last_name);
         $this->assertEquals("Bear Tamer", $contact->job_title);
         $this->assertEquals("Animal Trainer Pro", $contact->company_name);
@@ -129,57 +116,53 @@ class ContactServiceUnitTest extends PHPUnit_Framework_TestCase
         $this->assertEquals("", $contact->source);
 
         // custom fields
-        $this->assertInstanceOf("Ctct\Components\Contacts\CustomField", $contact->custom_fields[0]);
-        $this->assertEquals("CustomField1", $contact->custom_fields[0]->name);
-        $this->assertEquals("1", $contact->custom_fields[0]->value);
+        $customField = $contact->custom_fields[0];
+        $this->assertEquals("CustomField1", $customField->name);
+        $this->assertInstanceOf('Ctct\Components\Contacts\CustomField', $customField);
+        $this->assertEquals("1", $customField->value);
 
         //addresses
-        $this->assertInstanceOf("Ctct\Components\Contacts\Address", $contact->addresses[0]);
-        $this->assertEquals("Suite 101", $contact->addresses[0]->line1);
-        $this->assertEquals("line2", $contact->addresses[0]->line2);
-        $this->assertEquals("line3", $contact->addresses[0]->line3);
-        $this->assertEquals("Brookfield", $contact->addresses[0]->city);
-        $this->assertEquals("PERSONAL", $contact->addresses[0]->address_type);
-        $this->assertEquals("WI", $contact->addresses[0]->state_code);
-        $this->assertEquals("us", $contact->addresses[0]->country_code);
-        $this->assertEquals("53027", $contact->addresses[0]->postal_code);
-        $this->assertEquals("", $contact->addresses[0]->sub_postal_code);
+        $address = $contact->addresses[0];
+        $this->assertInstanceOf('Ctct\Components\Contacts\Address', $address);
+        $this->assertEquals("Suite 101", $address->line1);
+        $this->assertEquals("line2", $address->line2);
+        $this->assertEquals("line3", $address->line3);
+        $this->assertEquals("Brookfield", $address->city);
+        $this->assertEquals("PERSONAL", $address->address_type);
+        $this->assertEquals("WI", $address->state_code);
+        $this->assertEquals("us", $address->country_code);
+        $this->assertEquals("53027", $address->postal_code);
+        $this->assertEquals("", $address->sub_postal_code);
 
         //notes
         $this->assertEquals(0, count($contact->notes));
 
         //lists
-        $this->assertInstanceOf("Ctct\Components\Contacts\ContactList", $contact->lists[0]);
         $this->assertEquals(1, $contact->lists[0]->id);
         $this->assertEquals("ACTIVE", $contact->lists[0]->status);
 
         // EmailAddress
-        $this->assertInstanceOf("Ctct\Components\Contacts\EmailAddress", $contact->email_addresses[0]);
-        $this->assertEquals("ACTIVE", $contact->email_addresses[0]->status);
-        $this->assertEquals("NO_CONFIRMATION_REQUIRED", $contact->email_addresses[0]->confirm_status);
-        $this->assertEquals("ACTION_BY_OWNER", $contact->email_addresses[0]->opt_in_source);
-        $this->assertEquals("2012-06-22T10:29:09.976Z", $contact->email_addresses[0]->opt_in_date);
-        $this->assertEquals("", $contact->email_addresses[0]->opt_out_date);
-        $this->assertEquals("anothertest@roving.com", $contact->email_addresses[0]->email_address);
+        $emailAddress = $contact->email_addresses[0];
+        $this->assertInstanceOf('Ctct\Components\Contacts\EmailAddress', $emailAddress);
+        $this->assertEquals("ACTIVE", $emailAddress->status);
+        $this->assertEquals("NO_CONFIRMATION_REQUIRED", $emailAddress->confirm_status);
+        $this->assertEquals("ACTION_BY_OWNER", $emailAddress->opt_in_source);
+        $this->assertEquals("2012-06-22T10:29:09.976Z", $emailAddress->opt_in_date);
+        $this->assertEquals("", $emailAddress->opt_out_date);
+        $this->assertEquals("anothertest@roving.com", $emailAddress->email_address);
     }
 
     public function testGetContact()
     {
-        $curlResponse = CurlResponse::create(JsonLoader::getContactJson(), array('http_code' => 200));
-        $this->restClient->expects($this->once())
-            ->method('get')
-            ->with()
-            ->will($this->returnValue($curlResponse));
+        $response = self::$client->get('/');
 
-        $contact = $this->contactService->getContact('access_token', 1);
-
-        $this->assertInstanceOf("Ctct\Components\Contacts\Contact", $contact);
+        $contact = Contact::create($response->json());
+        $this->assertInstanceOf('Ctct\Components\Contacts\Contact', $contact);
         $this->assertEquals(238, $contact->id);
         $this->assertEquals("ACTIVE", $contact->status);
         $this->assertEquals("555-1212", $contact->fax);
         $this->assertEquals("Mr.", $contact->prefix_name);
         $this->assertEquals("John", $contact->first_name);
-        $this->assertEquals("S", $contact->middle_name);
         $this->assertEquals("Smith", $contact->last_name);
         $this->assertEquals("Software Engineer", $contact->job_title);
         $this->assertEquals("Constant Contact", $contact->company_name);
@@ -191,14 +174,14 @@ class ContactServiceUnitTest extends PHPUnit_Framework_TestCase
         $this->assertEquals("API", $contact->source);
 
         // custom fields
-        $this->assertInstanceOf("Ctct\Components\Contacts\CustomField", $contact->custom_fields[0]);
+        $this->assertInstanceOf('Ctct\Components\Contacts\CustomField', $contact->custom_fields[0]);
         $this->assertEquals("CustomField1", $contact->custom_fields[0]->name);
         $this->assertEquals("3/28/2011 11:09 AM EDT", $contact->custom_fields[0]->value);
         $this->assertEquals("CustomField2", $contact->custom_fields[1]->name);
         $this->assertEquals("Site owner", $contact->custom_fields[1]->value);
 
         //addresses
-        $this->assertInstanceOf("Ctct\Components\Contacts\Address", $contact->addresses[0]);
+        $this->assertInstanceOf('Ctct\Components\Contacts\Address', $contact->addresses[0]);
         $this->assertEquals("1601 Trapelo Rd", $contact->addresses[0]->line1);
         $this->assertEquals("Suite 329", $contact->addresses[0]->line2);
         $this->assertEquals("Line 3", $contact->addresses[0]->line3);
@@ -210,18 +193,18 @@ class ContactServiceUnitTest extends PHPUnit_Framework_TestCase
         $this->assertEquals("7885", $contact->addresses[0]->sub_postal_code);
 
         //notes
-        $this->assertInstanceOf("Ctct\Components\Contacts\Note", $contact->notes[0]);
+        $this->assertInstanceOf('Ctct\Components\Contacts\Note', $contact->notes[0]);
         $this->assertEquals(1, $contact->notes[0]->id);
         $this->assertEquals("Here are some cool notes to add", $contact->notes[0]->note);
         $this->assertEquals("2012-12-03T17:09:22.702Z", $contact->notes[0]->created_date);
 
         //lists
-        $this->assertInstanceOf("Ctct\Components\Contacts\ContactList", $contact->lists[0]);
+        $this->assertInstanceOf('Ctct\Components\Contacts\ContactList', $contact->lists[0]);
         $this->assertEquals(9, $contact->lists[0]->id);
         $this->assertEquals("ACTIVE", $contact->lists[0]->status);
 
         // EmailAddress
-        $this->assertInstanceOf("Ctct\Components\Contacts\EmailAddress", $contact->email_addresses[0]);
+        $this->assertInstanceOf('Ctct\Components\Contacts\EmailAddress', $contact->email_addresses[0]);
         $this->assertEquals("ACTIVE", $contact->email_addresses[0]->status);
         $this->assertEquals("NO_CONFIRMATION_REQUIRED", $contact->email_addresses[0]->confirm_status);
         $this->assertEquals("ACTION_BY_VISITOR", $contact->email_addresses[0]->opt_in_source);
@@ -230,85 +213,17 @@ class ContactServiceUnitTest extends PHPUnit_Framework_TestCase
         $this->assertEquals("john+smith@gmail.com", $contact->email_addresses[0]->email_address);
     }
 
-    public function testGetContactByEmail()
-    {
-        $curlResponse = CurlResponse::create(JsonLoader::getContactsJson(), array('http_code' => 200));
-        $this->restClient->expects($this->once())
-            ->method('get')
-            ->with()
-            ->will($this->returnValue($curlResponse));
-
-        $response = $this->contactService->getContacts('access_token', array('email' => 'anothertest@roving.com'));
-
-        $this->assertInstanceOf("Ctct\Components\ResultSet", $response);
-        $this->assertEquals('c3RhcnRBdD0zJmxpbWl0PTI', $response->next);
-        $contact = $response->results[1];
-
-        $this->assertInstanceOf("Ctct\Components\Contacts\Contact", $contact);
-        $this->assertEquals(231, $contact->id);
-        $this->assertEquals("ACTIVE", $contact->status);
-        $this->assertEquals("", $contact->fax);
-        $this->assertEquals("", $contact->prefix_name);
-        $this->assertEquals("Jimmy", $contact->first_name);
-        $this->assertEquals("", $contact->middle_name);
-        $this->assertEquals("Roving", $contact->last_name);
-        $this->assertEquals("Bear Tamer", $contact->job_title);
-        $this->assertEquals("Animal Trainer Pro", $contact->company_name);
-        $this->assertEquals("details", $contact->source_details);
-        $this->assertEquals(false, $contact->confirmed);
-        $this->assertEquals("", $contact->source);
-
-        // custom fields
-        $this->assertInstanceOf("Ctct\Components\Contacts\CustomField", $contact->custom_fields[0]);
-        $this->assertEquals("CustomField1", $contact->custom_fields[0]->name);
-        $this->assertEquals("1", $contact->custom_fields[0]->value);
-
-        //addresses
-        $this->assertInstanceOf("Ctct\Components\Contacts\Address", $contact->addresses[0]);
-        $this->assertEquals("Suite 101", $contact->addresses[0]->line1);
-        $this->assertEquals("line2", $contact->addresses[0]->line2);
-        $this->assertEquals("line3", $contact->addresses[0]->line3);
-        $this->assertEquals("Brookfield", $contact->addresses[0]->city);
-        $this->assertEquals("PERSONAL", $contact->addresses[0]->address_type);
-        $this->assertEquals("WI", $contact->addresses[0]->state_code);
-        $this->assertEquals("us", $contact->addresses[0]->country_code);
-        $this->assertEquals("53027", $contact->addresses[0]->postal_code);
-        $this->assertEquals("", $contact->addresses[0]->sub_postal_code);
-
-        //notes
-        $this->assertEquals(0, count($contact->notes));
-
-        //lists
-        $this->assertInstanceOf("Ctct\Components\Contacts\ContactList", $contact->lists[0]);
-        $this->assertEquals(1, $contact->lists[0]->id);
-        $this->assertEquals("ACTIVE", $contact->lists[0]->status);
-
-        // EmailAddress
-        $this->assertInstanceOf("Ctct\Components\Contacts\EmailAddress", $contact->email_addresses[0]);
-        $this->assertEquals("ACTIVE", $contact->email_addresses[0]->status);
-        $this->assertEquals("NO_CONFIRMATION_REQUIRED", $contact->email_addresses[0]->confirm_status);
-        $this->assertEquals("ACTION_BY_OWNER", $contact->email_addresses[0]->opt_in_source);
-        $this->assertEquals("2012-06-22T10:29:09.976Z", $contact->email_addresses[0]->opt_in_date);
-        $this->assertEquals("", $contact->email_addresses[0]->opt_out_date);
-        $this->assertEquals("anothertest@roving.com", $contact->email_addresses[0]->email_address);
-    }
-
     public function testAddContact()
     {
-        $curlResponse = CurlResponse::create(JsonLoader::getContactJson(), array('http_code' => 201));
-        $this->restClient->expects($this->once())
-            ->method('post')
-            ->with()
-            ->will($this->returnValue($curlResponse));
+        $response = self::$client->post('/');
 
-        $contact = $this->contactService->addContact('access_token', new Contact(), array());
-        $this->assertInstanceOf("Ctct\Components\Contacts\Contact", $contact);
+        $contact = Contact::create($response->json());
+        $this->assertInstanceOf('Ctct\Components\Contacts\Contact', $contact);
         $this->assertEquals(238, $contact->id);
         $this->assertEquals("ACTIVE", $contact->status);
         $this->assertEquals("555-1212", $contact->fax);
         $this->assertEquals("Mr.", $contact->prefix_name);
         $this->assertEquals("John", $contact->first_name);
-        $this->assertEquals("S", $contact->middle_name);
         $this->assertEquals("Smith", $contact->last_name);
         $this->assertEquals("Software Engineer", $contact->job_title);
         $this->assertEquals("Constant Contact", $contact->company_name);
@@ -320,14 +235,14 @@ class ContactServiceUnitTest extends PHPUnit_Framework_TestCase
         $this->assertEquals("API", $contact->source);
 
         // custom fields
-        $this->assertInstanceOf("Ctct\Components\Contacts\CustomField", $contact->custom_fields[0]);
+        $this->assertInstanceOf('Ctct\Components\Contacts\CustomField', $contact->custom_fields[0]);
         $this->assertEquals("CustomField1", $contact->custom_fields[0]->name);
         $this->assertEquals("3/28/2011 11:09 AM EDT", $contact->custom_fields[0]->value);
         $this->assertEquals("CustomField2", $contact->custom_fields[1]->name);
         $this->assertEquals("Site owner", $contact->custom_fields[1]->value);
 
         //addresses
-        $this->assertInstanceOf("Ctct\Components\Contacts\Address", $contact->addresses[0]);
+        $this->assertInstanceOf('Ctct\Components\Contacts\Address', $contact->addresses[0]);
         $this->assertEquals("1601 Trapelo Rd", $contact->addresses[0]->line1);
         $this->assertEquals("Suite 329", $contact->addresses[0]->line2);
         $this->assertEquals("Line 3", $contact->addresses[0]->line3);
@@ -339,18 +254,18 @@ class ContactServiceUnitTest extends PHPUnit_Framework_TestCase
         $this->assertEquals("7885", $contact->addresses[0]->sub_postal_code);
 
         //notes
-        $this->assertInstanceOf("Ctct\Components\Contacts\Note", $contact->notes[0]);
+        $this->assertInstanceOf('Ctct\Components\Contacts\Note', $contact->notes[0]);
         $this->assertEquals(1, $contact->notes[0]->id);
         $this->assertEquals("Here are some cool notes to add", $contact->notes[0]->note);
         $this->assertEquals("2012-12-03T17:09:22.702Z", $contact->notes[0]->created_date);
 
         //lists
-        $this->assertInstanceOf("Ctct\Components\Contacts\ContactList", $contact->lists[0]);
+        $this->assertInstanceOf('Ctct\Components\Contacts\ContactList', $contact->lists[0]);
         $this->assertEquals(9, $contact->lists[0]->id);
         $this->assertEquals("ACTIVE", $contact->lists[0]->status);
 
         // EmailAddress
-        $this->assertInstanceOf("Ctct\Components\Contacts\EmailAddress", $contact->email_addresses[0]);
+        $this->assertInstanceOf('Ctct\Components\Contacts\EmailAddress', $contact->email_addresses[0]);
         $this->assertEquals("ACTIVE", $contact->email_addresses[0]->status);
         $this->assertEquals("NO_CONFIRMATION_REQUIRED", $contact->email_addresses[0]->confirm_status);
         $this->assertEquals("ACTION_BY_VISITOR", $contact->email_addresses[0]->opt_in_source);
@@ -361,94 +276,31 @@ class ContactServiceUnitTest extends PHPUnit_Framework_TestCase
 
     public function testDeleteContact()
     {
-        $curlResponse = CurlResponse::create(null, array('http_code' => 204));
-        $this->restClient->expects($this->once())
-            ->method('delete')
-            ->with()
-            ->will($this->returnValue($curlResponse));
+        $response = self::$client->delete('/');
 
-        $response = $this->contactService->deleteContact('access_token', 1);
-        $this->assertTrue($response);
+        $this->assertEquals(204, $response->getStatusCode());
     }
 
-    public function testDeleteContactFailed()
-    {
-        $curlResponse = CurlResponse::create(null, array('http_code' => 400));
-        $this->restClient->expects($this->once())
-            ->method('delete')
-            ->with()
-            ->will($this->returnValue($curlResponse));
-
-        $response = $this->contactService->deleteContact('access_token', 1);
-        $this->assertFalse($response);
-    }
-
-    public function testDeleteContactFromLists()
-    {
-        $curlResponse = CurlResponse::create(null, array('http_code' => 204));
-        $this->restClient->expects($this->once())
-            ->method('delete')
-            ->with()
-            ->will($this->returnValue($curlResponse));
-
-        $response = $this->contactService->deleteContactFromLists('access_token', 9);
-        $this->assertTrue($response);
-    }
-
-    public function testDeleteContactFromListsFailed()
-    {
-        $curlResponse = CurlResponse::create(null, array('http_code' => 400), null);
-
-        $this->restClient->expects($this->once())
-            ->method('delete')
-            ->with()
-            ->will($this->returnValue($curlResponse));
-
-        $response = $this->contactService->deleteContactFromLists('access_token', 9);
-        $this->assertFalse($response);
-    }
-
-    public function testDeleteContactFromList()
-    {
-        $curlResponse = CurlResponse::create(null, array('http_code' => 204));
-        $this->restClient->expects($this->once())
-            ->method('delete')
-            ->with()
-            ->will($this->returnValue($curlResponse));
-
-        $response = $this->contactService->deleteContactFromList('access_token', 9, 1);
-        $this->assertTrue($response);
-    }
-
-    public function testDeleteContactFromListFailed()
-    {
-        $curlResponse = CurlResponse::create(null, array('http_code' => 400));
-        $this->restClient->expects($this->once())
-            ->method('delete')
-            ->with()
-            ->will($this->returnValue($curlResponse));
-
-        $response = $this->contactService->deleteContactFromList('access_token', 9, 1);
-        $this->assertFalse($response);
+    public function testDeleteContactFailed() {
+        try {
+            self::$client->delete('/');
+            $this->fail("Delete call didn't fail");
+        } catch (ClientException $e) {
+            $this->assertEquals(400, $e->getCode());
+        }
     }
 
     public function testUpdateContact()
     {
-        $curlResponse = CurlResponse::create(JsonLoader::getContactJson(), array('http_code' => 200));
-        $this->restClient->expects($this->once())
-            ->method('put')
-            ->with()
-            ->will($this->returnValue($curlResponse));
+        $response = self::$client->put('/');
 
-        $contact = $this->contactService->updateContact('access_token', new Contact(), array());
-
-        $this->assertInstanceOf("Ctct\Components\Contacts\Contact", $contact);
+        $contact = Contact::create($response->json());
+        $this->assertInstanceOf('Ctct\Components\Contacts\Contact', $contact);
         $this->assertEquals(238, $contact->id);
         $this->assertEquals("ACTIVE", $contact->status);
         $this->assertEquals("555-1212", $contact->fax);
         $this->assertEquals("Mr.", $contact->prefix_name);
         $this->assertEquals("John", $contact->first_name);
-        $this->assertEquals("S", $contact->middle_name);
         $this->assertEquals("Smith", $contact->last_name);
         $this->assertEquals("Software Engineer", $contact->job_title);
         $this->assertEquals("Constant Contact", $contact->company_name);
@@ -460,14 +312,14 @@ class ContactServiceUnitTest extends PHPUnit_Framework_TestCase
         $this->assertEquals("API", $contact->source);
 
         // custom fields
-        $this->assertInstanceOf("Ctct\Components\Contacts\CustomField", $contact->custom_fields[0]);
+        $this->assertInstanceOf('Ctct\Components\Contacts\CustomField', $contact->custom_fields[0]);
         $this->assertEquals("CustomField1", $contact->custom_fields[0]->name);
         $this->assertEquals("3/28/2011 11:09 AM EDT", $contact->custom_fields[0]->value);
         $this->assertEquals("CustomField2", $contact->custom_fields[1]->name);
         $this->assertEquals("Site owner", $contact->custom_fields[1]->value);
 
         //addresses
-        $this->assertInstanceOf("Ctct\Components\Contacts\Address", $contact->addresses[0]);
+        $this->assertInstanceOf('Ctct\Components\Contacts\Address', $contact->addresses[0]);
         $this->assertEquals("1601 Trapelo Rd", $contact->addresses[0]->line1);
         $this->assertEquals("Suite 329", $contact->addresses[0]->line2);
         $this->assertEquals("Line 3", $contact->addresses[0]->line3);
@@ -479,18 +331,18 @@ class ContactServiceUnitTest extends PHPUnit_Framework_TestCase
         $this->assertEquals("7885", $contact->addresses[0]->sub_postal_code);
 
         //notes
-        $this->assertInstanceOf("Ctct\Components\Contacts\Note", $contact->notes[0]);
+        $this->assertInstanceOf('Ctct\Components\Contacts\Note', $contact->notes[0]);
         $this->assertEquals(1, $contact->notes[0]->id);
         $this->assertEquals("Here are some cool notes to add", $contact->notes[0]->note);
         $this->assertEquals("2012-12-03T17:09:22.702Z", $contact->notes[0]->created_date);
 
         //lists
-        $this->assertInstanceOf("Ctct\Components\Contacts\ContactList", $contact->lists[0]);
+        $this->assertInstanceOf('Ctct\Components\Contacts\ContactList', $contact->lists[0]);
         $this->assertEquals(9, $contact->lists[0]->id);
         $this->assertEquals("ACTIVE", $contact->lists[0]->status);
 
         // EmailAddress
-        $this->assertInstanceOf("Ctct\Components\Contacts\EmailAddress", $contact->email_addresses[0]);
+        $this->assertInstanceOf('Ctct\Components\Contacts\EmailAddress', $contact->email_addresses[0]);
         $this->assertEquals("ACTIVE", $contact->email_addresses[0]->status);
         $this->assertEquals("NO_CONFIRMATION_REQUIRED", $contact->email_addresses[0]->confirm_status);
         $this->assertEquals("ACTION_BY_VISITOR", $contact->email_addresses[0]->opt_in_source);

@@ -132,7 +132,7 @@ class ContactService extends BaseService
     {
         $baseUrl = Config::get('endpoints.base_url') . Config::get('endpoints.contacts');
 
-        $request = parent::createBaseRequest($accessToken, 'GET', $baseUrl);
+        $request = parent::createBaseRequest($accessToken, 'POST', $baseUrl);
         if ($params) {
             $query = $request->getQuery();
             foreach ($params as $name => $value) {

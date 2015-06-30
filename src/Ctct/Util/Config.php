@@ -13,12 +13,10 @@ class Config
      * @var array - array of configuration properties
      */
     private static $props = array(
-
         /**
          * REST endpoints
          */
         'endpoints' => array(
-
             'base_url' => 'https://api.constantcontact.com/v2/',
             'account_verified_addresses' => 'account/verifiedemailaddresses',
             'account_info' => 'account/info',
@@ -62,7 +60,6 @@ class Config
             'library_folder' => 'library/folders/%s',
             'library_files_by_folder' => 'library/folders/%s/files',
             'library_file_upload_status' => 'library/files/uploadstatus/%s'
-
         ),
         /**
          * Column names used with bulk activities

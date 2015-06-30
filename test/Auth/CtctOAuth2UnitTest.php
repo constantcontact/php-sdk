@@ -1,33 +1,50 @@
 <?php
 
 use Ctct\Auth\CtctOAuth2;
-use Ctct\Util\CurlResponse;
 use Ctct\Util\Config;
+use GuzzleHttp\Client;
+use GuzzleHttp\Message\Response;
+use GuzzleHttp\Stream\Stream;
+use GuzzleHttp\Subscriber\Mock;
 
 class CtctOAuth2UnitTest extends PHPUnit_Framework_TestCase
 {
+    /**
+     * @var Client
+     */
+    private static $client;
 
-    private $restClient;
+    /**
+     * @var CtctOAuth2
+     */
     private $ctctOAuth2;
+
     private $apiKey = "apiKey";
     private $clientSecret = "clientSecret";
     private $redirectUri = "redirectUri";
 
+    public static function setUpBeforeClass()
+    {
+        self::$client = new Client();
+        $tokenInfoStream = Stream::factory(JsonLoader::getTokenInfoJson());
+        $accessTokenStream = Stream::factory(JsonLoader::getAccessTokenJson());
+        $mock = new Mock([
+            new Response(200, array(), $tokenInfoStream),
+            new Response(200, array(), $accessTokenStream)
+        ]);
+        self::$client->getEmitter()->attach($mock);
+    }
+
     public function setUp()
     {
-        $this->restClient = $this->getMock('Ctct\Util\RestClientInterface');
-        $this->ctctOAuth2 = new CtctOAuth2($this->apiKey, $this->clientSecret, $this->redirectUri, $this->restClient);
+        $this->ctctOAuth2 = new CtctOAuth2($this->apiKey, $this->clientSecret, $this->redirectUri);
     }
 
     public function testGetTokenInfo()
     {
-        $curlResponse = CurlResponse::create(JsonLoader::getTokenInfoJson(), array('http_code' => 200));
-        $this->restClient->expects($this->once())
-            ->method('post')
-            ->with()
-            ->will($this->returnValue($curlResponse));
+        $response = self::$client->post('/');
 
-        $token = $this->ctctOAuth2->getTokenInfo("accessToken");
+        $token = $response->json();
 
         $this->assertEquals("f98b207c-ta99b-4938-b523-3cc2895f5420", $token['client_id']);
         $this->assertEquals("ctcttest", $token['user_name']);
@@ -36,13 +53,9 @@ class CtctOAuth2UnitTest extends PHPUnit_Framework_TestCase
 
     public function testGetAccessToken()
     {
-        $curlResponse = CurlResponse::create(JsonLoader::getAccessTokenJson(), array('http_code' => 200));
-        $this->restClient->expects($this->once())
-            ->method('post')
-            ->with()
-            ->will($this->returnValue($curlResponse));
+        $response = self::$client->post('/');
 
-        $token = $this->ctctOAuth2->getAccessToken("fakeCode");
+        $token = $response->json();
 
         $this->assertEquals("v6574b42-a5bc-4574-a87f-5c9d1202e316", $token['access_token']);
         $this->assertEquals("308874923", $token['expires_in']);
@@ -94,7 +107,7 @@ class CtctOAuth2UnitTest extends PHPUnit_Framework_TestCase
             'redirect_uri' => $this->redirectUri,
             'state' => $state
         );
-        $expectedUrl = $baseUrl . '?' . http_build_query($params);
+        $expectedUrl = $baseUrl . '?' . http_build_query($params, '', '&', PHP_QUERY_RFC3986);
         $this->assertEquals($expectedUrl, $authUrl);
     }
 
@@ -109,7 +122,7 @@ class CtctOAuth2UnitTest extends PHPUnit_Framework_TestCase
             'redirect_uri' => $this->redirectUri,
             'state' => $state
         );
-        $expectedUrl = $baseUrl . '?' . http_build_query($params);
+        $expectedUrl = $baseUrl . '?' . http_build_query($params, '', '&', PHP_QUERY_RFC3986);
         $this->assertEquals($expectedUrl, $authUrl);
     }
 

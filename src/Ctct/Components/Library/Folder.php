@@ -40,6 +40,18 @@ class Folder extends Component {
      */
     public $level;
 
+    /**
+     * Date and time the folder was created
+     * @var String
+     */
+    public $created_date;
+
+    /**
+     * Date and time the folder was last modified
+     * @var String
+     */
+    public $modified_date;
+
     public static function create(array $props) {
         $folder = new Folder();
 
@@ -51,6 +63,8 @@ class Folder extends Component {
         $folder->item_count = parent::getValue($props, "item_count");
         $folder->parent_id = parent::getValue($props, "parent_id");
         $folder->level = parent::getValue($props, "level");
+        $folder->created_date = parent::getValue($props, "created_date");
+        $folder->modified_date = parent::getValue($props, "modified_date");
 
         return $folder;
     }

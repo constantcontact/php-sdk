@@ -11,10 +11,9 @@ use Exception;
  */
 class CtctException extends Exception
 {
-
     private $errors;
-    private $curlInfo;
 
+    private $url;
 
     public function setErrors(array $errors)
     {
@@ -26,13 +25,13 @@ class CtctException extends Exception
         return $this->errors;
     }
 
-    public function setCurlInfo(array $info)
+    public function setUrl($url)
     {
-        $this->curlInfo = $info;
+        $this->url = $url;
     }
 
     public function getCurlInfo()
     {
-        return $this->curlInfo;
+        return $this->url;
     }
 }

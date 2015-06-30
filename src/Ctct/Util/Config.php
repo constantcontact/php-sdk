@@ -13,12 +13,10 @@ class Config
      * @var array - array of configuration properties
      */
     private static $props = array(
-
         /**
          * REST endpoints
          */
         'endpoints' => array(
-
             'base_url' => 'https://api.constantcontact.com/v2/',
             'account_verified_addresses' => 'account/verifiedemailaddresses',
             'account_info' => 'account/info',
@@ -60,8 +58,8 @@ class Config
             'library_file' => 'library/files/%s',
             'library_folders' => 'library/folders',
             'library_folder' => 'library/folders/%s',
-            'library_files_by_folder' => 'library/folders/%s/files'
-
+            'library_files_by_folder' => 'library/folders/%s/files',
+            'library_file_upload_status' => 'library/files/uploadstatus/%s'
         ),
         /**
          * Column names used with bulk activities
@@ -69,8 +67,10 @@ class Config
         'activities_columns' => array(
             'email' => 'EMAIL',
             'first_name' => 'FIRST NAME',
-            'middle_name' => 'MIDDLE NAME',
             'last_name' => 'LAST NAME',
+            'birthday_day' => 'BIRTHDAY_DAY',
+            'birthday_month' => 'BIRTHDAY_MONTH',
+            'anniversary' => 'ANNIVERSARY',
             'job_title' => 'JOB TITLE',
             'company_name' => 'COMPANY NAME',
             'work_phone' => 'WORK PHONE',
@@ -116,14 +116,15 @@ class Config
          * Errors to be returned for various exceptions
          */
         'errors'    => array(
-            'id_or_object'        => 'Only an id or %s object are allowed for this method.'
+            'id_or_object'        => 'Only an id or %s object are allowed for this method.',
+            'file_extension'      => 'Only file extensions of the following are allowed: %s'
         ),
         
         /**
          * Setting the version fo the application used in Rest Calls when setting the version header
          */
         'settings'    => array(
-            'version'        => '1.3.0'
+            'version'        => '2.0.0'
         ),
     );
 

@@ -36,6 +36,18 @@ class ContactList extends Component
      */
     public $contact_count;
 
+    /**
+     * Date and time the list was created.
+     * @var string
+     */
+    public $created_date;
+
+    /**
+     * Date and time the list was last modified.
+     * @var string
+     */
+    public $modified_date;
+
     public function __construct($list_id = null)
     {
         if (!is_null($list_id)) {

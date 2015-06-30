@@ -16,7 +16,7 @@
 ### Manual Installation
 Manual installation is not recommended, as this library relies on other Composer libraries to function. Getting started with composer is easy!
 
-If you require manual installation, it is recommended that you use version [1.3.1](https://github.com/constantcontact/php-sdk/releases/tag/1.3.1). Composer handles all of the dependencies that this library requires in version 2.
+If you require manual installation, it is recommended that you use [version 1](https://github.com/constantcontact/php-sdk/tree/v1-master). Composer handles all of the dependencies that this library requires in version 2.
 
 ## Documentation
 
@@ -41,4 +41,4 @@ $contacts = $cc->contactService->getContacts('your access token', $params);
 ## Minimum Requirements
 Use of this library requires PHP 5.4+, and PHP cURL extension (http://php.net/manual/en/book.curl.php)
 
-If you are being required to use an older version of PHP, it is highly recommended that you update to at least 5.4 - but you can use version 1.3.1 via composer, or [manually](https://github.com/constantcontact/php-sdk/releases/tag/1.3.1).
+If you are being required to use an older version of PHP, it is highly recommended that you update to at least 5.4 - but you can use version 1.3.* via composer, or [manually](https://github.com/constantcontact/php-sdk/tree/v1-master).

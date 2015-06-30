@@ -49,7 +49,6 @@ class ContactServiceUnitTest extends PHPUnit_Framework_TestCase
         $this->assertEquals("", $contact->fax);
         $this->assertEquals("", $contact->prefix_name);
         $this->assertEquals("Jimmy", $contact->first_name);
-        $this->assertEquals("", $contact->middle_name);
         $this->assertEquals("Roving", $contact->last_name);
         $this->assertEquals("Bear Tamer", $contact->job_title);
         $this->assertEquals("Animal Trainer Pro", $contact->company_name);
@@ -109,7 +108,6 @@ class ContactServiceUnitTest extends PHPUnit_Framework_TestCase
         $this->assertEquals("", $contact->fax);
         $this->assertEquals("", $contact->prefix_name);
         $this->assertEquals("Jimmy", $contact->first_name);
-        $this->assertEquals("", $contact->middle_name);
         $this->assertEquals("Roving", $contact->last_name);
         $this->assertEquals("Bear Tamer", $contact->job_title);
         $this->assertEquals("Animal Trainer Pro", $contact->company_name);
@@ -165,7 +163,6 @@ class ContactServiceUnitTest extends PHPUnit_Framework_TestCase
         $this->assertEquals("555-1212", $contact->fax);
         $this->assertEquals("Mr.", $contact->prefix_name);
         $this->assertEquals("John", $contact->first_name);
-        $this->assertEquals("S", $contact->middle_name);
         $this->assertEquals("Smith", $contact->last_name);
         $this->assertEquals("Software Engineer", $contact->job_title);
         $this->assertEquals("Constant Contact", $contact->company_name);
@@ -227,7 +224,6 @@ class ContactServiceUnitTest extends PHPUnit_Framework_TestCase
         $this->assertEquals("555-1212", $contact->fax);
         $this->assertEquals("Mr.", $contact->prefix_name);
         $this->assertEquals("John", $contact->first_name);
-        $this->assertEquals("S", $contact->middle_name);
         $this->assertEquals("Smith", $contact->last_name);
         $this->assertEquals("Software Engineer", $contact->job_title);
         $this->assertEquals("Constant Contact", $contact->company_name);
@@ -305,7 +301,6 @@ class ContactServiceUnitTest extends PHPUnit_Framework_TestCase
         $this->assertEquals("555-1212", $contact->fax);
         $this->assertEquals("Mr.", $contact->prefix_name);
         $this->assertEquals("John", $contact->first_name);
-        $this->assertEquals("S", $contact->middle_name);
         $this->assertEquals("Smith", $contact->last_name);
         $this->assertEquals("Software Engineer", $contact->job_title);
         $this->assertEquals("Constant Contact", $contact->company_name);

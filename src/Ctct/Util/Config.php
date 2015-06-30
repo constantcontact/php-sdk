@@ -67,8 +67,10 @@ class Config
         'activities_columns' => array(
             'email' => 'EMAIL',
             'first_name' => 'FIRST NAME',
-            'middle_name' => 'MIDDLE NAME',
             'last_name' => 'LAST NAME',
+            'birthday_day' => 'BIRTHDAY_DAY',
+            'birthday_month' => 'BIRTHDAY_MONTH',
+            'anniversary' => 'ANNIVERSARY',
             'job_title' => 'JOB TITLE',
             'company_name' => 'COMPANY NAME',
             'work_phone' => 'WORK PHONE',

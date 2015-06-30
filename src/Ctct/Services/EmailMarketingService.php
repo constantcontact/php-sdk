@@ -26,6 +26,10 @@ class EmailMarketingService extends BaseService
     public function addCampaign($accessToken, Campaign $campaign)
     {
         $baseUrl = Config::get('endpoints.base_url') . Config::get('endpoints.campaigns');
+        if ($campaign->message_footer == null) {
+            // API doesn't work well with a null message footer, so omit it entirely.
+            unset($campaign->message_footer);
+        }
 
         $request = parent::createBaseRequest($accessToken, 'POST', $baseUrl);
         $stream = Stream::factory(json_encode($campaign));

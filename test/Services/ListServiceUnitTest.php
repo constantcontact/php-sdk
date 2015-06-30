@@ -126,7 +126,6 @@ class ListServiceUnitTest extends PHPUnit_Framework_TestCase
         $this->assertEquals("", $contact->fax);
         $this->assertEquals("", $contact->prefix_name);
         $this->assertEquals("Jimmy", $contact->first_name);
-        $this->assertEquals("", $contact->middle_name);
         $this->assertEquals("Roving", $contact->last_name);
         $this->assertEquals("Bear Tamer", $contact->job_title);
         $this->assertEquals("Animal Trainer Pro", $contact->company_name);

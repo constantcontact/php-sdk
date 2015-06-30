@@ -32,12 +32,6 @@ class Contact extends Component
     public $first_name;
 
     /**
-     * Middle name of the contact
-     * @var string
-     */
-    public $middle_name;
-
-    /**
      * Last name of the contact
      * @var string
      */
@@ -156,7 +150,6 @@ class Contact extends Component
         $contact->id = parent::getValue($props, "id");
         $contact->status = parent::getValue($props, "status");
         $contact->first_name = parent::getValue($props, "first_name");
-        $contact->middle_name = parent::getValue($props, "middle_name");
         $contact->last_name = parent::getValue($props, "last_name");
         $contact->confirmed = parent::getValue($props, "confirmed");
         $contact->source = parent::getValue($props, "source");

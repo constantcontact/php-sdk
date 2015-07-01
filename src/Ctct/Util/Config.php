@@ -125,7 +125,7 @@ class Config
          * Setting the version fo the application used in Rest Calls when setting the version header
          */
         'settings'    => array(
-            'version'        => '2.0.0'
+            'version'        => '2.1.0'
         ),
     );
 

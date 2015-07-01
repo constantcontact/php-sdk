@@ -2,6 +2,7 @@
 
 use Ctct\Components\ResultSet;
 use Ctct\Components\EmailMarketing\Campaign;
+use Ctct\Components\EmailMarketing\CampaignPreview;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
@@ -21,13 +22,15 @@ class EmailMarketingServiceUnitTest extends PHPUnit_Framework_TestCase
         self::$client = new Client();
         $getCampaignsStream = Stream::factory(JsonLoader::getCampaignsJson());
         $getCampaignStream = Stream::factory(JsonLoader::getCampaignJson());
+        $getPreviewStream = Stream::factory(JsonLoader::getPreviewJson());
         $mock = new Mock([
             new Response(200, array(), $getCampaignsStream),
             new Response(204, array()),
             new Response(400, array()),
             new Response(200, array(), $getCampaignStream),
             new Response(201, array(), $getCampaignStream),
-            new Response(200, array(), $getCampaignStream)
+            new Response(200, array(), $getCampaignStream),
+            new Response(200, array(), $getPreviewStream)
         ]);
         self::$client->getEmitter()->attach($mock);
     }
@@ -271,5 +274,18 @@ class EmailMarketingServiceUnitTest extends PHPUnit_Framework_TestCase
         $this->assertEquals("http://www.constantcontact.com", $campaign->click_through_details[0]->url);
         $this->assertEquals("1100394163874", $campaign->click_through_details[0]->url_uid);
         $this->assertEquals(10, $campaign->click_through_details[0]->click_count);
+    }
+
+    public function testGetPreview() {
+        $response = self::$client->get('/');
+
+        $preview = CampaignPreview::create($response->json());
+        $this->assertEquals("Subject Test", $preview->subject);
+        $this->assertEquals("myemail@example.com", $preview->fromEmail);
+        $this->assertEquals("myemail@example.com", $preview->replyToEmail);
+        $htmlContent = "<head ><meta /></head><body><center><table bgcolor=\"#ffffff\" id=\"VWPLINK\" width=\"595\"><tr><td style=\"font-size: 8pt; font-family: Verdana, Arial, Helvetica, sans-serif; color: #000000;\" width=\"100%\">View this message as a web page\n<a >Click here\n</a></td></tr></table></center><center ><table bgcolor=\"#ffffff\" width=\"595\" ><tr ><td width=\"100%\" ><font color=\"#000000\" face=\"verdana,arial\" size=\"1\" ><div >As a reminder, you're receiving this email because you have expressed an interest in MyCompany. Don't forget to add from_email@example.com to your address book so we'll be sure to land in your inbox! You may unsubscribe if you no longer wish to receive our emails. <div >&nbsp;</div><div >You may <a >unsubscribe</a> if you no longer wish to receive our emails.</div></div></font></td></tr></table></center><img /><p>This is text of the email message.</p><br />\n<table bgcolor=\"#ffffff\" padding=\"0\" width=\"100%\" ><tr align=\"center\" ><td ><table bgcolor=\"#ffffff\" width=\"595\" ><tr ><td colspan=\"2\" ><font face=\"tahoma,sans-serif\" size=\"1\" ><b ><a >Click here to forward this message</a></b></font><br />\n<br />\n</td></tr>\n<tr ><td ><FooterContent ><a ><img /></a></FooterContent></td><td align=\"right\" ><font face=\"tahoma,sans-serif\" size=\"1\" ><FooterLogo ><a ><img /></a></FooterLogo></font>\n</td>\n</tr><tr ><td colspan=\"2\" ><font face=\"tahoma,sans-serif\" size=\"1\" ><FooterContent ><div >This email was sent to {Email Address} by <a >rmarcucella@constantcontact.com</a> <span style=\"color: #bababa;\" > | </span> &nbsp; </div>\n<div ><a >Update Profile/Email Address</a> <span style=\"color: #bababa;\" >|</span> Instant removal with <a >SafeUnsubscribe</a>&trade; <span style=\"color: #bababa;\" >|</span> <a >Privacy Policy</a>.</div></FooterContent></font>\n</td>\n</tr>\n<tr ><td colspan=\"2\" ><font face=\"tahoma,sans-serif\" size=\"1\" ><br />My Organization | 123 Maple Street | Suite 1 | Anytown | MA | 01444</font>\n</td>\n</tr>\n</table>\n</td>\n</tr>\n</table>\n<br />\n&lt;/body&gt;";
+        $this->assertEquals($htmlContent, $preview->htmlContent);
+        $textContent = "View this message as a web page\nClick here\nhttp://campaign.r20.l1.constantcontact.com/render?ca=025eff86-6378-4f53-9301-5897ecf50b30&c={Contact Id}&ch={Contact Id}\n\nAs a reminder, you're receiving this email because you have expressed an interest in MyCompany. Don't forget to add from_email@example.com to your address book so we'll be sure to land in your inbox! You may unsubscribe if you no longer wish to receive our emails. You may unsubscribe\nhttp://visitor.l1.constantcontact.com/do?p=un&m=001JZtDyxcvPiye1EthMqSLGA%3D%3D&ch={Contact Id}&ca=025eff86-6378-4f53-9301-5897ecf50b30\n if you no longer wish to receive our emails.\n------------------------------------------------------------\nThis is the text of the email message.\n\nClick here to forward this message\nhttp://ui.l1.constantcontact.com/sa/fwtf.jsp?llr=cqmhk9aab&m=1100394770946&ea=rmarcucella%40constantcontact.com&a=1100400205633\n\n\n\n\n\nThis email was sent to {Email Address} by rmarcucella@constantcontact.com.\n\nUpdate Profile/Email Address\nhttp://visitor.l1.constantcontact.com/do?p=oo&m=001JZtDyxcvPiye1EthMqSLGA%3D%3D&ch={Contact Id}&ca=025eff86-6378-4f53-9301-5897ecf50b30\n\n\nInstant removal with SafeUnsubscribe(TM)\nhttp://visitor.l1.constantcontact.com/do?p=un&m=001JZtDyxcvPiye1EthMqSLGA%3D%3D&ch={Contact Id}&ca=025eff86-6378-4f53-9301-5897ecf50b30\n\n\nPrivacy Policy:\nhttp://ui.l1.constantcontact.com/roving/CCPrivacyPolicy.jsp\n\n\n\n\n\nOnline Marketing by\nhttp://img.l1.constantcontact.com/letters/images/cc-logo-color-sm.gif\nhttp://www.constantcontact.com\n\n\n\nMy Organization | 123 Maple Street | Suite 1 | Anytown | MA | 01444\n\n\n\n\n\n\n\n\n";
+        $this->assertEquals($textContent, $preview->textContent);
     }
 }

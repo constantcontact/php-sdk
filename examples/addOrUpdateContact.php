@@ -70,19 +70,25 @@ if (isset($_POST['email']) && strlen($_POST['email']) > 1) {
         } else {
             $action = "Updating Contact";
 
-            $contact = Contact::create($response->results[0]);
-            $contact->addList($_POST['list']);
-            $contact->first_name = $_POST['first_name'];
-            $contact->last_name = $_POST['last_name'];
+            $contact = $response->results[0];
+            if ($contact instanceof Contact) {
+                $contact->addList($_POST['list']);
+                $contact->first_name = $_POST['first_name'];
+                $contact->last_name = $_POST['last_name'];
 
-            /*
-             * The third parameter of updateContact defaults to false, but if this were set to true it would tell
-             * Constant Contact that this action is being performed by the contact themselves, and gives the ability to
-             * opt contacts back in and trigger Welcome/Change-of-interest emails.
-             *
-             * See: http://developer.constantcontact.com/docs/contacts-api/contacts-index.html#opt_in
-             */
-            $returnContact = $cc->contactService->updateContact(ACCESS_TOKEN, $contact);
+                /*
+                 * The third parameter of updateContact defaults to false, but if this were set to true it would tell
+                 * Constant Contact that this action is being performed by the contact themselves, and gives the ability to
+                 * opt contacts back in and trigger Welcome/Change-of-interest emails.
+                 *
+                 * See: http://developer.constantcontact.com/docs/contacts-api/contacts-index.html#opt_in
+                 */
+                $returnContact = $cc->contactService->updateContact(ACCESS_TOKEN, $contact);
+            } else {
+                $e = new CtctException();
+                $e->setErrors(array("type", "Contact type not returned"));
+                throw $e;
+            }
         }
 
         // catch any exceptions thrown during the process and print the errors to screen

@@ -38,6 +38,7 @@ class Config
             'campaign_schedules' => 'emailmarketing/campaigns/%s/schedules',
             'campaign_schedule' => 'emailmarketing/campaigns/%s/schedules/%s',
             'campaign_test_sends' => 'emailmarketing/campaigns/%s/tests',
+            'campaign_preview' => 'emailmarketing/campaigns/%s/preview',
             'campaign_tracking_summary' => 'emailmarketing/campaigns/%s/tracking/reports/summary',
             'campaign_tracking_bounces' => 'emailmarketing/campaigns/%s/tracking/bounces',
             'campaign_tracking_clicks' => 'emailmarketing/campaigns/%s/tracking/clicks',
@@ -124,7 +125,7 @@ class Config
          * Setting the version fo the application used in Rest Calls when setting the version header
          */
         'settings'    => array(
-            'version'        => '2.0.0'
+            'version'        => '2.1.0'
         ),
     );
 

@@ -194,6 +194,8 @@ class ContactService extends BaseService
                 $query->add($name, $value);
             }
         }
+        $stream = Stream::factory(json_encode($contact));
+        $request->setBody($stream);
 
         try {
             $response = parent::getClient()->send($request);

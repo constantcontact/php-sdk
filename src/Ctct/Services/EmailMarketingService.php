@@ -4,6 +4,7 @@ namespace Ctct\Services;
 use Ctct\Exceptions\CtctException;
 use Ctct\Util\Config;
 use Ctct\Components\EmailMarketing\Campaign;
+use Ctct\Components\EmailMarketing\CampaignPreview;
 use Ctct\Components\ResultSet;
 use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Stream\Stream;
@@ -85,13 +86,13 @@ class EmailMarketingService extends BaseService
     /**
      * Get campaign details for a specific campaign
      * @param string $accessToken - Constant Contact OAuth2 access token
-     * @param int $campaign_id - Valid campaign id
+     * @param int $campaignId - Valid campaign id
      * @return Campaign
      * @throws CtctException
      */
-    public function getCampaign($accessToken, $campaign_id)
+    public function getCampaign($accessToken, $campaignId)
     {
-        $baseUrl = Config::get('endpoints.base_url') . sprintf(Config::get('endpoints.campaign'), $campaign_id);
+        $baseUrl = Config::get('endpoints.base_url') . sprintf(Config::get('endpoints.campaign'), $campaignId);
 
         $request = parent::createBaseRequest($accessToken, 'GET', $baseUrl);
 
@@ -107,13 +108,13 @@ class EmailMarketingService extends BaseService
     /**
      * Delete an email campaign
      * @param string $accessToken - Constant Contact OAuth2 access token
-     * @param int $campaign_id - Valid campaign id
+     * @param int $campaignId - Valid campaign id
      * @return boolean
      * @throws CtctException
      */
-    public function deleteCampaign($accessToken, $campaign_id)
+    public function deleteCampaign($accessToken, $campaignId)
     {
-        $baseUrl = Config::get('endpoints.base_url') . sprintf(Config::get('endpoints.campaign'), $campaign_id);
+        $baseUrl = Config::get('endpoints.base_url') . sprintf(Config::get('endpoints.campaign'), $campaignId);
 
         $request = parent::createBaseRequest($accessToken, 'DELETE', $baseUrl);
 
@@ -148,5 +149,25 @@ class EmailMarketingService extends BaseService
         }
 
         return Campaign::create($response->json());
+    }
+
+    /**
+     * Get a preview of an email campaign
+     * @param string $accessToken - Constant Contact OAuth2 access token
+     * @param int $campaignId - Valid campaign id
+     * @return CampaignPreview
+     * @throws CtctException
+     */
+    public function getPreview($accessToken, $campaignId) {
+        $baseUrl = Config::get('endpoints.base_url') . sprintf(Config::get('endpoints.campaign_preview'), $campaignId);
+
+        $request = parent::createBaseRequest($accessToken, 'GET', $baseUrl);
+        try {
+            $response = parent::getClient()->send($request);
+        } catch (ClientException $e) {
+            throw parent::convertException($e);
+        }
+
+        return CampaignPreview::create($response->json());
     }
 }

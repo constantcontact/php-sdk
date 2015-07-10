@@ -106,6 +106,10 @@ class JsonLoader
         return file_get_contents(__DIR__ . self::CAMPAIGNS_FOLDER . "/post_test_send.json");
     }
 
+    public static function getPreviewJson() {
+        return file_get_contents(__DIR__ . self::CAMPAIGNS_FOLDER . "/get_preview.json");
+    }
+
     public static function getClicks()
     {
         return file_get_contents(__DIR__ . self::CAMPAIGN_TRACKING_FOLDER . "/get_clicks.json");

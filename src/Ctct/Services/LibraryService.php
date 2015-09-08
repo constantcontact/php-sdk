@@ -245,15 +245,16 @@ class LibraryService extends BaseService
         finfo_close($finfo);
         if ($mime == "image/png") {
             $fileType = "PNG";
-        } elseif ($mime = "image/jpeg") {
+        } elseif ($mime == "image/jpeg") {
             $fileType = "JPG";
-        } elseif ($mime = "image/gif") {
+        } elseif ($mime == "image/gif") {
             $fileType = "GIF";
-        } elseif ($mime ="application/pdf") {
+        } elseif ($mime =="application/pdf") {
             $fileType = "PDF";
         } else {
             throw new IllegalArgumentException(sprintf(Config::get('errors.file_extension'), "PNG, JPG, JPEG, GIF, PDF was " . $mime));
         }
+       
 
         $baseUrl = Config::get('endpoints.base_url') . Config::get('endpoints.library_files');
         $request = parent::createBaseRequest($accessToken, "POST", $baseUrl);

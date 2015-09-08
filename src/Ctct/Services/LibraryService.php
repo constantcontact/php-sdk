@@ -189,7 +189,7 @@ class LibraryService extends BaseService
      */
     public function getLibraryFolder($accessToken, $folderId)
     {
-        $baseUrl = Config::get('endpoints.base_url') . Config::get(sprintf('endpoints.library_folder', $folderId));
+        $baseUrl = Config::get('endpoints.base_url') . sprintf(Config::get('endpoints.library_folder'), $folderId);
 
         $request = parent::createBaseRequest($accessToken, 'GET', $baseUrl);
 
@@ -212,7 +212,7 @@ class LibraryService extends BaseService
      */
     public function deleteLibraryFolder($accessToken, $folderId)
     {
-        $baseUrl = Config::get('endpoints.base_url') . Config::get(sprintf('endpoints.library_folder', $folderId));
+        $baseUrl = Config::get('endpoints.base_url') . sprintf(Config::get('endpoints.library_folder'), $folderId);
 
         $request = parent::createBaseRequest($accessToken, 'DELETE', $baseUrl);
 

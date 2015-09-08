@@ -261,7 +261,7 @@ class LibraryService extends BaseService
         $request->setHeader("Content-Type", "multipart/form-data");
 
         $body = new PostBody();
-        $body->setField("folderId", $folderId);
+        $body->setField("folder_id", $folderId);
         $body->setField("file_name", $fileName);
         $body->setField("file_type", $fileType);
         $body->setField("description", $description);

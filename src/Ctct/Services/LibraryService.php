@@ -243,7 +243,6 @@ class LibraryService extends BaseService
         $finfo = finfo_open(FILEINFO_MIME_TYPE);
         $mime =  finfo_file($finfo, $fileLocation);
         finfo_close($finfo);
-
         if ($mime == "image/png") {
             $fileType = "PNG";
         } elseif ($mime = "image/jpeg") {

@@ -11,6 +11,7 @@ use Ctct\Util\Config;
 use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Post\PostBody;
 use GuzzleHttp\Post\PostFile;
+use GuzzleHttp\Stream\Stream;
 
 class LibraryService extends BaseService
 {
@@ -188,7 +189,7 @@ class LibraryService extends BaseService
      */
     public function getLibraryFolder($accessToken, $folderId)
     {
-        $baseUrl = Config::get('endpoints.base_url') . Config::get(sprintf('endpoints.library_folder', $folderId));
+        $baseUrl = Config::get('endpoints.base_url') . sprintf(Config::get('endpoints.library_folder'), $folderId);
 
         $request = parent::createBaseRequest($accessToken, 'GET', $baseUrl);
 
@@ -211,7 +212,7 @@ class LibraryService extends BaseService
      */
     public function deleteLibraryFolder($accessToken, $folderId)
     {
-        $baseUrl = Config::get('endpoints.base_url') . Config::get(sprintf('endpoints.library_folder', $folderId));
+        $baseUrl = Config::get('endpoints.base_url') . sprintf(Config::get('endpoints.library_folder'), $folderId);
 
         $request = parent::createBaseRequest($accessToken, 'DELETE', $baseUrl);
 
@@ -242,25 +243,25 @@ class LibraryService extends BaseService
         $finfo = finfo_open(FILEINFO_MIME_TYPE);
         $mime =  finfo_file($finfo, $fileLocation);
         finfo_close($finfo);
-
         if ($mime == "image/png") {
             $fileType = "PNG";
-        } elseif ($mime = "image/jpeg") {
+        } elseif ($mime == "image/jpeg") {
             $fileType = "JPG";
-        } elseif ($mime = "image/gif") {
+        } elseif ($mime == "image/gif") {
             $fileType = "GIF";
-        } elseif ($mime ="application/pdf") {
+        } elseif ($mime =="application/pdf") {
             $fileType = "PDF";
         } else {
             throw new IllegalArgumentException(sprintf(Config::get('errors.file_extension'), "PNG, JPG, JPEG, GIF, PDF was " . $mime));
         }
+       
 
         $baseUrl = Config::get('endpoints.base_url') . Config::get('endpoints.library_files');
         $request = parent::createBaseRequest($accessToken, "POST", $baseUrl);
         $request->setHeader("Content-Type", "multipart/form-data");
 
         $body = new PostBody();
-        $body->setField("folderId", $folderId);
+        $body->setField("folder_id", $folderId);
         $body->setField("file_name", $fileName);
         $body->setField("file_type", $fileType);
         $body->setField("description", $description);
@@ -277,6 +278,31 @@ class LibraryService extends BaseService
         return $response->getHeader("Id");
     }
 
+    /**
+     * Creates a new Library folder
+     * @param string $accessToken - Constant Contact OAuth2 token
+     * @param Folder $folder
+     * @return \Ctct\Components\Library\Folder - Newly created folder
+     * @throws CtctException
+     */
+    public function createLibraryFolder($accessToken, Folder $folder){
+    	$baseUrl = Config::get('endpoints.base_url') . Config::get('endpoints.library_folders');
+    	
+    	$request = parent::createBaseRequest($accessToken, "POST", $baseUrl);
+    	
+    	$stream = Stream::factory(json_encode($folder));
+        $request->setBody($stream);
+    	
+    	try {
+    		$response = parent::getClient()->send($request);
+    	} catch (ClientException $e) {
+    		throw parent::convertException($e);
+    	}
+    	
+    	$body = $response->json();
+    	return Folder::create($body);
+    }
+    
     /**
      * Get the status of a File upload
      * @param string $accessToken - Constant Contact OAuth2 token

@@ -5,9 +5,8 @@ use Ctct\Exceptions\CtctException;
 use Ctct\Util\Config;
 use Ctct\Components\Account\VerifiedEmailAddress;
 use Ctct\Components\Account\AccountInfo;
-use GuzzleHttp\Exception\ClientException;
-use GuzzleHttp\Stream\Stream;
-
+use GuzzleHttp\Exception\TransferException;
+use GuzzleHttp\Psr7;
 /**
  * Performs all actions pertaining to scheduling Constant Contact Account's
  *
@@ -28,23 +27,16 @@ class AccountService extends BaseService
     public function getVerifiedEmailAddresses($accessToken, Array $params = array())
     {
         $baseUrl = Config::get('endpoints.base_url') . Config::get('endpoints.account_verified_addresses');
-
-        $request = parent::createBaseRequest($accessToken, 'GET', $baseUrl);
-        if ($params) {
-            $query = $request->getQuery();
-            foreach ($params as $name => $value) {
-                $query->add($name, $value);
-            }
-        }
+        $request = parent::sendRequestWithoutBody($accessToken, 'GET', $baseUrl, $params);
 
         try {
             $response = parent::getClient()->send($request);
-        } catch (ClientException $e) {
+        } catch (TransferException $e) {
             throw parent::convertException($e);
         }
 
         $verifiedAddresses = array();
-        foreach ($response->json() as $verifiedAddress) {
+        foreach (json_decode($response->getBody(), true) as $verifiedAddress) {
             $verifiedAddresses[] = VerifiedEmailAddress::create($verifiedAddress);
         }
 
@@ -62,19 +54,16 @@ class AccountService extends BaseService
     public function createVerifiedEmailAddress($accessToken, $emailAddress)
     {
         $baseUrl = Config::get('endpoints.base_url') . Config::get('endpoints.account_verified_addresses');
-
-        $request = parent::createBaseRequest($accessToken, 'POST', $baseUrl);
-        $stream = Stream::factory(json_encode(array(array("email_address" => $emailAddress))));
-        $request->setBody($stream);
+        $request = parent::sendRequestWithBody($accessToken, 'POST', $baseUrl, array(array("email_address" => $emailAddress)));
 
         try {
             $response = parent::getClient()->send($request);
-        } catch (ClientException $e) {
+        } catch (TransferException $e) {
             throw parent::convertException($e);
         }
 
         $verifiedAddresses = array();
-        foreach ($response->json() as $verifiedAddress) {
+        foreach (json_decode($response->getBody(), true) as $verifiedAddress) {
             $verifiedAddresses[] = VerifiedEmailAddress::create($verifiedAddress);
         }
 
@@ -91,15 +80,15 @@ class AccountService extends BaseService
     {
         $baseUrl = Config::get('endpoints.base_url') . Config::get('endpoints.account_info');
 
-        $request = parent::createBaseRequest($accessToken, 'GET', $baseUrl);
+        $request = parent::sendRequestWithoutBody($accessToken, 'GET', $baseUrl);
 
         try {
             $response = parent::getClient()->send($request);
-        } catch (ClientException $e) {
+        } catch (TransferException $e) {
             throw parent::convertException($e);
         }
 
-        return AccountInfo::create($response->json());
+        return AccountInfo::create(json_decode($response->getBody(), true));
     }
 
     /**
@@ -113,16 +102,14 @@ class AccountService extends BaseService
     {
         $baseUrl = Config::get('endpoints.base_url') . Config::get('endpoints.account_info');
 
-        $request = parent::createBaseRequest($accessToken, 'PUT', $baseUrl);
-        $stream = Stream::factory(json_encode($accountInfo));
-        $request->setBody($stream);
+        $request = parent::sendRequestWithBody($accessToken, 'PUT', $baseUrl, json_decode(json_encode($accountInfo), true));
 
         try {
             $response = parent::getClient()->send($request);
-        } catch (ClientException $e) {
+        } catch (TransferException $e) {
             throw parent::convertException($e);
         }
 
-        return AccountInfo::create($response->json());
+        return AccountInfo::create(json_decode($response->getBody(), true));
     }
 }

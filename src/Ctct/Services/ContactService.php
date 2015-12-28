@@ -5,8 +5,7 @@ use Ctct\Exceptions\CtctException;
 use Ctct\Util\Config;
 use Ctct\Components\Contacts\Contact;
 use Ctct\Components\ResultSet;
-use GuzzleHttp\Exception\ClientException;
-use GuzzleHttp\Stream\Stream;
+use GuzzleHttp\Exception\TransferException;
 
 /**
  * Performs all actions pertaining to Constant Contact Contacts
@@ -33,21 +32,13 @@ class ContactService extends BaseService
     {
         $baseUrl = Config::get('endpoints.base_url') . Config::get('endpoints.contacts');
 
-        $request = parent::createBaseRequest($accessToken, 'GET', $baseUrl);
-        if ($params) {
-            $query = $request->getQuery();
-            foreach ($params as $name => $value) {
-                $query->add($name, $value);
-            }
-        }
-
         try {
-            $response = parent::getClient()->send($request);
-        } catch (ClientException $e) {
+            $response = parent::sendRequestWithoutBody($accessToken, 'GET', $baseUrl, $params);
+        } catch (TransferException $e) {
             throw parent::convertException($e);
         }
 
-        $body = $response->json();
+        $body = json_decode($response->getBody(), true);
         $contacts = array();
         foreach ($body['results'] as $contact) {
             $contacts[] = Contact::create($contact);
@@ -73,21 +64,13 @@ class ContactService extends BaseService
     {
         $baseUrl = Config::get('endpoints.base_url') . sprintf(Config::get('endpoints.list_contacts'), $listId);
 
-        $request = parent::createBaseRequest($accessToken, 'GET', $baseUrl);
-        if ($params) {
-            $query = $request->getQuery();
-            foreach ($params as $name => $value) {
-                $query->add($name, $value);
-            }
-        }
-
         try {
-            $response = parent::getClient()->send($request);
-        } catch (ClientException $e) {
+            $response = parent::sendRequestWithoutBody($accessToken, 'GET', $baseUrl, $params);
+        } catch (TransferException $e) {
             throw parent::convertException($e);
         }
 
-        $body = $response->json();
+        $body = json_decode($response->getBody(), true);
         $contacts = array();
         foreach ($body['results'] as $contact) {
             $contacts[] = Contact::create($contact);
@@ -106,15 +89,13 @@ class ContactService extends BaseService
     {
         $baseUrl = Config::get('endpoints.base_url') . sprintf(Config::get('endpoints.contact'), $contactId);
 
-        $request = parent::createBaseRequest($accessToken, 'GET', $baseUrl);
-
         try {
-            $response = parent::getClient()->send($request);
-        } catch (ClientException $e) {
+            $response = parent::sendRequestWithoutBody($accessToken, 'GET', $baseUrl);
+        } catch (TransferException $e) {
             throw parent::convertException($e);
         }
 
-        return Contact::create($response->json());
+        return Contact::create(json_decode($response->getBody(), true));
     }
 
     /**
@@ -132,23 +113,13 @@ class ContactService extends BaseService
     {
         $baseUrl = Config::get('endpoints.base_url') . Config::get('endpoints.contacts');
 
-        $request = parent::createBaseRequest($accessToken, 'POST', $baseUrl);
-        if ($params) {
-            $query = $request->getQuery();
-            foreach ($params as $name => $value) {
-                $query->add($name, $value);
-            }
-        }
-        $stream = Stream::factory(json_encode($contact));
-        $request->setBody($stream);
-
         try {
-            $response = parent::getClient()->send($request);
-        } catch (ClientException $e) {
+            $response = parent::sendRequestWithBody($accessToken, 'POST', $baseUrl, json_decode(json_encode($contact), true), $params);
+        } catch (TransferException $e) {
             throw parent::convertException($e);
         }
 
-        return Contact::create($response->json());
+        return Contact::create(json_decode($response->getBody(), true));
     }
 
     /**
@@ -161,11 +132,9 @@ class ContactService extends BaseService
     public function unsubscribeContact($accessToken, $contactId) {
         $baseUrl = Config::get('endpoints.base_url') . sprintf(Config::get('endpoints.contact'), $contactId);
 
-        $request = parent::createBaseRequest($accessToken, 'DELETE', $baseUrl);
-
         try {
-            $response = parent::getClient()->send($request);
-        } catch (ClientException $e) {
+            $response = parent::sendRequestWithoutBody($accessToken, 'DELETE', $baseUrl);
+        } catch (TransferException $e) {
             throw parent::convertException($e);
         }
 
@@ -187,22 +156,12 @@ class ContactService extends BaseService
     {
         $baseUrl = Config::get('endpoints.base_url') . sprintf(Config::get('endpoints.contact'), $contact->id);
 
-        $request = parent::createBaseRequest($accessToken, 'PUT', $baseUrl);
-        if ($params) {
-            $query = $request->getQuery();
-            foreach ($params as $name => $value) {
-                $query->add($name, $value);
-            }
-        }
-        $stream = Stream::factory(json_encode($contact));
-        $request->setBody($stream);
-
         try {
-            $response = parent::getClient()->send($request);
-        } catch (ClientException $e) {
+            $response = parent::sendRequestWithBody($accessToken, 'PUT', $baseUrl, json_decode(json_encode($contact), true), $params);
+        } catch (TransferException $e) {
             throw parent::convertException($e);
         }
 
-        return Contact::create($response->json());
+        return Contact::create(json_decode($response->getBody(), true));
     }
 }

@@ -6,9 +6,9 @@ use Ctct\Components\Library\Folder;
 use Ctct\Components\Library\FileUploadStatus;
 
 use GuzzleHttp\Client;
-use GuzzleHttp\Subscriber\Mock;
-use GuzzleHttp\Stream\Stream;
-use GuzzleHttp\Message\Response;
+use GuzzleHttp\Handler\MockHandler;
+use GuzzleHttp\HandlerStack;
+use GuzzleHttp\Psr7\Response;
 
 class LibraryServiceUnitTest extends PHPUnit_Framework_TestCase
 {
@@ -19,28 +19,23 @@ class LibraryServiceUnitTest extends PHPUnit_Framework_TestCase
 
     public static function setUpBeforeClass()
     {
-        self::$client = new Client();
-        $getFileStream = Stream::factory(JsonLoader::getLibraryFileJson());
-        $getFilesStream = Stream::factory(JsonLoader::getLibraryFilesJson());
-        $getFolderStream = Stream::factory(JsonLoader::getLibraryFolderJson());
-        $getFoldersStream = Stream::factory(JsonLoader::getLibraryFoldersJson());
-        $getFileUploadStream = Stream::factory(JsonLoader::getFileUploadStatusJson());
-        $mock = new Mock([
-            new Response(200, array(), $getFileStream),
-            new Response(200, array(), $getFilesStream),
-            new Response(200, array(), $getFolderStream),
-            new Response(200, array(), $getFoldersStream),
+        $mock = new MockHandler([
+            new Response(200, array(), JsonLoader::getLibraryFileJson()),
+            new Response(200, array(), JsonLoader::getLibraryFilesJson()),
+            new Response(200, array(), JsonLoader::getLibraryFolderJson()),
+            new Response(200, array(), JsonLoader::getLibraryFoldersJson()),
             new Response(201, array("Id" => 1)),
-            new Response(200, array(), $getFileUploadStream)
+            new Response(200, array(), JsonLoader::getFileUploadStatusJson())
         ]);
-        self::$client->getEmitter()->attach($mock);
+        $handler = HandlerStack::create($mock);
+        self::$client = new Client(['handler' => $handler]);
     }
 
     public function testGetLibraryFile()
     {
-        $response = self::$client->get('/');
+        $response = self::$client->request('GET', '/');
 
-        $file = File::create($response->json());
+        $file = File::create(json_decode($response->getBody(), true));
         $this->assertInstanceOf('Ctct\Components\Library\File', $file);
         $this->assertEquals("IMG_0261.JPG", $file->name);
         $this->assertEquals("4", $file->id);
@@ -67,7 +62,7 @@ class LibraryServiceUnitTest extends PHPUnit_Framework_TestCase
 
     public function testGetLibraryFiles()
     {
-        $response = self::$client->get('/')->json();
+        $response = json_decode(self::$client->request('GET', '/')->getBody(), true);
 
         $result = new ResultSet($response['results'], $response['meta']);
         $files = array();
@@ -103,9 +98,9 @@ class LibraryServiceUnitTest extends PHPUnit_Framework_TestCase
 
     public function testGetLibraryFolder()
     {
-        $response = self::$client->get('/');
+        $response = self::$client->request('GET', '/');
 
-        $folder = Folder::create($response->json());
+        $folder = Folder::create(json_decode($response->getBody(), true));
         $this->assertInstanceOf('Ctct\Components\Library\Folder', $folder);
         $this->assertEquals("-5", $folder->id);
         $this->assertEquals("Folder", $folder->name);
@@ -133,7 +128,7 @@ class LibraryServiceUnitTest extends PHPUnit_Framework_TestCase
 
     public function testGetLibraryFolders()
     {
-        $response = self::$client->get('/')->json();
+        $response = json_decode(self::$client->request('GET', '/')->getBody(), true);
 
         $result = new ResultSet($response['results'], $response['meta']);
         $folders = array();
@@ -170,20 +165,22 @@ class LibraryServiceUnitTest extends PHPUnit_Framework_TestCase
 
     public function testUploadFile()
     {
-        $response = self::$client->post('/');
+        $response = self::$client->request('POST', '/');
 
         $id = $response->getHeader("Id");
         $code = $response->getStatusCode();
-        $this->assertEquals("1", $id);
+        foreach ($id as $item) {
+            $this->assertEquals(1, $item);
+        }
         $this->assertEquals(201, $code);
     }
 
     public function testGetFileUploadStatus()
     {
-        $response = self::$client->get('/');
+        $response = self::$client->request('GET', '/');
 
         $statuses = array();
-        foreach ($response->json() as $result) {
+        foreach (json_decode($response->getBody(), true) as $result) {
             $statuses[] = FileUploadStatus::create($result);
         }
 

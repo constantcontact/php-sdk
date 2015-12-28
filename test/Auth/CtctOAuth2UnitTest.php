@@ -3,9 +3,9 @@
 use Ctct\Auth\CtctOAuth2;
 use Ctct\Util\Config;
 use GuzzleHttp\Client;
-use GuzzleHttp\Message\Response;
-use GuzzleHttp\Stream\Stream;
-use GuzzleHttp\Subscriber\Mock;
+use GuzzleHttp\Handler\MockHandler;
+use GuzzleHttp\HandlerStack;
+use GuzzleHttp\Psr7\Response;
 
 class CtctOAuth2UnitTest extends PHPUnit_Framework_TestCase
 {
@@ -25,14 +25,12 @@ class CtctOAuth2UnitTest extends PHPUnit_Framework_TestCase
 
     public static function setUpBeforeClass()
     {
-        self::$client = new Client();
-        $tokenInfoStream = Stream::factory(JsonLoader::getTokenInfoJson());
-        $accessTokenStream = Stream::factory(JsonLoader::getAccessTokenJson());
-        $mock = new Mock([
-            new Response(200, array(), $tokenInfoStream),
-            new Response(200, array(), $accessTokenStream)
+        $mock = new MockHandler([
+            new Response(200, array(), JsonLoader::getTokenInfoJson()),
+            new Response(200, array(), JsonLoader::getAccessTokenJson())
         ]);
-        self::$client->getEmitter()->attach($mock);
+        $handler = HandlerStack::create($mock);
+        self::$client = new Client(['handler' => $handler]);
     }
 
     public function setUp()
@@ -44,7 +42,7 @@ class CtctOAuth2UnitTest extends PHPUnit_Framework_TestCase
     {
         $response = self::$client->post('/');
 
-        $token = $response->json();
+        $token = json_decode($response->getBody(), true);
 
         $this->assertEquals("f98b207c-ta99b-4938-b523-3cc2895f5420", $token['client_id']);
         $this->assertEquals("ctcttest", $token['user_name']);
@@ -55,7 +53,7 @@ class CtctOAuth2UnitTest extends PHPUnit_Framework_TestCase
     {
         $response = self::$client->post('/');
 
-        $token = $response->json();
+        $token = json_decode($response->getBody(), true);
 
         $this->assertEquals("v6574b42-a5bc-4574-a87f-5c9d1202e316", $token['access_token']);
         $this->assertEquals("308874923", $token['expires_in']);

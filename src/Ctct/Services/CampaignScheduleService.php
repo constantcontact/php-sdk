@@ -5,8 +5,7 @@ use Ctct\Exceptions\CtctException;
 use Ctct\Util\Config;
 use Ctct\Components\EmailMarketing\Schedule;
 use Ctct\Components\EmailMarketing\TestSend;
-use GuzzleHttp\Exception\ClientException;
-use GuzzleHttp\Stream\Stream;
+use GuzzleHttp\Exception\TransferException;
 
 /**
  * Performs all actions pertaining to scheduling Constant Contact Campaigns
@@ -28,17 +27,13 @@ class CampaignScheduleService extends BaseService
     {
         $baseUrl = Config::get('endpoints.base_url') . sprintf(Config::get('endpoints.campaign_schedules'), $campaignId);
 
-        $request = parent::createBaseRequest($accessToken, 'POST', $baseUrl);
-        $stream = Stream::factory(json_encode($schedule));
-        $request->setBody($stream);
-
         try {
-            $response = parent::getClient()->send($request);
-        } catch (ClientException $e) {
+            $response = parent::sendRequestWithBody($accessToken, 'POST', $baseUrl, json_decode(json_encode($schedule), true));
+        } catch (TransferException $e) {
             throw parent::convertException($e);
         }
 
-        return Schedule::create($response->json());
+        return Schedule::create(json_decode($response->getBody(), true));
     }
 
     /**
@@ -52,16 +47,14 @@ class CampaignScheduleService extends BaseService
     {
         $baseUrl = Config::get('endpoints.base_url') . sprintf(Config::get('endpoints.campaign_schedules'), $campaignId);
 
-        $request = parent::createBaseRequest($accessToken, 'GET', $baseUrl);
-
         try {
-            $response = parent::getClient()->send($request);
-        } catch (ClientException $e) {
+            $response = parent::sendRequestWithoutBody($accessToken, 'GET', $baseUrl);
+        } catch (TransferException $e) {
             throw parent::convertException($e);
         }
 
         $schedules = array();
-        foreach ($response->json() as $schedule) {
+        foreach (json_decode($response->getBody(), true) as $schedule) {
             $schedules[] = Schedule::create($schedule);
         }
         return $schedules;
@@ -79,15 +72,13 @@ class CampaignScheduleService extends BaseService
     {
         $baseUrl = Config::get('endpoints.base_url') . sprintf(Config::get('endpoints.campaign_schedule'), $campaignId, $scheduleId);
 
-        $request = parent::createBaseRequest($accessToken, 'GET', $baseUrl);
-
         try {
-            $response = parent::getClient()->send($request);
-        } catch (ClientException $e) {
+            $response = parent::sendRequestWithoutBody($accessToken, 'GET', $baseUrl);
+        } catch (TransferException $e) {
             throw parent::convertException($e);
         }
 
-        return Schedule::create($response->json());
+        return Schedule::create(json_decode($response->getBody(), true));
     }
 
     /**
@@ -102,17 +93,13 @@ class CampaignScheduleService extends BaseService
     {
         $baseUrl = Config::get('endpoints.base_url') . sprintf(Config::get('endpoints.campaign_schedule'), $campaignId, $schedule->id);
 
-        $request = parent::createBaseRequest($accessToken, 'PUT', $baseUrl);
-        $stream = Stream::factory(json_encode($schedule));
-        $request->setBody($stream);
-
         try {
-            $response = parent::getClient()->send($request);
-        } catch (ClientException $e) {
+            $response = parent::sendRequestWithBody($accessToken, 'PUT', $baseUrl, json_decode(json_encode($schedule), true));
+        } catch (TransferException $e) {
             throw parent::convertException($e);
         }
 
-        return Schedule::create($response->json());
+        return Schedule::create(json_decode($response->getBody(), true));
     }
 
     /**
@@ -127,11 +114,9 @@ class CampaignScheduleService extends BaseService
     {
         $baseUrl = Config::get('endpoints.base_url') . sprintf(Config::get('endpoints.campaign_schedule'), $campaignId, $scheduleId);
 
-        $request = parent::createBaseRequest($accessToken, 'DELETE', $baseUrl);
-
         try {
-            $response = parent::getClient()->send($request);
-        } catch (ClientException $e) {
+            $response = parent::sendRequestWithoutBody($accessToken, 'DELETE', $baseUrl);
+        } catch (TransferException $e) {
             throw parent::convertException($e);
         }
 
@@ -150,16 +135,12 @@ class CampaignScheduleService extends BaseService
     {
         $baseUrl = Config::get('endpoints.base_url') . sprintf(Config::get('endpoints.campaign_test_sends'), $campaignId);
 
-        $request = parent::createBaseRequest($accessToken, 'POST', $baseUrl);
-        $stream = Stream::factory(json_encode($testSend));
-        $request->setBody($stream);
-
         try {
-            $response = parent::getClient()->send($request);
-        } catch (ClientException $e) {
+            $response = parent::sendRequestWithoutBody($accessToken, 'POST', $baseUrl, json_decode(json_encode($testSend), true));
+        } catch (TransferException $e) {
             throw parent::convertException($e);
         }
 
-        return TestSend::create($response->json());
+        return TestSend::create(json_decode($response->getBody(), true));
     }
 }

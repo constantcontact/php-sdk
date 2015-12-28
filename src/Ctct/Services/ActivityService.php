@@ -6,10 +6,8 @@ use Ctct\Util\Config;
 use Ctct\Components\Activities\Activity;
 use Ctct\Components\Activities\AddContacts;
 use Ctct\Components\Activities\ExportContacts;
-use GuzzleHttp\Exception\ClientException;
-use GuzzleHttp\Post\PostBody;
-use GuzzleHttp\Post\PostFile;
-use GuzzleHttp\Stream\Stream;
+use GuzzleHttp\Exception\TransferException;
+use GuzzleHttp\Psr7\Request;
 
 /**
  * Performs all actions pertaining to scheduling Constant Contact Activities
@@ -34,22 +32,14 @@ class ActivityService extends BaseService
     {
         $baseUrl = Config::get('endpoints.base_url') . Config::get('endpoints.activities');
 
-        $request = parent::createBaseRequest($accessToken, 'GET', $baseUrl);
-        if ($params) {
-            $query = $request->getQuery();
-            foreach ($params as $name => $value) {
-                $query->add($name, $value);
-            }
-        }
-
         try {
-            $response = parent::getClient()->send($request);
-        } catch (ClientException $e) {
+            $response = parent::sendRequestWithoutBody($accessToken, 'GET', $baseUrl, $params);
+        } catch (TransferException $e) {
             throw parent::convertException($e);
         }
 
         $activities = array();
-        foreach ($response->json() as $activity) {
+        foreach (json_decode($response->getBody(), true) as $activity) {
             $activities[] = Activity::create($activity);
         }
         return $activities;
@@ -65,16 +55,14 @@ class ActivityService extends BaseService
     public function getActivity($accessToken, $activityId)
     {
         $baseUrl = Config::get('endpoints.base_url') . sprintf(Config::get('endpoints.activity'), $activityId);
-
-        $request = parent::createBaseRequest($accessToken, 'GET', $baseUrl);
-
+        
         try {
-            $response = parent::getClient()->send($request);
-        } catch (ClientException $e) {
+            $response = parent::sendRequestWithoutBody($accessToken, 'GET', $baseUrl);
+        } catch (TransferException $e) {
             throw parent::convertException($e);
         }
 
-        return Activity::create($response->json());
+        return Activity::create(json_decode($response->getBody(), true));
     }
 
     /**
@@ -88,17 +76,13 @@ class ActivityService extends BaseService
     {
         $baseUrl = Config::get('endpoints.base_url') . Config::get('endpoints.add_contacts_activity');
 
-        $request = parent::createBaseRequest($accessToken, 'POST', $baseUrl);
-        $stream = Stream::factory(json_encode($addContacts));
-        $request->setBody($stream);
-
         try {
-            $response = parent::getClient()->send($request);
-        } catch (ClientException $e) {
+            $response = parent::sendRequestWithBody($accessToken, 'POST', $baseUrl, json_decode(json_encode($addContacts), true));
+        } catch (TransferException $e) {
             throw parent::convertException($e);
         }
 
-        return Activity::create($response->json());
+        return Activity::create(json_decode($response->getBody(), true));
     }
 
     /**
@@ -113,22 +97,25 @@ class ActivityService extends BaseService
     public function createAddContactsActivityFromFile($accessToken, $fileName, $fileLocation, $lists)
     {
         $baseUrl = Config::get('endpoints.base_url') . Config::get('endpoints.add_contacts_activity');
-        $request = parent::createBaseRequest($accessToken, "POST", $baseUrl);
-        $request->setHeader("Content-Type", "multipart/form-data");
-
-        $body = new PostBody();
-        $body->setField("lists", $lists);
-        $body->setField("file_name", $fileName);
-        $body->addFile(new PostFile("data", fopen($fileLocation, 'r'), $fileName));
-        $request->setBody($body);
+        $request = new Request('POST', $baseUrl, [
+            parent::getHeadersForMultipart($accessToken)
+        ]);
 
         try {
-            $response = parent::getClient()->send($request);
-        } catch (ClientException $e) {
+            $response = $this->getClient()->send($request, [
+                'multipart' => [
+                    [
+                        'lists' => $lists,
+                        'file_name' => $fileName,
+                        'data' => fopen($fileLocation, 'r')
+                    ]
+                ]
+            ]);
+        } catch (TransferException $e) {
             throw parent::convertException($e);
         }
 
-        return Activity::create($response->json());
+        return Activity::create(json_decode($response->getBody(), true));
     }
 
     /**
@@ -142,17 +129,14 @@ class ActivityService extends BaseService
     public function addClearListsActivity($accessToken, Array $lists)
     {
         $baseUrl = Config::get('endpoints.base_url') . Config::get('endpoints.clear_lists_activity');
-        $request = parent::createBaseRequest($accessToken, "POST", $baseUrl);
-        $stream = Stream::factory(json_encode(array("lists" => $lists)));
-        $request->setBody($stream);
 
         try {
-            $response = parent::getClient()->send($request);
-        } catch (ClientException $e) {
+            $response = parent::sendRequestWithBody($accessToken, "POST", $baseUrl, array("lists" => $lists));
+        } catch (TransferException $e) {
             throw parent::convertException($e);
         }
 
-        return Activity::create($response->json());
+        return Activity::create(json_decode($response->getBody(), true));
     }
 
     /**
@@ -166,17 +150,13 @@ class ActivityService extends BaseService
     {
         $baseUrl = Config::get('endpoints.base_url') . Config::get('endpoints.export_contacts_activity');
 
-        $request = parent::createBaseRequest($accessToken, 'POST', $baseUrl);
-        $stream = Stream::factory(json_encode($exportContacts));
-        $request->setBody($stream);
-
         try {
-            $response = parent::getClient()->send($request);
-        } catch (ClientException $e) {
+            $response = parent::sendRequestWithBody($accessToken, 'POST', $baseUrl, json_decode(json_encode($exportContacts), true));
+        } catch (TransferException $e) {
             throw parent::convertException($e);
         }
 
-        return Activity::create($response->json());
+        return Activity::create(json_decode($response->getBody(), true));
     }
 
     /**
@@ -190,8 +170,6 @@ class ActivityService extends BaseService
     public function addRemoveContactsFromListsActivity($accessToken, Array $emailAddresses, Array $lists)
     {
         $baseUrl = Config::get('endpoints.base_url') . Config::get('endpoints.remove_from_lists_activity');
-        $request = parent::createBaseRequest($accessToken, "POST", $baseUrl);
-
         $payload = array(
             'import_data' => array(),
             'lists' => $lists
@@ -200,16 +178,13 @@ class ActivityService extends BaseService
             $payload['import_data'][] = array('email_addresses' => array($emailAddress));
         }
 
-        $stream = Stream::factory(json_encode($payload));
-        $request->setBody($stream);
-
         try {
-            $response = parent::getClient()->send($request);
-        } catch (ClientException $e) {
+            $response = parent::sendRequestWithBody($accessToken, "POST", $baseUrl, $payload);
+        } catch (TransferException $e) {
             throw parent::convertException($e);
         }
 
-        return Activity::create($response->json());
+        return Activity::create(json_decode($response->getBody(), true));
     }
 
     /**
@@ -224,21 +199,24 @@ class ActivityService extends BaseService
     public function addRemoveContactsFromListsActivityFromFile($accessToken, $fileName, $fileLocation, $lists)
     {
         $baseUrl = Config::get('endpoints.base_url') . Config::get('endpoints.remove_from_lists_activity');
-        $request = parent::createBaseRequest($accessToken, "POST", $baseUrl);
-        $request->setHeader("Content-Type", "multipart/form-data");
-
-        $body = new PostBody();
-        $body->setField("lists", $lists);
-        $body->setField("file_name", $fileName);
-        $body->addFile(new PostFile("data", fopen($fileLocation, 'r'), $fileName));
-        $request->setBody($body);
+        $request = new Request('POST', $baseUrl, [
+            parent::getHeadersForMultipart($accessToken)
+        ]);
 
         try {
-            $response = parent::getClient()->send($request);
-        } catch (ClientException $e) {
+            $response = $this->getClient()->send($request, [
+                'multipart' => [
+                    [
+                        'lists' => $lists,
+                        'file_name' => $fileName,
+                        'data' => fopen($fileLocation, 'r')
+                    ]
+                ]
+            ]);;
+        } catch (TransferException $e) {
             throw parent::convertException($e);
         }
 
-        return Activity::create($response->json());
+        return Activity::create(json_decode($response->getBody(), true));
     }
 }

@@ -6,8 +6,7 @@ use Ctct\Util\Config;
 use Ctct\Components\EmailMarketing\Campaign;
 use Ctct\Components\EmailMarketing\CampaignPreview;
 use Ctct\Components\ResultSet;
-use GuzzleHttp\Exception\ClientException;
-use GuzzleHttp\Stream\Stream;
+use GuzzleHttp\Exception\TransferException;
 
 /**
  * Performs all actions pertaining to Constant Contact Campaigns
@@ -32,17 +31,13 @@ class EmailMarketingService extends BaseService
             unset($campaign->message_footer);
         }
 
-        $request = parent::createBaseRequest($accessToken, 'POST', $baseUrl);
-        $stream = Stream::factory(json_encode($campaign));
-        $request->setBody($stream);
-
         try {
-            $response = parent::getClient()->send($request);
-        } catch (ClientException $e) {
+            $response = parent::sendRequestWithBody($accessToken, 'POST', $baseUrl, json_decode(json_encode($campaign), true));
+        } catch (TransferException $e) {
             throw parent::convertException($e);
         }
 
-        return Campaign::create($response->json());
+        return Campaign::create(json_decode($response->getBody(), true));
     }
 
     /**
@@ -59,22 +54,14 @@ class EmailMarketingService extends BaseService
     public function getCampaigns($accessToken, Array $params = array())
     {
         $baseUrl = Config::get('endpoints.base_url') . Config::get('endpoints.campaigns');
-
-        $request = parent::createBaseRequest($accessToken, 'GET', $baseUrl);
-        if ($params) {
-            $query = $request->getQuery();
-            foreach ($params as $name => $value) {
-                $query->add($name, $value);
-            }
-        }
-
+        
         try {
-            $response = parent::getClient()->send($request);
-        } catch (ClientException $e) {
+            $response = parent::sendRequestWithoutBody($accessToken, 'GET', $baseUrl, $params);
+        } catch (TransferException $e) {
             throw parent::convertException($e);
         }
 
-        $body = $response->json();
+        $body = json_decode($response->getBody(), true);
         $campaigns = array();
         foreach ($body['results'] as $contact) {
             $campaigns[] = Campaign::createSummary($contact);
@@ -94,15 +81,13 @@ class EmailMarketingService extends BaseService
     {
         $baseUrl = Config::get('endpoints.base_url') . sprintf(Config::get('endpoints.campaign'), $campaignId);
 
-        $request = parent::createBaseRequest($accessToken, 'GET', $baseUrl);
-
         try {
-            $response = parent::getClient()->send($request);
-        } catch (ClientException $e) {
+            $response = parent::sendRequestWithoutBody($accessToken, 'GET', $baseUrl);
+        } catch (TransferException $e) {
             throw parent::convertException($e);
         }
 
-        return Campaign::create($response->json());
+        return Campaign::create(json_decode($response->getBody(), true));
     }
 
     /**
@@ -116,11 +101,9 @@ class EmailMarketingService extends BaseService
     {
         $baseUrl = Config::get('endpoints.base_url') . sprintf(Config::get('endpoints.campaign'), $campaignId);
 
-        $request = parent::createBaseRequest($accessToken, 'DELETE', $baseUrl);
-
         try {
-            $response = parent::getClient()->send($request);
-        } catch (ClientException $e) {
+            $response = parent::sendRequestWithoutBody($accessToken, 'DELETE', $baseUrl);
+        } catch (TransferException $e) {
             throw parent::convertException($e);
         }
 
@@ -138,17 +121,13 @@ class EmailMarketingService extends BaseService
     {
         $baseUrl = Config::get('endpoints.base_url') . sprintf(Config::get('endpoints.campaign'), $campaign->id);
 
-        $request = parent::createBaseRequest($accessToken, 'PUT', $baseUrl);
-        $stream = Stream::factory(json_encode($campaign));
-        $request->setBody($stream);
-
         try {
-            $response = parent::getClient()->send($request);
-        } catch (ClientException $e) {
+            $response = parent::sendRequestWithBody($accessToken, 'PUT', $baseUrl, json_decode(json_encode($campaign), true));
+        } catch (TransferException $e) {
             throw parent::convertException($e);
         }
 
-        return Campaign::create($response->json());
+        return Campaign::create(json_decode($response->getBody(), true));
     }
 
     /**
@@ -161,13 +140,12 @@ class EmailMarketingService extends BaseService
     public function getPreview($accessToken, $campaignId) {
         $baseUrl = Config::get('endpoints.base_url') . sprintf(Config::get('endpoints.campaign_preview'), $campaignId);
 
-        $request = parent::createBaseRequest($accessToken, 'GET', $baseUrl);
         try {
-            $response = parent::getClient()->send($request);
-        } catch (ClientException $e) {
+            $response = parent::sendRequestWithoutBody($accessToken, 'GET', $baseUrl);
+        } catch (TransferException $e) {
             throw parent::convertException($e);
         }
 
-        return CampaignPreview::create($response->json());
+        return CampaignPreview::create(json_decode($response->getBody(), true));
     }
 }

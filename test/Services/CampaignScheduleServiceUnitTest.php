@@ -5,9 +5,9 @@ use Ctct\Components\EmailMarketing\TestSend;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
-use GuzzleHttp\Subscriber\Mock;
-use GuzzleHttp\Stream\Stream;
-use GuzzleHttp\Message\Response;
+use GuzzleHttp\Handler\MockHandler;
+use GuzzleHttp\HandlerStack;
+use GuzzleHttp\Psr7\Response;
 
 class CampaignScheduleServiceUnitTest extends PHPUnit_Framework_TestCase
 {
@@ -19,27 +19,26 @@ class CampaignScheduleServiceUnitTest extends PHPUnit_Framework_TestCase
     public static function setUpBeforeClass()
     {
         self::$client = new Client();
-        $schedulesStream = Stream::factory(JsonLoader::getCampaignSchedulesJson());
-        $scheduleStream = Stream::factory(JsonLoader::getCampaignScheduleJson());
-        $testSendStream = Stream::factory(JsonLoader::getTestSendJson());
-        $mock = new Mock([
-            new Response(200, array(), $schedulesStream),
-            new Response(200, array(), $scheduleStream),
-            new Response(201, array(), $scheduleStream),
-            new Response(200, array(), $scheduleStream),
+        $scheduleJson = JsonLoader::getCampaignScheduleJson();
+        $mock = new MockHandler([
+            new Response(200, array(), JsonLoader::getCampaignSchedulesJson()),
+            new Response(200, array(), $scheduleJson),
+            new Response(201, array(), $scheduleJson),
+            new Response(200, array(), $scheduleJson),
             new Response(204, array()),
             new Response(400, array()),
-            new Response(200, array(), $testSendStream)
+            new Response(200, array(), JsonLoader::getTestSendJson())
         ]);
-        self::$client->getEmitter()->attach($mock);
+        $handler = HandlerStack::create($mock);
+        self::$client = new Client(['handler' => $handler]);
     }
 
     public function testGetSchedules()
     {
-        $response = self::$client->get('/');
+        $response = self::$client->request('GET', '/');
 
         $schedules = array();
-        foreach ($response->json() as $responseSchedule) {
+        foreach (json_decode($response->getBody(), true) as $responseSchedule) {
             $schedules[] = $responseSchedule;
         }
 
@@ -55,9 +54,9 @@ class CampaignScheduleServiceUnitTest extends PHPUnit_Framework_TestCase
 
     public function testGetSchedule()
     {
-        $response = self::$client->get('/');
+        $response = self::$client->request('GET', '/');
 
-        $schedule = Schedule::create($response->json());
+        $schedule = Schedule::create(json_decode($response->getBody(), true));
         $this->assertInstanceOf('Ctct\Components\EmailMarketing\Schedule', $schedule);
         $this->assertEquals(1, $schedule->id);
         $this->assertEquals("2012-12-16T11:07:43.626Z", $schedule->scheduled_date);
@@ -65,9 +64,9 @@ class CampaignScheduleServiceUnitTest extends PHPUnit_Framework_TestCase
 
     public function testAddSchedule()
     {
-        $response = self::$client->post('/');
+        $response = self::$client->request('POST', '/');
 
-        $createdSchedule = Schedule::create($response->json());
+        $createdSchedule = Schedule::create(json_decode($response->getBody(), true));
         $this->assertInstanceOf('Ctct\Components\EmailMarketing\Schedule', $createdSchedule);
         $this->assertEquals(1, $createdSchedule->id);
         $this->assertEquals("2012-12-16T11:07:43.626Z", $createdSchedule->scheduled_date);
@@ -75,9 +74,9 @@ class CampaignScheduleServiceUnitTest extends PHPUnit_Framework_TestCase
 
     public function testUpdateSchedule()
     {
-        $response = self::$client->put('/');
+        $response = self::$client->request('PUT', '/');
 
-        $updatedSchedule = Schedule::create($response->json());
+        $updatedSchedule = Schedule::create(json_decode($response->getBody(), true));
         $this->assertInstanceOf('Ctct\Components\EmailMarketing\Schedule', $updatedSchedule);
         $this->assertEquals(1, $updatedSchedule->id);
         $this->assertEquals("2012-12-16T11:07:43.626Z", $updatedSchedule->scheduled_date);
@@ -85,7 +84,7 @@ class CampaignScheduleServiceUnitTest extends PHPUnit_Framework_TestCase
 
     public function testDeleteSchedule()
     {
-        $response = self::$client->delete('/');
+        $response = self::$client->request('DELETE', '/');
 
         $this->assertEquals(204, $response->getStatusCode());
     }
@@ -93,7 +92,7 @@ class CampaignScheduleServiceUnitTest extends PHPUnit_Framework_TestCase
     public function testDeleteScheduleFailed()
     {
         try {
-            self::$client->delete('/');
+            self::$client->request('DELETE', '/');
             $this->fail("Call did not fail");
         } catch (ClientException $e) {
             $this->assertEquals(400, $e->getCode());
@@ -102,9 +101,9 @@ class CampaignScheduleServiceUnitTest extends PHPUnit_Framework_TestCase
 
     public function testSendTest()
     {
-        $response = self::$client->post('/');
+        $response = self::$client->request('POST', '/');
 
-        $testSend = TestSend::create($response->json());
+        $testSend = TestSend::create(json_decode($response->getBody(), true));
         $this->assertInstanceOf('Ctct\Components\EmailMarketing\TestSend', $testSend);
         $this->assertEquals("HTML", $testSend->format);
         $this->assertEquals("oh hai there", $testSend->personal_message);

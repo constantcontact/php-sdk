@@ -5,6 +5,9 @@ use Ctct\Exceptions\CtctException;
 use Ctct\Util\Config;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
+use GuzzleHttp\Exception\ServerException;
+use GuzzleHttp\Exception\TransferException;
+use GuzzleHttp\Psr7\Request;
 
 /**
  * Super class for all services
@@ -25,6 +28,14 @@ abstract class BaseService
             'User-Agent' => 'ConstantContact AppConnect PHP Library v' . Config::get('settings.version'),
             'Content-Type' => 'application/json',
             'Accept' => 'application/json',
+            'Authorization' => 'Bearer ' . $accessToken
+        );
+    }
+
+    protected static function getHeadersForMultipart($accessToken) {
+        return array(
+            'User-Agent' => 'ConstantContact AppConnect PHP Library v' . Config::get('settings.version'),
+            'Content-Type' => 'multipart/form-data',
             'Authorization' => 'Bearer ' . $accessToken
         );
     }
@@ -55,27 +66,43 @@ abstract class BaseService
      * Get the rest client being used by the service
      * @return Client - GuzzleHTTP Client implementation being used
      */
-    protected function getClient()
-    {
+    protected function getClient() {
         return $this->client;
     }
 
-    protected function createBaseRequest($accessToken, $method, $baseUrl) {
-        $request = $this->client->createRequest($method, $baseUrl);
-        $request->getQuery()->set("api_key", $this->apiKey);
-        $request->setHeaders($this->getHeaders($accessToken));
-        return $request;
+    protected function sendRequestWithBody($accessToken, $method, $baseUrl, Array $body, Array $queryParams = array()) {
+        $queryParams["api_key"] = $this->apiKey;
+        $request = new Request($method, $baseUrl);
+        return $this->client->send($request, [
+            'query' => $queryParams,
+            'json' => $body,
+            'headers' => self::getHeaders($accessToken)
+        ]);
+    }
+
+    protected function sendRequestWithoutBody($accessToken, $method, $baseUrl, Array $queryParams = array()) {
+        $queryParams["api_key"] = $this->apiKey;
+        $request = new Request($method, $baseUrl);
+
+        return $this->client->send($request, [
+            'query' => $queryParams,
+            'headers' => self::getHeaders($accessToken)
+        ]);
     }
 
     /**
      * Turns a ClientException into a CtctException - like magic.
-     * @param ClientException $exception - Guzzle ClientException
+     * @param TransferException $exception - Guzzle TransferException can be one of RequestException,
+     *        ConnectException, ClientException, ServerException
      * @return CtctException
      */
-    protected function convertException($exception)
-    {
-        $ctctException = new CtctException($exception->getResponse()->getReasonPhrase(), $exception->getCode());
-        $ctctException->setUrl($exception->getResponse()->getEffectiveUrl());
+    protected function convertException($exception) {
+        if ($exception instanceof ClientException || $exception instanceof ServerException) {
+            $ctctException = new CtctException($exception->getResponse()->getReasonPhrase(), $exception->getCode());
+        } else {
+            $ctctException = new CtctException("Something went wrong", $exception->getCode());
+        }
+        $ctctException->setUrl($exception->getRequest()->getUri());
         $ctctException->setErrors(json_decode($exception->getResponse()->getBody()->getContents()));
         return $ctctException;
     }

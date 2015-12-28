@@ -50,9 +50,8 @@ class CtctOAuth2
         }
 
         $baseUrl = Config::get('auth.base_url') . Config::get('auth.authorization_endpoint');
-        $request = $this->client->createRequest("GET", $baseUrl);
-        $request->setQuery($params);
-        return $request->getUrl();
+        $query = http_build_query($params, '', '&', PHP_QUERY_RFC3986);
+        return $baseUrl . "?" . $query;
     }
 
     /**
@@ -72,11 +71,10 @@ class CtctOAuth2
         );
 
         $baseUrl = Config::get('auth.base_url') . Config::get('auth.token_endpoint');
-        $request = $this->client->createRequest("POST", $baseUrl);
-        $request->setQuery($params);
-
         try {
-            $response = $this->client->send($request)->json();
+            $response = json_decode($this->client->request('POST', $baseUrl, [
+                'query' => $params
+            ]), true);
         } catch (ClientException $e) {
             throw $this->convertException($e);
         }
@@ -93,11 +91,11 @@ class CtctOAuth2
     public function getTokenInfo($accessToken)
     {
         $baseUrl = Config::get('auth.base_url') . Config::get('auth.token_info');
-        $request = $this->client->createRequest("POST", $baseUrl);
-        $request->setQuery(array("access_token" => $accessToken));
 
         try {
-            $response = $this->client->send($request)->json();
+            $response = json_decode($this->client->request('POST', $baseUrl, [
+                'query' => array("access_token" => $accessToken)
+            ]), true);
         } catch (ClientException $e) {
             throw $this->convertException($e);
         }
@@ -110,7 +108,6 @@ class CtctOAuth2
      */
     private function convertException($exception) {
         $oauth2Exception = new OAuth2Exception($exception->getResponse()->getReasonPhrase(), $exception->getCode());
-        $oauth2Exception->setUrl($exception->getResponse()->getEffectiveUrl());
         $oauth2Exception->setErrors(json_decode($exception->getResponse()->getBody()->getContents()));
         return $oauth2Exception;
     }

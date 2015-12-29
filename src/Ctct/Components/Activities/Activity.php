@@ -10,8 +10,7 @@ use Ctct\Components\Component;
  * @subpackage     Activities
  * @author         Constant Contact
  */
-class Activity extends Component
-{
+class Activity extends Component {
     public $id;
     public $type;
     public $status;
@@ -29,8 +28,7 @@ class Activity extends Component
      * @param array $props - associative array of initial properties to set
      * @return Activity
      */
-    public static function create(array $props)
-    {
+    public static function create(array $props) {
         $activity = new Activity();
         $activity->id = parent::getValue($props, "id");
         $activity->type = parent::getValue($props, "type");
@@ -73,8 +71,7 @@ class Activity extends Component
      * Create json used for a POST/PUT request, also handles removing attributes that will cause errors if sent
      * @return string
      */
-    public function toJson()
-    {
+    public function toJson() {
         return json_encode($this);
     }
 }

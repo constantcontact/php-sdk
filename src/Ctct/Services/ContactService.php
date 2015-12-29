@@ -1,12 +1,11 @@
 <?php
 namespace Ctct\Services;
 
-use Ctct\Exceptions\CtctException;
-use Ctct\Util\Config;
 use Ctct\Components\Contacts\Contact;
 use Ctct\Components\ResultSet;
-use GuzzleHttp\Exception\ClientException;
-use GuzzleHttp\Stream\Stream;
+use Ctct\Exceptions\CtctException;
+use Ctct\Util\Config;
+use GuzzleHttp\Exception\TransferException;
 
 /**
  * Performs all actions pertaining to Constant Contact Contacts
@@ -14,8 +13,7 @@ use GuzzleHttp\Stream\Stream;
  * @package Services
  * @author ContactContact
  */
-class ContactService extends BaseService
-{
+class ContactService extends BaseService {
     /**
      * Get a ResultSet of contacts
      * @param string $accessToken - Constant Contact OAuth2 access token
@@ -29,25 +27,16 @@ class ContactService extends BaseService
      * @return ResultSet
      * @throws CtctException
      */
-    public function getContacts($accessToken, Array $params = array())
-    {
+    public function getContacts($accessToken, Array $params = array()) {
         $baseUrl = Config::get('endpoints.base_url') . Config::get('endpoints.contacts');
 
-        $request = parent::createBaseRequest($accessToken, 'GET', $baseUrl);
-        if ($params) {
-            $query = $request->getQuery();
-            foreach ($params as $name => $value) {
-                $query->add($name, $value);
-            }
-        }
-
         try {
-            $response = parent::getClient()->send($request);
-        } catch (ClientException $e) {
+            $response = parent::sendRequestWithoutBody($accessToken, 'GET', $baseUrl, $params);
+        } catch (TransferException $e) {
             throw parent::convertException($e);
         }
 
-        $body = $response->json();
+        $body = json_decode($response->getBody(), true);
         $contacts = array();
         foreach ($body['results'] as $contact) {
             $contacts[] = Contact::create($contact);
@@ -69,25 +58,16 @@ class ContactService extends BaseService
      * @return ResultSet
      * @throws CtctException
      */
-    public function getContactsFromList($accessToken, $listId, Array $params = array())
-    {
+    public function getContactsFromList($accessToken, $listId, Array $params = array()) {
         $baseUrl = Config::get('endpoints.base_url') . sprintf(Config::get('endpoints.list_contacts'), $listId);
 
-        $request = parent::createBaseRequest($accessToken, 'GET', $baseUrl);
-        if ($params) {
-            $query = $request->getQuery();
-            foreach ($params as $name => $value) {
-                $query->add($name, $value);
-            }
-        }
-
         try {
-            $response = parent::getClient()->send($request);
-        } catch (ClientException $e) {
+            $response = parent::sendRequestWithoutBody($accessToken, 'GET', $baseUrl, $params);
+        } catch (TransferException $e) {
             throw parent::convertException($e);
         }
 
-        $body = $response->json();
+        $body = json_decode($response->getBody(), true);
         $contacts = array();
         foreach ($body['results'] as $contact) {
             $contacts[] = Contact::create($contact);
@@ -102,53 +82,16 @@ class ContactService extends BaseService
      * @return Contact
      * @throws CtctException
      */
-    public function getContact($accessToken, $contactId)
-    {
+    public function getContact($accessToken, $contactId) {
         $baseUrl = Config::get('endpoints.base_url') . sprintf(Config::get('endpoints.contact'), $contactId);
 
-        $request = parent::createBaseRequest($accessToken, 'GET', $baseUrl);
-
         try {
-            $response = parent::getClient()->send($request);
-        } catch (ClientException $e) {
+            $response = parent::sendRequestWithoutBody($accessToken, 'GET', $baseUrl);
+        } catch (TransferException $e) {
             throw parent::convertException($e);
         }
 
-        return Contact::create($response->json());
-    }
-
-    /**
-     * Add a new contact to the Constant Contact account
-     * @param string $accessToken - Constant Contact OAuth2 access token
-     * @param Contact $contact - Contact to add
-     * @param array $params - associative array of query parameters and values to append to the request.
-     *      Allowed parameters include:
-     *      action_by - Whether the contact is taking the action, or the account owner. Must be one of
-     *                  ACTION_BY_OWNER or ACTION_BY_VISITOR
-     * @return Contact
-     * @throws CtctException
-     */
-    public function addContact($accessToken, Contact $contact, Array $params = array())
-    {
-        $baseUrl = Config::get('endpoints.base_url') . Config::get('endpoints.contacts');
-
-        $request = parent::createBaseRequest($accessToken, 'POST', $baseUrl);
-        if ($params) {
-            $query = $request->getQuery();
-            foreach ($params as $name => $value) {
-                $query->add($name, $value);
-            }
-        }
-        $stream = Stream::factory(json_encode($contact));
-        $request->setBody($stream);
-
-        try {
-            $response = parent::getClient()->send($request);
-        } catch (ClientException $e) {
-            throw parent::convertException($e);
-        }
-
-        return Contact::create($response->json());
+        return Contact::create(json_decode($response->getBody(), true));
     }
 
     /**
@@ -161,11 +104,9 @@ class ContactService extends BaseService
     public function unsubscribeContact($accessToken, $contactId) {
         $baseUrl = Config::get('endpoints.base_url') . sprintf(Config::get('endpoints.contact'), $contactId);
 
-        $request = parent::createBaseRequest($accessToken, 'DELETE', $baseUrl);
-
         try {
-            $response = parent::getClient()->send($request);
-        } catch (ClientException $e) {
+            $response = parent::sendRequestWithoutBody($accessToken, 'DELETE', $baseUrl);
+        } catch (TransferException $e) {
             throw parent::convertException($e);
         }
 
@@ -173,36 +114,44 @@ class ContactService extends BaseService
     }
 
     /**
-     * Update contact details for a specific contact
+     * Add a new contact to the Constant Contact account
      * @param string $accessToken - Constant Contact OAuth2 access token
-     * @param Contact $contact - Contact to be updated
-     * @param array $params - associative array of query parameters and values to append to the request.
-     *      Allowed parameters include:
-     *      action_by - Whether the contact is taking the action, or the account owner. Must be one of
-     *                  ACTION_BY_OWNER or ACTION_BY_VISITOR
+     * @param Contact $contact - Contact to add
+     * @param boolean $actionByContact - true if the creation is being made by the owner of othe email address
      * @return Contact
      * @throws CtctException
      */
-    public function updateContact($accessToken, Contact $contact, Array $params = array())
-    {
-        $baseUrl = Config::get('endpoints.base_url') . sprintf(Config::get('endpoints.contact'), $contact->id);
-
-        $request = parent::createBaseRequest($accessToken, 'PUT', $baseUrl);
-        if ($params) {
-            $query = $request->getQuery();
-            foreach ($params as $name => $value) {
-                $query->add($name, $value);
-            }
-        }
-        $stream = Stream::factory(json_encode($contact));
-        $request->setBody($stream);
+    public function addContact($accessToken, Contact $contact, $actionByContact) {
+        $baseUrl = Config::get('endpoints.base_url') . Config::get('endpoints.contacts');
+        $params["action_by"] = ($actionByContact ? true : false);
 
         try {
-            $response = parent::getClient()->send($request);
-        } catch (ClientException $e) {
+            $response = parent::sendRequestWithBody($accessToken, 'POST', $baseUrl, $contact, $params);
+        } catch (TransferException $e) {
             throw parent::convertException($e);
         }
 
-        return Contact::create($response->json());
+        return Contact::create(json_decode($response->getBody(), true));
+    }
+
+    /**
+     * Update contact details for a specific contact
+     * @param string $accessToken - Constant Contact OAuth2 access token
+     * @param Contact $contact - Contact to be updated
+     * @param boolean $actionByContact - true if the update is being made by the owner of the email address
+     * @return Contact
+     * @throws CtctException
+     */
+    public function updateContact($accessToken, Contact $contact, $actionByContact) {
+        $baseUrl = Config::get('endpoints.base_url') . sprintf(Config::get('endpoints.contact'), $contact->id);
+        $params["action_by"] = ($actionByContact ? true : false);
+
+        try {
+            $response = parent::sendRequestWithBody($accessToken, 'PUT', $baseUrl, $contact, $params);
+        } catch (TransferException $e) {
+            throw parent::convertException($e);
+        }
+
+        return Contact::create(json_decode($response->getBody(), true));
     }
 }

@@ -1,27 +1,27 @@
 {
-    "meta": {
-        "pagination": {
-            "next_link": "/v2/emailcampaigns/1100394165290/tracking/unsubscribes?next=bGltaXQ9MyZuZXh0PTEzNTQ4MTcyMTA0MzA"
-        }
+  "meta": {
+    "pagination": {
+      "next_link": "/v2/emailcampaigns/1100394165290/tracking/unsubscribes?next=bGltaXQ9MyZuZXh0PTEzNTQ4MTcyMTA0MzA"
+    }
+  },
+  "results": [
+    {
+      "activity_type": "EMAIL_UNSUBSCRIBE",
+      "campaign_id": 1100394165290,
+      "contact_id": "58",
+      "email_address": "wizpieabd7817c1d0d4f08bb05f16f6681221c1354817211855027000@snoopy.roving.com",
+      "unsubscribe_date": "2012-12-06T13:06:53.440Z",
+      "unsubscribe_source": "ACTION_BY_CUSTOMER",
+      "unsubscribe_reason": ""
     },
-    "results": [
-        {
-            "activity_type": "EMAIL_UNSUBSCRIBE",
-            "campaign_id": 1100394165290,
-            "contact_id": "58",
-            "email_address": "wizpieabd7817c1d0d4f08bb05f16f6681221c1354817211855027000@snoopy.roving.com",
-            "unsubscribe_date": "2012-12-06T13:06:53.440Z",
-            "unsubscribe_source": "ACTION_BY_CUSTOMER",
-            "unsubscribe_reason": ""
-        },
-        {
-            "activity_type": "EMAIL_UNSUBSCRIBE",
-            "campaign_id": 1100394165290,
-            "contact_id": "57",
-            "email_address": "wizpiebf0717c7ce95455fb7fa9bbfb1812a4e1354817211855058000@snoopy.roving.com",
-            "unsubscribe_date": "2012-12-06T13:06:53.333Z",
-            "unsubscribe_source": "ACTION_BY_CUSTOMER",
-            "unsubscribe_reason": ""
-        }
-    ]
+    {
+      "activity_type": "EMAIL_UNSUBSCRIBE",
+      "campaign_id": 1100394165290,
+      "contact_id": "57",
+      "email_address": "wizpiebf0717c7ce95455fb7fa9bbfb1812a4e1354817211855058000@snoopy.roving.com",
+      "unsubscribe_date": "2012-12-06T13:06:53.333Z",
+      "unsubscribe_source": "ACTION_BY_CUSTOMER",
+      "unsubscribe_reason": ""
+    }
+  ]
 }

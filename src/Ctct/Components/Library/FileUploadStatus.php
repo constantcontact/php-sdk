@@ -31,8 +31,7 @@ class FileUploadStatus extends Component {
      */
     public $status;
 
-    public static function create(Array $props)
-    {
+    public static function create(Array $props) {
         $fileUploadStatus = new FileUploadStatus();
 
         $fileUploadStatus->description = parent::getValue($props, "description");

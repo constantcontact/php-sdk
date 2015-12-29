@@ -1,42 +1,33 @@
 <?php
 use Ctct\Components\Activities\Activity;
 use GuzzleHttp\Client;
-use GuzzleHttp\Subscriber\Mock;
-use GuzzleHttp\Stream\Stream;
-use GuzzleHttp\Message\Response;
+use GuzzleHttp\Handler\MockHandler;
+use GuzzleHttp\HandlerStack;
+use GuzzleHttp\Psr7\Response;
 
-class ActivityServiceUnitTest extends PHPUnit_Framework_TestCase
-{
+class ActivityServiceUnitTest extends PHPUnit_Framework_TestCase {
     /**
      * @var Client
      */
     private static $client;
 
-    public static function setUpBeforeClass()
-    {
-        self::$client = new Client();
-        $activityStream = Stream::factory(JsonLoader::getActivity());
-        $activitiesStream = Stream::factory(JsonLoader::getActivities());
-        $clearListActivityStream = Stream::factory(JsonLoader::getClearListsActivity());
-        $exportActivityStream = Stream::factory(JsonLoader::getExportContactsActivity());
-        $removeContactsFromListStream = Stream::factory(JsonLoader::getRemoveContactsFromListsActivity());
-        $addContactsStream = Stream::factory(JsonLoader::getAddContactsActivity());
-        $mock = new Mock([
-            new Response(200, array(), $activityStream),
-            new Response(200, array(), $activitiesStream),
-            new Response(201, array(), $clearListActivityStream),
-            new Response(201, array(), $exportActivityStream),
-            new Response(201, array(), $removeContactsFromListStream),
-            new Response(201, array(), $addContactsStream)
+    public static function setUpBeforeClass() {
+        $mock = new MockHandler([
+            new Response(200, array(), JsonLoader::getActivity()),
+            new Response(200, array(), JsonLoader::getActivities()),
+            new Response(201, array(), JsonLoader::getClearListsActivity()),
+            new Response(201, array(), JsonLoader::getExportContactsActivity()),
+            new Response(201, array(), JsonLoader::getRemoveContactsFromListsActivity()),
+            new Response(201, array(), JsonLoader::getAddContactsActivity())
         ]);
-        self::$client->getEmitter()->attach($mock);
+        $handler = HandlerStack::create($mock);
+        self::$client = new Client(['handler' => $handler]);
     }
 
-    public function testGetActivity()
-    {
-        $response = self::$client->get('/');
+    public function testGetActivity() {
+        $response = self::$client->request('GET', '/');
 
-        $activity = Activity::create($response->json());
+        $activity = Activity::create(json_decode($response->getBody(), true));
         $this->assertInstanceOf('Ctct\Components\Activities\Activity', $activity);
         $this->assertEquals("a07e1ikxyomhd4la0o9", $activity->id);
         $this->assertEquals("REMOVE_CONTACTS_FROM_LISTS", $activity->type);
@@ -50,11 +41,10 @@ class ActivityServiceUnitTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(0, $activity->errors[0]->line_number);
     }
 
-    public function testGetActivities()
-    {
-        $response = self::$client->get('/');
+    public function testGetActivities() {
+        $response = self::$client->request('GET', '/');
         $activities = array();
-        foreach ($response->json() as $activityResponse) {
+        foreach (json_decode($response->getBody(), true) as $activityResponse) {
             $activities[] = Activity::create($activityResponse);
         }
         $activity = $activities[0];
@@ -69,11 +59,10 @@ class ActivityServiceUnitTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(0, $activity->contact_count);
     }
 
-    public function testAddClearListsActivity()
-    {
-        $response = self::$client->post('/');
+    public function testAddClearListsActivity() {
+        $response = self::$client->request('POST', '/');
 
-        $activity = Activity::create($response->json());
+        $activity = Activity::create(json_decode($response->getBody(), true));
         $this->assertInstanceOf('Ctct\Components\Activities\Activity', $activity);
         $this->assertEquals("a07e1il69fwhd7uan9h", $activity->id);
         $this->assertEquals("CLEAR_CONTACTS_FROM_LISTS", $activity->type);
@@ -81,11 +70,10 @@ class ActivityServiceUnitTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(0, $activity->contact_count);
     }
 
-    public function testAddExportContactsActivity()
-    {
-        $response = self::$client->post('/');
+    public function testAddExportContactsActivity() {
+        $response = self::$client->request('POST', '/');
 
-        $activity = Activity::create($response->json());
+        $activity = Activity::create(json_decode($response->getBody(), true));
         $this->assertInstanceOf('Ctct\Components\Activities\Activity', $activity);
         $this->assertEquals("a07e1i5nqamhcfeuu0h", $activity->id);
         $this->assertEquals("EXPORT_CONTACTS", $activity->type);
@@ -93,11 +81,10 @@ class ActivityServiceUnitTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(0, $activity->contact_count);
     }
 
-    public function testAddRemoveContactsFromListsActivity()
-    {
-        $response = self::$client->post('/');
+    public function testAddRemoveContactsFromListsActivity() {
+        $response = self::$client->request('POST', '/');
 
-        $activity = Activity::create($response->json());
+        $activity = Activity::create(json_decode($response->getBody(), true));
         $this->assertInstanceOf('Ctct\Components\Activities\Activity', $activity);
         $this->assertEquals("a07e1i5nqamhcfeuu0h", $activity->id);
         $this->assertEquals("REMOVE_CONTACTS_FROM_LISTS", $activity->type);
@@ -105,11 +92,10 @@ class ActivityServiceUnitTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(0, $activity->contact_count);
     }
 
-    public function testAddCreateContactsActivity()
-    {
-        $response = self::$client->post('/');
+    public function testAddCreateContactsActivity() {
+        $response = self::$client->request('POST', '/');
 
-        $activity = Activity::create($response->json());
+        $activity = Activity::create(json_decode($response->getBody(), true));
         $this->assertInstanceOf('Ctct\Components\Activities\Activity', $activity);
         $this->assertEquals("a07e1il69qzhdby44ro", $activity->id);
         $this->assertEquals("ADD_CONTACTS", $activity->type);

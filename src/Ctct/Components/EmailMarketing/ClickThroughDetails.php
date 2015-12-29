@@ -10,8 +10,7 @@ use Ctct\Components\Component;
  * @subpackage     Campaigns
  * @author         Constant Contact
  */
-class ClickThroughDetails extends Component
-{
+class ClickThroughDetails extends Component {
     /**
      * the actual url that was clicked on
      * @var string
@@ -35,8 +34,7 @@ class ClickThroughDetails extends Component
      * @param array $props - associative array of initial properties to set
      * @return ClickThroughDetails
      */
-    public static function create(array $props)
-    {
+    public static function create(array $props) {
         $click_through_details = new ClickThroughDetails();
         $click_through_details->url = parent::getValue($props, "url");
         $click_through_details->url_uid = parent::getValue($props, "url_uid");

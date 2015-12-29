@@ -11,8 +11,7 @@ use Ctct\Components\Component;
  * @subpackage     CampaignTracking
  * @author         Constant Contact
  */
-class OpenActivity extends Component
-{
+class OpenActivity extends Component {
     public $activity_type;
     public $open_date;
     public $contact_id;
@@ -24,8 +23,7 @@ class OpenActivity extends Component
      * @param array $props - array of properties to create object from
      * @return OpenActivity
      */
-    public static function create(array $props)
-    {
+    public static function create(array $props) {
         $open_activity = new OpenActivity();
         $open_activity->activity_type = parent::getValue($props, "activity_type");
         $open_activity->open_date = parent::getValue($props, "open_date");

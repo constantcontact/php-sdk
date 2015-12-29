@@ -8,8 +8,7 @@ namespace Ctct\Components\Tracking;
  * @subpackage     CampaignTracking
  * @author         Constant Contact
  */
-class TrackingActivity
-{
+class TrackingActivity {
     public $results = array();
     public $next;
 
@@ -18,8 +17,7 @@ class TrackingActivity
      * @param array $results - results array from a tracking endpoint
      * @param array $pagination - pagination array returned from a tracking endpoint
      */
-    public function __construct(array $results, array $pagination)
-    {
+    public function __construct(array $results, array $pagination) {
         $this->results = $results;
 
         if (array_key_exists('next', $pagination)) {

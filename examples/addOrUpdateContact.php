@@ -18,8 +18,8 @@ http://constantcontact.mashery.com.
 require_once '../src/Ctct/autoload.php';
 require_once '../vendor/autoload.php';
 
-use Ctct\ConstantContact;
 use Ctct\Components\Contacts\Contact;
+use Ctct\ConstantContact;
 use Ctct\Exceptions\CtctException;
 
 // Enter your Constant Contact APIKEY and ACCESS_TOKEN

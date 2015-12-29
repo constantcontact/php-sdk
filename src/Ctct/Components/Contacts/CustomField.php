@@ -10,9 +10,7 @@ use Ctct\Components\Component;
  * @subpackage     Contacts
  * @author         Constant Contact
  */
-class CustomField extends Component
-{
-
+class CustomField extends Component {
     /**
      * Name of the custom field
      * @var string
@@ -30,8 +28,7 @@ class CustomField extends Component
      * @param array $props - Associative array of initial properties to set
      * @return CustomField
      */
-    public static function create(array $props)
-    {
+    public static function create(array $props) {
         $custom_field = new CustomField();
         $custom_field->name = parent::getValue($props, "name");
         $custom_field->value = parent::getValue($props, "value");

@@ -10,8 +10,7 @@ use Ctct\Components\Component;
  * @subpackage     CampaignTracking
  * @author         Constant Contact
  */
-class BounceActivity extends Component
-{
+class BounceActivity extends Component {
     public $activity_type;
     public $bounce_code;
     public $bounce_description;
@@ -26,8 +25,7 @@ class BounceActivity extends Component
      * @param array $props - array of properties to create object from
      * @return BounceActivity
      */
-    public static function create(array $props)
-    {
+    public static function create(array $props) {
         $bounceActivity = new BounceActivity();
         $bounceActivity->activity_type = parent::getValue($props, "activity_type");
         $bounceActivity->bounce_code = parent::getValue($props, "bounce_code");

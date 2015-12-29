@@ -10,8 +10,7 @@ use Ctct\Components\Component;
  * @subpackage     Activities
  * @author         Constant Contact
  */
-class ActivityError extends Component
-{
+class ActivityError extends Component {
     public $message;
     public $line_number;
     public $email_address;
@@ -21,8 +20,7 @@ class ActivityError extends Component
      * @param array $props - associative array of initial properties to set
      * @return ActivityError
      */
-    public static function create(array $props)
-    {
+    public static function create(array $props) {
         $activityError = new ActivityError();
         $activityError->message = parent::getValue($props, "message");
         $activityError->line_number = parent::getValue($props, "line_number");

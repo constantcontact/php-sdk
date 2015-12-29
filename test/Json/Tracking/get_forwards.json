@@ -1,23 +1,23 @@
 {
-    "meta": {
-        "pagination": {
-            "next_link": "/v2/emailcampaigns/1100394165290/tracking/forwards?next=bGltaXQ9MyZuZXh0PTEzNTQ4MTcyMTA0MzA"
-        }
+  "meta": {
+    "pagination": {
+      "next_link": "/v2/emailcampaigns/1100394165290/tracking/forwards?next=bGltaXQ9MyZuZXh0PTEzNTQ4MTcyMTA0MzA"
+    }
+  },
+  "results": [
+    {
+      "activity_type": "EMAIL_FORWARD",
+      "campaign_id": 1100394165290,
+      "contact_id": "74",
+      "email_address": "wizpie2ca3455df5c34a26806f519f01f8a22e1354817223114268000@snoopy.roving.com",
+      "forward_date": "2012-12-06T13:07:06.810Z"
     },
-    "results": [
-        {
-            "activity_type": "EMAIL_FORWARD",
-            "campaign_id": 1100394165290,
-            "contact_id": "74",
-            "email_address": "wizpie2ca3455df5c34a26806f519f01f8a22e1354817223114268000@snoopy.roving.com",
-            "forward_date": "2012-12-06T13:07:06.810Z"
-        },
-        {
-            "activity_type": "EMAIL_FORWARD",
-            "campaign_id": 1100394165290,
-            "contact_id": "74",
-            "email_address": "wizpie2ca3455df5c34a26806f519f01f8a22e1354817223114268000@snoopy.roving.com",
-            "forward_date": "2012-12-06T13:07:06.701Z"
-        }
-    ]
+    {
+      "activity_type": "EMAIL_FORWARD",
+      "campaign_id": 1100394165290,
+      "contact_id": "74",
+      "email_address": "wizpie2ca3455df5c34a26806f519f01f8a22e1354817223114268000@snoopy.roving.com",
+      "forward_date": "2012-12-06T13:07:06.701Z"
+    }
+  ]
 }

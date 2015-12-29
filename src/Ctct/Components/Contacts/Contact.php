@@ -10,9 +10,7 @@ use Ctct\Components\Component;
  * @subpackage     Contacts
  * @author         Constant Contact
  */
-class Contact extends Component
-{
-
+class Contact extends Component {
     /**
      * Unique identifier for the contact
      * @var string
@@ -144,8 +142,7 @@ class Contact extends Component
      * @param array $props - Associative array of initial properties to set
      * @return Contact
      */
-    public static function create(array $props)
-    {
+    public static function create(array $props) {
         $contact = new Contact();
         $contact->id = parent::getValue($props, "id");
         $contact->status = parent::getValue($props, "status");
@@ -188,9 +185,9 @@ class Contact extends Component
         }
 
         if (isset($props['lists'])) {
-          foreach ($props['lists'] as $contact_list) {
-              $contact->lists[] = ContactList::create($contact_list);
-          }
+            foreach ($props['lists'] as $contact_list) {
+                $contact->lists[] = ContactList::create($contact_list);
+            }
         }
 
         $contact->created_date = parent::getValue($props, "created_date");
@@ -205,8 +202,7 @@ class Contact extends Component
      * Add a ContactList
      * @param mixed $contactList - ContactList object or contact list id
      */
-    public function addList($contactList)
-    {
+    public function addList($contactList) {
         if (!$contactList instanceof ContactList) {
             $contactList = new ContactList($contactList);
         }
@@ -218,8 +214,7 @@ class Contact extends Component
      * Add an EmailAddress
      * @param mixed $emailAddress - EmailAddress object or email address
      */
-    public function addEmail($emailAddress)
-    {
+    public function addEmail($emailAddress) {
         if (!$emailAddress instanceof EmailAddress) {
             $emailAddress = new EmailAddress($emailAddress);
         }
@@ -231,8 +226,7 @@ class Contact extends Component
      * Add a custom field to the contact object
      * @param CustomField $customField - custom field to add to the contact
      */
-    public function addCustomField(CustomField $customField)
-    {
+    public function addCustomField(CustomField $customField) {
         $this->custom_fields[] = $customField;
     }
 
@@ -240,13 +234,11 @@ class Contact extends Component
      * Add an address
      * @param Address $address - Address to add
      */
-    public function addAddress(Address $address)
-    {
+    public function addAddress(Address $address) {
         $this->addresses[] = $address;
     }
 
-    public function toJson()
-    {
+    public function toJson() {
         unset($this->last_update_date);
         return json_encode($this);
     }

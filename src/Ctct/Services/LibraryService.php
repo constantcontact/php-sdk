@@ -1,20 +1,17 @@
 <?php
 namespace Ctct\Services;
 
-use Ctct\Exceptions\CtctException;
 use Ctct\Components\Library\File;
 use Ctct\Components\Library\FileUploadStatus;
 use Ctct\Components\Library\Folder;
 use Ctct\Components\ResultSet;
+use Ctct\Exceptions\CtctException;
 use Ctct\Exceptions\IllegalArgumentException;
 use Ctct\Util\Config;
-use GuzzleHttp\Exception\ClientException;
-use GuzzleHttp\Post\PostBody;
-use GuzzleHttp\Post\PostFile;
-use GuzzleHttp\Stream\Stream;
+use GuzzleHttp\Exception\TransferException;
+use GuzzleHttp\Psr7\Request;
 
-class LibraryService extends BaseService
-{
+class LibraryService extends BaseService {
     /**
      * Get files from the Library
      * @param string $accessToken - Constant Contact OAuth2 Access Token
@@ -29,25 +26,16 @@ class LibraryService extends BaseService
      * @return ResultSet
      * @throws CtctException
      */
-    public function getLibraryFiles($accessToken, Array $params = array())
-    {
+    public function getLibraryFiles($accessToken, Array $params = array()) {
         $baseUrl = Config::get('endpoints.base_url') . Config::get('endpoints.library_files');
 
-        $request = parent::createBaseRequest($accessToken, 'GET', $baseUrl);
-        if ($params) {
-            $query = $request->getQuery();
-            foreach ($params as $name => $value) {
-                $query->add($name, $value);
-            }
-        }
-
         try {
-            $response = parent::getClient()->send($request);
-        } catch (ClientException $e) {
+            $response = parent::sendRequestWithoutBody($accessToken, 'GET', $baseUrl, $params);
+        } catch (TransferException $e) {
             throw parent::convertException($e);
         }
 
-        $body = $response->json();
+        $body = json_decode($response->getBody(), true);
         $libraryFiles = array();
         foreach ($body['results'] as $file) {
             $libraryFiles[] = File::create($file);
@@ -71,25 +59,16 @@ class LibraryService extends BaseService
      * @return ResultSet
      * @throws CtctException
      */
-    public function getLibraryFilesByFolder($accessToken, $folderId, Array $params = array())
-    {
+    public function getLibraryFilesByFolder($accessToken, $folderId, Array $params = array()) {
         $baseUrl = Config::get('endpoints.base_url') . sprintf(Config::get('endpoints.library_files_by_folder'), $folderId);
 
-        $request = parent::createBaseRequest($accessToken, 'GET', $baseUrl);
-        if ($params) {
-            $query = $request->getQuery();
-            foreach ($params as $name => $value) {
-                $query->add($name, $value);
-            }
-        }
-
         try {
-            $response = parent::getClient()->send($request);
-        } catch (ClientException $e) {
+            $response = parent::sendRequestWithoutBody($accessToken, 'GET', $baseUrl, $params);
+        } catch (TransferException $e) {
             throw parent::convertException($e);
         }
 
-        $body = $response->json();
+        $body = json_decode($response->getBody(), true);
         $libraryFiles = array();
         foreach ($body['results'] as $file) {
             $libraryFiles[] = File::create($file);
@@ -105,19 +84,16 @@ class LibraryService extends BaseService
      * @return File
      * @throws CtctException
      */
-    public function getLibraryFile($accessToken, $fileId)
-    {
+    public function getLibraryFile($accessToken, $fileId) {
         $baseUrl = Config::get('endpoints.base_url') . sprintf(Config::get('endpoints.library_file'), $fileId);
 
-        $request = parent::createBaseRequest($accessToken, 'GET', $baseUrl);
-
         try {
-            $response = parent::getClient()->send($request);
-        } catch (ClientException $e) {
+            $response = parent::sendRequestWithoutBody($accessToken, 'GET', $baseUrl);
+        } catch (TransferException $e) {
             throw parent::convertException($e);
         }
 
-        return File::create($response->json());
+        return File::create(json_decode($response->getBody(), true));
     }
 
     /**
@@ -127,15 +103,12 @@ class LibraryService extends BaseService
      * @return boolean
      * @throws CtctException
      */
-    public function deleteLibraryFile($accessToken, $fileId)
-    {
+    public function deleteLibraryFile($accessToken, $fileId) {
         $baseUrl = Config::get('endpoints.base_url') . sprintf(Config::get('endpoints.library_file'), $fileId);
 
-        $request = parent::createBaseRequest($accessToken, 'DELETE', $baseUrl);
-
         try {
-            $response = parent::getClient()->send($request);
-        } catch (ClientException $e) {
+            $response = parent::sendRequestWithoutBody($accessToken, 'DELETE', $baseUrl);
+        } catch (TransferException $e) {
             throw parent::convertException($e);
         }
 
@@ -153,25 +126,16 @@ class LibraryService extends BaseService
      * @return ResultSet
      * @throws CtctException
      */
-    public function getLibraryFolders($accessToken, Array $params = array())
-    {
+    public function getLibraryFolders($accessToken, Array $params = array()) {
         $baseUrl = Config::get('endpoints.base_url') . Config::get('endpoints.library_folders');
 
-        $request = parent::createBaseRequest($accessToken, 'GET', $baseUrl);
-        if ($params) {
-            $query = $request->getQuery();
-            foreach ($params as $name => $value) {
-                $query->add($name, $value);
-            }
-        }
-
         try {
-            $response = parent::getClient()->send($request);
-        } catch (ClientException $e) {
+            $response = parent::sendRequestWithoutBody($accessToken, 'GET', $baseUrl, $params);
+        } catch (TransferException $e) {
             throw parent::convertException($e);
         }
 
-        $body = $response->json();
+        $body = json_decode($response->getBody(), true);
         $libraryFolders = array();
         foreach ($body['results'] as $folder) {
             $libraryFolders[] = Folder::create($folder);
@@ -187,19 +151,16 @@ class LibraryService extends BaseService
      * @return Folder
      * @throws CtctException
      */
-    public function getLibraryFolder($accessToken, $folderId)
-    {
+    public function getLibraryFolder($accessToken, $folderId) {
         $baseUrl = Config::get('endpoints.base_url') . sprintf(Config::get('endpoints.library_folder'), $folderId);
 
-        $request = parent::createBaseRequest($accessToken, 'GET', $baseUrl);
-
         try {
-            $response = parent::getClient()->send($request);
-        } catch (ClientException $e) {
+            $response = parent::sendRequestWithoutBody($accessToken, 'GET', $baseUrl);
+        } catch (TransferException $e) {
             throw parent::convertException($e);
         }
 
-        $body = $response->json();
+        $body = json_decode($response->getBody(), true);
         return Folder::create($body);
     }
 
@@ -210,15 +171,12 @@ class LibraryService extends BaseService
      * @return boolean
      * @throws CtctException
      */
-    public function deleteLibraryFolder($accessToken, $folderId)
-    {
+    public function deleteLibraryFolder($accessToken, $folderId) {
         $baseUrl = Config::get('endpoints.base_url') . sprintf(Config::get('endpoints.library_folder'), $folderId);
 
-        $request = parent::createBaseRequest($accessToken, 'DELETE', $baseUrl);
-
         try {
-            $response = parent::getClient()->send($request);
-        } catch (ClientException $e) {
+            $response = parent::sendRequestWithoutBody($accessToken, 'DELETE', $baseUrl);
+        } catch (TransferException $e) {
             throw parent::convertException($e);
         }
 
@@ -238,10 +196,9 @@ class LibraryService extends BaseService
      * @return string File upload status ID
      * @throws CtctException
      */
-    public function uploadFile($accessToken, $fileName, $fileLocation, $description, $source, $folderId)
-    {
+    public function uploadFile($accessToken, $fileName, $fileLocation, $description, $source, $folderId) {
         $finfo = finfo_open(FILEINFO_MIME_TYPE);
-        $mime =  finfo_file($finfo, $fileLocation);
+        $mime = finfo_file($finfo, $fileLocation);
         finfo_close($finfo);
         if ($mime == "image/png") {
             $fileType = "PNG";
@@ -249,29 +206,32 @@ class LibraryService extends BaseService
             $fileType = "JPG";
         } elseif ($mime == "image/gif") {
             $fileType = "GIF";
-        } elseif ($mime =="application/pdf") {
+        } elseif ($mime == "application/pdf") {
             $fileType = "PDF";
         } else {
             throw new IllegalArgumentException(sprintf(Config::get('errors.file_extension'), "PNG, JPG, JPEG, GIF, PDF was " . $mime));
         }
-       
+
 
         $baseUrl = Config::get('endpoints.base_url') . Config::get('endpoints.library_files');
-        $request = parent::createBaseRequest($accessToken, "POST", $baseUrl);
-        $request->setHeader("Content-Type", "multipart/form-data");
-
-        $body = new PostBody();
-        $body->setField("folder_id", $folderId);
-        $body->setField("file_name", $fileName);
-        $body->setField("file_type", $fileType);
-        $body->setField("description", $description);
-        $body->setField("source", $source);
-        $body->addFile(new PostFile("data", fopen($fileLocation, 'r'), $fileName));
-        $request->setBody($body);
+        $request = new Request('POST', $baseUrl, [
+            parent::getHeadersForMultipart($accessToken)
+        ]);
 
         try {
-            $response = parent::getClient()->send($request);
-        } catch (ClientException $e) {
+            $response = parent::getClient()->send($request, [
+                'multipart' => [
+                    [
+                        'folder_id' => $folderId,
+                        'file_name' => $fileName,
+                        'file_type' => $fileType,
+                        'description' => $description,
+                        'source' => $source,
+                        'data' => fopen($fileLocation, 'r')
+                    ]
+                ]
+            ]);
+        } catch (TransferException $e) {
             throw parent::convertException($e);
         }
 
@@ -285,24 +245,19 @@ class LibraryService extends BaseService
      * @return \Ctct\Components\Library\Folder - Newly created folder
      * @throws CtctException
      */
-    public function createLibraryFolder($accessToken, Folder $folder){
-    	$baseUrl = Config::get('endpoints.base_url') . Config::get('endpoints.library_folders');
-    	
-    	$request = parent::createBaseRequest($accessToken, "POST", $baseUrl);
-    	
-    	$stream = Stream::factory(json_encode($folder));
-        $request->setBody($stream);
-    	
-    	try {
-    		$response = parent::getClient()->send($request);
-    	} catch (ClientException $e) {
-    		throw parent::convertException($e);
-    	}
-    	
-    	$body = $response->json();
-    	return Folder::create($body);
+    public function createLibraryFolder($accessToken, Folder $folder) {
+        $baseUrl = Config::get('endpoints.base_url') . Config::get('endpoints.library_folders');
+
+        try {
+            $response = parent::sendRequestWithBody($accessToken, "POST", $baseUrl, $folder);
+        } catch (TransferException $e) {
+            throw parent::convertException($e);
+        }
+
+        $body = json_decode($response->getBody(), true);
+        return Folder::create($body);
     }
-    
+
     /**
      * Get the status of a File upload
      * @param string $accessToken - Constant Contact OAuth2 token
@@ -310,19 +265,17 @@ class LibraryService extends BaseService
      * @return FileUploadStatus[] - Array of FileUploadStatus
      * @throws CtctException
      */
-    public function getFileUploadStatus($accessToken, $uploadStatusIds)
-    {
+    public function getFileUploadStatus($accessToken, $uploadStatusIds) {
         $baseUrl = Config::get('endpoints.base_url') . sprintf(Config::get('endpoints.library_file_upload_status'), $uploadStatusIds);
-        $request = parent::createBaseRequest($accessToken, "GET", $baseUrl);
 
         try {
-            $response = parent::getClient()->send($request);
-        } catch (ClientException $e) {
+            $response = parent::sendRequestWithoutBody($accessToken, "GET", $baseUrl);
+        } catch (TransferException $e) {
             throw parent::convertException($e);
         }
 
         $fileUploadStatuses = array();
-        foreach ($response->json() as $fileUploadStatus) {
+        foreach (json_decode($response->getBody(), true) as $fileUploadStatus) {
             $fileUploadStatuses[] = FileUploadStatus::create($fileUploadStatus);
         }
         return $fileUploadStatuses;

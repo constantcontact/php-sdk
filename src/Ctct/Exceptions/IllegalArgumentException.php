@@ -9,6 +9,5 @@ use Exception;
  * @package     exceptions
  * @author         djellesma
  */
-class IllegalArgumentException extends Exception
-{
+class IllegalArgumentException extends Exception {
 }

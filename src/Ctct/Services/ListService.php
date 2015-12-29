@@ -1,11 +1,10 @@
 <?php
 namespace Ctct\Services;
 
+use Ctct\Components\Contacts\ContactList;
 use Ctct\Exceptions\CtctException;
 use Ctct\Util\Config;
-use Ctct\Components\Contacts\ContactList;
-use GuzzleHttp\Exception\ClientException;
-use GuzzleHttp\Stream\Stream;
+use GuzzleHttp\Exception\TransferException;
 
 /**
  * Performs all actions pertaining to Constant Contact Lists
@@ -13,37 +12,27 @@ use GuzzleHttp\Stream\Stream;
  * @package     Services
  * @author         Constant Contact
  */
-class ListService extends BaseService
-{
+class ListService extends BaseService {
     /**
      * Get lists within an account
      * @param $accessToken - Constant Contact OAuth2 access token
      * @param array $params - associative array of query parameters and values to append to the request.
      *      Allowed parameters include:
      *      modified_since - ISO-8601 formatted timestamp.
-     * @return Array - ContactLists
+     * @return array - ContactLists
      * @throws CtctException
      */
-    public function getLists($accessToken, Array $params = array())
-    {
+    public function getLists($accessToken, Array $params = array()) {
         $baseUrl = Config::get('endpoints.base_url') . Config::get('endpoints.lists');
 
-        $request = parent::createBaseRequest($accessToken, 'GET', $baseUrl);
-        if ($params) {
-            $query = $request->getQuery();
-            foreach ($params as $name => $value) {
-                $query->add($name, $value);
-            }
-        }
-
         try {
-            $response = parent::getClient()->send($request);
-        } catch (ClientException $e) {
+            $response = parent::sendRequestWithoutBody($accessToken, 'GET', $baseUrl, $params);
+        } catch (TransferException $e) {
             throw parent::convertException($e);
         }
 
         $lists = array();
-        foreach ($response->json() as $contact) {
+        foreach (json_decode($response->getBody(), true) as $contact) {
             $lists[] = ContactList::create($contact);
         }
 
@@ -57,21 +46,16 @@ class ListService extends BaseService
      * @return ContactList
      * @throws CtctException
      */
-    public function addList($accessToken, ContactList $list)
-    {
+    public function addList($accessToken, ContactList $list) {
         $baseUrl = Config::get('endpoints.base_url') . Config::get('endpoints.lists');
 
-        $request = parent::createBaseRequest($accessToken, 'POST', $baseUrl);
-        $stream = Stream::factory(json_encode($list));
-        $request->setBody($stream);
-
         try {
-            $response = parent::getClient()->send($request);
-        } catch (ClientException $e) {
+            $response = parent::sendRequestWithBody($accessToken, 'POST', $baseUrl, $list);
+        } catch (TransferException $e) {
             throw parent::convertException($e);
         }
 
-        return ContactList::create($response->json());
+        return ContactList::create(json_decode($response->getBody(), true));
     }
 
     /**
@@ -81,21 +65,16 @@ class ListService extends BaseService
      * @return ContactList
      * @throws CtctException
      */
-    public function updateList($accessToken, ContactList $list)
-    {
+    public function updateList($accessToken, ContactList $list) {
         $baseUrl = Config::get('endpoints.base_url') . sprintf(Config::get('endpoints.list'), $list->id);
 
-        $request = parent::createBaseRequest($accessToken, 'PUT', $baseUrl);
-        $stream = Stream::factory(json_encode($list));
-        $request->setBody($stream);
-
         try {
-            $response = parent::getClient()->send($request);
-        } catch (ClientException $e) {
+            $response = parent::sendRequestWithBody($accessToken, 'PUT', $baseUrl, $list);
+        } catch (TransferException $e) {
             throw parent::convertException($e);
         }
 
-        return ContactList::create($response->json());
+        return ContactList::create(json_decode($response->getBody(), true));
     }
 
     /**
@@ -105,15 +84,12 @@ class ListService extends BaseService
      * @return ContactList
      * @throws CtctException
      */
-    public function deleteList($accessToken, $listId)
-    {
+    public function deleteList($accessToken, $listId) {
         $baseUrl = Config::get('endpoints.base_url') . sprintf(Config::get('endpoints.list'), $listId);
 
-        $request = parent::createBaseRequest($accessToken, 'DELETE', $baseUrl);
-
         try {
-            $response = parent::getClient()->send($request);
-        } catch (ClientException $e) {
+            $response = parent::sendRequestWithoutBody($accessToken, 'DELETE', $baseUrl);
+        } catch (TransferException $e) {
             throw parent::convertException($e);
         }
 
@@ -127,18 +103,15 @@ class ListService extends BaseService
      * @return ContactList
      * @throws CtctException
      */
-    public function getList($accessToken, $listId)
-    {
+    public function getList($accessToken, $listId) {
         $baseUrl = Config::get('endpoints.base_url') . sprintf(Config::get('endpoints.list'), $listId);
 
-        $request = parent::createBaseRequest($accessToken, 'GET', $baseUrl);
-
         try {
-            $response = parent::getClient()->send($request);
-        } catch (ClientException $e) {
+            $response = parent::sendRequestWithoutBody($accessToken, 'GET', $baseUrl);
+        } catch (TransferException $e) {
             throw parent::convertException($e);
         }
 
-        return ContactList::create($response->json());
+        return ContactList::create(json_decode($response->getBody(), true));
     }
 }

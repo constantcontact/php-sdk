@@ -10,8 +10,7 @@ use Ctct\Components\Component;
  * @subpackage     Contacts
  * @author         Constant Contact
  */
-class Note extends Component
-{
+class Note extends Component {
     /**
      * Id of the note
      * @var string
@@ -35,8 +34,7 @@ class Note extends Component
      * @param array $props - Associative array of initial properties to set
      * @return Note
      */
-    public static function create(array $props)
-    {
+    public static function create(array $props) {
         $note = new Note();
         $note->id = parent::getValue($props, "id");
         $note->note = parent::getValue($props, "note");

@@ -10,8 +10,7 @@ use Ctct\Components\Component;
  * @subpackage     Campaigns
  * @author         Constant Contact
  */
-class TrackingSummary extends Component
-{
+class TrackingSummary extends Component {
     public $sends;
     public $opens;
     public $clicks;
@@ -25,8 +24,7 @@ class TrackingSummary extends Component
      * @param array $props - array of properties to create object from
      * @return TrackingSummary
      */
-    public static function create(array $props)
-    {
+    public static function create(array $props) {
         $tracking_summary = new TrackingSummary();
         $tracking_summary->sends = parent::getValue($props, "sends");
         $tracking_summary->opens = parent::getValue($props, "opens");
@@ -37,10 +35,10 @@ class TrackingSummary extends Component
         $tracking_summary->spam_count = parent::getValue($props, "spam_count");
 
         // Contacts don't have spam_count, only Campaigns
-        if(is_null($tracking_summary->spam_count)) {
+        if (is_null($tracking_summary->spam_count)) {
             unset($tracking_summary->spam_count);
         }
-        
+
         return $tracking_summary;
     }
 }

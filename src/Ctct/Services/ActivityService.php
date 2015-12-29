@@ -73,7 +73,7 @@ class ActivityService extends BaseService {
         $baseUrl = Config::get('endpoints.base_url') . Config::get('endpoints.add_contacts_activity');
 
         try {
-            $response = parent::sendRequestWithBody($accessToken, 'POST', $baseUrl, json_decode(json_encode($addContacts), true));
+            $response = parent::sendRequestWithBody($accessToken, 'POST', $baseUrl, $addContacts);
         } catch (TransferException $e) {
             throw parent::convertException($e);
         }
@@ -144,7 +144,7 @@ class ActivityService extends BaseService {
         $baseUrl = Config::get('endpoints.base_url') . Config::get('endpoints.export_contacts_activity');
 
         try {
-            $response = parent::sendRequestWithBody($accessToken, 'POST', $baseUrl, json_decode(json_encode($exportContacts), true));
+            $response = parent::sendRequestWithBody($accessToken, 'POST', $baseUrl, $exportContacts);
         } catch (TransferException $e) {
             throw parent::convertException($e);
         }

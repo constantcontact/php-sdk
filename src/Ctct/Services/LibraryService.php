@@ -249,7 +249,7 @@ class LibraryService extends BaseService {
         $baseUrl = Config::get('endpoints.base_url') . Config::get('endpoints.library_folders');
 
         try {
-            $response = parent::sendRequestWithBody($accessToken, "POST", $baseUrl, json_decode(json_encode($folder), true));
+            $response = parent::sendRequestWithBody($accessToken, "POST", $baseUrl, $folder);
         } catch (TransferException $e) {
             throw parent::convertException($e);
         }

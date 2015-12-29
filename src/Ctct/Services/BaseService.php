@@ -52,7 +52,7 @@ abstract class BaseService {
         return $this->client;
     }
 
-    protected function sendRequestWithBody($accessToken, $method, $baseUrl, Array $body, Array $queryParams = array()) {
+    protected function sendRequestWithBody($accessToken, $method, $baseUrl, $body, Array $queryParams = array()) {
         $queryParams["api_key"] = $this->apiKey;
         $request = new Request($method, $baseUrl);
         return $this->client->send($request, [

@@ -98,7 +98,7 @@ class AccountService extends BaseService {
     public function updateAccountInfo($accessToken, AccountInfo $accountInfo) {
         $baseUrl = Config::get('endpoints.base_url') . Config::get('endpoints.account_info');
 
-        $request = parent::sendRequestWithBody($accessToken, 'PUT', $baseUrl, json_decode(json_encode($accountInfo), true));
+        $request = parent::sendRequestWithBody($accessToken, 'PUT', $baseUrl, $accountInfo);
 
         try {
             $response = parent::getClient()->send($request);

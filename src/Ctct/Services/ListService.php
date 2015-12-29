@@ -50,7 +50,7 @@ class ListService extends BaseService {
         $baseUrl = Config::get('endpoints.base_url') . Config::get('endpoints.lists');
 
         try {
-            $response = parent::sendRequestWithBody($accessToken, 'POST', $baseUrl, json_decode(json_encode($list), true));
+            $response = parent::sendRequestWithBody($accessToken, 'POST', $baseUrl, $list);
         } catch (TransferException $e) {
             throw parent::convertException($e);
         }
@@ -69,7 +69,7 @@ class ListService extends BaseService {
         $baseUrl = Config::get('endpoints.base_url') . sprintf(Config::get('endpoints.list'), $list->id);
 
         try {
-            $response = parent::sendRequestWithBody($accessToken, 'PUT', $baseUrl, json_decode(json_encode($list), true));
+            $response = parent::sendRequestWithBody($accessToken, 'PUT', $baseUrl, $list);
         } catch (TransferException $e) {
             throw parent::convertException($e);
         }

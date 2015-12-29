@@ -30,7 +30,7 @@ class EmailMarketingService extends BaseService {
         }
 
         try {
-            $response = parent::sendRequestWithBody($accessToken, 'POST', $baseUrl, json_decode(json_encode($campaign), true));
+            $response = parent::sendRequestWithBody($accessToken, 'POST', $baseUrl, $campaign);
         } catch (TransferException $e) {
             throw parent::convertException($e);
         }
@@ -116,7 +116,7 @@ class EmailMarketingService extends BaseService {
         $baseUrl = Config::get('endpoints.base_url') . sprintf(Config::get('endpoints.campaign'), $campaign->id);
 
         try {
-            $response = parent::sendRequestWithBody($accessToken, 'PUT', $baseUrl, json_decode(json_encode($campaign), true));
+            $response = parent::sendRequestWithBody($accessToken, 'PUT', $baseUrl, $campaign);
         } catch (TransferException $e) {
             throw parent::convertException($e);
         }

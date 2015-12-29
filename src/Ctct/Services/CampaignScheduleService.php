@@ -26,7 +26,7 @@ class CampaignScheduleService extends BaseService {
         $baseUrl = Config::get('endpoints.base_url') . sprintf(Config::get('endpoints.campaign_schedules'), $campaignId);
 
         try {
-            $response = parent::sendRequestWithBody($accessToken, 'POST', $baseUrl, json_decode(json_encode($schedule), true));
+            $response = parent::sendRequestWithBody($accessToken, 'POST', $baseUrl, $schedule);
         } catch (TransferException $e) {
             throw parent::convertException($e);
         }
@@ -89,7 +89,7 @@ class CampaignScheduleService extends BaseService {
         $baseUrl = Config::get('endpoints.base_url') . sprintf(Config::get('endpoints.campaign_schedule'), $campaignId, $schedule->id);
 
         try {
-            $response = parent::sendRequestWithBody($accessToken, 'PUT', $baseUrl, json_decode(json_encode($schedule), true));
+            $response = parent::sendRequestWithBody($accessToken, 'PUT', $baseUrl, $schedule);
         } catch (TransferException $e) {
             throw parent::convertException($e);
         }
@@ -129,7 +129,7 @@ class CampaignScheduleService extends BaseService {
         $baseUrl = Config::get('endpoints.base_url') . sprintf(Config::get('endpoints.campaign_test_sends'), $campaignId);
 
         try {
-            $response = parent::sendRequestWithoutBody($accessToken, 'POST', $baseUrl, json_decode(json_encode($testSend), true));
+            $response = parent::sendRequestWithoutBody($accessToken, 'POST', $baseUrl, $testSend);
         } catch (TransferException $e) {
             throw parent::convertException($e);
         }

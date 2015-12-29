@@ -8,10 +8,21 @@
 ```javascript
  {
         "require": {
+            "constantcontact/constantcontact": "2.1.*"
+        }
+    }
+```
+
+Or, if you would like a more bleeding edge build, which has features like the newest version of GuzzlePHP and a minimum of PHP 5.5, you can build off our development branch.
+
+```javascript
+ {
+        "require": {
             "constantcontact/constantcontact": "dev-development"
         }
     }
 ```
+
 
 ### Manual Installation
 Manual installation is not recommended, as this library relies on other Composer libraries to function. Getting started with composer is easy!
@@ -39,6 +50,6 @@ $params = array("limit" => 500);
 $contacts = $cc->contactService->getContacts('your access token', $params);
 ```
 ## Minimum Requirements
-Use of this library requires PHP 5.5+
+Use of this library requires PHP 5.4+
 
-If you are being required to use an older version of PHP, it is highly recommended that you update to at least 5.5 - but you can use version 1.3.* (PHP 5.3+) or version 2.1.* (PHP 5.4+) via composer, or [manually](https://github.com/constantcontact/php-sdk/releases) (but note that versions 2 and up require other dependencies).
+If you are being required to use an older version of PHP, it is highly recommended that you update to at least 5.4 - but you can use version 1.3.* (PHP 5.3+) via composer, or [manually](https://github.com/constantcontact/php-sdk/releases) (but note that versions 2 and up require other dependencies).

@@ -8,7 +8,7 @@
 ```javascript
  {
         "require": {
-            "constantcontact/constantcontact": "2.1.*"
+            "constantcontact/constantcontact": "dev-development"
         }
     }
 ```
@@ -39,6 +39,6 @@ $params = array("limit" => 500);
 $contacts = $cc->contactService->getContacts('your access token', $params);
 ```
 ## Minimum Requirements
-Use of this library requires PHP 5.4+, and PHP cURL extension (http://php.net/manual/en/book.curl.php)
+Use of this library requires PHP 5.5+
 
-If you are being required to use an older version of PHP, it is highly recommended that you update to at least 5.4 - but you can use version 1.3.* via composer, or [manually](https://github.com/constantcontact/php-sdk/tree/v1-master).
+If you are being required to use an older version of PHP, it is highly recommended that you update to at least 5.5 - but you can use version 1.3.* (PHP 5.3+) or version 2.1.* (PHP 5.4+) via composer, or [manually](https://github.com/constantcontact/php-sdk/releases) (but note that versions 2 and up require other dependencies).

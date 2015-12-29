@@ -1,11 +1,11 @@
 <?php
 namespace Ctct\Services;
 
-use Ctct\Exceptions\CtctException;
-use Ctct\Util\Config;
 use Ctct\Components\EmailMarketing\Campaign;
 use Ctct\Components\EmailMarketing\CampaignPreview;
 use Ctct\Components\ResultSet;
+use Ctct\Exceptions\CtctException;
+use Ctct\Util\Config;
 use GuzzleHttp\Exception\TransferException;
 
 /**
@@ -14,8 +14,7 @@ use GuzzleHttp\Exception\TransferException;
  * @package Services
  * @author Constant Contact
  */
-class EmailMarketingService extends BaseService
-{
+class EmailMarketingService extends BaseService {
     /**
      * Create a new campaign
      * @param string $accessToken - Constant Contact OAuth2 access token
@@ -23,8 +22,7 @@ class EmailMarketingService extends BaseService
      * @return Campaign
      * @throws CtctException
      */
-    public function addCampaign($accessToken, Campaign $campaign)
-    {
+    public function addCampaign($accessToken, Campaign $campaign) {
         $baseUrl = Config::get('endpoints.base_url') . Config::get('endpoints.campaigns');
         if ($campaign->message_footer == null) {
             // API doesn't work well with a null message footer, so omit it entirely.
@@ -51,10 +49,9 @@ class EmailMarketingService extends BaseService
      * @return ResultSet
      * @throws CtctException
      */
-    public function getCampaigns($accessToken, Array $params = array())
-    {
+    public function getCampaigns($accessToken, Array $params = array()) {
         $baseUrl = Config::get('endpoints.base_url') . Config::get('endpoints.campaigns');
-        
+
         try {
             $response = parent::sendRequestWithoutBody($accessToken, 'GET', $baseUrl, $params);
         } catch (TransferException $e) {
@@ -77,8 +74,7 @@ class EmailMarketingService extends BaseService
      * @return Campaign
      * @throws CtctException
      */
-    public function getCampaign($accessToken, $campaignId)
-    {
+    public function getCampaign($accessToken, $campaignId) {
         $baseUrl = Config::get('endpoints.base_url') . sprintf(Config::get('endpoints.campaign'), $campaignId);
 
         try {
@@ -97,8 +93,7 @@ class EmailMarketingService extends BaseService
      * @return boolean
      * @throws CtctException
      */
-    public function deleteCampaign($accessToken, $campaignId)
-    {
+    public function deleteCampaign($accessToken, $campaignId) {
         $baseUrl = Config::get('endpoints.base_url') . sprintf(Config::get('endpoints.campaign'), $campaignId);
 
         try {
@@ -117,8 +112,7 @@ class EmailMarketingService extends BaseService
      * @return Campaign
      * @throws CtctException
      */
-    public function updateCampaign($accessToken, Campaign $campaign)
-    {
+    public function updateCampaign($accessToken, Campaign $campaign) {
         $baseUrl = Config::get('endpoints.base_url') . sprintf(Config::get('endpoints.campaign'), $campaign->id);
 
         try {

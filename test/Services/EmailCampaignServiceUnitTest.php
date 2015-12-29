@@ -1,24 +1,21 @@
 <?php
 
-use Ctct\Components\ResultSet;
 use Ctct\Components\EmailMarketing\Campaign;
 use Ctct\Components\EmailMarketing\CampaignPreview;
-
+use Ctct\Components\ResultSet;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Psr7\Response;
 
-class EmailMarketingServiceUnitTest extends PHPUnit_Framework_TestCase
-{
+class EmailMarketingServiceUnitTest extends PHPUnit_Framework_TestCase {
     /**
      * @var Client
      */
     private static $client;
 
-    public static function setUpBeforeClass()
-    {
+    public static function setUpBeforeClass() {
         $getCampaignJson = JsonLoader::getCampaignJson();
         $mock = new MockHandler([
             new Response(200, array(), JsonLoader::getCampaignsJson()),
@@ -33,8 +30,7 @@ class EmailMarketingServiceUnitTest extends PHPUnit_Framework_TestCase
         self::$client = new Client(['handler' => $handler]);
     }
 
-    public function testGetCampaigns()
-    {
+    public function testGetCampaigns() {
         $response = json_decode(self::$client->request('GET', '/')->getBody(), true);
         $result = new ResultSet($response['results'], $response['meta']);
         $campaigns = array();
@@ -56,14 +52,12 @@ class EmailMarketingServiceUnitTest extends PHPUnit_Framework_TestCase
         $this->assertEquals("2012-10-16T16:14:34.221Z", $campaigns[1]->modified_date);
     }
 
-    public function testDeleteCampaign()
-    {
+    public function testDeleteCampaign() {
         $response = self::$client->request('DELETE', '/');
         $this->assertEquals(204, $response->getStatusCode());
     }
 
-    public function testDeleteCampaignFailed()
-    {
+    public function testDeleteCampaignFailed() {
         try {
             self::$client->request('DELETE', '/');
             $this->fail("Delete did not fail");
@@ -72,8 +66,7 @@ class EmailMarketingServiceUnitTest extends PHPUnit_Framework_TestCase
         }
     }
 
-    public function testGetCampaign()
-    {
+    public function testGetCampaign() {
         $response = self::$client->request('GET', '/');
 
         $campaign = Campaign::create(json_decode($response->getBody(), true));
@@ -140,8 +133,7 @@ class EmailMarketingServiceUnitTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(10, $campaign->click_through_details[0]->click_count);
     }
 
-    public function testAddCampaign()
-    {
+    public function testAddCampaign() {
         $response = self::$client->request('POST', '/');
 
         $campaign = Campaign::create(json_decode($response->getBody(), true));
@@ -207,8 +199,7 @@ class EmailMarketingServiceUnitTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(10, $campaign->click_through_details[0]->click_count);
     }
 
-    public function testUpdateCampaign()
-    {
+    public function testUpdateCampaign() {
         $response = self::$client->request('PUT', '/');
 
         $campaign = Campaign::create(json_decode($response->getBody(), true));

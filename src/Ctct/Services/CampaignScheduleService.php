@@ -1,10 +1,10 @@
 <?php
 namespace Ctct\Services;
 
-use Ctct\Exceptions\CtctException;
-use Ctct\Util\Config;
 use Ctct\Components\EmailMarketing\Schedule;
 use Ctct\Components\EmailMarketing\TestSend;
+use Ctct\Exceptions\CtctException;
+use Ctct\Util\Config;
 use GuzzleHttp\Exception\TransferException;
 
 /**
@@ -13,8 +13,7 @@ use GuzzleHttp\Exception\TransferException;
  * @package Services
  * @author Constant Contact
  */
-class CampaignScheduleService extends BaseService
-{
+class CampaignScheduleService extends BaseService {
     /**
      * Create a new schedule for a campaign
      * @param string $accessToken - Constant Contact OAuth2 access token
@@ -23,8 +22,7 @@ class CampaignScheduleService extends BaseService
      * @return Schedule
      * @throws CtctException
      */
-    public function addSchedule($accessToken, $campaignId, Schedule $schedule)
-    {
+    public function addSchedule($accessToken, $campaignId, Schedule $schedule) {
         $baseUrl = Config::get('endpoints.base_url') . sprintf(Config::get('endpoints.campaign_schedules'), $campaignId);
 
         try {
@@ -43,8 +41,7 @@ class CampaignScheduleService extends BaseService
      * @return array
      * @throws CtctException
      */
-    public function getSchedules($accessToken, $campaignId)
-    {
+    public function getSchedules($accessToken, $campaignId) {
         $baseUrl = Config::get('endpoints.base_url') . sprintf(Config::get('endpoints.campaign_schedules'), $campaignId);
 
         try {
@@ -68,8 +65,7 @@ class CampaignScheduleService extends BaseService
      * @return Schedule
      * @throws CtctException
      */
-    public function getSchedule($accessToken, $campaignId, $scheduleId)
-    {
+    public function getSchedule($accessToken, $campaignId, $scheduleId) {
         $baseUrl = Config::get('endpoints.base_url') . sprintf(Config::get('endpoints.campaign_schedule'), $campaignId, $scheduleId);
 
         try {
@@ -89,8 +85,7 @@ class CampaignScheduleService extends BaseService
      * @return Schedule
      * @throws CtctException
      */
-    public function updateSchedule($accessToken, $campaignId, Schedule $schedule)
-    {
+    public function updateSchedule($accessToken, $campaignId, Schedule $schedule) {
         $baseUrl = Config::get('endpoints.base_url') . sprintf(Config::get('endpoints.campaign_schedule'), $campaignId, $schedule->id);
 
         try {
@@ -110,8 +105,7 @@ class CampaignScheduleService extends BaseService
      * @return True if successful
      * @throws CtctException
      */
-    public function deleteSchedule($accessToken, $campaignId, $scheduleId)
-    {
+    public function deleteSchedule($accessToken, $campaignId, $scheduleId) {
         $baseUrl = Config::get('endpoints.base_url') . sprintf(Config::get('endpoints.campaign_schedule'), $campaignId, $scheduleId);
 
         try {
@@ -131,8 +125,7 @@ class CampaignScheduleService extends BaseService
      * @return TestSend
      * @throws CtctException
      */
-    public function sendTest($accessToken, $campaignId, TestSend $testSend)
-    {
+    public function sendTest($accessToken, $campaignId, TestSend $testSend) {
         $baseUrl = Config::get('endpoints.base_url') . sprintf(Config::get('endpoints.campaign_test_sends'), $campaignId);
 
         try {

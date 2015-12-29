@@ -21,9 +21,9 @@ For more information on this, please visit: http://support2.constantcontact.com/
 require_once '../src/Ctct/autoload.php';
 require_once '../vendor/autoload.php';
 
-use Ctct\ConstantContact;
 use Ctct\Components\EmailMarketing\Campaign;
 use Ctct\Components\EmailMarketing\Schedule;
+use Ctct\ConstantContact;
 use Ctct\Exceptions\CtctException;
 
 // Enter your Constant Contact APIKEY and ACCESS_TOKEN
@@ -38,8 +38,7 @@ $date = date('Y-m-d\TH:i:s\.000\Z', strtotime("+1 month"));
  * @param array $params associative array of parameters to create a campaign from
  * @return Campaign updated by server
  */
-function createCampaign(array $params = array())
-{
+function createCampaign(array $params = array()) {
     $cc = new ConstantContact(APIKEY);
     $campaign = new Campaign();
     $campaign->name = $params['name'];
@@ -72,8 +71,7 @@ function createCampaign(array $params = array())
  * @param $time - ISO 8601 formatted timestamp of when the campaign should be sent
  * @return Schedule updated by server
  */
-function createSchedule($campaignId, $time)
-{
+function createSchedule($campaignId, $time) {
     $cc = new ConstantContact(APIKEY);
     $schedule = new Schedule();
     $schedule->scheduled_date = $time;
@@ -204,8 +202,7 @@ try {
 
                     <div class="controls">
                         <input type="text" name="schedule_time" id="schedule_time"
-                               value="<?php echo date('Y-m-d\TH:i:s\.000\Z', strtotime("+1 month"));
-                               ; ?>"/>
+                               value="<?php echo date('Y-m-d\TH:i:s\.000\Z', strtotime("+1 month"));; ?>"/>
                     </div>
                 </div>
                 <div class="control-group">

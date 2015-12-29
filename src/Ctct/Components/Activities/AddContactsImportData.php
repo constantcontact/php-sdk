@@ -12,8 +12,7 @@ use Ctct\Components\Contacts\CustomField;
  * @subpackage     Activities
  * @author         Constant Contact
  */
-class AddContactsImportData extends Component
-{
+class AddContactsImportData extends Component {
     public $first_name;
     public $middle_name;
     public $last_name;
@@ -21,11 +20,11 @@ class AddContactsImportData extends Component
     public $company_name;
     public $work_phone;
     public $home_phone;
-    
+
     public $birthday_day;
     public $birthday_month;
     public $anniversary;
-    
+
     public $email_addresses = array();
     public $addresses = array();
     public $custom_fields = array();
@@ -34,20 +33,17 @@ class AddContactsImportData extends Component
      * Factory method to create an Activity object from an array
      * @param array $props - associative array of initial properties to set
      */
-    public function __construct(array $props = array())
-    {
+    public function __construct(array $props = array()) {
         foreach ($this as $property => $value) {
             $this->$property = parent::getValue($props, $property);
         }
     }
 
-    public function addCustomField(CustomField $customField)
-    {
+    public function addCustomField(CustomField $customField) {
         $this->custom_fields[] = $customField;
     }
 
-    public function addAddress(Address $address)
-    {
+    public function addAddress(Address $address) {
         if (isset($address->state)) {
             $address->state_code = $address->state;
             unset($address->state);
@@ -61,13 +57,11 @@ class AddContactsImportData extends Component
         $this->addresses[] = $address;
     }
 
-    public function addEmail($emailAddress)
-    {
+    public function addEmail($emailAddress) {
         $this->email_addresses[] = $emailAddress;
     }
 
-    public function toJson()
-    {
+    public function toJson() {
         return json_encode($this);
     }
 }

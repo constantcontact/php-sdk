@@ -1,9 +1,9 @@
 <?php
 namespace Ctct\Services;
 
+use Ctct\Components\Contacts\ContactList;
 use Ctct\Exceptions\CtctException;
 use Ctct\Util\Config;
-use Ctct\Components\Contacts\ContactList;
 use GuzzleHttp\Exception\TransferException;
 
 /**
@@ -12,8 +12,7 @@ use GuzzleHttp\Exception\TransferException;
  * @package     Services
  * @author         Constant Contact
  */
-class ListService extends BaseService
-{
+class ListService extends BaseService {
     /**
      * Get lists within an account
      * @param $accessToken - Constant Contact OAuth2 access token
@@ -23,8 +22,7 @@ class ListService extends BaseService
      * @return array - ContactLists
      * @throws CtctException
      */
-    public function getLists($accessToken, Array $params = array())
-    {
+    public function getLists($accessToken, Array $params = array()) {
         $baseUrl = Config::get('endpoints.base_url') . Config::get('endpoints.lists');
 
         try {
@@ -48,8 +46,7 @@ class ListService extends BaseService
      * @return ContactList
      * @throws CtctException
      */
-    public function addList($accessToken, ContactList $list)
-    {
+    public function addList($accessToken, ContactList $list) {
         $baseUrl = Config::get('endpoints.base_url') . Config::get('endpoints.lists');
 
         try {
@@ -68,8 +65,7 @@ class ListService extends BaseService
      * @return ContactList
      * @throws CtctException
      */
-    public function updateList($accessToken, ContactList $list)
-    {
+    public function updateList($accessToken, ContactList $list) {
         $baseUrl = Config::get('endpoints.base_url') . sprintf(Config::get('endpoints.list'), $list->id);
 
         try {
@@ -88,8 +84,7 @@ class ListService extends BaseService
      * @return ContactList
      * @throws CtctException
      */
-    public function deleteList($accessToken, $listId)
-    {
+    public function deleteList($accessToken, $listId) {
         $baseUrl = Config::get('endpoints.base_url') . sprintf(Config::get('endpoints.list'), $listId);
 
         try {
@@ -108,8 +103,7 @@ class ListService extends BaseService
      * @return ContactList
      * @throws CtctException
      */
-    public function getList($accessToken, $listId)
-    {
+    public function getList($accessToken, $listId) {
         $baseUrl = Config::get('endpoints.base_url') . sprintf(Config::get('endpoints.list'), $listId);
 
         try {

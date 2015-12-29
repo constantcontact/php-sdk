@@ -7,15 +7,13 @@ use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Psr7\Response;
 
-class AccountServiceUnitTest extends PHPUnit_Framework_TestCase
-{
+class AccountServiceUnitTest extends PHPUnit_Framework_TestCase {
     /**
      * @var Client
      */
     private static $client;
 
-    public static function setUpBeforeClass()
-    {
+    public static function setUpBeforeClass() {
         $mock = new MockHandler([
             new Response(200, array(), JsonLoader::getVerifiedAddressesJson()),
             new Response(200, array(), JsonLoader::getAccountInfoJson())
@@ -38,8 +36,7 @@ class AccountServiceUnitTest extends PHPUnit_Framework_TestCase
         }
     }
 
-    public function testGetAccountInfo()
-    {
+    public function testGetAccountInfo() {
         $response = self::$client->request('GET', '/');
         $result = AccountInfo::create(json_decode($response->getBody(), true));
 

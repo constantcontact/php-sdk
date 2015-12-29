@@ -15,37 +15,12 @@ use GuzzleHttp\Psr7\Request;
  * @package Services
  * @author Constant Contact
  */
-abstract class BaseService
-{
-    /**
-     * Helper function to return required headers for making an http request with constant contact
-     * @param $accessToken - OAuth2 access token to be placed into the Authorization header
-     * @return array - authorization headers
-     */
-    private static function getHeaders($accessToken)
-    {
-        return array(
-            'User-Agent' => 'ConstantContact AppConnect PHP Library v' . Config::get('settings.version'),
-            'Content-Type' => 'application/json',
-            'Accept' => 'application/json',
-            'Authorization' => 'Bearer ' . $accessToken
-        );
-    }
-
-    protected static function getHeadersForMultipart($accessToken) {
-        return array(
-            'User-Agent' => 'ConstantContact AppConnect PHP Library v' . Config::get('settings.version'),
-            'Content-Type' => 'multipart/form-data',
-            'Authorization' => 'Bearer ' . $accessToken
-        );
-    }
-
+abstract class BaseService {
     /**
      * GuzzleHTTP Client Implementation to use for HTTP requests
      * @var Client
      */
     private $client;
-
     /**
      * ApiKey for the application
      * @var string
@@ -56,10 +31,17 @@ abstract class BaseService
      * Constructor with the option to to supply an alternative rest client to be used
      * @param string $apiKey - Constant Contact API Key
      */
-    public function __construct($apiKey)
-    {
+    public function __construct($apiKey) {
         $this->apiKey = $apiKey;
         $this->client = new Client();
+    }
+
+    protected static function getHeadersForMultipart($accessToken) {
+        return array(
+            'User-Agent' => 'ConstantContact AppConnect PHP Library v' . Config::get('settings.version'),
+            'Content-Type' => 'multipart/form-data',
+            'Authorization' => 'Bearer ' . $accessToken
+        );
     }
 
     /**
@@ -78,6 +60,20 @@ abstract class BaseService
             'json' => $body,
             'headers' => self::getHeaders($accessToken)
         ]);
+    }
+
+    /**
+     * Helper function to return required headers for making an http request with constant contact
+     * @param $accessToken - OAuth2 access token to be placed into the Authorization header
+     * @return array - authorization headers
+     */
+    private static function getHeaders($accessToken) {
+        return array(
+            'User-Agent' => 'ConstantContact AppConnect PHP Library v' . Config::get('settings.version'),
+            'Content-Type' => 'application/json',
+            'Accept' => 'application/json',
+            'Authorization' => 'Bearer ' . $accessToken
+        );
     }
 
     protected function sendRequestWithoutBody($accessToken, $method, $baseUrl, Array $queryParams = array()) {

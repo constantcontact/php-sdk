@@ -1,11 +1,11 @@
 <?php
 namespace Ctct\Services;
 
-use Ctct\Exceptions\CtctException;
-use Ctct\Util\Config;
 use Ctct\Components\Activities\Activity;
 use Ctct\Components\Activities\AddContacts;
 use Ctct\Components\Activities\ExportContacts;
+use Ctct\Exceptions\CtctException;
+use Ctct\Util\Config;
 use GuzzleHttp\Exception\TransferException;
 use GuzzleHttp\Psr7\Request;
 
@@ -15,8 +15,7 @@ use GuzzleHttp\Psr7\Request;
  * @package Services
  * @author ConstantContact
  */
-class ActivityService extends BaseService
-{
+class ActivityService extends BaseService {
     /**
      * Get an array of activities
      * @param string $accessToken - Constant Contact OAuth2 access token
@@ -28,8 +27,7 @@ class ActivityService extends BaseService
      * @return array - Array of all ActivitySummaryReports
      * @throws CtctException
      */
-    public function getActivities($accessToken, Array $params = array())
-    {
+    public function getActivities($accessToken, Array $params = array()) {
         $baseUrl = Config::get('endpoints.base_url') . Config::get('endpoints.activities');
 
         try {
@@ -52,10 +50,9 @@ class ActivityService extends BaseService
      * @return array - Array of all ActivitySummaryReports
      * @throws CtctException
      */
-    public function getActivity($accessToken, $activityId)
-    {
+    public function getActivity($accessToken, $activityId) {
         $baseUrl = Config::get('endpoints.base_url') . sprintf(Config::get('endpoints.activity'), $activityId);
-        
+
         try {
             $response = parent::sendRequestWithoutBody($accessToken, 'GET', $baseUrl);
         } catch (TransferException $e) {
@@ -72,8 +69,7 @@ class ActivityService extends BaseService
      * @return array - Array of all ActivitySummaryReports
      * @throws CtctException
      */
-    public function createAddContactsActivity($accessToken, AddContacts $addContacts)
-    {
+    public function createAddContactsActivity($accessToken, AddContacts $addContacts) {
         $baseUrl = Config::get('endpoints.base_url') . Config::get('endpoints.add_contacts_activity');
 
         try {
@@ -94,8 +90,7 @@ class ActivityService extends BaseService
      * @return Activity
      * @throws CtctException
      */
-    public function createAddContactsActivityFromFile($accessToken, $fileName, $fileLocation, $lists)
-    {
+    public function createAddContactsActivityFromFile($accessToken, $fileName, $fileLocation, $lists) {
         $baseUrl = Config::get('endpoints.base_url') . Config::get('endpoints.add_contacts_activity');
         $request = new Request('POST', $baseUrl, [
             parent::getHeadersForMultipart($accessToken)
@@ -126,8 +121,7 @@ class ActivityService extends BaseService
      * @return Activity
      * @throws CtctException
      */
-    public function addClearListsActivity($accessToken, Array $lists)
-    {
+    public function addClearListsActivity($accessToken, Array $lists) {
         $baseUrl = Config::get('endpoints.base_url') . Config::get('endpoints.clear_lists_activity');
 
         try {
@@ -146,8 +140,7 @@ class ActivityService extends BaseService
      * @return array - Array of all ActivitySummaryReports
      * @throws CtctException
      */
-    public function addExportContactsActivity($accessToken, ExportContacts $exportContacts)
-    {
+    public function addExportContactsActivity($accessToken, ExportContacts $exportContacts) {
         $baseUrl = Config::get('endpoints.base_url') . Config::get('endpoints.export_contacts_activity');
 
         try {
@@ -167,14 +160,13 @@ class ActivityService extends BaseService
      * @return Activity
      * @throws CtctException
      */
-    public function addRemoveContactsFromListsActivity($accessToken, Array $emailAddresses, Array $lists)
-    {
+    public function addRemoveContactsFromListsActivity($accessToken, Array $emailAddresses, Array $lists) {
         $baseUrl = Config::get('endpoints.base_url') . Config::get('endpoints.remove_from_lists_activity');
         $payload = array(
             'import_data' => array(),
             'lists' => $lists
         );
-        foreach($emailAddresses as $emailAddress) {
+        foreach ($emailAddresses as $emailAddress) {
             $payload['import_data'][] = array('email_addresses' => array($emailAddress));
         }
 
@@ -196,8 +188,7 @@ class ActivityService extends BaseService
      * @return Activity
      * @throws CtctException
      */
-    public function addRemoveContactsFromListsActivityFromFile($accessToken, $fileName, $fileLocation, $lists)
-    {
+    public function addRemoveContactsFromListsActivityFromFile($accessToken, $fileName, $fileLocation, $lists) {
         $baseUrl = Config::get('endpoints.base_url') . Config::get('endpoints.remove_from_lists_activity');
         $request = new Request('POST', $baseUrl, [
             parent::getHeadersForMultipart($accessToken)

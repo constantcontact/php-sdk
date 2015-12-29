@@ -5,15 +5,13 @@ use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Psr7\Response;
 
-class ActivityServiceUnitTest extends PHPUnit_Framework_TestCase
-{
+class ActivityServiceUnitTest extends PHPUnit_Framework_TestCase {
     /**
      * @var Client
      */
     private static $client;
 
-    public static function setUpBeforeClass()
-    {
+    public static function setUpBeforeClass() {
         $mock = new MockHandler([
             new Response(200, array(), JsonLoader::getActivity()),
             new Response(200, array(), JsonLoader::getActivities()),
@@ -26,8 +24,7 @@ class ActivityServiceUnitTest extends PHPUnit_Framework_TestCase
         self::$client = new Client(['handler' => $handler]);
     }
 
-    public function testGetActivity()
-    {
+    public function testGetActivity() {
         $response = self::$client->request('GET', '/');
 
         $activity = Activity::create(json_decode($response->getBody(), true));
@@ -44,8 +41,7 @@ class ActivityServiceUnitTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(0, $activity->errors[0]->line_number);
     }
 
-    public function testGetActivities()
-    {
+    public function testGetActivities() {
         $response = self::$client->request('GET', '/');
         $activities = array();
         foreach (json_decode($response->getBody(), true) as $activityResponse) {
@@ -63,8 +59,7 @@ class ActivityServiceUnitTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(0, $activity->contact_count);
     }
 
-    public function testAddClearListsActivity()
-    {
+    public function testAddClearListsActivity() {
         $response = self::$client->request('POST', '/');
 
         $activity = Activity::create(json_decode($response->getBody(), true));
@@ -75,8 +70,7 @@ class ActivityServiceUnitTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(0, $activity->contact_count);
     }
 
-    public function testAddExportContactsActivity()
-    {
+    public function testAddExportContactsActivity() {
         $response = self::$client->request('POST', '/');
 
         $activity = Activity::create(json_decode($response->getBody(), true));
@@ -87,8 +81,7 @@ class ActivityServiceUnitTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(0, $activity->contact_count);
     }
 
-    public function testAddRemoveContactsFromListsActivity()
-    {
+    public function testAddRemoveContactsFromListsActivity() {
         $response = self::$client->request('POST', '/');
 
         $activity = Activity::create(json_decode($response->getBody(), true));
@@ -99,8 +92,7 @@ class ActivityServiceUnitTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(0, $activity->contact_count);
     }
 
-    public function testAddCreateContactsActivity()
-    {
+    public function testAddCreateContactsActivity() {
         $response = self::$client->request('POST', '/');
 
         $activity = Activity::create(json_decode($response->getBody(), true));

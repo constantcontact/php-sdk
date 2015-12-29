@@ -1,111 +1,111 @@
 {
-    "meta": {
-        "pagination": {
-            "next_link": "/v2/contacts?next=c3RhcnRBdD0zJmxpbWl0PTI"
-        }
-    },
-    "results": [
+  "meta": {
+    "pagination": {
+      "next_link": "/v2/contacts?next=c3RhcnRBdD0zJmxpbWl0PTI"
+    }
+  },
+  "results": [
+    {
+      "id": 230,
+      "status": "REMOVED",
+      "fax": "",
+      "addresses": [
         {
-            "id": 230,
-            "status": "REMOVED",
-            "fax": "",
-            "addresses": [
-                {
-                    "line1": "Addr1",
-                    "line2": "",
-                    "line3": "",
-                    "city": "Boston",
-                    "address_type": "PERSONAL",
-                    "state_code": "MA",
-                    "country_code": "us",
-                    "postal_code": "00112",
-                    "sub_postal_code": ""
-                },
-                {
-                    "line1": "",
-                    "line2": "",
-                    "line3": "",
-                    "city": "",
-                    "address_type": "BUSINESS",
-                    "state_code": "",
-                    "country_code": "",
-                    "postal_code": "",
-                    "sub_postal_code": ""
-                }
-            ],
-            "notes": [],
-            "confirmed": false,
-            "lists": [],
-            "source": "",
-            "email_addresses": [
-                {
-                    "status": "REMOVED",
-                    "confirm_status": "NO_CONFIRMATION_REQUIRED",
-                    "opt_in_source": "ACTION_BY_VISITOR",
-                    "opt_in_date": "2012-05-29T16:26:36.915Z",
-                    "opt_out_date": "2012-06-18T13:13:46.974Z",
-                    "email_address": "test@roving.com"
-                }
-            ],
-            "prefix_name": "",
-            "first_name": "",
-            "last_name": "",
-            "job_title": "",
-            "department_name": "",
-            "company_name": "",
-            "custom_fields": [],
-            "source_details": "",
-            "action_by": "ACTION_BY_VISITOR"
+          "line1": "Addr1",
+          "line2": "",
+          "line3": "",
+          "city": "Boston",
+          "address_type": "PERSONAL",
+          "state_code": "MA",
+          "country_code": "us",
+          "postal_code": "00112",
+          "sub_postal_code": ""
         },
         {
-            "id": 231,
-            "status": "ACTIVE",
-            "fax": "",
-            "addresses": [
-                {
-                    "line1": "Suite 101",
-                    "line2": "line2",
-                    "line3": "line3",
-                    "city": "Brookfield",
-                    "address_type": "PERSONAL",
-                    "state_code": "WI",
-                    "country_code": "us",
-                    "postal_code": "53027",
-                    "sub_postal_code": ""
-                }
-            ],
-            "notes": [],
-            "confirmed": false,
-            "lists": [
-                {
-                    "id": 1,
-                    "status": "ACTIVE"
-                }
-            ],
-            "source": "",
-            "email_addresses": [
-                {
-                    "status": "ACTIVE",
-                    "confirm_status": "NO_CONFIRMATION_REQUIRED",
-                    "opt_in_source": "ACTION_BY_OWNER",
-                    "opt_in_date": "2012-06-22T10:29:09.976Z",
-                    "opt_out_date": "",
-                    "email_address": "anothertest@roving.com"
-                }
-            ],
-            "prefix_name": "",
-            "first_name": "Jimmy",
-            "last_name": "Roving",
-            "job_title": "Bear Tamer",
-            "department_name": "Animals",
-            "company_name": "Animal Trainer Pro",
-            "custom_fields": [
-                {
-                    "name": "CustomField1",
-                    "value": "1"
-                }
-            ],
-            "source_details": "details"
+          "line1": "",
+          "line2": "",
+          "line3": "",
+          "city": "",
+          "address_type": "BUSINESS",
+          "state_code": "",
+          "country_code": "",
+          "postal_code": "",
+          "sub_postal_code": ""
         }
-    ]
+      ],
+      "notes": [],
+      "confirmed": false,
+      "lists": [],
+      "source": "",
+      "email_addresses": [
+        {
+          "status": "REMOVED",
+          "confirm_status": "NO_CONFIRMATION_REQUIRED",
+          "opt_in_source": "ACTION_BY_VISITOR",
+          "opt_in_date": "2012-05-29T16:26:36.915Z",
+          "opt_out_date": "2012-06-18T13:13:46.974Z",
+          "email_address": "test@roving.com"
+        }
+      ],
+      "prefix_name": "",
+      "first_name": "",
+      "last_name": "",
+      "job_title": "",
+      "department_name": "",
+      "company_name": "",
+      "custom_fields": [],
+      "source_details": "",
+      "action_by": "ACTION_BY_VISITOR"
+    },
+    {
+      "id": 231,
+      "status": "ACTIVE",
+      "fax": "",
+      "addresses": [
+        {
+          "line1": "Suite 101",
+          "line2": "line2",
+          "line3": "line3",
+          "city": "Brookfield",
+          "address_type": "PERSONAL",
+          "state_code": "WI",
+          "country_code": "us",
+          "postal_code": "53027",
+          "sub_postal_code": ""
+        }
+      ],
+      "notes": [],
+      "confirmed": false,
+      "lists": [
+        {
+          "id": 1,
+          "status": "ACTIVE"
+        }
+      ],
+      "source": "",
+      "email_addresses": [
+        {
+          "status": "ACTIVE",
+          "confirm_status": "NO_CONFIRMATION_REQUIRED",
+          "opt_in_source": "ACTION_BY_OWNER",
+          "opt_in_date": "2012-06-22T10:29:09.976Z",
+          "opt_out_date": "",
+          "email_address": "anothertest@roving.com"
+        }
+      ],
+      "prefix_name": "",
+      "first_name": "Jimmy",
+      "last_name": "Roving",
+      "job_title": "Bear Tamer",
+      "department_name": "Animals",
+      "company_name": "Animal Trainer Pro",
+      "custom_fields": [
+        {
+          "name": "CustomField1",
+          "value": "1"
+        }
+      ],
+      "source_details": "details"
+    }
+  ]
 }

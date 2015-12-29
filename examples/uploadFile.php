@@ -55,7 +55,8 @@ do {
 <div class="well">
     <h3>Upload a New Image or PDF</h3>
 
-    <form class="form-horizontal" name="submitFile" id="submitFile" method="POST" action="uploadFile.php" enctype="multipart/form-data">
+    <form class="form-horizontal" name="submitFile" id="submitFile" method="POST" action="uploadFile.php"
+          enctype="multipart/form-data">
         <div class="control-group">
             <label class="control-label" for="file_name">File Name</label>
 
@@ -103,8 +104,8 @@ do {
 <?php
 // print the contents of the file upload status to screen
 if (isset($fileUploadStatus)) {
-echo '<span class="label label-success">File Uploaded!</span>';
-echo '<div class="container alert-success"><pre class="success-pre">';
+    echo '<span class="label label-success">File Uploaded!</span>';
+    echo '<div class="container alert-success"><pre class="success-pre">';
     foreach ($fileUploadStatus as $status) {
         print_r($status);
     }

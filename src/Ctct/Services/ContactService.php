@@ -1,10 +1,10 @@
 <?php
 namespace Ctct\Services;
 
-use Ctct\Exceptions\CtctException;
-use Ctct\Util\Config;
 use Ctct\Components\Contacts\Contact;
 use Ctct\Components\ResultSet;
+use Ctct\Exceptions\CtctException;
+use Ctct\Util\Config;
 use GuzzleHttp\Exception\TransferException;
 
 /**
@@ -13,8 +13,7 @@ use GuzzleHttp\Exception\TransferException;
  * @package Services
  * @author ContactContact
  */
-class ContactService extends BaseService
-{
+class ContactService extends BaseService {
     /**
      * Get a ResultSet of contacts
      * @param string $accessToken - Constant Contact OAuth2 access token
@@ -28,8 +27,7 @@ class ContactService extends BaseService
      * @return ResultSet
      * @throws CtctException
      */
-    public function getContacts($accessToken, Array $params = array())
-    {
+    public function getContacts($accessToken, Array $params = array()) {
         $baseUrl = Config::get('endpoints.base_url') . Config::get('endpoints.contacts');
 
         try {
@@ -60,8 +58,7 @@ class ContactService extends BaseService
      * @return ResultSet
      * @throws CtctException
      */
-    public function getContactsFromList($accessToken, $listId, Array $params = array())
-    {
+    public function getContactsFromList($accessToken, $listId, Array $params = array()) {
         $baseUrl = Config::get('endpoints.base_url') . sprintf(Config::get('endpoints.list_contacts'), $listId);
 
         try {
@@ -85,8 +82,7 @@ class ContactService extends BaseService
      * @return Contact
      * @throws CtctException
      */
-    public function getContact($accessToken, $contactId)
-    {
+    public function getContact($accessToken, $contactId) {
         $baseUrl = Config::get('endpoints.base_url') . sprintf(Config::get('endpoints.contact'), $contactId);
 
         try {
@@ -109,8 +105,7 @@ class ContactService extends BaseService
      * @return Contact
      * @throws CtctException
      */
-    public function addContact($accessToken, Contact $contact, Array $params = array())
-    {
+    public function addContact($accessToken, Contact $contact, Array $params = array()) {
         $baseUrl = Config::get('endpoints.base_url') . Config::get('endpoints.contacts');
 
         try {
@@ -152,8 +147,7 @@ class ContactService extends BaseService
      * @return Contact
      * @throws CtctException
      */
-    public function updateContact($accessToken, Contact $contact, Array $params = array())
-    {
+    public function updateContact($accessToken, Contact $contact, Array $params = array()) {
         $baseUrl = Config::get('endpoints.base_url') . sprintf(Config::get('endpoints.contact'), $contact->id);
 
         try {

@@ -1,17 +1,17 @@
 <?php
 namespace Ctct\Services;
 
-use Ctct\Exceptions\CtctException;
-use Ctct\Util\Config;
+use Ctct\Components\ResultSet;
 use Ctct\Components\Tracking\BounceActivity;
-use Ctct\Components\Tracking\TrackingActivity;
 use Ctct\Components\Tracking\ClickActivity;
 use Ctct\Components\Tracking\ForwardActivity;
 use Ctct\Components\Tracking\OpenActivity;
-use Ctct\Components\Tracking\UnsubscribeActivity;
 use Ctct\Components\Tracking\SendActivity;
+use Ctct\Components\Tracking\TrackingActivity;
 use Ctct\Components\Tracking\TrackingSummary;
-use Ctct\Components\ResultSet;
+use Ctct\Components\Tracking\UnsubscribeActivity;
+use Ctct\Exceptions\CtctException;
+use Ctct\Util\Config;
 use GuzzleHttp\Exception\TransferException;
 
 /**
@@ -20,8 +20,7 @@ use GuzzleHttp\Exception\TransferException;
  * @package Services
  * @author Constant Contact
  */
-class CampaignTrackingService extends BaseService
-{
+class CampaignTrackingService extends BaseService {
     /**
      * Get a result set of bounces for a given campaign
      * @param string $accessToken - Constant Contact OAuth2 access token
@@ -34,8 +33,7 @@ class CampaignTrackingService extends BaseService
      * @return ResultSet - Containing a results array of {@link BounceActivity}
      * @throws CtctException
      */
-    public function getBounces($accessToken, $campaignId, Array $params = array())
-    {
+    public function getBounces($accessToken, $campaignId, Array $params = array()) {
         $baseUrl = Config::get('endpoints.base_url') . sprintf(Config::get('endpoints.campaign_tracking_bounces'), $campaignId);
 
         try {
@@ -64,8 +62,7 @@ class CampaignTrackingService extends BaseService
      * @return ResultSet - Containing a results array of {@link ClickActivity}
      * @throws CtctException
      */
-    public function getClicks($accessToken, $campaignId, Array $params = array())
-    {
+    public function getClicks($accessToken, $campaignId, Array $params = array()) {
         $baseUrl = Config::get('endpoints.base_url') . sprintf(Config::get('endpoints.campaign_tracking_clicks'), $campaignId);
 
         try {
@@ -95,8 +92,7 @@ class CampaignTrackingService extends BaseService
      * @return ResultSet - Containing a results array of {@link ForwardActivity}
      * @throws CtctException
      */
-    public function getForwards($accessToken, $campaignId, Array $params = array())
-    {
+    public function getForwards($accessToken, $campaignId, Array $params = array()) {
         $baseUrl = Config::get('endpoints.base_url') . sprintf(Config::get('endpoints.campaign_tracking_forwards'), $campaignId);
 
         try {
@@ -126,8 +122,7 @@ class CampaignTrackingService extends BaseService
      * @return ResultSet - Containing a results array of {@link OpenActivity}
      * @throws CtctException
      */
-    public function getOpens($accessToken, $campaignId, Array $params = array())
-    {
+    public function getOpens($accessToken, $campaignId, Array $params = array()) {
         $baseUrl = Config::get('endpoints.base_url') . sprintf(Config::get('endpoints.campaign_tracking_opens'), $campaignId);
 
         try {
@@ -157,8 +152,7 @@ class CampaignTrackingService extends BaseService
      * @return TrackingActivity - Containing a results array of {@link SendActivity}
      * @throws CtctException
      */
-    public function getSends($accessToken, $campaignId, Array $params = array())
-    {
+    public function getSends($accessToken, $campaignId, Array $params = array()) {
         $baseUrl = Config::get('endpoints.base_url') . sprintf(Config::get('endpoints.campaign_tracking_sends'), $campaignId);
 
         try {
@@ -188,8 +182,7 @@ class CampaignTrackingService extends BaseService
      * @return ResultSet - Containing a results array of {@link UnsubscribeActivity}
      * @throws CtctException
      */
-    public function getUnsubscribes($accessToken, $campaignId, Array $params = array())
-    {
+    public function getUnsubscribes($accessToken, $campaignId, Array $params = array()) {
         $baseUrl = Config::get('endpoints.base_url') . sprintf(Config::get('endpoints.campaign_tracking_unsubscribes'), $campaignId);
 
         try {
@@ -214,8 +207,7 @@ class CampaignTrackingService extends BaseService
      * @return TrackingSummary
      * @throws CtctException
      */
-    public function getSummary($accessToken, $campaignId)
-    {
+    public function getSummary($accessToken, $campaignId) {
         $baseUrl = Config::get('endpoints.base_url') . sprintf(Config::get('endpoints.campaign_tracking_summary'), $campaignId);
 
         try {

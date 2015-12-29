@@ -2,8 +2,8 @@
 namespace Ctct\Components\Activities;
 
 use Ctct\Components\Component;
-use Ctct\Util\Config;
 use Ctct\Exceptions\IllegalArgumentException;
+use Ctct\Util\Config;
 
 /**
  * Represents an AddContacts Activity
@@ -12,14 +12,12 @@ use Ctct\Exceptions\IllegalArgumentException;
  * @subpackage     Activities
  * @author         Constant Contact
  */
-class AddContacts extends Component
-{
+class AddContacts extends Component {
     public $import_data = array();
     public $lists = array();
     public $column_names = array();
 
-    public function __construct(Array $contacts, Array $lists, Array $columnNames = array())
-    {
+    public function __construct(Array $contacts, Array $lists, Array $columnNames = array()) {
         if (!empty($contacts)) {
             if ($contacts[0] instanceof AddContactsImportData) {
                 $this->import_data = $contacts;
@@ -62,7 +60,7 @@ class AddContacts extends Component
             if (isset($contact->home_phone)) {
                 $usedColumns[] = Config::get('activities_columns.home_phone');
             }
-			
+
             if (isset($contact->birthday_day)) {
                 $usedColumns[] = Config::get('activities_columns.birthday_day');
             }
@@ -124,8 +122,7 @@ class AddContacts extends Component
      * Turn the object into json, removing any extra fields
      * @return string
      */
-    public function toJson()
-    {
+    public function toJson() {
         foreach ($this->import_data as $contact) {
             foreach ($contact as $key => $value) {
                 if ($value == null) {

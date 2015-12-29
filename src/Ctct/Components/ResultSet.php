@@ -5,8 +5,7 @@ namespace Ctct\Components;
  * Container for a get on a collection, such as Contacts, Campaigns, or TrackingData.
  *
  */
-class ResultSet
-{
+class ResultSet {
     /**
      * array of result objects returned
      * @var array
@@ -24,8 +23,7 @@ class ResultSet
      * @param array $results - results array from request
      * @param array $meta - meta array from request
      */
-    public function __construct(array $results, array $meta)
-    {
+    public function __construct(array $results, array $meta) {
         $this->results = $results;
 
         if (array_key_exists('next_link', $meta['pagination'])) {

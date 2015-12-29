@@ -7,10 +7,8 @@ namespace Ctct\Auth;
  * @package     Auth
  * @author         Constant Contact
  */
-class SessionDataStore implements CtctDataStore
-{
-    public function __construct()
-    {
+class SessionDataStore implements CtctDataStore {
+    public function __construct() {
         session_start();
 
         if (!isset($_SESSION['datastore'])) {
@@ -24,8 +22,7 @@ class SessionDataStore implements CtctDataStore
      * @param string $username - Constant Contact username
      * @param array $params - additional parameters
      */
-    public function addUser($username, array $params)
-    {
+    public function addUser($username, array $params) {
         $_SESSION['datastore'][$username] = $params;
     }
 
@@ -34,8 +31,7 @@ class SessionDataStore implements CtctDataStore
      * @param string $username - Constant Contact username
      * @return Array params of the username in the datastore, or false if the username doesn't exist
      */
-    public function getUser($username)
-    {
+    public function getUser($username) {
         if (array_key_exists($username, $_SESSION['datastore'])) {
             return $_SESSION['datastore'][$username];
         } else {
@@ -48,8 +44,7 @@ class SessionDataStore implements CtctDataStore
      * @param string $username - Constant Contact username
      * @param array $params - additional parameters
      */
-    public function updateUser($username, array $params)
-    {
+    public function updateUser($username, array $params) {
         if (array_key_exists($username, $_SESSION['datastore'])) {
             $_SESSION['datastore'][$username] = $params;
         }
@@ -59,8 +54,7 @@ class SessionDataStore implements CtctDataStore
      * Delete an existing user from the data store
      * @param string $username - Constant Contact username
      */
-    public function deleteUser($username)
-    {
+    public function deleteUser($username) {
         unset($_SESSION['datastore'][$username]);
     }
 }

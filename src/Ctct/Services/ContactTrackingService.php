@@ -1,16 +1,16 @@
 <?php
 namespace Ctct\Services;
 
-use Ctct\Exceptions\CtctException;
-use Ctct\Util\Config;
+use Ctct\Components\ResultSet;
 use Ctct\Components\Tracking\BounceActivity;
 use Ctct\Components\Tracking\ClickActivity;
 use Ctct\Components\Tracking\ForwardActivity;
 use Ctct\Components\Tracking\OpenActivity;
-use Ctct\Components\Tracking\UnsubscribeActivity;
 use Ctct\Components\Tracking\SendActivity;
 use Ctct\Components\Tracking\TrackingSummary;
-use Ctct\Components\ResultSet;
+use Ctct\Components\Tracking\UnsubscribeActivity;
+use Ctct\Exceptions\CtctException;
+use Ctct\Util\Config;
 use GuzzleHttp\Exception\TransferException;
 
 /**
@@ -19,8 +19,7 @@ use GuzzleHttp\Exception\TransferException;
  * @package Services
  * @author Constant Contact
  */
-class ContactTrackingService extends BaseService
-{
+class ContactTrackingService extends BaseService {
     /**
      * Get bounces for a given contact
      * @param string $accessToken - Constant Contact OAuth2 access token
@@ -33,8 +32,7 @@ class ContactTrackingService extends BaseService
      * @return ResultSet - Containing a results array of {@link BounceActivity}
      * @throws CtctException
      */
-    public function getBounces($accessToken, $contactId, Array $params = array())
-    {
+    public function getBounces($accessToken, $contactId, Array $params = array()) {
         $baseUrl = Config::get('endpoints.base_url') . sprintf(Config::get('endpoints.contact_tracking_bounces'), $contactId);
 
         try {
@@ -64,8 +62,7 @@ class ContactTrackingService extends BaseService
      * @return ResultSet - Containing a results array of {@link ClickActivity}
      * @throws CtctException
      */
-    public function getClicks($accessToken, $contactId, Array $params = array())
-    {
+    public function getClicks($accessToken, $contactId, Array $params = array()) {
         $baseUrl = Config::get('endpoints.base_url') . sprintf(Config::get('endpoints.contact_tracking_clicks'), $contactId);
 
         try {
@@ -95,8 +92,7 @@ class ContactTrackingService extends BaseService
      * @return ResultSet - Containing a results array of {@link ForwardActivity}
      * @throws CtctException
      */
-    public function getForwards($accessToken, $contactId, Array $params = array())
-    {
+    public function getForwards($accessToken, $contactId, Array $params = array()) {
         $baseUrl = Config::get('endpoints.base_url') . sprintf(Config::get('endpoints.contact_tracking_forwards'), $contactId);
 
         try {
@@ -126,8 +122,7 @@ class ContactTrackingService extends BaseService
      * @return ResultSet - Containing a results array of {@link OpenActivity}
      * @throws CtctException
      */
-    public function getOpens($accessToken, $contactId, Array $params = array())
-    {
+    public function getOpens($accessToken, $contactId, Array $params = array()) {
         $baseUrl = Config::get('endpoints.base_url') . sprintf(Config::get('endpoints.contact_tracking_opens'), $contactId);
 
         try {
@@ -157,8 +152,7 @@ class ContactTrackingService extends BaseService
      * @return ResultSet - Containing a results array of {@link SendActivity}
      * @throws CtctException
      */
-    public function getSends($accessToken, $contactId, Array $params = array())
-    {
+    public function getSends($accessToken, $contactId, Array $params = array()) {
         $baseUrl = Config::get('endpoints.base_url') . sprintf(Config::get('endpoints.contact_tracking_sends'), $contactId);
 
         try {
@@ -188,8 +182,7 @@ class ContactTrackingService extends BaseService
      * @return ResultSet - Containing a results array of {@link UnsubscribeActivity}
      * @throws CtctException
      */
-    public function getUnsubscribes($accessToken, $contactId, Array $params = array())
-    {
+    public function getUnsubscribes($accessToken, $contactId, Array $params = array()) {
         $baseUrl = Config::get('endpoints.base_url') . sprintf(Config::get('endpoints.contact_tracking_unsubscribes'), $contactId);
 
         try {
@@ -214,8 +207,7 @@ class ContactTrackingService extends BaseService
      * @return TrackingSummary
      * @throws CtctException
      */
-    public function getSummary($accessToken, $contactId)
-    {
+    public function getSummary($accessToken, $contactId) {
         $baseUrl = Config::get('endpoints.base_url') . sprintf(Config::get('endpoints.contact_tracking_summary'), $contactId);
 
         try {

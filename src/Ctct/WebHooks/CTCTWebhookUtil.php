@@ -10,54 +10,26 @@ use Ctct\Exceptions\CtctException;
  * @package     WebHooks
  * @author      Constant Contact
  */
-class CTCTWebhookUtil
-{
-
+class CTCTWebhookUtil {
     /**
      * The client secret associated with the api key
      */
     private $clientSecret = '';
 
-
     /**
      * Constructor that creates a validation Object for WebHooks.
-     * 
+     *
      * @param string $clientSecret - The client secret associated with the api key
      * @return  CTCTWebhookUtil
      */
-    function __construct($clientSecret='')
-    {
+    function __construct($clientSecret = '') {
         $this->setClientSecret($clientSecret);
-    }
-
-
-    /**
-     * CTCTWebhookUtil::getClientSecret()
-     * 
-     * @return string - the secret API key  
-     */
-    public function getClientSecret()
-    {
-        return $this->clientSecret;
-    }
-
-
-    /**
-     * CTCTWebhookUtil::setClientSecret()
-     * Set the clientSecret
-     * 
-     * @param string $clientSecret - The client secret associated with the api key
-     * @return void
-     */
-    public function setClientSecret($clientSecret)
-    {
-        $this->clientSecret = $clientSecret;
     }
 
     /**
      * Get Billing Change Notification.<br/>
      *
-     * Validates and parses the bodyMessage into 
+     * Validates and parses the bodyMessage into
      *
      * @param xCtctHmacSHA256 The value in the x-ctct-hmac-sha256 header.
      * @param bodyMessage The body message from the POST received from ConstantContact in Webhook callback.
@@ -69,13 +41,10 @@ class CTCTWebhookUtil
      * </ul>
      * <p/>
      */
-    public function getBillingChangeNotification($xCtctHmacSHA256, $bodyMessage)
-    {
-        if ($this->isValidWebhook($xCtctHmacSHA256, $bodyMessage))
-        {
-            return json_decode($bodyMessage);            
-        } else
-        {
+    public function getBillingChangeNotification($xCtctHmacSHA256, $bodyMessage) {
+        if ($this->isValidWebhook($xCtctHmacSHA256, $bodyMessage)) {
+            return json_decode($bodyMessage);
+        } else {
             throw new CtctException("Invalid WebHook");
         }
     }
@@ -83,19 +52,40 @@ class CTCTWebhookUtil
     /**
      * Check if a Webhook message is valid or not.<br/>
      *
-     * @param xCtctHmacSHA256 The value in the x-ctct-hmac-sha256 header.
-     * @param bodyMessage The body message from the POST received from ConstantContact in Webhook callback.
+     * @param  $xCtctHmacSHA256
+     * @param  $bodyMessage
      * @return true if in case of success; false if the Webhook is invalid.
-     * 
+     *
+     * @throws CtctException
+     * @internal param The $xCtctHmacSHA256 value in the x-ctct-hmac-sha256 header.
+     * @internal param The $bodyMessage body message from the POST received from ConstantContact in Webhook callback.
      */
-    public function isValidWebhook($xCtctHmacSHA256, $bodyMessage)
-    {    
-        if ($this->getClientSecret() == null)
-        {
+    public function isValidWebhook($xCtctHmacSHA256, $bodyMessage) {
+        if ($this->getClientSecret() == null) {
             throw new CtctException("NO_CLIENT_SECRET");
         }
         $encodedString = hash_hmac("sha256", $bodyMessage, $this->clientSecret);
-        
-        return ($encodedString == $xCtctHmacSHA256)?true:false;
+
+        return ($encodedString == $xCtctHmacSHA256) ? true : false;
+    }
+
+    /**
+     * CTCTWebhookUtil::getClientSecret()
+     *
+     * @return string - the secret API key
+     */
+    public function getClientSecret() {
+        return $this->clientSecret;
+    }
+
+    /**
+     * CTCTWebhookUtil::setClientSecret()
+     * Set the clientSecret
+     *
+     * @param string $clientSecret - The client secret associated with the api key
+     * @return void
+     */
+    public function setClientSecret($clientSecret) {
+        $this->clientSecret = $clientSecret;
     }
 }

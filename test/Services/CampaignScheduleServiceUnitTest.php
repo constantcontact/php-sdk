@@ -2,22 +2,19 @@
 
 use Ctct\Components\EmailMarketing\Schedule;
 use Ctct\Components\EmailMarketing\TestSend;
-
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Psr7\Response;
 
-class CampaignScheduleServiceUnitTest extends PHPUnit_Framework_TestCase
-{
+class CampaignScheduleServiceUnitTest extends PHPUnit_Framework_TestCase {
     /**
      * @var Client
      */
     private static $client;
 
-    public static function setUpBeforeClass()
-    {
+    public static function setUpBeforeClass() {
         self::$client = new Client();
         $scheduleJson = JsonLoader::getCampaignScheduleJson();
         $mock = new MockHandler([
@@ -33,8 +30,7 @@ class CampaignScheduleServiceUnitTest extends PHPUnit_Framework_TestCase
         self::$client = new Client(['handler' => $handler]);
     }
 
-    public function testGetSchedules()
-    {
+    public function testGetSchedules() {
         $response = self::$client->request('GET', '/');
 
         $schedules = array();
@@ -52,8 +48,7 @@ class CampaignScheduleServiceUnitTest extends PHPUnit_Framework_TestCase
         $this->assertEquals("2012-12-17T11:08:00.000Z", $schedule2->scheduled_date);
     }
 
-    public function testGetSchedule()
-    {
+    public function testGetSchedule() {
         $response = self::$client->request('GET', '/');
 
         $schedule = Schedule::create(json_decode($response->getBody(), true));
@@ -62,8 +57,7 @@ class CampaignScheduleServiceUnitTest extends PHPUnit_Framework_TestCase
         $this->assertEquals("2012-12-16T11:07:43.626Z", $schedule->scheduled_date);
     }
 
-    public function testAddSchedule()
-    {
+    public function testAddSchedule() {
         $response = self::$client->request('POST', '/');
 
         $createdSchedule = Schedule::create(json_decode($response->getBody(), true));
@@ -72,8 +66,7 @@ class CampaignScheduleServiceUnitTest extends PHPUnit_Framework_TestCase
         $this->assertEquals("2012-12-16T11:07:43.626Z", $createdSchedule->scheduled_date);
     }
 
-    public function testUpdateSchedule()
-    {
+    public function testUpdateSchedule() {
         $response = self::$client->request('PUT', '/');
 
         $updatedSchedule = Schedule::create(json_decode($response->getBody(), true));
@@ -82,15 +75,13 @@ class CampaignScheduleServiceUnitTest extends PHPUnit_Framework_TestCase
         $this->assertEquals("2012-12-16T11:07:43.626Z", $updatedSchedule->scheduled_date);
     }
 
-    public function testDeleteSchedule()
-    {
+    public function testDeleteSchedule() {
         $response = self::$client->request('DELETE', '/');
 
         $this->assertEquals(204, $response->getStatusCode());
     }
 
-    public function testDeleteScheduleFailed()
-    {
+    public function testDeleteScheduleFailed() {
         try {
             self::$client->request('DELETE', '/');
             $this->fail("Call did not fail");
@@ -99,8 +90,7 @@ class CampaignScheduleServiceUnitTest extends PHPUnit_Framework_TestCase
         }
     }
 
-    public function testSendTest()
-    {
+    public function testSendTest() {
         $response = self::$client->request('POST', '/');
 
         $testSend = TestSend::create(json_decode($response->getBody(), true));

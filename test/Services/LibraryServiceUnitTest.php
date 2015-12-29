@@ -1,24 +1,21 @@
 <?php
 
-use Ctct\Components\ResultSet;
 use Ctct\Components\Library\File;
-use Ctct\Components\Library\Folder;
 use Ctct\Components\Library\FileUploadStatus;
-
+use Ctct\Components\Library\Folder;
+use Ctct\Components\ResultSet;
 use GuzzleHttp\Client;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Psr7\Response;
 
-class LibraryServiceUnitTest extends PHPUnit_Framework_TestCase
-{
+class LibraryServiceUnitTest extends PHPUnit_Framework_TestCase {
     /**
      * @var Client
      */
     private static $client;
 
-    public static function setUpBeforeClass()
-    {
+    public static function setUpBeforeClass() {
         $mock = new MockHandler([
             new Response(200, array(), JsonLoader::getLibraryFileJson()),
             new Response(200, array(), JsonLoader::getLibraryFilesJson()),
@@ -31,8 +28,7 @@ class LibraryServiceUnitTest extends PHPUnit_Framework_TestCase
         self::$client = new Client(['handler' => $handler]);
     }
 
-    public function testGetLibraryFile()
-    {
+    public function testGetLibraryFile() {
         $response = self::$client->request('GET', '/');
 
         $file = File::create(json_decode($response->getBody(), true));
@@ -60,8 +56,7 @@ class LibraryServiceUnitTest extends PHPUnit_Framework_TestCase
         $this->assertEquals("JPG", $file->type);
     }
 
-    public function testGetLibraryFiles()
-    {
+    public function testGetLibraryFiles() {
         $response = json_decode(self::$client->request('GET', '/')->getBody(), true);
 
         $result = new ResultSet($response['results'], $response['meta']);
@@ -96,8 +91,7 @@ class LibraryServiceUnitTest extends PHPUnit_Framework_TestCase
         $this->assertEquals("PNG", $files[0]->file_type);
     }
 
-    public function testGetLibraryFolder()
-    {
+    public function testGetLibraryFolder() {
         $response = self::$client->request('GET', '/');
 
         $folder = Folder::create(json_decode($response->getBody(), true));
@@ -126,8 +120,7 @@ class LibraryServiceUnitTest extends PHPUnit_Framework_TestCase
         $this->assertEquals("2013-09-09T14:25:44.000-04:00", $folder->created_date);
     }
 
-    public function testGetLibraryFolders()
-    {
+    public function testGetLibraryFolders() {
         $response = json_decode(self::$client->request('GET', '/')->getBody(), true);
 
         $result = new ResultSet($response['results'], $response['meta']);
@@ -163,8 +156,7 @@ class LibraryServiceUnitTest extends PHPUnit_Framework_TestCase
         $this->assertEquals("2013-09-09T14:25:44.000-04:00", $folders[0]->created_date);
     }
 
-    public function testUploadFile()
-    {
+    public function testUploadFile() {
         $response = self::$client->request('POST', '/');
 
         $id = $response->getHeader("Id");
@@ -175,8 +167,7 @@ class LibraryServiceUnitTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(201, $code);
     }
 
-    public function testGetFileUploadStatus()
-    {
+    public function testGetFileUploadStatus() {
         $response = self::$client->request('GET', '/');
 
         $statuses = array();

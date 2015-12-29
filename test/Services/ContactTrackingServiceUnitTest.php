@@ -4,25 +4,22 @@ use Ctct\Components\ResultSet;
 use Ctct\Components\Tracking\BounceActivity;
 use Ctct\Components\Tracking\ClickActivity;
 use Ctct\Components\Tracking\ForwardActivity;
-use Ctct\Components\Tracking\UnsubscribeActivity;
-use Ctct\Components\Tracking\SendActivity;
 use Ctct\Components\Tracking\OpenActivity;
+use Ctct\Components\Tracking\SendActivity;
 use Ctct\Components\Tracking\TrackingSummary;
-
+use Ctct\Components\Tracking\UnsubscribeActivity;
 use GuzzleHttp\Client;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Psr7\Response;
 
-class ContactTrackingServiceUnitTest extends PHPUnit_Framework_TestCase
-{
+class ContactTrackingServiceUnitTest extends PHPUnit_Framework_TestCase {
     /**
      * @var Client
      */
     private static $client;
 
-    public static function setUpBeforeClass()
-    {
+    public static function setUpBeforeClass() {
         $mock = new MockHandler([
             new Response(200, array(), JsonLoader::getBounces()),
             new Response(200, array(), JsonLoader::getClicks()),
@@ -36,8 +33,7 @@ class ContactTrackingServiceUnitTest extends PHPUnit_Framework_TestCase
         self::$client = new Client(['handler' => $handler]);
     }
 
-    public function testGetBounces()
-    {
+    public function testGetBounces() {
         $response = json_decode(self::$client->request('GET', '/')->getBody(), true);
 
         $resultSet = new ResultSet($response['results'], $response['meta']);
@@ -59,8 +55,7 @@ class ContactTrackingServiceUnitTest extends PHPUnit_Framework_TestCase
         $this->assertEquals("2012-12-06T13:05:24.844Z", $bounceActivity->bounce_date);
     }
 
-    public function testGetClicks()
-    {
+    public function testGetClicks() {
         $response = json_decode(self::$client->request('GET', '/')->getBody(), true);
 
         $resultSet = new ResultSet($response['results'], $response['meta']);
@@ -80,8 +75,7 @@ class ContactTrackingServiceUnitTest extends PHPUnit_Framework_TestCase
         $this->assertEquals("2012-12-06T13:07:01.701Z", $clickActivity->click_date);
     }
 
-    public function testGetForwards()
-    {
+    public function testGetForwards() {
         $response = json_decode(self::$client->request('GET', '/')->getBody(), true);
 
         $resultSet = new ResultSet($response['results'], $response['meta']);
@@ -100,8 +94,7 @@ class ContactTrackingServiceUnitTest extends PHPUnit_Framework_TestCase
         $this->assertEquals("2012-12-06T13:07:06.810Z", $forwardActivity->forward_date);
     }
 
-    public function testGetUnsubscribes()
-    {
+    public function testGetUnsubscribes() {
         $response = json_decode(self::$client->request('GET', '/')->getBody(), true);
 
         $resultSet = new ResultSet($response['results'], $response['meta']);
@@ -122,8 +115,7 @@ class ContactTrackingServiceUnitTest extends PHPUnit_Framework_TestCase
         $this->assertEquals("", $unsubscribeActivity->unsubscribe_reason);
     }
 
-    public function testGetSends()
-    {
+    public function testGetSends() {
         $response = json_decode(self::$client->request('GET', '/')->getBody(), true);
 
         $resultSet = new ResultSet($response['results'], $response['meta']);
@@ -142,8 +134,7 @@ class ContactTrackingServiceUnitTest extends PHPUnit_Framework_TestCase
         $this->assertEquals("2012-12-06T18:06:50.650Z", $sendActivity->send_date);
     }
 
-    public function testGetOpens()
-    {
+    public function testGetOpens() {
         $response = json_decode(self::$client->request('GET', '/')->getBody(), true);
 
         $resultSet = new ResultSet($response['results'], $response['meta']);
@@ -162,8 +153,7 @@ class ContactTrackingServiceUnitTest extends PHPUnit_Framework_TestCase
         $this->assertEquals("2012-12-06T13:07:11.839Z", $openActivity->open_date);
     }
 
-    public function testGetSummary()
-    {
+    public function testGetSummary() {
         $response = self::$client->request('GET', '/');
 
         $summary = TrackingSummary::create(json_decode($response->getBody(), true));

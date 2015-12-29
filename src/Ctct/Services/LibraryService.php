@@ -1,18 +1,17 @@
 <?php
 namespace Ctct\Services;
 
-use Ctct\Exceptions\CtctException;
 use Ctct\Components\Library\File;
 use Ctct\Components\Library\FileUploadStatus;
 use Ctct\Components\Library\Folder;
 use Ctct\Components\ResultSet;
+use Ctct\Exceptions\CtctException;
 use Ctct\Exceptions\IllegalArgumentException;
 use Ctct\Util\Config;
 use GuzzleHttp\Exception\TransferException;
 use GuzzleHttp\Psr7\Request;
 
-class LibraryService extends BaseService
-{
+class LibraryService extends BaseService {
     /**
      * Get files from the Library
      * @param string $accessToken - Constant Contact OAuth2 Access Token
@@ -27,8 +26,7 @@ class LibraryService extends BaseService
      * @return ResultSet
      * @throws CtctException
      */
-    public function getLibraryFiles($accessToken, Array $params = array())
-    {
+    public function getLibraryFiles($accessToken, Array $params = array()) {
         $baseUrl = Config::get('endpoints.base_url') . Config::get('endpoints.library_files');
 
         try {
@@ -61,8 +59,7 @@ class LibraryService extends BaseService
      * @return ResultSet
      * @throws CtctException
      */
-    public function getLibraryFilesByFolder($accessToken, $folderId, Array $params = array())
-    {
+    public function getLibraryFilesByFolder($accessToken, $folderId, Array $params = array()) {
         $baseUrl = Config::get('endpoints.base_url') . sprintf(Config::get('endpoints.library_files_by_folder'), $folderId);
 
         try {
@@ -87,8 +84,7 @@ class LibraryService extends BaseService
      * @return File
      * @throws CtctException
      */
-    public function getLibraryFile($accessToken, $fileId)
-    {
+    public function getLibraryFile($accessToken, $fileId) {
         $baseUrl = Config::get('endpoints.base_url') . sprintf(Config::get('endpoints.library_file'), $fileId);
 
         try {
@@ -107,8 +103,7 @@ class LibraryService extends BaseService
      * @return boolean
      * @throws CtctException
      */
-    public function deleteLibraryFile($accessToken, $fileId)
-    {
+    public function deleteLibraryFile($accessToken, $fileId) {
         $baseUrl = Config::get('endpoints.base_url') . sprintf(Config::get('endpoints.library_file'), $fileId);
 
         try {
@@ -131,8 +126,7 @@ class LibraryService extends BaseService
      * @return ResultSet
      * @throws CtctException
      */
-    public function getLibraryFolders($accessToken, Array $params = array())
-    {
+    public function getLibraryFolders($accessToken, Array $params = array()) {
         $baseUrl = Config::get('endpoints.base_url') . Config::get('endpoints.library_folders');
 
         try {
@@ -157,8 +151,7 @@ class LibraryService extends BaseService
      * @return Folder
      * @throws CtctException
      */
-    public function getLibraryFolder($accessToken, $folderId)
-    {
+    public function getLibraryFolder($accessToken, $folderId) {
         $baseUrl = Config::get('endpoints.base_url') . sprintf(Config::get('endpoints.library_folder'), $folderId);
 
         try {
@@ -178,8 +171,7 @@ class LibraryService extends BaseService
      * @return boolean
      * @throws CtctException
      */
-    public function deleteLibraryFolder($accessToken, $folderId)
-    {
+    public function deleteLibraryFolder($accessToken, $folderId) {
         $baseUrl = Config::get('endpoints.base_url') . sprintf(Config::get('endpoints.library_folder'), $folderId);
 
         try {
@@ -204,10 +196,9 @@ class LibraryService extends BaseService
      * @return string File upload status ID
      * @throws CtctException
      */
-    public function uploadFile($accessToken, $fileName, $fileLocation, $description, $source, $folderId)
-    {
+    public function uploadFile($accessToken, $fileName, $fileLocation, $description, $source, $folderId) {
         $finfo = finfo_open(FILEINFO_MIME_TYPE);
-        $mime =  finfo_file($finfo, $fileLocation);
+        $mime = finfo_file($finfo, $fileLocation);
         finfo_close($finfo);
         if ($mime == "image/png") {
             $fileType = "PNG";
@@ -215,12 +206,12 @@ class LibraryService extends BaseService
             $fileType = "JPG";
         } elseif ($mime == "image/gif") {
             $fileType = "GIF";
-        } elseif ($mime =="application/pdf") {
+        } elseif ($mime == "application/pdf") {
             $fileType = "PDF";
         } else {
             throw new IllegalArgumentException(sprintf(Config::get('errors.file_extension'), "PNG, JPG, JPEG, GIF, PDF was " . $mime));
         }
-       
+
 
         $baseUrl = Config::get('endpoints.base_url') . Config::get('endpoints.library_files');
         $request = new Request('POST', $baseUrl, [
@@ -254,19 +245,19 @@ class LibraryService extends BaseService
      * @return \Ctct\Components\Library\Folder - Newly created folder
      * @throws CtctException
      */
-    public function createLibraryFolder($accessToken, Folder $folder){
-    	$baseUrl = Config::get('endpoints.base_url') . Config::get('endpoints.library_folders');
+    public function createLibraryFolder($accessToken, Folder $folder) {
+        $baseUrl = Config::get('endpoints.base_url') . Config::get('endpoints.library_folders');
 
-    	try {
+        try {
             $response = parent::sendRequestWithBody($accessToken, "POST", $baseUrl, json_decode(json_encode($folder), true));
-    	} catch (TransferException $e) {
-    		throw parent::convertException($e);
-    	}
-    	
-    	$body = json_decode($response->getBody(), true);
-    	return Folder::create($body);
+        } catch (TransferException $e) {
+            throw parent::convertException($e);
+        }
+
+        $body = json_decode($response->getBody(), true);
+        return Folder::create($body);
     }
-    
+
     /**
      * Get the status of a File upload
      * @param string $accessToken - Constant Contact OAuth2 token
@@ -274,8 +265,7 @@ class LibraryService extends BaseService
      * @return FileUploadStatus[] - Array of FileUploadStatus
      * @throws CtctException
      */
-    public function getFileUploadStatus($accessToken, $uploadStatusIds)
-    {
+    public function getFileUploadStatus($accessToken, $uploadStatusIds) {
         $baseUrl = Config::get('endpoints.base_url') . sprintf(Config::get('endpoints.library_file_upload_status'), $uploadStatusIds);
 
         try {

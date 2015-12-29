@@ -10,8 +10,7 @@ use Ctct\Components\Component;
  * @subpackage     Account
  * @author         Constant Contact
  */
-class VerifiedEmailAddress extends Component
-{
+class VerifiedEmailAddress extends Component {
     /**
      * Email Address associated with the account
      * @var string
@@ -29,8 +28,7 @@ class VerifiedEmailAddress extends Component
      * @param array $props - associative array of initial properties to set
      * @return VerifiedEmailAddress
      */
-    public static function create(array $props)
-    {
+    public static function create(array $props) {
         $verifiedAddress = new VerifiedEmailAddress();
         $verifiedAddress->email_address = parent::getValue($props, "email_address");
         $verifiedAddress->status = parent::getValue($props, "status");

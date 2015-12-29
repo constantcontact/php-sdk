@@ -10,8 +10,7 @@ use Ctct\Components\Component;
  * @subpackage     Contacts
  * @author         Constant Contact
  */
-class ContactList extends Component
-{
+class ContactList extends Component {
     /**
      * Unique identifier of the contact list
      * @var string
@@ -48,8 +47,7 @@ class ContactList extends Component
      */
     public $modified_date;
 
-    public function __construct($list_id = null)
-    {
+    public function __construct($list_id = null) {
         if (!is_null($list_id)) {
             $this->id = $list_id;
         }
@@ -62,8 +60,7 @@ class ContactList extends Component
      * @param array $props - Associative array of initial properties to set
      * @return ContactList
      */
-    public static function create(array $props)
-    {
+    public static function create(array $props) {
         $contact_list = new ContactList();
         $contact_list->id = parent::getValue($props, "id");
         $contact_list->name = parent::getValue($props, "name");
@@ -74,8 +71,7 @@ class ContactList extends Component
         return $contact_list;
     }
 
-    public function toJson()
-    {
+    public function toJson() {
         return json_encode($this);
     }
 }

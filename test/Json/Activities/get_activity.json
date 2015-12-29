@@ -1,24 +1,24 @@
 {
-    "id": "a07e1ikxyomhd4la0o9",
-    "type": "REMOVE_CONTACTS_FROM_LISTS",
-    "status": "COMPLETE",
-    "errors": [
-        {
-            "message": "test@roving.com (not found in subscriber list)",
-            "line_number": 0,
-            "email_address": ""
-        },
-        {
-            "message": "test1@roving.com (not found in subscriber list)",
-            "line_number": 0,
-            "email_address": ""
-        }
-    ],
-    "warnings": [],
-    "file_name": "",
-    "start_date": "2013-02-13T14:43:01.635Z",
-    "finish_date": "2013-02-13T14:43:01.662Z",
-    "created_date": "2013-02-13T14:42:44.073Z",
-    "error_count": 2,
-    "contact_count": 2
+  "id": "a07e1ikxyomhd4la0o9",
+  "type": "REMOVE_CONTACTS_FROM_LISTS",
+  "status": "COMPLETE",
+  "errors": [
+    {
+      "message": "test@roving.com (not found in subscriber list)",
+      "line_number": 0,
+      "email_address": ""
+    },
+    {
+      "message": "test1@roving.com (not found in subscriber list)",
+      "line_number": 0,
+      "email_address": ""
+    }
+  ],
+  "warnings": [],
+  "file_name": "",
+  "start_date": "2013-02-13T14:43:01.635Z",
+  "finish_date": "2013-02-13T14:43:01.662Z",
+  "created_date": "2013-02-13T14:42:44.073Z",
+  "error_count": 2,
+  "contact_count": 2
 }

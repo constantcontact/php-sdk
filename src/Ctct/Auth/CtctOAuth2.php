@@ -70,7 +70,7 @@ class CtctOAuth2 {
         try {
             $response = json_decode($this->client->request('POST', $baseUrl, [
                 'query' => $params
-            ]), true);
+            ])->getBody(), true);
         } catch (ClientException $e) {
             throw $this->convertException($e);
         }
@@ -100,7 +100,7 @@ class CtctOAuth2 {
         try {
             $response = json_decode($this->client->request('POST', $baseUrl, [
                 'query' => array("access_token" => $accessToken)
-            ]), true);
+            ])->getBody(), true);
         } catch (ClientException $e) {
             throw $this->convertException($e);
         }

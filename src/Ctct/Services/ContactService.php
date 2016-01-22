@@ -117,13 +117,13 @@ class ContactService extends BaseService {
      * Add a new contact to the Constant Contact account
      * @param string $accessToken - Constant Contact OAuth2 access token
      * @param Contact $contact - Contact to add
-     * @param boolean $actionByContact - true if the creation is being made by the owner of othe email address
+     * @param boolean $actionByContact - true if the creation is being made by the owner of the email address
      * @return Contact
      * @throws CtctException
      */
     public function addContact($accessToken, Contact $contact, $actionByContact) {
         $baseUrl = Config::get('endpoints.base_url') . Config::get('endpoints.contacts');
-        $params["action_by"] = ($actionByContact ? true : false);
+        $params["action_by"] = ($actionByContact ? "ACTION_BY_VISITOR" : "ACTION_BY_OWNER");
 
         try {
             $response = parent::sendRequestWithBody($accessToken, 'POST', $baseUrl, $contact, $params);
@@ -144,7 +144,7 @@ class ContactService extends BaseService {
      */
     public function updateContact($accessToken, Contact $contact, $actionByContact) {
         $baseUrl = Config::get('endpoints.base_url') . sprintf(Config::get('endpoints.contact'), $contact->id);
-        $params["action_by"] = ($actionByContact ? true : false);
+        $params["action_by"] = ($actionByContact ? "ACTION_BY_VISITOR" : "ACTION_BY_OWNER");
 
         try {
             $response = parent::sendRequestWithBody($accessToken, 'PUT', $baseUrl, $contact, $params);

@@ -25,7 +25,8 @@ abstract class BaseService
             'User-Agent' => 'ConstantContact AppConnect PHP Library v' . Config::get('settings.version'),
             'Content-Type' => 'application/json',
             'Accept' => 'application/json',
-            'Authorization' => 'Bearer ' . $accessToken
+            'Authorization' => 'Bearer ' . $accessToken,
+            'x-ctct-request-source' => 'sdk.php' . Config::get('settings.version')
         );
     }
 

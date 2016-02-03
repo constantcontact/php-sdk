@@ -54,6 +54,10 @@ class JsonLoader {
         return file_get_contents(__DIR__ . self::CONTACTS_FOLDER . "/get_contacts.json");
     }
 
+    public static function getErrorResponseJson() {
+        return file_get_contents(__DIR__ . self::CONTACTS_FOLDER . "/error_response.json");
+    }
+
     public static function getContactsNoNextJson() {
         return file_get_contents(__DIR__ . self::CONTACTS_FOLDER . "/get_contacts_no_next.json");
     }

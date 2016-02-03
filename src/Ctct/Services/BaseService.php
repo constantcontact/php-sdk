@@ -4,6 +4,7 @@ namespace Ctct\Services;
 use Ctct\Exceptions\CtctException;
 use Ctct\Util\Config;
 use GuzzleHttp\Client;
+use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Exception\ServerException;
 use GuzzleHttp\Exception\TransferException;
@@ -30,10 +31,11 @@ abstract class BaseService {
     /**
      * Constructor with the option to to supply an alternative rest client to be used
      * @param string $apiKey - Constant Contact API Key
+     * @param ClientInterface|null $client - GuzzleHttp Client
      */
-    public function __construct($apiKey) {
+    public function __construct($apiKey, ClientInterface $client = null) {
         $this->apiKey = $apiKey;
-        $this->client = new Client();
+        $this->client = $client ?: new Client();
     }
 
     protected static function getHeadersForMultipart($accessToken) {

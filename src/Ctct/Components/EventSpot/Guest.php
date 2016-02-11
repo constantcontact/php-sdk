@@ -7,7 +7,7 @@ use Ctct\Components\Component;
  * Represents a single Contact List
  *
  * @package        Components
- * @subpackage     Contacts
+ * @subpackage     EventSpot
  * @author         Katz Web Services, Inc.
  */
 class Guest extends Component

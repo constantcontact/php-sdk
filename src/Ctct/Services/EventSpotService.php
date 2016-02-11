@@ -26,7 +26,7 @@ class EventSpotService extends BaseService
 
 	/**
 	 * Get lists within an account
-	 * @param $accessToken - Constant Contact OAuth2 access token
+	 * @param string $accessToken Constant Contact OAuth2 access token
 	 * @param array $params - associative array of query parameters and values to append to the request.
 	 *      Allowed parameters include:
 	 *      limit - Default: 50, up to 500
@@ -66,7 +66,7 @@ class EventSpotService extends BaseService
 
 	/**
 	 * Create a new Event
-	 * @param string $accessToken - Constant Contact OAuth2 access token
+	 * @param string $accessToken Constant Contact OAuth2 access token
 	 * @param EventSpot $event
 	 * @return EventSpot
 	 * @throws CtctException
@@ -90,7 +90,7 @@ class EventSpotService extends BaseService
 
 	/**
 	 * Update a Contact List
-	 * @param string $accessToken - Constant Contact OAuth2 access token
+	 * @param string $accessToken Constant Contact OAuth2 access token
 	 * @param ContactList $event - ContactList to be updated
 	 * @return ContactList
 	 * @throws CtctException
@@ -114,7 +114,7 @@ class EventSpotService extends BaseService
 
 	/**
 	 * Delete an Event
-	 * @param string $accessToken - Constant Contact OAuth2 access token
+	 * @param string $accessToken Constant Contact OAuth2 access token
 	 * @param $eventId - event id
 	 * @return boolean
 	 * @throws CtctException
@@ -161,8 +161,8 @@ class EventSpotService extends BaseService
 
 	/**
 	 * Get lists within an account
-	 * @param $accessToken - Constant Contact OAuth2 access token
-	 * @param string $eventId ID of the event
+	 * @param string $accessToken Constant Contact OAuth2 access token
+	 * @param string $eventId Unique ID of the event for which to retrieve the promocode
 	 * @param array $params - associative array of query parameters and values to append to the request.
 	 *      Allowed parameters include:
 	 *      limit - Default: 50, up to 500
@@ -199,8 +199,8 @@ class EventSpotService extends BaseService
 
 	/**
 	 * Create a new Event
-	 * @param string $accessToken - Constant Contact OAuth2 access token
-	 * @param string $eventId ID of the event
+	 * @param string $accessToken Constant Contact OAuth2 access token
+	 * @param string $eventId Unique ID of the event for which to retrieve the promocode
 	 * @param string $registrantId ID of the registrant
 	 * @return Registrant
 	 * @throws CtctException
@@ -222,10 +222,10 @@ class EventSpotService extends BaseService
 
 	/**
 	 * Create a new Event
-	 * @param string $accessToken - Constant Contact OAuth2 access token
-	 * @param string $eventId ID of the event
-	 * @param EventFee $eventFee
-	 * @return EventFee Created fee object
+	 * @param string $accessToken Constant Contact OAuth2 access token
+	 * @param string $eventId Unique ID of the event for which to retrieve the promocode
+	 * @param EventFee $eventFee EventFee object to create
+	 * @return EventFee Created EventFee object
 	 * @throws CtctException
 	 */
 	public function addFee($accessToken, $eventId, $eventFee )
@@ -247,8 +247,8 @@ class EventSpotService extends BaseService
 
 	/**
 	 * Get fees for an event
-	 * @param $accessToken - Constant Contact OAuth2 access token
-	 * @param string $eventId ID of the event
+	 * @param string $accessToken Constant Contact OAuth2 access token
+	 * @param string $eventId Unique ID of the event for which to retrieve the promocode
 	 * @return EventFee[]
 	 * @throws CtctException
 	 */
@@ -276,9 +276,9 @@ class EventSpotService extends BaseService
 
 	/**
 	 * Get an individual Event fee
-	 * @param $accessToken - Constant Contact OAuth2 access token
-	 * @param $eventId - event id
-	 * @param $feeId - Fee id
+	 * @param string $accessToken Constant Contact OAuth2 access token
+	 * @param string $eventId Unique ID of the event for which to retrieve the promocode
+	 * @param string $feeId Unique ID of the fee to retrieve
 	 * @return EventSpot
 	 * @throws CtctException
 	 */

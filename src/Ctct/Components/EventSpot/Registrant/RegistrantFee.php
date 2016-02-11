@@ -49,7 +49,7 @@ class RegistrantFee extends Component
 	public $fee_period_type;
 
 	/**
-	 * The type of promotional code redeemed, ACCESS or DISOUNT
+	 * The type of promotional code redeemed, ACCESS or DISCOUNT
 	 * @internal May be deprecated.
 	 * @var string
 	 */

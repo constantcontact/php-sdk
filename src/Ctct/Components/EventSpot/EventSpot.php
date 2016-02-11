@@ -2,8 +2,6 @@
 namespace Ctct\Components\EventSpot;
 
 use Ctct\Components\Component;
-use Ctct\Components\Contacts\Contact;
-use Ctct\Components\Contacts\Address;
 
 /**
  * Represents a single Event in Constant Contact
@@ -28,7 +26,7 @@ class EventSpot extends Component
 
 	/**
 	 * Address specifying the event location, used to determine event location on map if is_map_displayed set to true.
-	 * @var Address[]
+	 * @var Address
 	 */
 	public $address;
 
@@ -80,6 +78,12 @@ class EventSpot extends Component
 	 * @var string
 	 */
 	public $end_date;
+
+	/**
+	 * URL that points to the detailed description of that event, same as a GET on a specific event.
+	 * @var string
+	 */
+	public $event_detail_url;
 
 	/**
 	 * Enter the Google analytics key if being used to track the event registration homepage
@@ -149,21 +153,13 @@ class EventSpot extends Component
 
 	/**
 	 * Define whether or not event notifications are sent to the contact email_address, and which notifications.
-	 * @var array {
-	 *  @type boolean $is_opted_in Set to true to send event notifications to the contact email_address, false for no notifications; default = false
-	 *  @type string $notification_type Specifies the type of notifications sent to the contact email_address, valid values: SO_REGISTRATION_NOTIFICATION - send notice for each registration (Default)
-	 * }
+	 * @var NotificationOption
 	 */
 	public $notification_options;
 
 	/**
 	 * Online meeting details, REQUIRED if is_virtual_event is set to true
-	 * @var array {
-	 *  @type string $instructions (2500) Online meeting instructions, such as dial in number, password, etc
-	 *  @type string $provider_meeting_id (50) Meeting ID, if any, for the meeting
-	 *  @type string $provider_type (20) Specify the online meeting provider, such as WebEx
-	 *  @type string $url (250) URL for online meeting. REQUIRED if is_virtual_event is set to true.
-	 * }
+	 * @var OnlineMeeting
 	 */
 	public $online_meeting;
 
@@ -180,14 +176,12 @@ class EventSpot extends Component
 	public $payment_address;
 
 	/**
-	 * Specifies the payment options available to registrants
-	 * @var array {
-	 *  @type string $payment_types Payment type(s) accepted for the event, multiple types allowed:
-	 *      PAYPAL
-	 *      GOOGLE_CHECKOUT - Not supported for new events as of October 2013
-	 *      CHECK - if selected, payment_address and payable_to are REQUIRED
-	 *      DOOR - payment is accepted at the door
-	 * }
+	 * Specifies the payment options available to registrants. Multiple types allowed:
+	 *   PAYPAL
+	 *   GOOGLE_CHECKOUT - Not supported for new events as of October 2013
+	 *   CHECK - if selected, payment_address and payable_to are REQUIRED
+	 *   DOOR - payment is accepted at the door
+	 * @var array
 	 */
 	public $payment_options;
 
@@ -310,20 +304,47 @@ class EventSpot extends Component
 	{
 		$event = new EventSpot();
 		$event->id = parent::getValue($props, "id");
-		$event->name = parent::getValue($props, "name");
-		$event->title = parent::getValue($props, "title");
-		$event->status = parent::getValue($props, "status");
-		$event->location = parent::getValue($props, "location");
-		$event->type = parent::getValue($props, "type");
-		$event->address = parent::getValue($props, "address");
-		$event->start_date = parent::getValue($props, "start_date");
-		$event->end_date = parent::getValue($props, "end_date");
-		$event->created_date = parent::getValue($props, "created_date");
-		$event->total_registered_count = parent::getValue($props, "total_registered_count");
-		$event->time_zone_id = parent::getValue($props, "time_zone_id");
 		$event->active_date = parent::getValue($props, "active_date");
-		$event->is_checkin_available = parent::getValue($props, "is_checkin_available");
+		$event->address = parent::getValue($props, "address");
+		$event->are_registrants_public = parent::getValue($props, "are_registrants_public");
+		$event->cancelled_date = parent::getValue($props, "cancelled_date");
+		$event->contact = Contact::create( parent::getValue($props, "contact") );
+		$event->created_date = parent::getValue($props, "created_date");
+		$event->currency_type = parent::getValue($props, "currency_type");
+		$event->deleted_date = parent::getValue($props, "deleted_date");
+		$event->description = parent::getValue($props, "description");
+		$event->end_date = parent::getValue($props, "end_date");
 		$event->event_detail_url = parent::getValue($props, "event_detail_url");
+		$event->google_analytics_key = parent::getValue($props, "google_analytics_key");
+		$event->google_merchant_id = parent::getValue($props, "google_merchant_id");
+		$event->is_calendar_displayed = parent::getValue($props, "is_calendar_displayed");
+		$event->is_checkin_available = parent::getValue($props, "is_checkin_available");
+		$event->is_home_page_displayed = parent::getValue($props, "is_home_page_displayed");
+		$event->is_listed_in_external_directory = parent::getValue($props, "is_listed_in_external_directory");
+		$event->is_map_displayed = parent::getValue($props, "is_map_displayed");
+		$event->is_virtual_event = parent::getValue($props, "is_virtual_event");
+		$event->location = parent::getValue($props, "location");
+		$event->meta_data_tags = parent::getValue($props, "meta_data_tags");
+		$event->name = parent::getValue($props, "name");
+		$event->notification_options = NotificationOption::create(parent::getValue($props, "notification_options"));
+		$event->online_meeting = parent::getValue($props, "online_meeting");
+		$event->payable_to = parent::getValue($props, "payable_to");
+		$event->payable_to = parent::getValue($props, "payable_to");
+		$event->payment_address = Address::create( parent::getValue($props, "payment_address") );
+		$event->payment_options = parent::getValue($props, "payment_options");
+		$event->paypal_account_email = parent::getValue($props, "paypal_account_email");
+		$event->registration_url = parent::getValue($props, "registration_url");
+		$event->start_date = parent::getValue($props, "start_date");
+		$event->status = parent::getValue($props, "status");
+		$event->theme_name = parent::getValue($props, "theme_name");
+		$event->time_zone_description = parent::getValue($props, "time_zone_description");
+		$event->time_zone_id = parent::getValue($props, "time_zone_id");
+		$event->title = parent::getValue($props, "title");
+		$event->total_registered_count = parent::getValue($props, "total_registered_count");
+		$event->track_information = TrackInformation::create(parent::getValue($props, "track_information"));
+		$event->twitter_hash_tag = parent::getValue($props, "twitter_hash_tag");
+		$event->type = parent::getValue($props, "type");
+		$event->updated_date = parent::getValue($props, "updated_date");
 
 		return $event;
 	}

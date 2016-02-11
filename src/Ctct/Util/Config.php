@@ -62,7 +62,7 @@ class Config
             'event_registrants' => 'eventspot/events/%s/registrants',
             'event_registrant' => 'eventspot/events/%s/registrants/%s',
             'event_promocodes' => 'eventspot/events/%s/promocodes',
-            'event_promocode' => 'eventspot/events/%s/promocode/%s',
+            'event_promocode' => 'eventspot/events/%s/promocodes/%s',
             'event_items' => 'eventspot/events/%s/items',
             'event_item' => 'eventspot/events/%s/items/%s',
             'event_item_attributes' => 'eventspot/events/%s/items/%s/attributes',

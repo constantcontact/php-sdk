@@ -1,6 +1,7 @@
 <?php
 namespace Ctct\Services;
 
+use Ctct\Components\EventSpot\Registrant\Promocode;
 use Ctct\Components\EventSpot\Registrant\Registrant;
 use Ctct\Services;
 use Ctct\Components\ResultSet;
@@ -294,6 +295,83 @@ class EventSpotService extends BaseService
 		}
 
 		return EventFee::create($response->json());
+	}
+
+	/**
+	 * Create a new Promocode
+	 * @param string $accessToken Constant Contact OAuth2 access token
+	 * @param string $eventId Unique ID of the event for which to retrieve the promocode
+	 * @param Promocode $promoCode Promocode object to add
+	 * @return Promocode Created promocode object
+	 * @throws CtctException
+	 */
+	public function addPromocode($accessToken, $eventId, $promoCode )
+	{
+		$baseUrl = Config::get('endpoints.base_url') . sprintf( Config::get('endpoints.event_promocodes'), $eventId );
+
+		$request = parent::createBaseRequest($accessToken, 'POST', $baseUrl);
+		$stream = Stream::factory(json_encode($promoCode));
+		$request->setBody($stream);
+
+		try {
+			$response = parent::getClient()->send($request);
+		} catch (ClientException $e) {
+			throw parent::convertException($e);
+		}
+
+		return Promocode::create($response->json());
+	}
+
+	/**
+	 * Get promocodes for an event
+	 * @param string $accessToken Constant Contact OAuth2 access token
+	 * @param string $eventId Unique ID of the event for which to retrieve the promocode
+	 * @return Promocode[]
+	 * @throws CtctException
+	 */
+	public function getPromocodes($accessToken, $eventId )
+	{
+		$baseUrl = Config::get('endpoints.base_url') . sprintf( Config::get('endpoints.event_promocodes'), $eventId );
+
+		$request = parent::createBaseRequest($accessToken, 'GET', $baseUrl);
+
+		try {
+			/** @var \GuzzleHttp\Message\Response $response */
+			$response = parent::getClient()->send($request);
+		} catch (ClientException $e) {
+			throw parent::convertException($e);
+		}
+
+		$body = $response->json();
+		$promocodes = array();
+		foreach ($body['results'] as $promocode) {
+			$promocodes[] = Promocode::create($promocode);
+		}
+
+		return $promocodes;
+	}
+
+	/**
+	 * Get an individual Promocode fee
+	 * @param string $accessToken Constant Contact OAuth2 access token
+	 * @param string $eventId Unique ID of the event for which to retrieve the promocode
+	 * @param string $promocodeId Unique ID of the promocode to retrieve
+	 * @return Promocode
+	 * @throws CtctException
+	 */
+	public function getPromocode($accessToken, $eventId, $promocodeId)
+	{
+		$baseUrl = Config::get('endpoints.base_url') . sprintf(Config::get('endpoints.event_promocode'), $eventId, $promocodeId);
+
+		$request = parent::createBaseRequest($accessToken, 'GET', $baseUrl);
+
+		try {
+			$response = parent::getClient()->send($request);
+		} catch (ClientException $e) {
+			throw parent::convertException($e);
+		}
+
+		return Promocode::create($response->json());
 	}
 
 }

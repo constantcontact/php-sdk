@@ -30,7 +30,7 @@ class EventSpotService extends BaseService
 	 * @param array $params - associative array of query parameters and values to append to the request.
 	 *      Allowed parameters include:
 	 *      limit - Default: 50, up to 500
-	 * @return EventSpot[]
+	 * @return ResultSet
 	 * @throws CtctException
 	 */
 	public function getEvents($accessToken, Array $params = array())

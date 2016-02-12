@@ -305,10 +305,14 @@ class EventSpot extends Component
 		$event = new EventSpot();
 		$event->id = parent::getValue($props, "id");
 		$event->active_date = parent::getValue($props, "active_date");
-		$event->address = parent::getValue($props, "address");
+		if(!empty($props['address'])) {
+			$event->address = Address::create( parent::getValue( $props, "address" ) );
+		}
 		$event->are_registrants_public = parent::getValue($props, "are_registrants_public");
 		$event->cancelled_date = parent::getValue($props, "cancelled_date");
-		$event->contact = Contact::create( parent::getValue($props, "contact") );
+		if(!empty( $props['contact'])) {
+			$event->contact = Contact::create( parent::getValue( $props, "contact" ) );
+		}
 		$event->created_date = parent::getValue($props, "created_date");
 		$event->currency_type = parent::getValue($props, "currency_type");
 		$event->deleted_date = parent::getValue($props, "deleted_date");
@@ -326,11 +330,15 @@ class EventSpot extends Component
 		$event->location = parent::getValue($props, "location");
 		$event->meta_data_tags = parent::getValue($props, "meta_data_tags");
 		$event->name = parent::getValue($props, "name");
-		$event->notification_options = NotificationOption::create(parent::getValue($props, "notification_options"));
+		if( parent::getValue( $props, "notification_options" ) ) {
+			$event->notification_options = NotificationOption::create( parent::getValue( $props, "notification_options" ) );
+		}
 		$event->online_meeting = parent::getValue($props, "online_meeting");
 		$event->payable_to = parent::getValue($props, "payable_to");
 		$event->payable_to = parent::getValue($props, "payable_to");
-		$event->payment_address = Address::create( parent::getValue($props, "payment_address") );
+		if( parent::getValue( $props, "payment_address" ) ) {
+			$event->payment_address = Address::create( parent::getValue( $props, "payment_address" ) );
+		}
 		$event->payment_options = parent::getValue($props, "payment_options");
 		$event->paypal_account_email = parent::getValue($props, "paypal_account_email");
 		$event->registration_url = parent::getValue($props, "registration_url");
@@ -341,7 +349,9 @@ class EventSpot extends Component
 		$event->time_zone_id = parent::getValue($props, "time_zone_id");
 		$event->title = parent::getValue($props, "title");
 		$event->total_registered_count = parent::getValue($props, "total_registered_count");
-		$event->track_information = TrackInformation::create(parent::getValue($props, "track_information"));
+		if( parent::getValue( $props, "track_information" ) ) {
+			$event->track_information = TrackInformation::create( parent::getValue( $props, "track_information" ) );
+		}
 		$event->twitter_hash_tag = parent::getValue($props, "twitter_hash_tag");
 		$event->type = parent::getValue($props, "type");
 		$event->updated_date = parent::getValue($props, "updated_date");

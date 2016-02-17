@@ -3,7 +3,7 @@
 
 ### This library utilizes [GuzzlePHP](http://guzzle.readthedocs.org/)
 
-## Installing via Composer
+## Installing via Composer (recommended)
 [Composer](https://getcomposer.org/) is a dependency management tool for PHP that allows you to declare the dependencies your project needs and installs them into your project. In order to use the Constant Contact PHP SDK through composer, you must add "constantcontact/constantcontact" as a dependency in your project's composer.json file.
 ```javascript
  {
@@ -14,9 +14,7 @@
 ```
 
 ### Manual Installation
-Manual installation is not recommended, as this library relies on other Composer libraries to function. Getting started with composer is easy!
-
-If you require manual installation, it is recommended that you use [version 1](https://github.com/constantcontact/php-sdk/tree/v1-master). Composer handles all of the dependencies that this library requires in version 2.
+If you are unable to install using composer, we have provided a zip file that includes a version of the dependencies at the time of our release, as well as our library. Unzip the vendor file in the standalone directory, and require the autoload.php file to use our methods.
 
 ## Documentation
 

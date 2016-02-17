@@ -52,14 +52,16 @@ $oauth = new CtctOAuth2(APIKEY, CONSUMER_SECRET, REDIRECT_URI);
         } catch (OAuth2Exception $ex) {
             echo '<span class="label label-important">OAuth2 Error!</span>';
             echo '<div class="container alert-error"><pre class="failure-pre">';
-            echo 'Error: ' . htmlspecialchars( $ex->getMessage() );
+            echo 'Error: ' . htmlspecialchars( $ex->getMessage() ) . "\n";
+            echo "Error Details: \n";
+            echo htmlspecialchars( print_r( $ex->getErrors() ) );
             echo '</pre></div>';
             die();
         }
 
         echo '<span class="label label-success">Access Token Retrieved!</span>';
         echo '<div class="container alert-success"><pre class="success-pre">';
-        print_r( htmlspecialchars( $accessToken ) );
+        htmlspecialchars( print_r(  $accessToken ) );
         echo '</pre></div>';
 
     } else {

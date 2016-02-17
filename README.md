@@ -25,9 +25,7 @@ Or, if you would like a more bleeding edge build, which has features like the ne
 
 
 ### Manual Installation
-Manual installation is not recommended, as this library relies on other Composer libraries to function. Getting started with composer is easy!
-
-If you require manual installation, it is recommended that you use [version 1](https://github.com/constantcontact/php-sdk/tree/v1-master). Composer handles all of the dependencies that this library requires in version 2.
+If you are unable to install using composer, we have provided a zip file that includes a version of the dependencies at the time of our release, as well as our library. Unzip the vendor file in the standalone directory, and require the autoload.php file to use our methods.
 
 ## Documentation
 

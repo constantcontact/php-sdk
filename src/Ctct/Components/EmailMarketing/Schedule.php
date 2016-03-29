@@ -10,8 +10,7 @@ use Ctct\Components\Component;
  * @subpackage     EmailMarketing
  * @author         Constant Contact
  */
-class Schedule extends Component
-{
+class Schedule extends Component {
     /**
      * unique id of the schedule
      * @var string
@@ -30,8 +29,7 @@ class Schedule extends Component
      * @param array $props - associative array of initial properties to set
      * @return Schedule
      */
-    public static function create(array $props)
-    {
+    public static function create(array $props) {
         $schedule = new Schedule();
         $schedule->id = parent::getValue($props, "id");
         $schedule->scheduled_date = parent::getValue($props, "scheduled_date");
@@ -42,8 +40,7 @@ class Schedule extends Component
      * Create json used for a POST/PUT request, also handles removing attributes that will cause errors if sent
      * @return string
      */
-    public function toJson()
-    {
+    public function toJson() {
         $schedule = clone $this;
         unset($schedule->id);
         return json_encode($schedule);

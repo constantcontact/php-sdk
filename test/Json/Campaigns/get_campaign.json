@@ -1,63 +1,63 @@
 {
-    "id": "1100394165290",
-    "name": "CampaignName-05965ddb-12d2-43e5-b8f3-0c22ca487c3a",
-    "subject": "CampaignSubject",
-    "status": "SENT",
-    "from_name": "From WSPI",
-    "from_email": "wiz-20121206130519@l1.snoopy.roving.com",
-    "reply_to_email": "wiz-20121206130519@l1.snoopy.roving.com",
-    "template_type": "CUSTOM",
-    "created_date": "2012-12-06T18:06:05.255Z",
-    "last_edit_date": "2012-12-06T18:06:05.255Z",
-    "last_run_date": "2012-12-06T18:06:40.342Z",
-    "is_permission_reminder_enabled": false,
-    "permission_reminder_text": "",
-    "permalink_url": "http://www.constantcontact.com",
-    "is_view_as_webpage_enabled": false,
-    "view_as_web_page_text": "Having trouble viewing this email?",
-    "view_as_web_page_link_text": "Click Here",
-    "greeting_salutations": "Hi",
-    "greeting_name": "FIRST_NAME",
-    "greeting_string": "",
-    "email_content": "<html><body>Hi <a href=\"http://www.constantcontact.com\">Visit ConstantContact.com!</a> </body></html>",
-    "text_content": "<text>Something to test</text>",
-    "email_content_format": "HTML",
-    "style_sheet": "",
-    "message_footer": {
-        "city": "Waltham",
-        "state": "MA",
-        "country": "US",
-        "organization_name": "WSPIOrgName",
-        "address_line_1": "1601 Trapelo RD",
-        "address_line_2": "suite 2",
-        "address_line_3": "box 4",
-        "international_state": "",
-        "postal_code": "02451",
-        "include_forward_email": true,
-        "forward_email_link_text": "WSPIForwardThisEmail",
-        "include_subscribe_link": true,
-        "subscribe_link_text": "WSPISubscribeLinkText"
-    },
-    "tracking_summary": {
-        "sends": 15,
-        "opens": 10,
-        "clicks": 10,
-        "forwards": 3,
-        "unsubscribes": 2,
-        "bounces": 18,
-        "spam_count": 1
-    },
-    "is_visible_in_ui": false,
-    "sent_to_contact_lists": [
-        {
-            "id": 3
-        }
-    ],
-    "click_through_details": [
-        {
-            "url": "http://www.constantcontact.com",
-            "url_uid": "1100394163874",
-            "click_count": 10
-        }
-    ]
+  "id": "1100394165290",
+  "name": "CampaignName-05965ddb-12d2-43e5-b8f3-0c22ca487c3a",
+  "subject": "CampaignSubject",
+  "status": "SENT",
+  "from_name": "From WSPI",
+  "from_email": "wiz-20121206130519@l1.snoopy.roving.com",
+  "reply_to_email": "wiz-20121206130519@l1.snoopy.roving.com",
+  "template_type": "CUSTOM",
+  "created_date": "2012-12-06T18:06:05.255Z",
+  "last_edit_date": "2012-12-06T18:06:05.255Z",
+  "last_run_date": "2012-12-06T18:06:40.342Z",
+  "is_permission_reminder_enabled": false,
+  "permission_reminder_text": "",
+  "permalink_url": "http://www.constantcontact.com",
+  "is_view_as_webpage_enabled": false,
+  "view_as_web_page_text": "Having trouble viewing this email?",
+  "view_as_web_page_link_text": "Click Here",
+  "greeting_salutations": "Hi",
+  "greeting_name": "FIRST_NAME",
+  "greeting_string": "",
+  "email_content": "<html><body>Hi <a href=\"http://www.constantcontact.com\">Visit ConstantContact.com!</a> </body></html>",
+  "text_content": "<text>Something to test</text>",
+  "email_content_format": "HTML",
+  "style_sheet": "",
+  "message_footer": {
+    "city": "Waltham",
+    "state": "MA",
+    "country": "US",
+    "organization_name": "WSPIOrgName",
+    "address_line_1": "1601 Trapelo RD",
+    "address_line_2": "suite 2",
+    "address_line_3": "box 4",
+    "international_state": "",
+    "postal_code": "02451",
+    "include_forward_email": true,
+    "forward_email_link_text": "WSPIForwardThisEmail",
+    "include_subscribe_link": true,
+    "subscribe_link_text": "WSPISubscribeLinkText"
+  },
+  "tracking_summary": {
+    "sends": 15,
+    "opens": 10,
+    "clicks": 10,
+    "forwards": 3,
+    "unsubscribes": 2,
+    "bounces": 18,
+    "spam_count": 1
+  },
+  "is_visible_in_ui": false,
+  "sent_to_contact_lists": [
+    {
+      "id": 3
+    }
+  ],
+  "click_through_details": [
+    {
+      "url": "http://www.constantcontact.com",
+      "url_uid": "1100394163874",
+      "click_count": 10
+    }
+  ]
 }

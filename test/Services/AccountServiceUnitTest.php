@@ -3,33 +3,29 @@
 use Ctct\Components\Account\AccountInfo;
 use Ctct\Components\Account\VerifiedEmailAddress;
 use GuzzleHttp\Client;
-use GuzzleHttp\Subscriber\Mock;
-use GuzzleHttp\Stream\Stream;
-use GuzzleHttp\Message\Response;
+use GuzzleHttp\Handler\MockHandler;
+use GuzzleHttp\HandlerStack;
+use GuzzleHttp\Psr7\Response;
 
-class AccountServiceUnitTest extends PHPUnit_Framework_TestCase
-{
+class AccountServiceUnitTest extends PHPUnit_Framework_TestCase {
     /**
      * @var Client
      */
     private static $client;
 
-    public static function setUpBeforeClass()
-    {
-        self::$client = new Client();
-        $verifiedAddressStream = Stream::factory(JsonLoader::getVerifiedAddressesJson());
-        $accountInfoStream = Stream::factory(JsonLoader::getAccountInfoJson());
-        $mock = new Mock([
-            new Response(200, array(), $verifiedAddressStream),
-            new Response(200, array(), $accountInfoStream)
+    public static function setUpBeforeClass() {
+        $mock = new MockHandler([
+            new Response(200, array(), JsonLoader::getVerifiedAddressesJson()),
+            new Response(200, array(), JsonLoader::getAccountInfoJson())
         ]);
-        self::$client->getEmitter()->attach($mock);
+        $handler = HandlerStack::create($mock);
+        self::$client = new Client(['handler' => $handler]);
     }
 
     public function testGetVerifiedAddresses() {
-        $response = self::$client->get('/');
+        $response = self::$client->request('GET', '/');
         $verifiedAddresses = array();
-        foreach ($response->json() as $verifiedAddress) {
+        foreach (json_decode($response->getBody(), true) as $verifiedAddress) {
             $verifiedAddresses[] = VerifiedEmailAddress::create($verifiedAddress);
         }
 
@@ -40,10 +36,9 @@ class AccountServiceUnitTest extends PHPUnit_Framework_TestCase
         }
     }
 
-    public function testGetAccountInfo()
-    {
-        $response = self::$client->get('/');
-        $result = AccountInfo::create($response->json());
+    public function testGetAccountInfo() {
+        $response = self::$client->request('GET', '/');
+        $result = AccountInfo::create(json_decode($response->getBody(), true));
 
         $this->assertInstanceOf('Ctct\Components\Account\AccountInfo', $result);
         $this->assertEquals("http://www.example.com", $result->website);

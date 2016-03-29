@@ -7,8 +7,7 @@ namespace Ctct\Util;
  * @package     Util
  * @author      Constant Contact
  */
-class Config
-{
+class Config {
     /**
      * @var array - array of configuration properties
      */
@@ -128,16 +127,16 @@ class Config
         /**
          * Errors to be returned for various exceptions
          */
-        'errors'    => array(
-            'id_or_object'        => 'Only an id or %s object are allowed for this method.',
-            'file_extension'      => 'Only file extensions of the following are allowed: %s'
+        'errors' => array(
+            'id_or_object' => 'Only an id or %s object are allowed for this method.',
+            'file_extension' => 'Only file extensions of the following are allowed: %s'
         ),
-        
+
         /**
          * Setting the version fo the application used in Rest Calls when setting the version header
          */
-        'settings'    => array(
-            'version'        => '2.1.3'
+        'settings' => array(
+            'version' => '3.x.x'
         ),
     );
 
@@ -146,8 +145,7 @@ class Config
      * @param $index - location of the property to obtain
      * @return string
      */
-    public static function get($index)
-    {
+    public static function get($index) {
         $index = explode('.', $index);
         return self::getValue($index, self::$props);
     }
@@ -158,8 +156,7 @@ class Config
      * @param array $value The portion of the config array to process
      * @return mixed
      */
-    private static function getValue($index, $value)
-    {
+    private static function getValue($index, $value) {
         if (is_array($index) && count($index)) {
             $current_index = array_shift($index);
         }

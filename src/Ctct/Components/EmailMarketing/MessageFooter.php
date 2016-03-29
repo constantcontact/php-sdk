@@ -10,8 +10,7 @@ use Ctct\Components\Component;
  * @subpackage     Campaigns
  * @author         Constant Contact
  */
-class MessageFooter extends Component
-{
+class MessageFooter extends Component {
     public $city;
     public $state;
     public $country;
@@ -31,8 +30,7 @@ class MessageFooter extends Component
      * @param array $props - associative array of initial properties to set
      * @return MessageFooter
      */
-    public static function create(array $props)
-    {
+    public static function create(array $props) {
         $message_footer = new MessageFooter();
         $message_footer->city = parent::getValue($props, "city");
         $message_footer->state = parent::getValue($props, "state");

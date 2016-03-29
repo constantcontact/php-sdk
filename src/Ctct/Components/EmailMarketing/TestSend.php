@@ -10,8 +10,7 @@ use Ctct\Components\Component;
  * @subpackage     EmailMarketing
  * @author         Constant Contact
  */
-class TestSend extends Component
-{
+class TestSend extends Component {
     /**
      * Format of the email to send (HTML, TEXT, HTML_AND_TEXT)
      * @var string
@@ -35,8 +34,7 @@ class TestSend extends Component
      * @param array $props - associative array of initial properties to set
      * @return TestSend
      */
-    public static function create(array $props)
-    {
+    public static function create(array $props) {
         $test_send = new TestSend();
         $test_send->format = parent::getValue($props, "format");
         $test_send->personal_message = parent::getValue($props, "personal_message");
@@ -52,8 +50,7 @@ class TestSend extends Component
      * Add an email address to the set of addresses to send the test send too
      * @param string $email_address
      */
-    public function addEmail($email_address)
-    {
+    public function addEmail($email_address) {
         $this->email_addresses[] = $email_address;
     }
 
@@ -61,8 +58,7 @@ class TestSend extends Component
      * Create json used for a POST/PUT request, also handles removing attributes that will cause errors if sent
      * @return string
      */
-    public function toJson()
-    {
+    public function toJson() {
         $testSend = clone $this;
         if ($testSend->personal_message == null) {
             unset($testSend->personal_message);

@@ -10,8 +10,7 @@ use Ctct\Components\Component;
  * @subpackage     CampaignTracking
  * @author         Constant Contact
  */
-class ClickActivity extends Component
-{
+class ClickActivity extends Component {
     public $activity_type;
     public $campaign_id;
     public $contact_id;
@@ -24,8 +23,7 @@ class ClickActivity extends Component
      * @param array $props - array of properties to create object from
      * @return ClickActivity
      */
-    public static function create(array $props)
-    {
+    public static function create(array $props) {
         $click_activity = new ClickActivity();
         $click_activity->activity_type = parent::getValue($props, "activity_type");
         $click_activity->campaign_id = parent::getValue($props, "campaign_id");

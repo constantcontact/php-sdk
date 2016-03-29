@@ -2,10 +2,10 @@
 namespace Ctct\Components\EmailMarketing;
 
 use Ctct\Components\Component;
-use Ctct\Util\Config;
-use Ctct\Components\Tracking\TrackingSummary;
 use Ctct\Components\Contacts\ContactList;
+use Ctct\Components\Tracking\TrackingSummary;
 use Ctct\Exceptions\IllegalArgumentException;
+use Ctct\Util\Config;
 
 /**
  * Represents a single Campaign in Constant Contact
@@ -14,8 +14,7 @@ use Ctct\Exceptions\IllegalArgumentException;
  * @subpackage     EmailMarketing
  * @author         Constant Contact
  */
-class Campaign extends Component
-{
+class Campaign extends Component {
     /**
      * Unique identifier for the email campaign
      * @var string
@@ -197,8 +196,7 @@ class Campaign extends Component
      * @param array $props - associative array of initial properties to set
      * @return Campaign
      */
-    public static function create(array $props)
-    {
+    public static function create(array $props) {
         $campaign = new Campaign();
         $campaign->id = parent::getValue($props, "id");
         $campaign->name = parent::getValue($props, "name");
@@ -255,8 +253,7 @@ class Campaign extends Component
      * @param array $props - associative array of initial properties to set
      * @return Campaign
      */
-    public static function createSummary(array $props)
-    {
+    public static function createSummary(array $props) {
         $campaign = new Campaign();
         $campaign->id = parent::getValue($props, "id");
         $campaign->name = parent::getValue($props, "name");
@@ -278,8 +275,7 @@ class Campaign extends Component
      * @param mixed $contact_list - Contact list id, or ContactList object
      * @throws IllegalArgumentException
      */
-    public function addList($contact_list)
-    {
+    public function addList($contact_list) {
         if ($contact_list instanceof ContactList) {
             $list = $contact_list;
         } elseif (is_numeric($contact_list)) {
@@ -295,8 +291,7 @@ class Campaign extends Component
      * Create json used for a POST/PUT request, also handles removing attributes that will cause errors if sent
      * @return string
      */
-    public function toJson()
-    {
+    public function toJson() {
         $campaign = clone $this;
         unset($campaign->id);
         unset($campaign->created_date);

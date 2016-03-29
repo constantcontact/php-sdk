@@ -10,8 +10,7 @@ use Ctct\Components\Component;
  * @subpackage     Account
  * @author         ewaltman
  */
-class AccountInfo extends Component
-{
+class AccountInfo extends Component {
     /**
      * Website associated with the account
      * @var string
@@ -83,8 +82,7 @@ class AccountInfo extends Component
      * @param array $props - associative array of initial properties to set
      * @return AccountInfo
      */
-    public static function create(array $props)
-    {
+    public static function create(array $props) {
         $accountInfo = new AccountInfo();
         $accountInfo->website = parent::getValue($props, "website");
         $accountInfo->organization_name = parent::getValue($props, "organization_name");

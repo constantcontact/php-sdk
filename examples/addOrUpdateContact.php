@@ -18,8 +18,8 @@ http://constantcontact.mashery.com.
 require_once '../src/Ctct/autoload.php';
 require_once '../vendor/autoload.php';
 
-use Ctct\ConstantContact;
 use Ctct\Components\Contacts\Contact;
+use Ctct\ConstantContact;
 use Ctct\Exceptions\CtctException;
 
 // Enter your Constant Contact APIKEY and ACCESS_TOKEN
@@ -64,7 +64,7 @@ if (isset($_POST['email']) && strlen($_POST['email']) > 1) {
              *
              * See: http://developer.constantcontact.com/docs/contacts-api/contacts-index.html#opt_in
              */
-            $returnContact = $cc->contactService->addContact(ACCESS_TOKEN, $contact);
+            $returnContact = $cc->contactService->addContact(ACCESS_TOKEN, $contact, true);
 
             // update the existing contact if address already existed
         } else {
@@ -83,7 +83,7 @@ if (isset($_POST['email']) && strlen($_POST['email']) > 1) {
                  *
                  * See: http://developer.constantcontact.com/docs/contacts-api/contacts-index.html#opt_in
                  */
-                $returnContact = $cc->contactService->updateContact(ACCESS_TOKEN, $contact);
+                $returnContact = $cc->contactService->updateContact(ACCESS_TOKEN, $contact, true);
             } else {
                 $e = new CtctException();
                 $e->setErrors(array("type", "Contact type not returned"));

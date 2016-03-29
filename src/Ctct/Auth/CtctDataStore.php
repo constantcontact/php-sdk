@@ -8,9 +8,7 @@ namespace Ctct\Auth;
  * @author         Constant Contact
  */
 
-interface CtctDataStore
-{
-
+interface CtctDataStore {
     /**
      * Add a new user to the data store
      * @param $id - unique identifier

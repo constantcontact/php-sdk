@@ -1,43 +1,38 @@
 <?php
 
-use Ctct\Components\ResultSet;
 use Ctct\Components\Contacts\Contact;
 use Ctct\Components\Contacts\ContactList;
-
+use Ctct\Components\ResultSet;
 use GuzzleHttp\Client;
-use GuzzleHttp\Subscriber\Mock;
-use GuzzleHttp\Stream\Stream;
-use GuzzleHttp\Message\Response;
+use GuzzleHttp\Handler\MockHandler;
+use GuzzleHttp\HandlerStack;
+use GuzzleHttp\Psr7\Response;
 
-class ListServiceUnitTest extends PHPUnit_Framework_TestCase
-{
+class ListServiceUnitTest extends PHPUnit_Framework_TestCase {
     /**
      * @var Client
      */
     private static $client;
 
-    public static function setUpBeforeClass()
-    {
+    public static function setUpBeforeClass() {
         self::$client = new Client();
-        $getListsStream = Stream::factory(JsonLoader::getListsJson());
-        $getListStream = Stream::factory(JsonLoader::getListJson());
-        $getContactsStream = Stream::factory(JsonLoader::getContactsJson());
-        $mock = new Mock([
-            new Response(200, array(), $getListsStream),
+        $getListStream = JsonLoader::getListJson();
+        $mock = new MockHandler([
+            new Response(200, array(), JsonLoader::getListsJson()),
             new Response(200, array(), $getListStream),
             new Response(201, array(), $getListStream),
             new Response(200, array(), $getListStream),
-            new Response(200, array(), $getContactsStream)
+            new Response(200, array(), JsonLoader::getContactsJson())
         ]);
-        self::$client->getEmitter()->attach($mock);
+        $handler = HandlerStack::create($mock);
+        self::$client = new Client(['handler' => $handler]);
     }
 
-    public function testGetLists()
-    {
-        $response = self::$client->get('/');
+    public function testGetLists() {
+        $response = self::$client->request('GET', '/');
 
         $lists = array();
-        foreach ($response->json() as $list) {
+        foreach (json_decode($response->getBody(), true) as $list) {
             $lists[] = ContactList::create($list);
         }
         $this->assertInstanceOf('Ctct\Components\Contacts\ContactList', $lists[0]);
@@ -52,10 +47,9 @@ class ListServiceUnitTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(18, $lists[1]->contact_count);
     }
 
-    public function testGetList()
-    {
-        $response = self::$client->get('/');
-        $list = ContactList::create($response->json());
+    public function testGetList() {
+        $response = self::$client->request('GET', '/');
+        $list = ContactList::create(json_decode($response->getBody(), true));
         $this->assertInstanceOf('Ctct\Components\Contacts\ContactList', $list);
         $this->assertEquals(6, $list->id);
         $this->assertEquals("Test List 4", $list->name);
@@ -63,10 +57,9 @@ class ListServiceUnitTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(19, $list->contact_count);
     }
 
-    public function testAddList()
-    {
-        $response = self::$client->post('/');
-        $list = ContactList::create($response->json());
+    public function testAddList() {
+        $response = self::$client->request('POST', '/');
+        $list = ContactList::create(json_decode($response->getBody(), true));
         $this->assertInstanceOf('Ctct\Components\Contacts\ContactList', $list);
         $this->assertEquals(6, $list->id);
         $this->assertEquals("Test List 4", $list->name);
@@ -74,10 +67,9 @@ class ListServiceUnitTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(19, $list->contact_count);
     }
 
-    public function testUpdateList()
-    {
-        $response = self::$client->put('/');
-        $list = ContactList::create($response->json());
+    public function testUpdateList() {
+        $response = self::$client->request('PUT', '/');
+        $list = ContactList::create(json_decode($response->getBody(), true));
         $this->assertInstanceOf('Ctct\Components\Contacts\ContactList', $list);
         $this->assertEquals(6, $list->id);
         $this->assertEquals("Test List 4", $list->name);
@@ -85,9 +77,8 @@ class ListServiceUnitTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(19, $list->contact_count);
     }
 
-    public function testGetContactsFromList()
-    {
-        $response = self::$client->get('/')->json();
+    public function testGetContactsFromList() {
+        $response = json_decode(self::$client->request('GET', '/')->getBody(), true);
         $result = new ResultSet($response['results'], $response['meta']);
         $this->assertInstanceOf('Ctct\Components\ResultSet', $result);
 

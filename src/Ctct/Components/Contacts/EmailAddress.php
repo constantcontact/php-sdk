@@ -10,9 +10,7 @@ use Ctct\Components\Component;
  * @subpackage     Contacts
  * @author         Constant Contact
  */
-class EmailAddress extends Component
-{
-
+class EmailAddress extends Component {
     /**
      * Id of the email address
      * @var string
@@ -56,8 +54,7 @@ class EmailAddress extends Component
      */
     public $email_address;
 
-    public function __construct($email_address = null)
-    {
+    public function __construct($email_address = null) {
         if (!is_null($email_address)) {
             $this->email_address = $email_address;
         }
@@ -70,8 +67,7 @@ class EmailAddress extends Component
      * @param array $props - Associative array of initial properties to set
      * @return EmailAddress
      */
-    public static function create(array $props)
-    {
+    public static function create(array $props) {
         $email_address = new EmailAddress();
         $email_address->id = parent::getValue($props, "id");
         $email_address->status = parent::getValue($props, "status");

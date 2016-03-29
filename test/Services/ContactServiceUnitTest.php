@@ -1,42 +1,36 @@
 <?php
 
-use Ctct\Components\ResultSet;
 use Ctct\Components\Contacts\Contact;
-
+use Ctct\Components\ResultSet;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
-use GuzzleHttp\Subscriber\Mock;
-use GuzzleHttp\Stream\Stream;
-use GuzzleHttp\Message\Response;
+use GuzzleHttp\Handler\MockHandler;
+use GuzzleHttp\HandlerStack;
+use GuzzleHttp\Psr7\Response;
 
-class ContactServiceUnitTest extends PHPUnit_Framework_TestCase
-{
+class ContactServiceUnitTest extends PHPUnit_Framework_TestCase {
     /**
      * @var Client
      */
     private static $client;
 
-    public static function setUpBeforeClass()
-    {
-        self::$client = new Client();
-        $contactsStream = Stream::factory(JsonLoader::getContactsJson());
-        $contactsNoNextStream = Stream::factory(JsonLoader::getContactsNoNextJson());
-        $contactStream = Stream::factory(JsonLoader::getContactJson());
-        $mock = new Mock([
-            new Response(200, array(), $contactsStream),
-            new Response(200, array(), $contactsNoNextStream),
-            new Response(200, array(), $contactStream),
-            new Response(201, array(), $contactStream),
+    public static function setUpBeforeClass() {
+        $contactJson = JsonLoader::getContactJson();
+        $mock = new MockHandler([
+            new Response(200, array(), JsonLoader::getContactsJson()),
+            new Response(200, array(), JsonLoader::getContactsNoNextJson()),
+            new Response(200, array(), $contactJson),
+            new Response(201, array(), $contactJson),
             new Response(204, array()),
             new Response(400, array()),
-            new Response(200, array(), $contactStream)
+            new Response(200, array(), $contactJson)
         ]);
-        self::$client->getEmitter()->attach($mock);
+        $handler = HandlerStack::create($mock);
+        self::$client = new Client(['handler' => $handler]);
     }
 
-    public function testGetContacts()
-    {
-        $response = self::$client->get('/')->json();
+    public function testGetContacts() {
+        $response = json_decode(self::$client->request('GET', '/')->getBody(), true);
         $result = new ResultSet($response['results'], $response['meta']);
 
         $this->assertInstanceOf('Ctct\Components\ResultSet', $result);
@@ -93,9 +87,8 @@ class ContactServiceUnitTest extends PHPUnit_Framework_TestCase
         $this->assertEquals("anothertest@roving.com", $emailAddress->email_address);
     }
 
-    public function testGetContactsNoNextLink()
-    {
-        $response = self::$client->get('/')->json();
+    public function testGetContactsNoNextLink() {
+        $response = json_decode(self::$client->request('GET', '/')->getBody(), true);
         $result = new ResultSet($response['results'], $response['meta']);
 
         $this->assertInstanceOf('Ctct\Components\ResultSet', $result);
@@ -152,11 +145,10 @@ class ContactServiceUnitTest extends PHPUnit_Framework_TestCase
         $this->assertEquals("anothertest@roving.com", $emailAddress->email_address);
     }
 
-    public function testGetContact()
-    {
-        $response = self::$client->get('/');
+    public function testGetContact() {
+        $response = self::$client->request('GET', '/');
 
-        $contact = Contact::create($response->json());
+        $contact = Contact::create(json_decode($response->getBody(), true));
         $this->assertInstanceOf('Ctct\Components\Contacts\Contact', $contact);
         $this->assertEquals(238, $contact->id);
         $this->assertEquals("ACTIVE", $contact->status);
@@ -213,11 +205,10 @@ class ContactServiceUnitTest extends PHPUnit_Framework_TestCase
         $this->assertEquals("john+smith@gmail.com", $contact->email_addresses[0]->email_address);
     }
 
-    public function testAddContact()
-    {
-        $response = self::$client->post('/');
+    public function testAddContact() {
+        $response = self::$client->request('POST', '/');
 
-        $contact = Contact::create($response->json());
+        $contact = Contact::create(json_decode($response->getBody(), true));
         $this->assertInstanceOf('Ctct\Components\Contacts\Contact', $contact);
         $this->assertEquals(238, $contact->id);
         $this->assertEquals("ACTIVE", $contact->status);
@@ -274,27 +265,25 @@ class ContactServiceUnitTest extends PHPUnit_Framework_TestCase
         $this->assertEquals("john+smith@gmail.com", $contact->email_addresses[0]->email_address);
     }
 
-    public function testDeleteContact()
-    {
-        $response = self::$client->delete('/');
+    public function testDeleteContact() {
+        $response = self::$client->request('DELETE', '/');
 
         $this->assertEquals(204, $response->getStatusCode());
     }
 
     public function testDeleteContactFailed() {
         try {
-            self::$client->delete('/');
+            self::$client->request('DELETE', '/');
             $this->fail("Delete call didn't fail");
         } catch (ClientException $e) {
             $this->assertEquals(400, $e->getCode());
         }
     }
 
-    public function testUpdateContact()
-    {
-        $response = self::$client->put('/');
+    public function testUpdateContact() {
+        $response = self::$client->request('PUT', '/');
 
-        $contact = Contact::create($response->json());
+        $contact = Contact::create(json_decode($response->getBody(), true));
         $this->assertInstanceOf('Ctct\Components\Contacts\Contact', $contact);
         $this->assertEquals(238, $contact->id);
         $this->assertEquals("ACTIVE", $contact->status);

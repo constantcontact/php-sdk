@@ -1,57 +1,57 @@
 {
-    "meta": {
-        "pagination": {
-            "next_link": "/v2/emailcampaigns?next=cGFnZU51bT0yJnBhZ2VTaXplPTM"
-        }
+  "meta": {
+    "pagination": {
+      "next_link": "/v2/emailcampaigns?next=cGFnZU51bT0yJnBhZ2VTaXplPTM"
+    }
+  },
+  "results": [
+    {
+      "id": "1100371240640",
+      "name": "Email Created 2012/11/29, 4:13 PM",
+      "status": "SENT",
+      "modified_date": "2012-11-29T16:15:17.468Z"
     },
-    "results": [
-        {
-            "id": "1100371240640",
-            "name": "Email Created 2012/11/29, 4:13 PM",
-            "status": "SENT",
-            "modified_date": "2012-11-29T16:15:17.468Z"
-        },
-        {
-            "id": "1100368835463",
-            "name": "CampaignNdddasdsdme2",
-            "status": "DRAFT",
-            "modified_date": "2012-10-16T16:14:34.221Z"
-        },
-        {
-            "id": "1100368834956",
-            "name": "CampaignNasdsdme2",
-            "status": "DRAFT",
-            "modified_date": "2012-10-16T15:44:45.341Z"
-        },
-        {
-            "id": "1100368605465",
-            "name": "CampaignName2dddfdf",
-            "status": "DRAFT",
-            "modified_date": "2012-10-10T12:34:33.702Z"
-        },
-        {
-            "id": "1100368605462",
-            "name": "CampaignName2dfdf",
-            "status": "DRAFT",
-            "modified_date": "2012-10-10T12:33:39.402Z"
-        },
-        {
-            "id": "1100367933663",
-            "name": "CampaignName-cfd9b733-a4a3-40b0-ab92-8ad66d954c7f",
-            "status": "DRAFT",
-            "modified_date": "2012-09-25T18:29:43.259Z"
-        },
-        {
-            "id": "1100367567199",
-            "name": "u8cf32jeirb2",
-            "status": "DRAFT",
-            "modified_date": "2012-09-19T14:03:06.774Z"
-        },
-        {
-            "id": "1100367567187",
-            "name": "6qgk3d0opqgb",
-            "status": "DRAFT",
-            "modified_date": "2012-09-19T13:54:15.316Z"
-        }
-    ]
+    {
+      "id": "1100368835463",
+      "name": "CampaignNdddasdsdme2",
+      "status": "DRAFT",
+      "modified_date": "2012-10-16T16:14:34.221Z"
+    },
+    {
+      "id": "1100368834956",
+      "name": "CampaignNasdsdme2",
+      "status": "DRAFT",
+      "modified_date": "2012-10-16T15:44:45.341Z"
+    },
+    {
+      "id": "1100368605465",
+      "name": "CampaignName2dddfdf",
+      "status": "DRAFT",
+      "modified_date": "2012-10-10T12:34:33.702Z"
+    },
+    {
+      "id": "1100368605462",
+      "name": "CampaignName2dfdf",
+      "status": "DRAFT",
+      "modified_date": "2012-10-10T12:33:39.402Z"
+    },
+    {
+      "id": "1100367933663",
+      "name": "CampaignName-cfd9b733-a4a3-40b0-ab92-8ad66d954c7f",
+      "status": "DRAFT",
+      "modified_date": "2012-09-25T18:29:43.259Z"
+    },
+    {
+      "id": "1100367567199",
+      "name": "u8cf32jeirb2",
+      "status": "DRAFT",
+      "modified_date": "2012-09-19T14:03:06.774Z"
+    },
+    {
+      "id": "1100367567187",
+      "name": "6qgk3d0opqgb",
+      "status": "DRAFT",
+      "modified_date": "2012-09-19T13:54:15.316Z"
+    }
+  ]
 }

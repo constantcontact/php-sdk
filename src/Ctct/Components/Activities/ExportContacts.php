@@ -10,8 +10,7 @@ use Ctct\Components\Component;
  * @subpackage     Activities
  * @author         Constant Contact
  */
-class ExportContacts extends Component
-{
+class ExportContacts extends Component {
     public $file_type = "CSV";
     public $sort_by = "EMAIL_ADDRESS";
     public $export_date_added = true;
@@ -24,8 +23,7 @@ class ExportContacts extends Component
      * @param array $lists - array of list id's to export from
      * @return ExportContacts
      */
-    public function __construct(Array $lists = null)
-    {
+    public function __construct(Array $lists = null) {
         if (!$lists == null) {
             $this->lists = $lists;
         }
@@ -35,8 +33,7 @@ class ExportContacts extends Component
      * Create json used for a POST/PUT request, also handles removing attributes that will cause errors if sent
      * @return string
      */
-    public function toJson()
-    {
+    public function toJson() {
         return json_encode($this);
     }
 }

@@ -13,16 +13,14 @@ use GuzzleHttp\Exception\ClientException;
  * @package     Auth
  * @author      Constant Contact
  */
-class CtctOAuth2
-{
+class CtctOAuth2 {
     public $clientId;
     public $clientSecret;
     public $redirectUri;
     public $client;
     public $props;
 
-    public function __construct($clientId, $clientSecret, $redirectUri)
-    {
+    public function __construct($clientId, $clientSecret, $redirectUri) {
         $this->clientId = $clientId;
         $this->clientSecret = $clientSecret;
         $this->redirectUri = $redirectUri;
@@ -35,8 +33,7 @@ class CtctOAuth2
      * @param string $state - An optional value used by the client to maintain state between the request and callback.
      * @return string $url - The url to send a user to, to grant access to their account
      */
-    public function getAuthorizationUrl($server = true, $state = null)
-    {
+    public function getAuthorizationUrl($server = true, $state = null) {
         $responseType = ($server) ? Config::get('auth.response_type_code') : Config::get("auth.response_type_token");
         $params = array(
             'response_type' => $responseType,
@@ -50,9 +47,8 @@ class CtctOAuth2
         }
 
         $baseUrl = Config::get('auth.base_url') . Config::get('auth.authorization_endpoint');
-        $request = $this->client->createRequest("GET", $baseUrl);
-        $request->setQuery($params);
-        return $request->getUrl();
+        $query = http_build_query($params, '', '&', PHP_QUERY_RFC3986);
+        return $baseUrl . "?" . $query;
     }
 
     /**
@@ -61,8 +57,7 @@ class CtctOAuth2
      * @return array
      * @throws OAuth2Exception
      */
-    public function getAccessToken($code)
-    {
+    public function getAccessToken($code) {
         $params = array(
             'grant_type' => Config::get('auth.authorization_code_grant_type'),
             'client_id' => $this->clientId,
@@ -72,35 +67,14 @@ class CtctOAuth2
         );
 
         $baseUrl = Config::get('auth.base_url') . Config::get('auth.token_endpoint');
-        $request = $this->client->createRequest("POST", $baseUrl);
-        $request->setQuery($params);
-
         try {
-            $response = $this->client->send($request)->json();
+            $response = json_decode($this->client->request('POST', $baseUrl, [
+                'query' => $params
+            ])->getBody(), true);
         } catch (ClientException $e) {
             throw $this->convertException($e);
         }
 
-        return $response;
-    }
-
-    /**
-     * Get an information about an access token
-     * @param string $accessToken - Constant Contact OAuth2 access token
-     * @return array
-     * @throws CtctException
-     */
-    public function getTokenInfo($accessToken)
-    {
-        $baseUrl = Config::get('auth.base_url') . Config::get('auth.token_info');
-        $request = $this->client->createRequest("POST", $baseUrl);
-        $request->setQuery(array("access_token" => $accessToken));
-
-        try {
-            $response = $this->client->send($request)->json();
-        } catch (ClientException $e) {
-            throw $this->convertException($e);
-        }
         return $response;
     }
 
@@ -110,8 +84,26 @@ class CtctOAuth2
      */
     private function convertException($exception) {
         $oauth2Exception = new OAuth2Exception($exception->getResponse()->getReasonPhrase(), $exception->getCode());
-        $oauth2Exception->setUrl($exception->getResponse()->getEffectiveUrl());
         $oauth2Exception->setErrors(json_decode($exception->getResponse()->getBody()->getContents()));
         return $oauth2Exception;
+    }
+
+    /**
+     * Get an information about an access token
+     * @param string $accessToken - Constant Contact OAuth2 access token
+     * @return array
+     * @throws CtctException
+     */
+    public function getTokenInfo($accessToken) {
+        $baseUrl = Config::get('auth.base_url') . Config::get('auth.token_info');
+
+        try {
+            $response = json_decode($this->client->request('POST', $baseUrl, [
+                'query' => array("access_token" => $accessToken)
+            ])->getBody(), true);
+        } catch (ClientException $e) {
+            throw $this->convertException($e);
+        }
+        return $response;
     }
 }

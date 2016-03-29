@@ -2,14 +2,14 @@
 namespace Ctct;
 
 use Ctct\Services\AccountService;
-use Ctct\Services\ContactService;
-use Ctct\Services\LibraryService;
-use Ctct\Services\ListService;
-use Ctct\Services\EmailMarketingService;
+use Ctct\Services\ActivityService;
 use Ctct\Services\CampaignScheduleService;
 use Ctct\Services\CampaignTrackingService;
+use Ctct\Services\ContactService;
 use Ctct\Services\ContactTrackingService;
-use Ctct\Services\ActivityService;
+use Ctct\Services\EmailMarketingService;
+use Ctct\Services\LibraryService;
+use Ctct\Services\ListService;
 
 /**
  * Exposes all implemented Constant Contact API functionality
@@ -19,8 +19,7 @@ use Ctct\Services\ActivityService;
  * @author Constant Contact
  * @link https://developer.constantcontact.com
  */
-class ConstantContact
-{
+class ConstantContact {
     /**
      * Handles interaction with contact management
      * @var ContactService
@@ -80,8 +79,7 @@ class ConstantContact
      * Registers the API key with the ConstantContact class that will be used for all API calls.
      * @param string $apiKey - Constant Contact API Key
      */
-    public function __construct($apiKey)
-    {
+    public function __construct($apiKey) {
         $this->contactService = new ContactService($apiKey);
         $this->emailMarketingService = new EmailMarketingService($apiKey);
         $this->activityService = new ActivityService($apiKey);

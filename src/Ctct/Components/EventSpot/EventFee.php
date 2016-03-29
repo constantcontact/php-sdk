@@ -53,7 +53,7 @@ class EventFee extends Component
 
 	/**
 	 * If true, fee is not displayed on registration page, and is available only to registrants who have a special promocode linked to this fee.
-	 * @see EventSpotPromocode
+	 * @see RegistrantPromoCode
 	 * @var bool
 	 */
 	public $has_restricted_access = false;

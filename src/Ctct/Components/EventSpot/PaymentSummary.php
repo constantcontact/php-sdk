@@ -40,7 +40,7 @@ class PaymentSummary extends Component
 	public $order;
 
 	/**
-	 * @var
+	 * @var RegistrantPromoCode
 	 */
 	public $promo_code;
 

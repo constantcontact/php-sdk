@@ -20,7 +20,7 @@ class RegistrantPromoCode extends Component
 
 	/**
 	 * Displays information for any promocodes redeemed with this order.
-	 * @var array
+	 * @var RegistrantPromoCodeInfo
 	 */
 	public $promo_code_info;
 

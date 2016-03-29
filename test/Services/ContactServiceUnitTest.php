@@ -1,18 +1,18 @@
 <?php
 
 use Ctct\Components\Contacts\Contact;
-use Ctct\Components\ResultSet;
+use Ctct\ConstantContact;
+use Ctct\Exceptions\CtctException;
 use GuzzleHttp\Client;
-use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Psr7\Response;
 
 class ContactServiceUnitTest extends PHPUnit_Framework_TestCase {
     /**
-     * @var Client
+     * @var ConstantContact
      */
-    private static $client;
+    private static $constantContact;
 
     public static function setUpBeforeClass() {
         $contactJson = JsonLoader::getContactJson();
@@ -22,21 +22,20 @@ class ContactServiceUnitTest extends PHPUnit_Framework_TestCase {
             new Response(200, array(), $contactJson),
             new Response(201, array(), $contactJson),
             new Response(204, array()),
-            new Response(400, array()),
+            new Response(400, array(), JsonLoader::getErrorResponseJson()),
             new Response(200, array(), $contactJson)
         ]);
         $handler = HandlerStack::create($mock);
-        self::$client = new Client(['handler' => $handler]);
+        $client = new Client(['handler' => $handler]);
+        self::$constantContact = new ConstantContact('API_KEY', $client);
     }
 
     public function testGetContacts() {
-        $response = json_decode(self::$client->request('GET', '/')->getBody(), true);
-        $result = new ResultSet($response['results'], $response['meta']);
-
+        $result = self::$constantContact->contactService->getContacts('ACCESS_TOKEN');
         $this->assertInstanceOf('Ctct\Components\ResultSet', $result);
         $this->assertEquals('c3RhcnRBdD0zJmxpbWl0PTI', $result->next);
 
-        $contact = Contact::create($result->results[1]);
+        $contact = $result->results[1];
         $this->assertInstanceOf('Ctct\Components\Contacts\Contact', $contact);
         $this->assertEquals(231, $contact->id);
         $this->assertEquals("ACTIVE", $contact->status);
@@ -88,13 +87,12 @@ class ContactServiceUnitTest extends PHPUnit_Framework_TestCase {
     }
 
     public function testGetContactsNoNextLink() {
-        $response = json_decode(self::$client->request('GET', '/')->getBody(), true);
-        $result = new ResultSet($response['results'], $response['meta']);
+        $result = self::$constantContact->contactService->getContacts('ACCESS_TOKEN');
 
         $this->assertInstanceOf('Ctct\Components\ResultSet', $result);
         $this->assertEquals(null, $result->next);
 
-        $contact = Contact::create($result->results[1]);
+        $contact = $result->results[1];
         $this->assertInstanceOf('Ctct\Components\Contacts\Contact', $contact);
         $this->assertEquals(231, $contact->id);
         $this->assertEquals("ACTIVE", $contact->status);
@@ -146,9 +144,8 @@ class ContactServiceUnitTest extends PHPUnit_Framework_TestCase {
     }
 
     public function testGetContact() {
-        $response = self::$client->request('GET', '/');
+        $contact = self::$constantContact->contactService->getContact('ACCESS_TOKEN', 238);
 
-        $contact = Contact::create(json_decode($response->getBody(), true));
         $this->assertInstanceOf('Ctct\Components\Contacts\Contact', $contact);
         $this->assertEquals(238, $contact->id);
         $this->assertEquals("ACTIVE", $contact->status);
@@ -206,9 +203,9 @@ class ContactServiceUnitTest extends PHPUnit_Framework_TestCase {
     }
 
     public function testAddContact() {
-        $response = self::$client->request('POST', '/');
+        $sourceContact = Contact::create((array) JsonLoader::getContactJson());
+        $contact = self::$constantContact->contactService->addContact('ACCESS_TOKEN', $sourceContact, true);
 
-        $contact = Contact::create(json_decode($response->getBody(), true));
         $this->assertInstanceOf('Ctct\Components\Contacts\Contact', $contact);
         $this->assertEquals(238, $contact->id);
         $this->assertEquals("ACTIVE", $contact->status);
@@ -266,24 +263,24 @@ class ContactServiceUnitTest extends PHPUnit_Framework_TestCase {
     }
 
     public function testDeleteContact() {
-        $response = self::$client->request('DELETE', '/');
+        $success = self::$constantContact->contactService->unsubscribeContact('ACCESS_TOKEN', 238);
 
-        $this->assertEquals(204, $response->getStatusCode());
+        $this->assertTrue($success);
     }
 
     public function testDeleteContactFailed() {
         try {
-            self::$client->request('DELETE', '/');
+            self::$constantContact->contactService->unsubscribeContact('ACCESS_TOKEN', 238);
             $this->fail("Delete call didn't fail");
-        } catch (ClientException $e) {
-            $this->assertEquals(400, $e->getCode());
+        } catch (CtctException $exception) {
+            $this->assertEquals(400, $exception->getCode());
         }
     }
 
     public function testUpdateContact() {
-        $response = self::$client->request('PUT', '/');
+        $sourceContact = Contact::create((array) JsonLoader::getContactJson());
+        $contact = self::$constantContact->contactService->updateContact('ACCESS_TOKEN', $sourceContact, true);
 
-        $contact = Contact::create(json_decode($response->getBody(), true));
         $this->assertInstanceOf('Ctct\Components\Contacts\Contact', $contact);
         $this->assertEquals(238, $contact->id);
         $this->assertEquals("ACTIVE", $contact->status);

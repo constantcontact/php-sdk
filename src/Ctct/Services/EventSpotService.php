@@ -12,8 +12,8 @@ use Ctct\Exceptions\CtctException;
 use Ctct\Util\Config;
 use Ctct\Components\Contacts\ContactList;
 use GuzzleHttp\Exception\ClientException;
-use GuzzleHttp\Message\Response;
-use GuzzleHttp\Stream\Stream;
+use GuzzleHttp\Exception\TransferException;
+use GuzzleHttp\Psr7;
 
 /**
  * Performs all actions pertaining to Constant Contact EventSpot Events
@@ -37,7 +37,7 @@ class EventSpotService extends BaseService
 	{
 		$baseUrl = Config::get('endpoints.base_url') . Config::get('endpoints.events');
 
-		$request = parent::createBaseRequest($accessToken, 'GET', $baseUrl);
+		$request = parent::sendRequestWithoutBody($accessToken, 'GET', $baseUrl);
 		if ($params) {
 			$query = $request->getQuery();
 			foreach ($params as $name => $value) {
@@ -52,7 +52,7 @@ class EventSpotService extends BaseService
 			throw parent::convertException($e);
 		}
 
-		$body = $response->json();
+		$body = json_decode($response->getBody(), true);
 
 		$events = array();
 		if( ! empty( $body['results'] ) ) {
@@ -74,10 +74,7 @@ class EventSpotService extends BaseService
 	public function addEvent($accessToken, EventSpot $event)
 	{
 		$baseUrl = Config::get('endpoints.base_url') . Config::get('endpoints.events');
-
-		$request = parent::createBaseRequest($accessToken, 'POST', $baseUrl);
-		$stream = Stream::factory(json_encode($event));
-		$request->setBody($stream);
+		$request = parent::sendRequestWithBody($accessToken, 'POST', $baseUrl, $event);
 
 		try {
 			$response = parent::getClient()->send($request);
@@ -85,37 +82,33 @@ class EventSpotService extends BaseService
 			throw parent::convertException($e);
 		}
 
-		return EventSpot::create($response->json());
+		return EventSpot::create(json_decode($response->getBody(), true));
 	}
 
 	/**
-	 * Update a Contact List
+	 * Update an EventSpot Event
 	 * @param string $accessToken Constant Contact OAuth2 access token
-	 * @param ContactList $event - ContactList to be updated
-	 * @return ContactList
+	 * @param EventSpot $event - EventSpot to be updated
+	 * @return EventSpot
 	 * @throws CtctException
 	 */
 	public function updateEvent($accessToken, EventSpot $event)
 	{
 		$baseUrl = Config::get('endpoints.base_url') . sprintf(Config::get('endpoints.event'), $event->id);
 
-		$request = parent::createBaseRequest($accessToken, 'PUT', $baseUrl);
-		$stream = Stream::factory(json_encode($event));
-		$request->setBody($stream);
-
 		try {
-			$response = parent::getClient()->send($request);
-		} catch (ClientException $e) {
+			$response = parent::sendRequestWithBody($accessToken, 'PUT', $baseUrl, $event);
+		} catch (TransferException $e) {
 			throw parent::convertException($e);
 		}
 
-		return EventSpot::create($response->json());
+		return EventSpot::create(json_decode($response->getBody(), true));
 	}
 
 	/**
 	 * Delete an Event
 	 * @param string $accessToken Constant Contact OAuth2 access token
-	 * @param $eventId - event id
+	 * @param string|int $eventId - event id
 	 * @return boolean
 	 * @throws CtctException
 	 */
@@ -123,11 +116,9 @@ class EventSpotService extends BaseService
 	{
 		$baseUrl = Config::get('endpoints.base_url') . sprintf(Config::get('endpoints.event'), $eventId);
 
-		$request = parent::createBaseRequest($accessToken, 'DELETE', $baseUrl);
-
 		try {
-			$response = parent::getClient()->send($request);
-		} catch (ClientException $e) {
+			$response = parent::sendRequestWithoutBody($accessToken, 'DELETE', $baseUrl);
+		} catch (TransferException $e) {
 			throw parent::convertException($e);
 		}
 
@@ -145,15 +136,13 @@ class EventSpotService extends BaseService
 	{
 		$baseUrl = Config::get('endpoints.base_url') . sprintf(Config::get('endpoints.event'), $eventId);
 
-		$request = parent::createBaseRequest($accessToken, 'GET', $baseUrl);
-
 		try {
-			$response = parent::getClient()->send($request);
-		} catch (ClientException $e) {
+			$response = parent::sendRequestWithoutBody($accessToken, 'GET', $baseUrl);
+		} catch (TransferException $e) {
 			throw parent::convertException($e);
 		}
 
-		$event_array = $response->json();
+		$event_array = json_decode($response->getBody(), true);
 		$event_array['id'] = $eventId;
 
 		return EventSpot::create($event_array);
@@ -173,22 +162,13 @@ class EventSpotService extends BaseService
 	{
 		$baseUrl = Config::get('endpoints.base_url') . sprintf( Config::get('endpoints.event_registrants'), $eventId );
 
-		$request = parent::createBaseRequest($accessToken, 'GET', $baseUrl);
-		if ($params) {
-			$query = $request->getQuery();
-			foreach ($params as $name => $value) {
-				$query->add($name, $value);
-			}
-		}
-
 		try {
-			/** @var \GuzzleHttp\Message\Response $response */
-			$response = parent::getClient()->send($request);
-		} catch (ClientException $e) {
+			$response = parent::sendRequestWithoutBody($accessToken, 'GET', $baseUrl, $params);
+		} catch (TransferException $e) {
 			throw parent::convertException($e);
 		}
 
-		$body = $response->json();
+		$body = json_decode($response->getBody(), true);
 		$registrants = array();
 		foreach ($body['results'] as $registrant) {
 			$registrants[] = Registrant::create($registrant);
@@ -209,15 +189,13 @@ class EventSpotService extends BaseService
 	{
 		$baseUrl = Config::get('endpoints.base_url') . sprintf( Config::get('endpoints.event_registrant'), $eventId, $registrantId );
 
-		$request = parent::createBaseRequest($accessToken, 'GET', $baseUrl);
-
 		try {
-			$response = parent::getClient()->send($request);
-		} catch (ClientException $e) {
+			$response = parent::sendRequestWithoutBody($accessToken, 'GET', $baseUrl);
+		} catch (TransferException $e) {
 			throw parent::convertException($e);
 		}
 
-		return Registrant::create($response->json());
+		return Registrant::create(json_decode($response->getBody(), true));
 	}
 
 	/**
@@ -232,17 +210,13 @@ class EventSpotService extends BaseService
 	{
 		$baseUrl = Config::get('endpoints.base_url') . sprintf( Config::get('endpoints.event_fees'), $eventId );
 
-		$request = parent::createBaseRequest($accessToken, 'POST', $baseUrl);
-		$stream = Stream::factory(json_encode($eventFee));
-		$request->setBody($stream);
-
 		try {
-			$response = parent::getClient()->send($request);
-		} catch (ClientException $e) {
+			$response = parent::sendRequestWithBody($accessToken, 'POST', $baseUrl, $eventFee);
+		} catch (TransferException $e) {
 			throw parent::convertException($e);
 		}
 
-		return EventFee::create($response->json());
+		return EventFee::create(json_decode($response->getBody(), true));
 	}
 
 	/**
@@ -256,16 +230,13 @@ class EventSpotService extends BaseService
 	{
 		$baseUrl = Config::get('endpoints.base_url') . sprintf( Config::get('endpoints.event_fees'), $eventId );
 
-		$request = parent::createBaseRequest($accessToken, 'GET', $baseUrl);
-
 		try {
-			/** @var \GuzzleHttp\Message\Response $response */
-			$response = parent::getClient()->send($request);
-		} catch (ClientException $e) {
+			$response = parent::sendRequestWithoutBody($accessToken, 'GET', $baseUrl);
+		} catch (TransferException $e) {
 			throw parent::convertException($e);
 		}
 
-		$body = $response->json();
+		$body = json_decode($response->getBody(), true);
 		$fees = array();
 		foreach ($body['results'] as $fee) {
 			$fees[] = EventFee::create($fee);
@@ -286,15 +257,13 @@ class EventSpotService extends BaseService
 	{
 		$baseUrl = Config::get('endpoints.base_url') . sprintf(Config::get('endpoints.event_fee'), $eventId, $feeId);
 
-		$request = parent::createBaseRequest($accessToken, 'GET', $baseUrl);
-
 		try {
-			$response = parent::getClient()->send($request);
-		} catch (ClientException $e) {
+			$response = parent::sendRequestWithoutBody($accessToken, 'GET', $baseUrl);
+		} catch (TransferException $e) {
 			throw parent::convertException($e);
 		}
 
-		return EventFee::create($response->json());
+		return EventFee::create(json_decode($response->getBody(), true));
 	}
 
 	/**
@@ -309,17 +278,13 @@ class EventSpotService extends BaseService
 	{
 		$baseUrl = Config::get('endpoints.base_url') . sprintf( Config::get('endpoints.event_promocodes'), $eventId );
 
-		$request = parent::createBaseRequest($accessToken, 'POST', $baseUrl);
-		$stream = Stream::factory(json_encode($promoCode));
-		$request->setBody($stream);
-
 		try {
-			$response = parent::getClient()->send($request);
-		} catch (ClientException $e) {
+			$response = parent::sendRequestWithBody($accessToken, 'POST', $baseUrl, $promoCode);
+		} catch (TransferException $e) {
 			throw parent::convertException($e);
 		}
 
-		return Promocode::create($response->json());
+		return Promocode::create(json_decode($response->getBody(), true));
 	}
 
 	/**
@@ -333,16 +298,13 @@ class EventSpotService extends BaseService
 	{
 		$baseUrl = Config::get('endpoints.base_url') . sprintf( Config::get('endpoints.event_promocodes'), $eventId );
 
-		$request = parent::createBaseRequest($accessToken, 'GET', $baseUrl);
-
 		try {
-			/** @var \GuzzleHttp\Message\Response $response */
-			$response = parent::getClient()->send($request);
-		} catch (ClientException $e) {
+			$response = parent::sendRequestWithoutBody($accessToken, 'GET', $baseUrl);
+		} catch (TransferException $e) {
 			throw parent::convertException($e);
 		}
 
-		$body = $response->json();
+		$body = json_decode($response->getBody(), true);
 		$promocodes = array();
 		foreach ($body['results'] as $promocode) {
 			$promocodes[] = Promocode::create($promocode);
@@ -363,15 +325,13 @@ class EventSpotService extends BaseService
 	{
 		$baseUrl = Config::get('endpoints.base_url') . sprintf(Config::get('endpoints.event_promocode'), $eventId, $promocodeId);
 
-		$request = parent::createBaseRequest($accessToken, 'GET', $baseUrl);
-
 		try {
-			$response = parent::getClient()->send($request);
-		} catch (ClientException $e) {
+			$response = parent::sendRequestWithoutBody($accessToken, 'GET', $baseUrl);
+		} catch (TransferException $e) {
 			throw parent::convertException($e);
 		}
 
-		return Promocode::create($response->json());
+		return Promocode::create(json_decode($response->getBody(), true));
 	}
 
 }

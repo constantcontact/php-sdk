@@ -37,17 +37,8 @@ class EventSpotService extends BaseService
 	{
 		$baseUrl = Config::get('endpoints.base_url') . Config::get('endpoints.events');
 
-		$request = parent::sendRequestWithoutBody($accessToken, 'GET', $baseUrl);
-		if ($params) {
-			$query = $request->getQuery();
-			foreach ($params as $name => $value) {
-				$query->add($name, $value);
-			}
-		}
-
 		try {
-			/** @var \GuzzleHttp\Message\Response $response */
-			$response = parent::getClient()->send($request);
+			$response = parent::sendRequestWithoutBody($accessToken, 'GET', $baseUrl, $params);
 		} catch (ClientException $e) {
 			throw parent::convertException($e);
 		}
@@ -74,10 +65,9 @@ class EventSpotService extends BaseService
 	public function addEvent($accessToken, EventSpot $event)
 	{
 		$baseUrl = Config::get('endpoints.base_url') . Config::get('endpoints.events');
-		$request = parent::sendRequestWithBody($accessToken, 'POST', $baseUrl, $event);
 
 		try {
-			$response = parent::getClient()->send($request);
+			$response = parent::sendRequestWithBody($accessToken, 'POST', $baseUrl, $event);
 		} catch (ClientException $e) {
 			throw parent::convertException($e);
 		}
@@ -257,6 +247,7 @@ class EventSpotService extends BaseService
 	{
 		$baseUrl = Config::get('endpoints.base_url') . sprintf(Config::get('endpoints.event_fee'), $eventId, $feeId);
 
+
 		try {
 			$response = parent::sendRequestWithoutBody($accessToken, 'GET', $baseUrl);
 		} catch (TransferException $e) {
@@ -324,6 +315,7 @@ class EventSpotService extends BaseService
 	public function getPromocode($accessToken, $eventId, $promocodeId)
 	{
 		$baseUrl = Config::get('endpoints.base_url') . sprintf(Config::get('endpoints.event_promocode'), $eventId, $promocodeId);
+
 
 		try {
 			$response = parent::sendRequestWithoutBody($accessToken, 'GET', $baseUrl);

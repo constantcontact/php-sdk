@@ -84,7 +84,7 @@ class CtctOAuth2 {
      */
     private function convertException($exception) {
         $oauth2Exception = new OAuth2Exception($exception->getResponse()->getReasonPhrase(), $exception->getCode());
-        $oauth2Exception->setErrors(json_decode($exception->getResponse()->getBody()->getContents()));
+        $oauth2Exception->setErrors(json_decode($exception->getResponse()->getBody()->getContents(), true));
         return $oauth2Exception;
     }
 

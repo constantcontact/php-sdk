@@ -64,8 +64,6 @@ class ContactService extends BaseService
      *      limit - Specifies the number of results displayed per page of output, from 1 - 500, default = 50.
      *      modified_since - ISO-8601 formatted timestamp.
      *      next - the next link returned from a previous paginated call. May only be used by itself.
-     *      email - full email address string to restrict results by
-     *      status - a contact status to filter results by. Must be one of ACTIVE, OPTOUT, REMOVED, UNCONFIRMED.
      * @return ResultSet
      * @throws CtctException
      */

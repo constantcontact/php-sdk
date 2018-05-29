@@ -64,7 +64,7 @@ if (isset($_POST['email']) && strlen($_POST['email']) > 1) {
              *
              * See: http://developer.constantcontact.com/docs/contacts-api/contacts-index.html#opt_in
              */
-            $returnContact = $cc->contactService->addContact(ACCESS_TOKEN, $contact, true);
+            $returnContact = $cc->contactService->addContact(ACCESS_TOKEN, $contact, ['action_by' => 'ACTION_BY_VISITOR']);
 
             // update the existing contact if address already existed
         } else {
@@ -83,7 +83,7 @@ if (isset($_POST['email']) && strlen($_POST['email']) > 1) {
                  *
                  * See: http://developer.constantcontact.com/docs/contacts-api/contacts-index.html#opt_in
                  */
-                $returnContact = $cc->contactService->updateContact(ACCESS_TOKEN, $contact, true);
+                $returnContact = $cc->contactService->updateContact(ACCESS_TOKEN, $contact, ['action_by' => 'ACTION_BY_VISITOR']);
             } else {
                 $e = new CtctException();
                 $e->setErrors(array("type", "Contact type not returned"));

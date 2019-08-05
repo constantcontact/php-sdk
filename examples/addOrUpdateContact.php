@@ -30,7 +30,7 @@ $cc = new ConstantContact(APIKEY);
 
 // attempt to fetch lists in the account, catching any exceptions and printing the errors to screen
 try {
-    $lists = $cc->listService->getLists(ACCESS_TOKEN);
+    $lists = $cc->getLists(ACCESS_TOKEN);
 } catch (CtctException $ex) {
     foreach ($ex->getErrors() as $error) {
         print_r($error);

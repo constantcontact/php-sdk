@@ -6,17 +6,16 @@ php:
   - 7.2
   - 7.3
   - 7.4
+  - nightly
   - hhvm
-
-env:
-  - GUZZLE_VERSION="5.1.0"
 
 before_script: composer install
 
 install:
-  - composer require guzzlehttp/guzzle:${GUZZLE_VERSION}
+  - composer show guzzlehttp/guzzle
 
 matrix:
   allow_failures:
     - php: hhvm
+    - php: nightly
   fast_finish: true

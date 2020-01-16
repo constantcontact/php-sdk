@@ -4,8 +4,9 @@ use GuzzleHttp\Client;
 use GuzzleHttp\Subscriber\Mock;
 use GuzzleHttp\Stream\Stream;
 use GuzzleHttp\Message\Response;
+use PHPUnit\Framework\TestCase;
 
-class ActivityServiceUnitTest extends PHPUnit_Framework_TestCase
+class ActivityServiceUnitTest extends TestCase
 {
     /**
      * @var Client

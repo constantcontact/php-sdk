@@ -9,7 +9,7 @@ php:
   - nightly
   - hhvm
 
-before_script: composer install
+before_script: travis_retry composer update --no-interaction --prefer-source
 
 install:
   - composer show guzzlehttp/guzzle

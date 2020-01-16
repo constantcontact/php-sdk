@@ -7,7 +7,7 @@ use GuzzleHttp\Message\Response;
 use GuzzleHttp\Stream\Stream;
 use GuzzleHttp\Subscriber\Mock;
 
-class CtctOAuth2UnitTest extends PHPUnit_Framework_TestCase
+class CtctOAuth2UnitTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var Client

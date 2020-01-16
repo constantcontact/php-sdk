@@ -9,8 +9,9 @@ use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Subscriber\Mock;
 use GuzzleHttp\Stream\Stream;
 use GuzzleHttp\Message\Response;
+use PHPUnit\Framework\TestCase;
 
-class EmailMarketingServiceUnitTest extends PHPUnit_Framework_TestCase
+class EmailMarketingServiceUnitTest extends TestCase
 {
     /**
      * @var Client

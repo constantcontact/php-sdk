@@ -8,8 +8,9 @@ use GuzzleHttp\Client;
 use GuzzleHttp\Subscriber\Mock;
 use GuzzleHttp\Stream\Stream;
 use GuzzleHttp\Message\Response;
+use PHPUnit\Framework\TestCase;
 
-class ListServiceUnitTest extends PHPUnit_Framework_TestCase
+class ListServiceUnitTest extends TestCase
 {
     /**
      * @var Client

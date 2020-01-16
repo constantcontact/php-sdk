@@ -1,20 +1,19 @@
 language: php
 
 php:
-  - 5.4
-  - 5.5
-  - 5.6
+  - 7.0
+  - 7.1
+  - 7.2
+  - 7.3
+  - 7.4
+  - nightly
   - hhvm
 
-env:
-  - GUZZLE_VERSION="5.1.0"
-
-before_script: composer install
-
 install:
-  - composer require guzzlehttp/guzzle:${GUZZLE_VERSION}
+  - travis_retry composer update --no-interaction --prefer-source
 
 matrix:
   allow_failures:
     - php: hhvm
+    - php: nightly
   fast_finish: true

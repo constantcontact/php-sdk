@@ -13,8 +13,9 @@ use GuzzleHttp\Client;
 use GuzzleHttp\Subscriber\Mock;
 use GuzzleHttp\Stream\Stream;
 use GuzzleHttp\Message\Response;
+use PHPUnit\Framework\TestCase;
 
-class CampaignTrackingServiceUnitTest extends PHPUnit_Framework_TestCase
+class CampaignTrackingServiceUnitTest extends TestCase
 {
     /**
      * @var Client

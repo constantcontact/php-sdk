@@ -17,6 +17,7 @@ class ClickActivity extends Component
     public $contact_id;
     public $email_address;
     public $link_id;
+    public $link_uri;
     public $click_date;
 
     /**

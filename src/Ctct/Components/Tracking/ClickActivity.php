@@ -16,6 +16,7 @@ class ClickActivity extends Component {
     public $contact_id;
     public $email_address;
     public $link_id;
+    public $link_uri;
     public $click_date;
 
     /**
@@ -30,6 +31,7 @@ class ClickActivity extends Component {
         $click_activity->contact_id = parent::getValue($props, "contact_id");
         $click_activity->email_address = parent::getValue($props, "email_address");
         $click_activity->link_id = parent::getValue($props, "link_id");
+        $click_activity->link_uri = parent::getValue($props, "link_uri");
         $click_activity->click_date = parent::getValue($props, "click_date");
         return $click_activity;
     }

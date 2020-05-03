@@ -1,5 +1,6 @@
 language: php
 
+dist: trusty
 php:
   - 5.4
   - 5.5
@@ -18,4 +19,3 @@ matrix:
   allow_failures:
     - php: hhvm
   fast_finish: true
-  dist: trusty

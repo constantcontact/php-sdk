@@ -1,5 +1,5 @@
 {
-    "name": "yousaf-saqib/cc-php",
+    "name": "yousaf-saqib/cc-php-sdk",
     "type": "library",
     "description": "Constant Contact PHP SDK for v2",
     "keywords": [

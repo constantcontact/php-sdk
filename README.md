@@ -8,7 +8,7 @@
 ```javascript
  {
         "require": {
-            "yousaf-saqib/cc-php-sdk": "2.1.*"
+            "yousaf-saqib/cc-php-sdk": "1.0.*"
         }
     }
 ```

@@ -1,7 +1,7 @@
 <?php
 
-use Ctct\Components\Account\AccountInfo;
-use Ctct\Components\Account\VerifiedEmailAddress;
+use YousafSaqib\ConstantContact\Components\Account\AccountInfo;
+use YousafSaqib\ConstantContact\Components\Account\VerifiedEmailAddress;
 use GuzzleHttp\Client;
 use GuzzleHttp\Subscriber\Mock;
 use GuzzleHttp\Stream\Stream;

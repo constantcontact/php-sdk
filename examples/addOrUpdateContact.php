@@ -8,19 +8,19 @@
 
 <!--
 README: Add or update contact example
-This example flow illustrates how a Constant Contact account owner can add or update a contact in their account. In order for this example to function 
-properly, you must have a valid Constant Contact API Key as well as an access token. Both of these can be obtained from 
+This example flow illustrates how a Constant Contact account owner can add or update a contact in their account. In order for this example to function
+properly, you must have a valid Constant Contact API Key as well as an access token. Both of these can be obtained from
 http://constantcontact.mashery.com.
 -->
 
 <?php
 // require the autoloaders
-require_once '../src/Ctct/autoload.php';
+require_once '../src/autoload.php';
 require_once '../vendor/autoload.php';
 
-use Ctct\ConstantContact;
-use Ctct\Components\Contacts\Contact;
-use Ctct\Exceptions\CtctException;
+use YousafSaqib\ConstantContact\Components\Contacts\Contact;
+use YousafSaqib\ConstantContact\ConstantContact;
+use YousafSaqib\ConstantContact\Exceptions\CtctException;
 
 // Enter your Constant Contact APIKEY and ACCESS_TOKEN
 define("APIKEY", "ENTER YOUR API KEY");
@@ -134,10 +134,10 @@ if (isset($_POST['email']) && strlen($_POST['email']) > 1) {
             <div class="controls">
                 <select name="list">
                     <?php
-                    foreach ($lists as $list) {
-                        echo '<option value="' . $list->id . '">' . $list->name . '</option>';
-                    }
-                    ?>
+foreach ($lists as $list) {
+    echo '<option value="' . $list->id . '">' . $list->name . '</option>';
+}
+?>
                 </select>
             </div>
         </div>
@@ -155,7 +155,7 @@ if (isset($_POST['email']) && strlen($_POST['email']) > 1) {
     echo '<div class="container alert-success"><pre class="success-pre">';
     print_r($returnContact);
     echo '</pre></div>';
-} ?>
+}?>
 
 </body>
 </html>

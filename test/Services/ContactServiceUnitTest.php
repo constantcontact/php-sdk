@@ -1,7 +1,7 @@
 <?php
 
-use Ctct\Components\ResultSet;
-use Ctct\Components\Contacts\Contact;
+use YousafSaqib\ConstantContact\Components\ResultSet;
+use YousafSaqib\ConstantContact\Components\Contacts\Contact;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;

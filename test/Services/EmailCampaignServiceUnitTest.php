@@ -1,8 +1,8 @@
 <?php
 
-use Ctct\Components\ResultSet;
-use Ctct\Components\EmailMarketing\Campaign;
-use Ctct\Components\EmailMarketing\CampaignPreview;
+use YousafSaqib\ConstantContact\Components\ResultSet;
+use YousafSaqib\ConstantContact\Components\EmailMarketing\Campaign;
+use YousafSaqib\ConstantContact\Components\EmailMarketing\CampaignPreview;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;

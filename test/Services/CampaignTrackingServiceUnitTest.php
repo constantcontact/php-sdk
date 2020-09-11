@@ -1,13 +1,13 @@
 <?php
 
-use Ctct\Components\ResultSet;
-use Ctct\Components\Tracking\BounceActivity;
-use Ctct\Components\Tracking\ClickActivity;
-use Ctct\Components\Tracking\ForwardActivity;
-use Ctct\Components\Tracking\OpenActivity;
-use Ctct\Components\Tracking\SendActivity;
-use Ctct\Components\Tracking\TrackingSummary;
-use Ctct\Components\Tracking\UnsubscribeActivity;
+use YousafSaqib\ConstantContact\Components\ResultSet;
+use YousafSaqib\ConstantContact\Components\Tracking\BounceActivity;
+use YousafSaqib\ConstantContact\Components\Tracking\ClickActivity;
+use YousafSaqib\ConstantContact\Components\Tracking\ForwardActivity;
+use YousafSaqib\ConstantContact\Components\Tracking\OpenActivity;
+use YousafSaqib\ConstantContact\Components\Tracking\SendActivity;
+use YousafSaqib\ConstantContact\Components\Tracking\TrackingSummary;
+use YousafSaqib\ConstantContact\Components\Tracking\UnsubscribeActivity;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Subscriber\Mock;

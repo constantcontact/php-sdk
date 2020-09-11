@@ -1,7 +1,7 @@
 <?php
 
-use Ctct\Components\EmailMarketing\Schedule;
-use Ctct\Components\EmailMarketing\TestSend;
+use YousafSaqib\ConstantContact\Components\EmailMarketing\Schedule;
+use YousafSaqib\ConstantContact\Components\EmailMarketing\TestSend;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;

@@ -1,14 +1,14 @@
 # Constant Contact PHP SDK
-[![Build Status](https://secure.travis-ci.org/constantcontact/php-sdk.png?branch=master)](http://travis-ci.org/constantcontact/php-sdk) [![Latest Stable Version](https://poser.pugx.org/constantcontact/constantcontact/v/stable.svg)](https://packagist.org/packages/constantcontact/constantcontact) [![Latest Unstable Version](https://poser.pugx.org/constantcontact/constantcontact/v/unstable.svg)](https://packagist.org/packages/constantcontact/constantcontact)
 
 ### This library utilizes [GuzzlePHP](http://guzzle.readthedocs.org/)
 
 ## Installing via Composer (recommended)
-[Composer](https://getcomposer.org/) is a dependency management tool for PHP that allows you to declare the dependencies your project needs and installs them into your project. In order to use the Constant Contact PHP SDK through composer, you must add "constantcontact/constantcontact" as a dependency in your project's composer.json file.
+
+[Composer](https://getcomposer.org/) is a dependency management tool for PHP that allows you to declare the dependencies your project needs and installs them into your project. In order to use the Constant Contact PHP SDK through composer, you must add "yousaf-saqib/cc-php-sdk" as a dependency in your project's composer.json file which is a fork of "constantcontact/constantcontact".
 ```javascript
  {
         "require": {
-            "constantcontact/constantcontact": "2.1.*"
+            "yousaf-saqib/cc-php-sdk": "2.1.*"
         }
     }
 ```
@@ -25,7 +25,7 @@ API Documentation is located at http://developer.constantcontact.com/docs/develo
 ## Usage
 The ConstantContact class contains the underlying services that hold the methods that use the API.
 ```php
-use Ctct\ConstantContact;
+use YousafSaqib\ConstantContact\ConstantContact;
 $cc = new ConstantContact('your api key');
 
 $contacts = $cc->contactService->getContacts('your access token')
@@ -37,6 +37,11 @@ $params = array("limit" => 500);
 $contacts = $cc->contactService->getContacts('your access token', $params);
 ```
 ## Minimum Requirements
-Use of this library requires PHP 5.4+, and PHP cURL extension (http://php.net/manual/en/book.curl.php)
+Use of this library requires PHP 7.2+, and PHP cURL extension (http://php.net/manual/en/book.curl.php)
 
-If you are being required to use an older version of PHP, it is highly recommended that you update to at least 5.4 - but you can use version 1.3.* via composer, or [manually](https://github.com/constantcontact/php-sdk/tree/v1-master).
+If you are being required to use an older version of PHP, it is highly recommended that you update to at least 7.2 .
+
+
+## Changes from Orignal Client
+
+- New attribute added in connstant contant campaign tracking activity which contains clicked uri information

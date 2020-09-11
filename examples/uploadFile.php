@@ -15,10 +15,10 @@ http://constantcontact.mashery.com.
 
 <?php
 // require the autoloaders
-require_once '../src/Ctct/autoload.php';
+require_once '../src/autoload.php';
 require_once '../vendor/autoload.php';
 
-use Ctct\ConstantContact;
+use YousafSaqib\ConstantContact\ConstantContact;
 
 // Enter your Constant Contact APIKEY and ACCESS_TOKEN
 define("APIKEY", "ENTER YOUR API KEY");

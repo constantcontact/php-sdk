@@ -18,13 +18,13 @@ For more information on this, please visit: http://support2.constantcontact.com/
 
 <?php
 // require the autoloaders
-require_once '../src/Ctct/autoload.php';
+require_once '../src/autoload.php';
 require_once '../vendor/autoload.php';
 
-use Ctct\ConstantContact;
-use Ctct\Components\EmailMarketing\Campaign;
-use Ctct\Components\EmailMarketing\Schedule;
-use Ctct\Exceptions\CtctException;
+use YousafSaqib\ConstantContact\ConstantContact;
+use YousafSaqib\ConstantContact\Components\EmailMarketing\Campaign;
+use YousafSaqib\ConstantContact\Components\EmailMarketing\Schedule;
+use YousafSaqib\ConstantContact\Exceptions\CtctException;
 
 // Enter your Constant Contact APIKEY and ACCESS_TOKEN
 define("APIKEY", "ENTER YOUR API KEY");

@@ -6,7 +6,7 @@
     "homepage": "http://developer.constantcontact.com",
     "license": "MIT",
     "require": {
-        "php": "^7.0.0",
+        "php": "^5.0.0",
         "ext-curl": "*",
         "guzzlehttp/guzzle": "^5.1.0"
     },

@@ -15,11 +15,11 @@ http://constantcontact.mashery.com.
 
 <?php
 // require the autoloaders
-require_once '../src/Ctct/autoload.php';
+require_once '../src/autoload.php';
 require_once '../vendor/autoload.php';
 
-use Ctct\Auth\CtctOAuth2;
-use Ctct\Exceptions\OAuth2Exception;
+use YousafSaqib\ConstantContact\Auth\CtctOAuth2;
+use YousafSaqib\ConstantContact\Exceptions\OAuth2Exception;
 
 // Enter your Constant Contact APIKEY, CONSUMER_SECRET, and REDIRECT_URI
 define("APIKEY", "ENTER YOUR API KEY");

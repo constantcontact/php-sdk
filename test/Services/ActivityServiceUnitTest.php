@@ -1,5 +1,5 @@
 <?php
-use Ctct\Components\Activities\Activity;
+use YousafSaqib\ConstantContact\Components\Activities\Activity;
 use GuzzleHttp\Client;
 use GuzzleHttp\Subscriber\Mock;
 use GuzzleHttp\Stream\Stream;

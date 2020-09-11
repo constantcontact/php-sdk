@@ -1,9 +1,9 @@
 <?php
 
-use Ctct\Components\ResultSet;
-use Ctct\Components\Library\File;
-use Ctct\Components\Library\Folder;
-use Ctct\Components\Library\FileUploadStatus;
+use YousafSaqib\ConstantContact\Components\ResultSet;
+use YousafSaqib\ConstantContact\Components\Library\File;
+use YousafSaqib\ConstantContact\Components\Library\Folder;
+use YousafSaqib\ConstantContact\Components\Library\FileUploadStatus;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Subscriber\Mock;

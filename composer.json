@@ -1,28 +1,38 @@
 {
-    "name": "constantcontact/constantcontact",
+    "name": "yousaf-saqib/cc-php-sdk",
     "type": "library",
     "description": "Constant Contact PHP SDK for v2",
-    "keywords": ["constantcontact", "ctct", "email marketing", "constant contact"],
+    "keywords": [
+        "constantcontact",
+        "ctct",
+        "email marketing",
+        "constant contact"
+    ],
     "homepage": "http://developer.constantcontact.com",
     "license": "MIT",
     "require": {
-        "php": ">=5.4.0",
-        "ext-curl": "*",
-        "guzzlehttp/guzzle": "^5.1.0"
+        "guzzlehttp/guzzle": "^7.0",
+        "ext-curl": "^7.2",
+        "php": "^7.2"
     },
     "require-dev": {
-        "phpunit/phpunit": "4.4.1"
+        "phpunit/phpunit": "^8.5"
     },
     "authors": [
         {
             "name": "Constant Contact Web Services",
             "email": "webservices@constantcontact.com",
             "homepage": "http://developer.constantcontact.com"
+        },
+        {
+            "name": "Yousaf Saqib",
+            "email": "yousafsaqib979@gmail.com",
+            "homepage": "http://developer.constantcontact.com"
         }
     ],
     "autoload": {
-        "psr-0": {
-            "Ctct": "src"
+        "psr-4": {
+            "YousafSaqib\\ConstantContact\\": "src"
         }
     }
 }

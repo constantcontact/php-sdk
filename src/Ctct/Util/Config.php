@@ -116,13 +116,13 @@ class Config {
          * OAuth2 Authorization related configuration options
          */
         'auth' => array(
-            'base_url' => 'https://oauth2.constantcontact.com/oauth2/',
+            'base_url' => 'https://idfed.constantcontact.com/as/',
             'response_type_code' => 'code',
             'response_type_token' => 'token',
             'authorization_code_grant_type' => 'authorization_code',
             'authorization_endpoint' => 'oauth/siteowner/authorize',
-            'token_endpoint' => 'oauth/token',
-            'token_info' => 'tokeninfo.htm'
+            'token_endpoint' => 'token.oauth2',
+            'token_info' => 'tokeninfo.htm',
         ),
         /**
          * Errors to be returned for various exceptions

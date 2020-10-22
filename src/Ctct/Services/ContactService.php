@@ -123,10 +123,9 @@ class ContactService extends BaseService {
      */
     public function addContact($accessToken, Contact $contact, $actionByContact) {
         $baseUrl = Config::get('endpoints.base_url') . Config::get('endpoints.contacts');
-        $params["action_by"] = ($actionByContact ? "ACTION_BY_VISITOR" : "ACTION_BY_OWNER");
 
         try {
-            $response = parent::sendRequestWithBody($accessToken, 'POST', $baseUrl, $contact, $params);
+            $response = parent::sendRequestWithBody($accessToken, 'POST', $baseUrl, $contact);
         } catch (TransferException $e) {
             throw parent::convertException($e);
         }

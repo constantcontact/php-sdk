@@ -16,7 +16,7 @@ class Config {
          * REST endpoints
          */
         'endpoints' => array(
-            'base_url' => 'https://api.constantcontact.com/v2/',
+            'base_url' => 'https://api.cc.email/v3/',
             'account_verified_addresses' => 'account/verifiedemailaddresses',
             'account_info' => 'account/info',
             'activity' => 'activities/%s',
@@ -27,7 +27,7 @@ class Config {
             'add_contacts_activity' => 'activities/addcontacts',
             'contact' => 'contacts/%s',
             'contacts' => 'contacts',
-            'lists' => 'lists',
+            'lists' => 'contact_lists',
             'list' => 'lists/%s',
             'list_contacts' => 'lists/%s/contacts',
             'contact_lists' => 'contacts/%s/lists',
@@ -116,13 +116,13 @@ class Config {
          * OAuth2 Authorization related configuration options
          */
         'auth' => array(
-            'base_url' => 'https://oauth2.constantcontact.com/oauth2/',
+            'base_url' => 'https://idfed.constantcontact.com/as/',
             'response_type_code' => 'code',
             'response_type_token' => 'token',
             'authorization_code_grant_type' => 'authorization_code',
             'authorization_endpoint' => 'oauth/siteowner/authorize',
-            'token_endpoint' => 'oauth/token',
-            'token_info' => 'tokeninfo.htm'
+            'token_endpoint' => 'token.oauth2',
+            'token_info' => 'tokeninfo.htm',
         ),
         /**
          * Errors to be returned for various exceptions

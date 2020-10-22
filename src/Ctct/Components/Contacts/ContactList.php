@@ -62,7 +62,7 @@ class ContactList extends Component {
      */
     public static function create(array $props) {
         $contact_list = new ContactList();
-        $contact_list->id = parent::getValue($props, "id");
+        $contact_list->id = parent::getValue($props, "list_id");
         $contact_list->name = parent::getValue($props, "name");
         $contact_list->status = parent::getValue($props, "status");
         $contact_list->contact_count = parent::getValue($props, "contact_count");

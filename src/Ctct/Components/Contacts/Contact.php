@@ -48,10 +48,16 @@ class Contact extends Component {
     public $source;
 
     /**
-     * Array of email addresses associated with this contact
-     * @var EmailAddress[]
+     * Contact source information
+     * @var string
      */
-    public $email_addresses = array();
+    public $create_source;
+
+    /**
+     * Email address associated with this contact
+     * @var EmailAddress
+     */
+    public $email_address;
 
     /**
      * The prefix name of the contact
@@ -120,6 +126,12 @@ class Contact extends Component {
     public $lists = array();
 
     /**
+     * Array of contact lists IDs this contact belongs to
+     * @var []
+     */
+    public $list_memberships = array();
+    
+    /**
      * Date the contact was created
      * @var string
      */
@@ -150,11 +162,11 @@ class Contact extends Component {
         $contact->last_name = parent::getValue($props, "last_name");
         $contact->confirmed = parent::getValue($props, "confirmed");
         $contact->source = parent::getValue($props, "source");
+        $contact->create_source = parent::getValue($props, "create_source");
+        $contact->list_memberships = parent::getValue($props, "list_memberships");
 
-        if (isset($props['email_addresses'])) {
-            foreach ($props['email_addresses'] as $email_address) {
-                $contact->email_addresses[] = EmailAddress::create($email_address);
-            }
+        if (isset($props['email_address'])) {
+            $contact->email_address = EmailAddress::create(parent::getValue($props, "email_address"));
         }
 
         $contact->prefix_name = parent::getValue($props, "prefix_name");

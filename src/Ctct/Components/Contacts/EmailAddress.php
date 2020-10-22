@@ -52,11 +52,11 @@ class EmailAddress extends Component {
      * Email address associated with the contact
      * @var string
      */
-    public $email_address;
+    public $address;
 
-    public function __construct($email_address = null) {
-        if (!is_null($email_address)) {
-            $this->email_address = $email_address;
+    public function __construct($address = null) {
+        if (!is_null($address)) {
+            $this->address = $address;
         }
 
         return $this;
@@ -75,7 +75,7 @@ class EmailAddress extends Component {
         $email_address->opt_in_source = parent::getValue($props, "opt_in_source");
         $email_address->opt_in_date = parent::getValue($props, "opt_in_date");
         $email_address->opt_out_date = parent::getValue($props, "opt_out_date");
-        $email_address->email_address = parent::getValue($props, "email_address");
+        $email_address->address = parent::getValue($props, "address");
         return $email_address;
     }
 }

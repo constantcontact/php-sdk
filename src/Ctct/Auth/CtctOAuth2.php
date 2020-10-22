@@ -106,4 +106,28 @@ class CtctOAuth2 {
         }
         return $response;
     }
+
+    public function refreshTokens($refreshToken)
+    {
+        $query = array(
+            'grant_type' => 'refresh_token',
+            'refresh_token' => $refreshToken,
+        );
+
+        $headers = [
+            'Authorization' => 'Basic ' . base64_encode($this->clientId . ':' . $this->clientSecret),
+        ];
+
+        $baseUrl = Config::get('auth.base_url') . Config::get('auth.token_endpoint');
+        try {
+            $response = json_decode(
+                $this->client->request('POST', $baseUrl, compact('query', 'headers'))->getBody(),
+                true
+            );
+        } catch (ClientException $e) {
+            throw $this->convertException($e);
+        }
+
+        return $response;
+    }
 }

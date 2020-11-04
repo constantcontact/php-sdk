@@ -8,13 +8,13 @@ use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Psr7\Response;
 
-class ContactServiceUnitTest extends PHPUnit_Framework_TestCase {
+class ContactServiceUnitTest extends \PHPUnit\Framework\TestCase {
     /**
      * @var ConstantContact
      */
     private static $constantContact;
 
-    public static function setUpBeforeClass() {
+    public static function setUpBeforeClass() : void {
         $contactJson = JsonLoader::getContactJson();
         $mock = new MockHandler([
             new Response(200, array(), JsonLoader::getContactsJson()),

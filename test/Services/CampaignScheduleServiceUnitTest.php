@@ -8,13 +8,13 @@ use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Psr7\Response;
 
-class CampaignScheduleServiceUnitTest extends PHPUnit_Framework_TestCase {
+class CampaignScheduleServiceUnitTest extends \PHPUnit\Framework\TestCase {
     /**
      * @var Client
      */
     private static $client;
 
-    public static function setUpBeforeClass() {
+    public static function setUpBeforeClass() : void {
         self::$client = new Client();
         $scheduleJson = JsonLoader::getCampaignScheduleJson();
         $mock = new MockHandler([

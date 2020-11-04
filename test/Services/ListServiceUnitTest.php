@@ -8,13 +8,13 @@ use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Psr7\Response;
 
-class ListServiceUnitTest extends PHPUnit_Framework_TestCase {
+class ListServiceUnitTest extends \PHPUnit\Framework\TestCase {
     /**
      * @var Client
      */
     private static $client;
 
-    public static function setUpBeforeClass() {
+    public static function setUpBeforeClass() : void {
         self::$client = new Client();
         $getListStream = JsonLoader::getListJson();
         $mock = new MockHandler([

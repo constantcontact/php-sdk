@@ -7,7 +7,7 @@ use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Psr7\Response;
 
-class CtctOAuth2UnitTest extends PHPUnit_Framework_TestCase {
+class CtctOAuth2UnitTest extends \PHPUnit\Framework\TestCase {
     /**
      * @var Client
      */
@@ -22,7 +22,7 @@ class CtctOAuth2UnitTest extends PHPUnit_Framework_TestCase {
     private $clientSecret = "clientSecret";
     private $redirectUri = "redirectUri";
 
-    public static function setUpBeforeClass() {
+    public static function setUpBeforeClass() : void {
         $mock = new MockHandler([
             new Response(200, array(), JsonLoader::getTokenInfoJson()),
             new Response(200, array(), JsonLoader::getAccessTokenJson())
@@ -31,7 +31,7 @@ class CtctOAuth2UnitTest extends PHPUnit_Framework_TestCase {
         self::$client = new Client(['handler' => $handler]);
     }
 
-    public function setUp() {
+    public function setUp() : void {
         $this->ctctOAuth2 = new CtctOAuth2($this->apiKey, $this->clientSecret, $this->redirectUri);
     }
 

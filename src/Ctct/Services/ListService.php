@@ -32,8 +32,8 @@ class ListService extends BaseService {
         }
 
         $lists = array();
-        foreach (json_decode($response->getBody(), true) as $contact) {
-            $lists[] = ContactList::create($contact);
+        foreach (json_decode($response->getBody(), true)['lists'] as $list) {
+            $lists[] = ContactList::create($list);
         }
 
         return $lists;
